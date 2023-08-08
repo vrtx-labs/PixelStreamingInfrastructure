@@ -5,7 +5,7 @@
 	"UseAuthentication": false,
 	"LogToFile": true,
 	"LogVerbose": true,
-	"HomepageFile": "player.html",
+	"HomepageFile": "custom_html/vds.htm",
 	"AdditionalRoutes": {},
 	"EnableWebserver": true,
 	"MatchmakerAddress": "",
