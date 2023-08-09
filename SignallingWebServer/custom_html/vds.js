@@ -10,7 +10,6 @@ const mouseControlSchemeKey = 'hoveringMouse'
 
 
 function setup() {
-	setFakeMouseWithTouches(true);
 	setupPlayButton();
 	setTimeout(function () { activateDefaultSettings(); }, 50);
 	//setupSlider();
@@ -47,6 +46,9 @@ function activateDefaultSettings () {
 
 	// Set the control scheme to Hovering Mouse
 	setRadioButtonState('control-tgl', true);
+
+	// Fake mouse with touches
+	setFakeMouseWithTouches(true);
 }
 
 function setRadioButtonState(id, state) {
