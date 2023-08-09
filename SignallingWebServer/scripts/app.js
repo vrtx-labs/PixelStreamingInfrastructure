@@ -1612,6 +1612,11 @@ let inputOptions = {
     hideBrowserCursor: false
 };
 
+function setFakeMouseWithTouches(status) {
+    if (status === null || (status !== true && status !== false)) return;
+    inputOptions.fakeMouseWithTouches = status;
+}
+
 function resizePlayerStyleToFillWindow(playerElement) {
     let videoElement = playerElement.getElementsByTagName("VIDEO");
 

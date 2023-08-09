@@ -1,25 +1,28 @@
 // Constants
 const localStoragePrefix = 'velux.'
-const projectIDKey = 'ProjectID'
-const projectViewKey = 'ProjectView'
-const settingsProjectViewKey = 'SettingsProjectView'
-const roomOptionKey = 'RoomOption'
-const daylightSliderKey = 'DaylightSliderValue'
-const screenshotKey = 'Screenshot'
+const projectIDKey = 'projectID'
+const projectViewKey = 'projectView'
+const settingsProjectViewKey = 'settingsProjectView'
+const roomOptionKey = 'roomOption'
+const daylightSliderKey = 'daylightSliderValue'
+const screenshotKey = 'screenshot'
+const mouseControlSchemeKey = 'hoveringMouse'
+
 
 function setup() {
-	// Get URL parameter
-	parseURL();
+	setFakeMouseWithTouches(true);
 	setupPlayButton();
-	setTimeout(function(){ activateDefaultSettings(); }, 50);
-	//setupSlider ();
+	setTimeout(function () { activateDefaultSettings(); }, 50);
+	//setupSlider();
 }
 
 function startStream() {
 	// Wait for the connection to establish - ToDo: React to a proper event or let the Unreal Application send one
 	setTimeout(function(){
-		const activeScene = window.localStorageGet = (projectIDKey);
-		sendToStreamer(projectIDKey, activeScene);
+		// Read html attribute 'ProjectID'
+		const projectID = getURLParameter(projectIDKey);
+		console.log(`ProjectID: ${projectID}`)
+		if (projectID !== null) sendToStreamer(projectIDKey, projectID);
 	},350);
 }
 
@@ -31,16 +34,6 @@ function sendToStreamer(key, value) {
 	console.log(`Message to streamer: ${descriptor}`)
 }
 
-function parseURL() {
-	// Read html attribute 'ProjectID'
-    const parsedUrl = new URL(window.location.href)
-    const projectID = parsedUrl.searchParams.get(projectIDKey) ? parsedUrl.searchParams.get(projectIDKey) : null
-
-	console.log(`ProjectID: ${projectID}`)
-	if (projectID === null) return;
-	localStorageSet (projectIDKey, projectID);
-}
-
 function setupPlayButton (){
 	let videoPlayOverlay = document.getElementById('videoPlayOverlay');
 	videoPlayOverlay.addEventListener('click', function onOverlayClick(event) {
@@ -50,26 +43,29 @@ function setupPlayButton (){
 
 function activateDefaultSettings () {
 	// Set match viewport resolution to true
-	toggleRadioButton('match-viewport-res-tgl');
+	setRadioButtonState('match-viewport-res-tgl', true);
 
 	// Set the control scheme to Hovering Mouse
-	toggleRadioButton('control-tgl');
+	setRadioButtonState('control-tgl', true);
 }
 
-function toggleRadioButton (id) {
+function setRadioButtonState(id, state) {
 	let radioButton = document.getElementById(id);
-	if (radioButton === null) return;
+	if (radioButton === null || radioButton.checked == state) return;
 
 	// Manually change the state of the button
-	radioButton.checked = !radioButton.checked;
+	radioButton.checked = state;
 
 	// Create a new event and dispatch it
-	if ("createEvent" in document) {
-    var evt = document.createEvent("HTMLEvents");
-    evt.initEvent("change", false, true);
-    radioButton.dispatchEvent(evt);
-	}
-	else radioButton.onchange();
+	var event = new Event('change', {});
+	radioButton.dispatchEvent(event);
+}
+
+function getURLParameter(parameter) {
+	const parsedUrl = new URL(window.location.href)
+	const projectID = parsedUrl.searchParams.has(projectIDKey) ? parsedUrl.searchParams.get(projectIDKey) : null
+
+	return projectID;
 }
 
 function localStorageSet (localStorageKey, localStorageValue)
