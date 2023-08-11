@@ -31,6 +31,22 @@
 </head>
 
 <body onload="load(); setup();">
+	<div id="veluxUI" class="noselect fill-screen">
+		<div id="velux-logo" class="horizontal-stretch">
+			<a class="fill" href="https://www.velux.dk/" target="_blank">
+				<img src="/images/velux-red.svg" type="svg"></img>
+			</a>
+		</div>
+		<div id="lowerMenu" class="bottom-absolute horizontal-stretch vertical-container">
+			<div id="menuHeader" class="horizontal-container">
+				<h5 id="headerTitle" class="flex-item">Project Title | Room Name</h5>
+				<div id="menuButtons" class="flex-item">
+                    
+                </div>
+			</div>
+			<div id="menuContent" class="horizontal-container fill"></div>
+		</div>
+	</div>
 	<div id="playerUI" class="noselect">
 		<div id="player"></div>
 		<div id="overlay">
@@ -49,9 +65,6 @@
 					<span class="tooltiptext">Information</span>
 				</button>
 				
-			</div>
-			<div id="velux-logo">
-				<img src="/images/velux-red.svg" type="svg"></img>
 			</div>
 			<div class="panel-wrap" id="settings-panel">
 				<div class="panel">
