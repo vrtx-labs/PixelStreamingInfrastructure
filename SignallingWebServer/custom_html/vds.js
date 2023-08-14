@@ -11,6 +11,7 @@ const mouseControlSchemeKey = 'hoveringMouse'
 
 function setup() {
 	setupPlayButton();
+    setupToggleMenuButton();
 	setTimeout(function () { activateDefaultSettings(); }, 50);
 	//setupSlider();
 }
@@ -38,6 +39,20 @@ function setupPlayButton (){
 	videoPlayOverlay.addEventListener('click', function onOverlayClick(event) {
 		startStream();
 	});
+}
+
+function setupToggleMenuButton (){
+    let toggleMenuButton = document.getElementById('button-toogle-menu');
+    toggleMenuButton.addEventListener('click', function onOverlayClick(event) {
+        console.log('toggle menu');
+        toggleMenu();
+    });
+}
+
+function toggleMenu() {
+    let menu = document.getElementById('lowerMenu');
+    menu.classList.toggle('menu-hidden');
+    menu.classList.toggle('menu-visible');
 }
 
 function activateDefaultSettings () {

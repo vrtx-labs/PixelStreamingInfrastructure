@@ -9,6 +9,7 @@
 }
 
 body{
+    overflow-y: hidden;
     margin: 0px;
     background-color: black;
 	font-family: 'Montserrat', sans-serif;
@@ -54,7 +55,7 @@ video {
 }
 
 #menuHeader {
-    flex: 1 0 1.5rem;
+    flex: 0 0 15%;
     justify-content: space-between;
     border-bottom: .125rem solid var(--colour-base2);
 }
@@ -70,6 +71,40 @@ video {
     justify-content: flex-end;
     margin: 0.5rem 1rem 1rem 0;
 }
+
+/* Add a keyframe with translateY to move the menu out of screen */
+
+.menu-hidden {
+    transform: translateY(85%);
+    animation: slideOut 0.5s forwards;
+}
+
+@keyframes slideOut {
+    0% {
+        transform: translateY(0%);
+    }
+    100% {
+        transform: translateY(85%);
+    }
+}
+
+.menu-visible {
+    transform: translateY(0%);
+    animation: slideIn 0.5s forwards;
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateY(85%);
+    }
+    100% {
+        transform: translateY(0%);
+    }
+}
+
+
+
+
 
 .menu-button {
     width: 2.0rem;
