@@ -72,11 +72,14 @@ video {
     margin: 0.5rem 1rem 1rem 0;
 }
 
-/* Add a keyframe with translateY to move the menu out of screen */
+#sliderDaylightContainer {
+    width: 70%;
+    justify-content: space-between;
+}
 
 .menu-hidden {
     transform: translateY(85%);
-    animation: slideOut 0.5s forwards;
+    animation: slideOut 0.5s none;
 }
 
 @keyframes slideOut {
@@ -102,10 +105,6 @@ video {
     }
 }
 
-
-
-
-
 .menu-button {
     width: 2.0rem;
     height: 2.0rem;
@@ -122,6 +121,45 @@ video {
 .menu-button:active {
     border-radius: 0;
     border-top:  0.125rem  solid var(--colour-accent);
+}
+
+.slide-container {
+    width: 400px;
+    height: 55%;
+    justify-self: center;
+    align-self: center;
+}
+
+.slider {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 95%;
+    height: 100%;
+    background: var(--colour-base2);
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider:hover {
+    opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    background: #212f44;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: #212f44;
+    cursor: pointer;
 }
 
 .svg-image {
@@ -158,6 +196,13 @@ video {
 	display: flex;
     align-self: flex-start;
 	margin: auto;
+}
+
+.flex-center {
+    display: flex;
+    align-self: center;
+    justify-self: center;
+    margin: auto;
 }
 
 .vertical-container {

@@ -55,7 +55,16 @@
                     </button>                 
                 </div>
 			</div>
-			<div id="menuContent" class="horizontal-container fill"></div>
+			<div id="menuContent" class="horizontal-container fill">
+                <div id="sliderDaylightContainer" class="flex-center">
+                    <input id="sliderDaylight" type="range" min="1" max="100" value="1" class="slider">
+                    <span id="daylightValue" class="">0</span>
+                </div>
+                <div id="menuContentLeft" class="flex-item hiddenState">
+                </div>
+                <div id="menuContentRight" class="flex-item hiddenState">
+                </div>
+            </div>
 		</div>
 	</div>
 	<div id="playerUI" class="noselect">

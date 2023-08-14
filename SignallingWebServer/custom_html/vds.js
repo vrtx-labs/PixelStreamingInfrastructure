@@ -13,7 +13,7 @@ function setup() {
 	setupPlayButton();
     setupToggleMenuButton();
 	setTimeout(function () { activateDefaultSettings(); }, 50);
-	//setupSlider();
+	setupSlider();
 }
 
 function startStream() {
@@ -31,7 +31,7 @@ function sendToStreamer(key, value) {
 		[key]: value
 	};
 	emitUIInteraction(descriptor);
-	console.log(`Message to streamer: ${descriptor}`)
+	console.log(`Message to streamer: ${key} = ${value}`)
 }
 
 function setupPlayButton (){
@@ -47,6 +47,18 @@ function setupToggleMenuButton (){
         console.log('toggle menu');
         toggleMenu();
     });
+}
+
+function setupSlider () {
+	var slider = document.getElementById("sliderDaylight");
+	var output = document.getElementById("daylightValue");
+	output.innerHTML = slider.value; // Display the default slider value
+
+	// Update the current slider value (each time you drag the slider handle)
+	slider.oninput = function() {
+	  output.innerHTML = this.value;
+	  sendToStreamer(daylightSliderKey, this.value);
+	}
 }
 
 function toggleMenu() {
@@ -94,17 +106,3 @@ function localStorageGet (localStorageKey)
 {
 	JSON.parse(window.localStorage.getItem(localStoragePrefix + localStorageKey))
 }
-
-/*
-function setupSlider () {
-	var slider = document.getElementById("slider");
-	var output = document.getElementById("slider-value");
-	output.innerHTML = slider.value; // Display the default slider value
-
-	// Update the current slider value (each time you drag the slider handle)
-	slider.oninput = function() {
-	  output.innerHTML = this.value;
-	  sendToStreamer(sliderKeyToStreamer, this.value);
-	}
-}
-*/
