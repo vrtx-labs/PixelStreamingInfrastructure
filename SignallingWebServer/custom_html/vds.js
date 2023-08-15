@@ -1,6 +1,7 @@
 // Constants
 const localStoragePrefix = 'velux.'
 const projectIDKey = 'projectID'
+const roomNameKey = 'roomName'
 const projectViewKey = 'projectView'
 const settingsProjectViewKey = 'settingsProjectView'
 const roomOptionKey = 'roomOption'
@@ -20,9 +21,9 @@ function startStream() {
 	// Wait for the connection to establish - ToDo: React to a proper event or let the Unreal Application send one
 	setTimeout(function(){
 		// Read html attribute 'ProjectID'
-		const projectID = getURLParameter(projectIDKey);
-		console.log(`ProjectID: ${projectID}`)
-		if (projectID !== null) sendToStreamer(projectIDKey, projectID);
+		const roomName = getURLParameter(roomNameKey);
+		console.log(`roomName: ${roomName}`)
+		if (roomName !== null) sendToStreamer(roomNameKey, roomName);
 	},350);
 }
 
@@ -52,12 +53,15 @@ function setupToggleMenuButton (){
 function setupSlider () {
 	var slider = document.getElementById("sliderDaylight");
 	var output = document.getElementById("daylightValue");
-	output.innerHTML = slider.value; // Display the default slider value
+	output.innerHTML = 0; // Display the default slider value
 
 	// Update the current slider value (each time you drag the slider handle)
 	slider.oninput = function() {
-	  output.innerHTML = this.value;
-	  sendToStreamer(daylightSliderKey, this.value);
+        let tod = new Date(0,0,0,0,0,0,0);
+        tod.setTime(tod.getTime() + (this.value*60000)); // Add slider value in milliseconds
+        
+        output.innerHTML = tod.getHours() + ":" + ("00" + tod.getMinutes()).substr(-2);
+        sendToStreamer(daylightSliderKey, (this.value/1440).toFixed(2));
 	}
 }
 
