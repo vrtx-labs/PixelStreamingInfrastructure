@@ -66,9 +66,16 @@ function setupSlider () {
 }
 
 function toggleMenu() {
+    // Toggle the menu by switching the class
     let menu = document.getElementById('lowerMenu');
     menu.classList.toggle('menu-hidden');
     menu.classList.toggle('menu-visible');
+    
+    // Toggle the button icon
+    let buttonImageDown = document.getElementById('menu-arrow-down');
+    let buttonImageUp = document.getElementById('menu-arrow-up');
+    buttonImageDown.classList.toggle('hiddenState');
+    buttonImageUp.classList.toggle('hiddenState');
 }
 
 function activateDefaultSettings () {
