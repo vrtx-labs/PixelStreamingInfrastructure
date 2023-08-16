@@ -13,6 +13,7 @@ const mouseControlSchemeKey = 'hoveringMouse'
 function setup() {
 	setupPlayButton();
     setupToggleMenuButton();
+    setupMenuContentButtons();
 	setTimeout(function () { activateDefaultSettings(); }, 50);
 	setupSlider();
 }
@@ -48,6 +49,35 @@ function setupToggleMenuButton (){
         console.log('toggle menu');
         toggleMenu();
     });
+}
+
+function setupMenuContentButtons () {
+    let buttonRoomOptions = document.getElementById('buttonRoomOptions');
+    buttonRoomOptions.addEventListener('click', function onOverlayClick(event) {
+            console.log('toggle room options');
+            toggleRoomOptions();
+        }
+    );
+    let buttonTimeOfDay = document.getElementById('buttonTimeOfDay');
+    buttonTimeOfDay.addEventListener('click', function onOverlayClick(event) {
+            console.log('toggle time of day');
+            toggleTimeOfDay();
+        }
+    );
+}
+
+function toggleRoomOptions() {
+    let containerRoomOptions = document.getElementById('containerRoomOptions');
+    let containerSliderDaylight = document.getElementById('containerSliderDaylight');
+    containerRoomOptions.classList.remove('hiddenState');
+    containerSliderDaylight.classList.add('hiddenState');
+}
+
+function toggleTimeOfDay() {
+    let containerRoomOptions = document.getElementById('containerRoomOptions');
+    let containerSliderDaylight = document.getElementById('containerSliderDaylight');
+    containerRoomOptions.classList.add('hiddenState');
+    containerSliderDaylight.classList.remove('hiddenState');
 }
 
 function setupSlider () {

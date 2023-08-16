@@ -65,7 +65,7 @@ video {
 #headerTitle {
     align-self: flex-start;
     font-size: 1rem;
-    margin: 1rem 0 1rem 3.5rem;
+    margin: 1rem 0 1rem 3.7rem;
 }
 
 #menuButtons {
@@ -91,6 +91,10 @@ video {
 #containerSliderDaylight {
     width: 70%;
     justify-content: space-between;
+}
+
+#containerRoomOptions {
+    padding-left: 3.5rem;
 }
 
 #containerRoomOptions > button {
