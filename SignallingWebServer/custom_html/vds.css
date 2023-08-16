@@ -48,10 +48,12 @@ video {
 
 #velux-logo {
     width: 18vmin;
+    cursor: default;
 }
 
 #lowerMenu {
-	height: 40vmin;
+	height: 30vmin;
+    cursor: default;
 }
 
 #menuHeader {
@@ -69,12 +71,45 @@ video {
 #menuButtons {
     align-self: flex-end;
     justify-content: flex-end;
-    margin: 0.5rem 1rem 1rem 0;
+    margin: 0.5rem 1rem auto 0;
+}
+#menuButtons > button {
+    width: 2.0rem;
+    height: 2.0rem;
 }
 
-#sliderDaylightContainer {
+#headerMenuContent {
+    flex: 0 0 15%;
+    justify-content: flex-start;
+}
+
+#headerMenuContent > button {
+    margin: 0 3.5rem auto 3.5rem;
+    height: 1.5rem;
+}
+
+#containerSliderDaylight {
     width: 70%;
     justify-content: space-between;
+}
+
+#containerRoomOptions > button {
+    background-color: transparent;
+    background: none;
+	border: none;
+    
+    font-size: 1rem;
+    height: 10rem;
+    width: 10rem;
+    margin: auto 1rem auto 0;
+}
+#containerRoomOptions > button:hover {
+    background-color: var(--colour-base2);
+}
+#containerRoomOptions > button:active {
+    background-color: var(--colour-accent2);
+    border-top: 0.075rem  solid var(--colour-base2);
+    border-left: 0.125rem  solid var(--colour-accent);
 }
 
 .menu-hidden {
@@ -106,21 +141,15 @@ video {
 }
 
 .menu-button {
-    width: 2.0rem;
-    height: 2.0rem;
-    padding: .25rem;
     background-color: transparent;
     background: none;
 	border: none;
-    margin: 0;
 }
 .menu-button:hover {
-    background-color: var(--colour-base2);
-    border-radius: 25%;
+    border-top: 0.125rem  solid var(--colour-base2);
 }
 .menu-button:active {
-    border-radius: 0;
-    border-top:  0.125rem  solid var(--colour-accent);
+    border-top: 0.125rem  solid var(--colour-accent);
 }
 
 .slide-container {
@@ -162,6 +191,12 @@ video {
     cursor: pointer;
 }
 
+.dummy-room {
+    width: 6rem;
+    height: 6rem;
+    background-color: var(--colour-accent2);
+}
+
 .svg-image {
     background-color: transparent;
     width: 100%;
@@ -189,7 +224,6 @@ video {
 	/* Because children of the transparent fill screen inherit the inability to be
 	clicked, we need to reset this behaviour */
 	pointer-events: auto;
-	cursor: pointer;
 }
 
 .flex-item {
@@ -242,8 +276,6 @@ video {
 	justify-content: center;
 	display: flex;
 	cursor: pointer;
-			 
-					 
 }
 
 .textDisplayState {
@@ -694,11 +726,6 @@ input[type="number"]:disabled {
 input[type=number]:disabled::-webkit-inner-spin-button {
 	display: none;
 
-}
-
-#settingsBtn,
-#statsBtn {
-	cursor: pointer;
 }
 
 #streamingVideo {

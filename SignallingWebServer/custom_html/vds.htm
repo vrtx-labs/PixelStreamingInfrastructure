@@ -56,15 +56,35 @@
                     </button>                 
                 </div>
 			</div>
-			<div id="menuContent" class="horizontal-container fill">
-                <div id="sliderDaylightContainer" class="flex-center">
+            <div id="headerMenuContent" class="horizontal-container">
+                <button class="flex-item menu-button">Room options</button>
+                <button class="flex-item menu-button">Simulate time of day</button>
+            </div>
+			<div id="menuContent" class="fill horizontal-container">
+                <div id="containerSliderDaylight" class="flex-center hiddenState">
                     <input id="sliderDaylight" type="range" min="0" max="1439" value="0.00" class="slider">
                     <span id="daylightValue" class="">0</span>
                 </div>
-                <div id="menuContentLeft" class="flex-item hiddenState">
+                <div id="containerRoomOptions" class="horizontal-container">
+                    <button class="" id="button-room-1">
+                        <div class="dummy-room"></div>
+                        <h5>Room option 1</h5>
+                    </button>
+                    <button class="" id="button-room-2">
+                        <div class="dummy-room"></div>
+                        <h5>Room option 2</h5>
+                    </button>
+                    <button class="" id="button-room-3">
+                        <div class="dummy-room"></div>
+                        <h5>Room option 3</h5>
+                    </button>
+                    <button class="" id="button-room-4">
+                        <div class="dummy-room"></div>
+                        <h5>Room option 4</h5>
+                    </button>    
                 </div>
-                <div id="menuContentRight" class="flex-item hiddenState">
-                </div>
+            </div>
+                
             </div>
 		</div>
 	</div>
