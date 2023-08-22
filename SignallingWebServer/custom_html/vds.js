@@ -1,5 +1,5 @@
 // Constants
-const localStoragePrefix = "velux.";
+//const localStoragePrefix = "velux.";
 const projectIDKey = "projectID";
 const roomNameKey = "roomName";
 const projectViewKey = "projectView";
@@ -167,6 +167,7 @@ function getURLParameter(parameter) {
     return projectID;
 }
 
+/*
 function localStorageSet(localStorageKey, localStorageValue) {
     window.localStorage.setItem(
         localStoragePrefix + localStorageKey,
@@ -179,3 +180,4 @@ function localStorageGet(localStorageKey) {
         window.localStorage.getItem(localStoragePrefix + localStorageKey)
     );
 }
+*/
