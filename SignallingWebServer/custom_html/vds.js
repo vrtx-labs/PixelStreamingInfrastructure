@@ -114,18 +114,25 @@ function setupRoomButtons() {
 
 function setupSlider() {
     let slider = document.getElementById("sliderDaylight");
-    let output = document.getElementById("daylightValue");
-    output.innerHTML = 0; // Display the default slider value
+    let sliderText = document.getElementById("daylightValue");
 
-    // Update the current slider value (each time you drag the slider handle)
-    slider.oninput = function () {
+    // Construct the text for the slider value and send the current value to the streamer
+    updateSlider = function (value) {
         let tod = new Date(0, 0, 0, 0, 0, 0, 0);
-        tod.setTime(tod.getTime() + this.value * 60000); // Add slider value in milliseconds
+        tod.setTime(tod.getTime() + value * 60000); // Add slider value in milliseconds
 
-        output.innerHTML =
+        sliderText.innerHTML =
             tod.getHours() + ":" + ("00" + tod.getMinutes()).substr(-2);
-        sendToStreamer(daylightSliderKey, (this.value / 1440).toFixed(2));
+        sendToStreamer(daylightSliderKey, (value / 1440).toFixed(2));
     };
+
+    // Update the current slider value each time the slider handle is dragged
+    slider.oninput = function () {
+        updateSlider(this.value);
+    };
+
+    // Update the slider value at start
+    updateSlider(slider.value);
 }
 
 function activateDefaultSettings() {
