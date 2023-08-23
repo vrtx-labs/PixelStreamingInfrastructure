@@ -47,7 +47,7 @@ function setupPlayButton() {
 }
 
 function setupToggleMenuButton() {
-    let toggleMenuButton = document.getElementById("button-toogle-menu");
+    let toggleMenuButton = document.getElementById("button-toggle-menu");
     toggleMenuButton.addEventListener("click", function onOverlayClick(event) {
         console.log("toggle menu");
         toggleMenu();

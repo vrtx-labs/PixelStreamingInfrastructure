@@ -115,7 +115,8 @@ video {
 #containerRoomOptions > button:hover {
     background-color: var(--colour-base2);
 }
-#containerRoomOptions > button:active {
+#containerRoomOptions > button:active,
+#containerRoomOptions > button:focus {
     background-color: var(--colour-accent2);
     border-top: 0.075rem solid var(--colour-base2);
     border-left: 0.125rem solid var(--colour-accent);
@@ -157,8 +158,16 @@ video {
 .menu-button:hover {
     border-top: 0.125rem solid var(--colour-base2);
 }
-.menu-button:active {
+.menu-button:active,
+.menu-button:focus {
     border-top: 0.125rem solid var(--colour-accent);
+}
+#button-toggle-menu:active,
+#button-toggle-menu:focus:hover {
+    border-top: 0.125rem solid var(--colour-base2);
+}
+#button-toggle-menu:focus {
+    border-top: none;
 }
 
 .slide-container {
