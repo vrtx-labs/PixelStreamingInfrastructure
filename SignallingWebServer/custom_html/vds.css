@@ -6,6 +6,7 @@
     --colour-base: #28231f;
     --colour-base2: #e4e1dd;
     --colour-background: #ffffff;
+    --colour-text: #797979;
 
     --translate-amount: 82%;
 }
@@ -59,6 +60,9 @@ video {
 }
 #lowerMenu button {
     cursor: pointer;
+}
+#lowerMenu p {
+    font-family: "TransformVariableVF";
 }
 
 #menuHeader {
@@ -124,11 +128,6 @@ video {
 
 #containerHelp {
     margin: 0 2rem 0 auto;
-}
-
-#containerHelp .horizontal-container,
-.vertical-container {
-    gap: 1rem;
 }
 
 .menu-hidden {
@@ -227,13 +226,18 @@ video {
 .char-icon {
     border: 0.125rem solid var(--colour-base2);
     font-size: 1rem;
-    text-justify: center;
+    padding: auto;
     width: 2rem;
     height: 2rem;
+    display: grid;
+    justify-content: center;
+    align-content: center;
 }
-
-.horizontal-list {
-    display: inline-block;
+.char-icon p {
+    margin: auto;
+    text-justify: center;
+    font-family: "TransformVariableVF";
+    color: var(--colour-text);
 }
 
 .svg-image {
@@ -290,6 +294,50 @@ video {
     display: flex;
     flex-direction: row;
     flex: 10;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr) 3.5fr;
+    grid-template-rows: repeat(3, 1fr);
+    row-gap: 0.5rem;
+    column-gap: 0.5rem;
+}
+
+.grid-cell {
+    display: grid;
+}
+
+.gr1 {
+    grid-row: 1;
+}
+.gr2 {
+    grid-row: 2;
+}
+.gr3 {
+    grid-row: 3;
+}
+.gc1 {
+    grid-column: 1;
+}
+.gc2 {
+    grid-column: 2;
+}
+.gc3 {
+    grid-column: 3;
+}
+.gc4 {
+    grid-column: 4;
+}
+.gc5 {
+    grid-column: 5;
+}
+
+.grid-cell > p {
+    margin: auto;
+    text-justify: center;
+    font-family: "TransformVariableVF";
+    color: var(--colour-text);
 }
 
 .horizontal-stretch {
@@ -826,4 +874,9 @@ object {
     display: inline-block;
     line-height: 1.5;
     height: 100vh;
+}
+
+@font-face {
+    font-family: "TransformVariableVF";
+    src: url("/fonts/VELUXTransformVariableVF.ttf");
 }
