@@ -8,8 +8,26 @@ const roomOptionKey = "roomOption";
 const daylightSliderKey = "daylightSliderValue";
 const screenshotKey = "screenshot";
 const mouseControlSchemeKey = "hoveringMouse";
+const domElements = {};
+
+// Enumn
+class MenuContent {
+    static Help = new MenuContent("Help");
+    static RoomOptions = new MenuContent("RoomOptions");
+    static DaylightSlider = new MenuContent("DaylightSlider");
+    static Link = new MenuContent("Link");
+    static Screenshot = new MenuContent("Screenshot");
+
+    constructor(name) {
+        this.name = name;
+    }
+    toString() {
+        return `menuContent.${this.name}`;
+    }
+}
 
 function setup() {
+    getDOMElements();
     setupPlayButton();
     setupToggleMenuButton();
     setupMenuContentButtons();
@@ -40,81 +58,116 @@ function sendToStreamer(key, value) {
 }
 
 function setupPlayButton() {
-    let videoPlayOverlay = document.getElementById("videoPlayOverlay");
-    videoPlayOverlay.addEventListener("click", function onOverlayClick(event) {
-        startStream();
-    });
+    domElements["videoPlayOverlay"].addEventListener(
+        "click",
+        function onOverlayClick(event) {
+            startStream();
+        }
+    );
 }
 
 function setupToggleMenuButton() {
-    let toggleMenuButton = document.getElementById("button-toggle-menu");
-    toggleMenuButton.addEventListener("click", function onOverlayClick(event) {
-        console.log("toggle menu");
-        toggleMenu();
-    });
+    domElements["toggleMenuButton"].addEventListener(
+        "click",
+        function onOverlayClick(event) {
+            console.log("toggle menu");
+            toggleMenu();
+        }
+    );
 }
 
 function toggleMenu() {
     // Toggle the menu by switching the class
-    let menu = document.getElementById("lowerMenu");
+    let menu = domElements["menu"];
     menu.classList.toggle("menu-hidden");
     menu.classList.toggle("menu-visible");
 
     // Toggle the button icon
-    let buttonImageDown = document.getElementById("menu-arrow-down");
-    let buttonImageUp = document.getElementById("menu-arrow-up");
-    buttonImageDown.classList.toggle("hiddenState");
-    buttonImageUp.classList.toggle("hiddenState");
+    domElements["menuArrowDown"].classList.toggle("hiddenState");
+    domElements["menuArrowUp"].classList.toggle("hiddenState");
 }
 
 function setupMenuContentButtons() {
-    let buttonRoomOptions = document.getElementById("buttonRoomOptions");
-    buttonRoomOptions.addEventListener("click", function onOverlayClick(event) {
-        showRoomOptions(true);
-    });
-    let buttonTimeOfDay = document.getElementById("buttonTimeOfDay");
-    buttonTimeOfDay.addEventListener("click", function onOverlayClick(event) {
-        showRoomOptions(false);
-    });
+    domElements["buttonRoomOptions"].addEventListener(
+        "click",
+        function onOverlayClick(event) {
+            showMenuContent(true);
+        }
+    );
+    domElements["buttonTimeOfDay"].addEventListener(
+        "click",
+        function onOverlayClick(event) {
+            showMenuContent(false);
+        }
+    );
 }
 
-function showRoomOptions(roomOptionsActive) {
-    let containerRoomOptions = document.getElementById("containerRoomOptions");
-    let containerSliderDaylight = document.getElementById(
-        "containerSliderDaylight"
-    );
+function showMenuContent(menuContent) {
+    // Check menuContent type
+    if (!(menuContent instanceof MenuContent)) return;
+
+    // Disable all elements
+    domElements["menuContentRoomOptions"].classList.add("hiddenState");
+    domElements["menuContentDaylightSlider"].classList.add("hiddenState");
+    domElements["menuContentLink"].classList.add("hiddenState");
+    domElements["menuContentScreenshot"].classList.add("hiddenState");
+    domElements["menuContentHelp"].classList.add("hiddenState");
+
+    // Switch the menu content in a switch case statement
+    switch (menuContent) {
+        case MenuContent.Help:
+            break;
+        case MenuContent.RoomOptions:
+            domElements["menuContentRoomOptions"].classList.remove(
+                "hiddenState"
+            );
+            break;
+        case MenuContent.DaylightSlider:
+            containerSliderDaylight.classList.remove("hiddenState");
+            break;
+        case MenuContent.Link:
+            break;
+        case MenuContent.Screenshot:
+            break;
+        default:
+            break;
+    }
 
     if (roomOptionsActive) {
-        containerRoomOptions.classList.remove("hiddenState");
-        containerSliderDaylight.classList.add("hiddenState");
     } else {
-        containerRoomOptions.classList.add("hiddenState");
-        containerSliderDaylight.classList.remove("hiddenState");
     }
 }
 
 function setupRoomButtons() {
-    let buttonRoom1 = document.getElementById("button-room-1");
-    buttonRoom1.addEventListener("click", function onOverlayClick(event) {
-        sendToStreamer(roomNameKey, "1");
-    });
-    let buttonRoom2 = document.getElementById("button-room-2");
-    buttonRoom2.addEventListener("click", function onOverlayClick(event) {
-        sendToStreamer(roomNameKey, "2");
-    });
-    let buttonRoom3 = document.getElementById("button-room-3");
-    buttonRoom3.addEventListener("click", function onOverlayClick(event) {
-        sendToStreamer(roomNameKey, "3");
-    });
-    let buttonRoom4 = document.getElementById("button-room-4");
-    buttonRoom4.addEventListener("click", function onOverlayClick(event) {
-        sendToStreamer(roomNameKey, "4");
-    });
+    domElements["buttonRoom1"].addEventListener(
+        "click",
+        function onOverlayClick(event) {
+            sendToStreamer(roomNameKey, "1");
+        }
+    );
+    domElements["buttonRoom2"].addEventListener(
+        "click",
+        function onOverlayClick(event) {
+            sendToStreamer(roomNameKey, "2");
+        }
+    );
+    domElements["buttonRoom3"].addEventListener(
+        "click",
+        function onOverlayClick(event) {
+            sendToStreamer(roomNameKey, "3");
+        }
+    );
+    domElements["buttonRoom4"].addEventListener(
+        "click",
+        function onOverlayClick(event) {
+            sendToStreamer(roomNameKey, "4");
+        }
+    );
 }
 
 function setupSlider() {
-    let slider = document.getElementById("sliderDaylight");
-    let sliderText = document.getElementById("daylightValue");
+    let slider = domElements["daylightSlider"];
+    let sliderText = domElements["dayLightSliderText"];
 
     // Construct the text for the slider value and send the current value to the streamer
     updateSlider = function (value) {
@@ -165,6 +218,47 @@ function getURLParameter(parameter) {
         : null;
 
     return projectID;
+}
+
+function getDOMElements() {
+    domElements["videoPlayOverlay"] =
+        document.getElementById("videoPlayOverlay");
+    domElements["menu"] = document.getElementById("lowerMenu");
+    domElements["toggleMenuButton"] =
+        document.getElementById("button-toggle-menu");
+    domElements["menuArrowDown"] = document.getElementById("menu-arrow-down");
+    domElements["menuArrowUp"] = document.getElementById("menu-arrow-up");
+    domElements["menuContent"] = document.getElementById("menu-content");
+    domElements["menuContentHelp"] =
+        document.getElementById("menu-content-help");
+    domElements["menuContentRoomOptions"] = document.getElementById(
+        "menu-content-room-options"
+    );
+    domElements["menuContentDaylightSlider"] = document.getElementById(
+        "menu-content-daylight-slider"
+    );
+    domElements["menuContentLink"] =
+        document.getElementById("menu-content-link");
+    domElements["menuContentScreenshot"] = document.getElementById(
+        "menu-content-screenshot"
+    );
+    domElements["buttonRoomOptions"] =
+        document.getElementById("buttonRoomOptions");
+    domElements["buttonTimeOfDay"] = document.getElementById("buttonTimeOfDay");
+    domElements["buttonScreenshot"] =
+        document.getElementById("buttonScreenshot");
+    domElements["buttonLink"] = document.getElementById("button-link");
+    domElements["buttonHelp"] = document.getElementById("button-help");
+    domElements["buttonRoom1"] = document.getElementById("button-room-1");
+    domElements["buttonRoom2"] = document.getElementById("button-room-2");
+    domElements["buttonRoom3"] = document.getElementById("button-room-3");
+    domElements["buttonRoom4"] = document.getElementById("button-room-4");
+    domElements["buttonDaylightSlider"] = document.getElementById(
+        "button-daylight-slider"
+    );
+    domElements["daylightSlider"] = document.getElementById("sliderDaylight");
+    domElements["dayLightSliderText"] =
+        document.getElementById("daylightValue");
 }
 
 /*
