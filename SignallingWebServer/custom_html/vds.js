@@ -202,10 +202,9 @@ function setRadioButtonState(id, state) {
 function getDOMElements() {
     domElements["videoPlayOverlay"] = document.getElementById("videoPlayOverlay");
     domElements["menu"] = document.getElementById("lowerMenu");
-    domElements["toggleMenuButton"] = document.getElementById("button-toggle-menu");
-    domElements["menuArrowDown"] = document.getElementById("menu-arrow-down");
-    domElements["menuArrowUp"] = document.getElementById("menu-arrow-up");
-    domElements["menuContent"] = document.getElementById("menu-content");
+    domElements["toggleMenuButton"] = document.getElementById("buttonToggleMenu");
+    domElements["menuArrowDown"] = document.getElementById("menuArrowDown");
+    domElements["menuArrowUp"] = document.getElementById("menuArrowUp");
     domElements["menuContentHelp"] = document.getElementById("containerHelp");
     domElements["menuContentRoomOptions"] = document.getElementById("containerRoomOptions");
     domElements["menuContentDaylightSlider"] = document.getElementById("containerSliderDaylight");
@@ -214,13 +213,12 @@ function getDOMElements() {
     domElements["buttonRoomOptions"] = document.getElementById("buttonRoomOptions");
     domElements["buttonTimeOfDay"] = document.getElementById("buttonTimeOfDay");
     domElements["buttonScreenshot"] = document.getElementById("button-screenshot");
-    domElements["buttonLink"] = document.getElementById("button-link");
-    domElements["buttonHelp"] = document.getElementById("button-help");
-    domElements["buttonRoom1"] = document.getElementById("button-room-1");
-    domElements["buttonRoom2"] = document.getElementById("button-room-2");
-    domElements["buttonRoom3"] = document.getElementById("button-room-3");
-    domElements["buttonRoom4"] = document.getElementById("button-room-4");
-    domElements["buttonDaylightSlider"] = document.getElementById("button-daylight-slider");
+    domElements["buttonLink"] = document.getElementById("buttonLink");
+    domElements["buttonHelp"] = document.getElementById("buttonHelp");
+    domElements["buttonRoom1"] = document.getElementById("buttonRoom1");
+    domElements["buttonRoom2"] = document.getElementById("buttonRoom2");
+    domElements["buttonRoom3"] = document.getElementById("buttonRoom3");
+    domElements["buttonRoom4"] = document.getElementById("buttonRoom4");
     domElements["daylightSlider"] = document.getElementById("sliderDaylight");
     domElements["dayLightSliderText"] = document.getElementById("daylightValue");
 }

@@ -171,11 +171,11 @@ video {
 .menu-button:focus {
     border-top: 0.125rem solid var(--colour-accent);
 }
-#button-toggle-menu:active,
-#button-toggle-menu:focus:hover {
+#buttonToggleMenu:active,
+#buttonToggleMenu:focus:hover {
     border-top: 0.125rem solid var(--colour-base2);
 }
-#button-toggle-menu:focus {
+#buttonToggleMenu:focus {
     border-top: none;
 }
 
