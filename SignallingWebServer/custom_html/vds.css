@@ -6,6 +6,8 @@
     --colour-base: #28231f;
     --colour-base2: #e4e1dd;
     --colour-background: #ffffff;
+
+    --translate-amount: 82%;
 }
 
 body {
@@ -52,7 +54,7 @@ video {
 }
 
 #lowerMenu {
-    height: 30vmin;
+    height: 40vmin;
     cursor: default;
 }
 #lowerMenu button {
@@ -120,7 +122,7 @@ video {
 }
 
 .menu-hidden {
-    transform: translateY(78%);
+    transform: translateY(var(--translate-amount));
     animation: slideOut 0.5s none;
 }
 
@@ -129,7 +131,7 @@ video {
         transform: translateY(0%);
     }
     100% {
-        transform: translateY(78%);
+        transform: translateY(var(--translate-amount));
     }
 }
 
@@ -140,7 +142,7 @@ video {
 
 @keyframes slideIn {
     0% {
-        transform: translateY(78%);
+        transform: translateY(var(--translate-amount));
     }
     100% {
         transform: translateY(0%);
