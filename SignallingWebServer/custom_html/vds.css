@@ -122,6 +122,15 @@ video {
     border-left: 0.125rem solid var(--colour-accent);
 }
 
+#containerHelp {
+    margin: 0 2rem 0 auto;
+}
+
+#containerHelp .horizontal-container,
+.vertical-container {
+    gap: 1rem;
+}
+
 .menu-hidden {
     transform: translateY(var(--translate-amount));
     animation: slideOut 0.5s none;
@@ -213,6 +222,18 @@ video {
     width: 65%;
     height: 65%;
     background-color: var(--colour-accent2);
+}
+
+.char-icon {
+    border: 0.125rem solid var(--colour-base2);
+    font-size: 1rem;
+    text-justify: center;
+    width: 2rem;
+    height: 2rem;
+}
+
+.horizontal-list {
+    display: inline-block;
 }
 
 .svg-image {
