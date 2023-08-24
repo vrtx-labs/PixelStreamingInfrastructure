@@ -56,6 +56,7 @@ video {
 
 #lowerMenu {
     height: 40vmin;
+    transform: translateY(var(--translate-amount));
     cursor: default;
 }
 #lowerMenu button {

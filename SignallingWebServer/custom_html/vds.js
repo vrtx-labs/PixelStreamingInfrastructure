@@ -26,6 +26,9 @@ class MenuContent {
     }
 }
 
+// Variables
+let menuActive = false;
+
 function setup() {
     getDOMElements();
     setupUIElements();
@@ -104,10 +107,19 @@ function setupCopyLinkButton() {
 }
 
 function toggleMenu() {
-    // Toggle the menu by switching the class
     let menu = domElements["menu"];
-    menu.classList.toggle("menu-hidden");
-    menu.classList.toggle("menu-visible");
+
+    if (menuActive) {
+        menuActive = false;
+        // Toggle the menu by switching the class
+        menu.classList.remove("menu-visible");
+        menu.classList.add("menu-hidden");
+    } else {
+        menuActive = true;
+        // Toggle the menu by switching the class
+        menu.classList.add("menu-visible");
+        menu.classList.remove("menu-hidden");
+    }
 
     // Toggle the button icon
     domElements["menuArrowDown"].classList.toggle("hiddenState");
