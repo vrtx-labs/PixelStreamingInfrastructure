@@ -47,7 +47,7 @@
                         <button class="menu-button" id="buttonLink">
                             <img class="svg-image" src="/images/buttons/Icon_CopyLink.svg" type="svg" />
                         </button>
-                        <button class="menu-button" id="button-screenshot">
+                        <button class="menu-button" id="buttonScreenshotMenu">
                             <img class="svg-image" src="/images/buttons/Icon_Screenshot.svg" type="svg" />
                         </button>
                         <button class="menu-button" id="buttonHelp">
@@ -87,36 +87,6 @@
                         <div class="gr3 gc5">
                             <p class="flex-center">Walk around</p>
                         </div>
-                        <!--<div class="horizontal-container">
-                            <div class="vertical-container">
-                                <div class="horizontal-container">
-                                    <div class="char-icon"><p>W</p></div>
-                                    <div class="char-icon"><p>A</p></div>
-                                    <div class="char-icon"><p>S</p></div>
-                                    <div class="char-icon"><p>D</p></div>
-                                </div>
-                                <div class="horizontal-container">
-                                    <div class="char-icon"><p>⯅</p></div>
-                                    <div class="char-icon"><p>⯇</p></div>
-                                    <div class="char-icon"><p>⯆</p></div>
-                                    <div class="char-icon"><p>⯈</p></div>
-                                </div>
-                                <div class="horizontal-container">
-                                    <div>Space</div>
-                                </div>
-                            </div>
-                            <div class="vertical-container">
-                                <div class="horizontal-container">
-                                    <p class="flex-center">Walk around</p>
-                                </div>
-                                <div class="horizontal-container">
-                                    <p>Look around</p>
-                                </div>
-                                <div class="horizontal-container">
-                                    <p>Jump</p>
-                                </div>
-                            </div>
-                        </div>-->
                     </div>
                     <div id="containerSliderDaylight" class="flex-center hiddenState">
                         <input id="sliderDaylight" type="range" min="0" max="1439" value="570.00" class="slider" />
@@ -140,8 +110,10 @@
                             <h5>Room option 4</h5>
                         </button>
                     </div>
-                    <div id="containerScreenshot"></div>
-                    <div id="containerLink"></div>
+                    <div id="containerScreenshot" class="hiddenState">
+                        <button id="buttonScreenshot" class="font-velux">TAKE A SCREENSHOT</button>
+                    </div>
+                    <div id="containerLink" class="hiddenState"></div>
                 </div>
             </div>
         </div>

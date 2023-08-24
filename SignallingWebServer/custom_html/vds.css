@@ -60,6 +60,8 @@ video {
 }
 #lowerMenu button {
     cursor: pointer;
+    background-color: transparent;
+    background: none;
 }
 #lowerMenu p {
     font-family: "TransformVariableVF";
@@ -107,8 +109,6 @@ video {
 }
 
 #containerRoomOptions > button {
-    background-color: transparent;
-    background: none;
     border: none;
 
     font-size: 1rem;
@@ -128,6 +128,20 @@ video {
 
 #containerHelp {
     margin: 0 2rem 0 auto;
+}
+
+#containerScreenshot {
+    margin: 0 2rem 0 auto;
+}
+#containerScreenshot > button {
+    padding: 0.5rem;
+    border: 0.125rem solid var(--colour-base);
+}
+#containerScreenshot > button:hover {
+    border: 0.125rem solid var(--colour-base2);
+}
+#containerScreenshot > button:active {
+    border: 0.125rem solid var(--colour-accent);
 }
 
 .menu-hidden {
@@ -356,6 +370,8 @@ video {
     position: absolute;
     top: 0;
 }
+
+/****************** CSS of the Pixel Streaming Interface ******************/
 
 .clickableState {
     /* State for element to be clickable */
@@ -879,4 +895,8 @@ object {
 @font-face {
     font-family: "TransformVariableVF";
     src: url("/fonts/VELUXTransformVariableVF.ttf");
+}
+
+.font-velux {
+    font-family: "TransformVariableVF";
 }

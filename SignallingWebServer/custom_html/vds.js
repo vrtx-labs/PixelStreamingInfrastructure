@@ -28,25 +28,20 @@ class MenuContent {
 
 function setup() {
     getDOMElements();
-    setupPlayButton();
-    setupToggleMenuButton();
-    setupMenuContentButtons();
-    setupRoomButtons();
-    setupSlider();
+    setupUIElements();
 
     setTimeout(function () {
         activateDefaultSettings();
     }, 50);
 }
 
-function startStream() {
-    // Wait for the connection to establish - ToDo: React to a proper event or let the Unreal Application send one
-    setTimeout(function () {
-        // Read html attribute 'ProjectID'
-        const roomName = getURLParameter(roomNameKey);
-        console.log(`roomName: ${roomName}`);
-        if (roomName !== null) sendToStreamer(roomNameKey, roomName);
-    }, 350);
+function setupUIElements() {
+    setupPlayButton();
+    setupScreenshotButton();
+    setupMenuContentButtons();
+    setupToggleMenuButton();
+    setupRoomButtons();
+    setupSlider();
 }
 
 function getURLParameter(parameter) {
@@ -70,10 +65,26 @@ function setupPlayButton() {
     });
 }
 
+function startStream() {
+    // Wait for the connection to establish - ToDo: React to a proper event or let the Unreal Application send one
+    setTimeout(function () {
+        // Read html attribute 'ProjectID'
+        const roomName = getURLParameter(roomNameKey);
+        console.log(`roomName: ${roomName}`);
+        if (roomName !== null) sendToStreamer(roomNameKey, roomName);
+    }, 350);
+}
+
 function setupToggleMenuButton() {
     domElements["toggleMenuButton"].addEventListener("click", function onOverlayClick(event) {
         console.log("toggle menu");
         toggleMenu();
+    });
+}
+
+function setupScreenshotButton() {
+    domElements["buttonScreenshot"].addEventListener("click", function onOverlayClick(event) {
+        sendToStreamer(screenshotKey, "true");
     });
 }
 
@@ -95,7 +106,7 @@ function setupMenuContentButtons() {
     domElements["buttonTimeOfDay"].addEventListener("click", function onOverlayClick(event) {
         showMenuContent(MenuContent.DaylightSlider);
     });
-    domElements["buttonScreenshot"].addEventListener("click", function onOverlayClick(event) {
+    domElements["menuButtonScreenshot"].addEventListener("click", function onOverlayClick(event) {
         showMenuContent(MenuContent.Screenshot);
     });
     domElements["buttonLink"].addEventListener("click", function onOverlayClick(event) {
@@ -212,7 +223,8 @@ function getDOMElements() {
     domElements["menuContentScreenshot"] = document.getElementById("containerScreenshot");
     domElements["buttonRoomOptions"] = document.getElementById("buttonRoomOptions");
     domElements["buttonTimeOfDay"] = document.getElementById("buttonTimeOfDay");
-    domElements["buttonScreenshot"] = document.getElementById("button-screenshot");
+    domElements["menuButtonScreenshot"] = document.getElementById("buttonScreenshotMenu");
+    domElements["buttonScreenshot"] = document.getElementById("buttonScreenshot");
     domElements["buttonLink"] = document.getElementById("buttonLink");
     domElements["buttonHelp"] = document.getElementById("buttonHelp");
     domElements["buttonRoom1"] = document.getElementById("buttonRoom1");
