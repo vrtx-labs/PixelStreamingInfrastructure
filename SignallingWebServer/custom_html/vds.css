@@ -130,17 +130,22 @@ video {
     margin: 0 2rem 0 auto;
 }
 
-#containerScreenshot {
+/* The menu parts for the copy link button and the screenshot button are very similar*/
+#containerScreenshot,
+#containerLink {
     margin: 0 2rem 0 auto;
 }
-#containerScreenshot > button {
+#containerScreenshot > button,
+#containerLink > button {
     padding: 0.5rem;
     border: 0.125rem solid var(--colour-base);
 }
-#containerScreenshot > button:hover {
+#containerScreenshot > button:hover,
+#containerLink > button:hover {
     border: 0.125rem solid var(--colour-base2);
 }
-#containerScreenshot > button:active {
+#containerScreenshot > button:active,
+#containerLink > button:active {
     border: 0.125rem solid var(--colour-accent);
 }
 

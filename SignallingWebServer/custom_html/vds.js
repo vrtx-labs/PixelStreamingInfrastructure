@@ -38,6 +38,7 @@ function setup() {
 function setupUIElements() {
     setupPlayButton();
     setupScreenshotButton();
+    setupCopyLinkButton();
     setupMenuContentButtons();
     setupToggleMenuButton();
     setupRoomButtons();
@@ -85,6 +86,20 @@ function setupToggleMenuButton() {
 function setupScreenshotButton() {
     domElements["buttonScreenshot"].addEventListener("click", function onOverlayClick(event) {
         sendToStreamer(screenshotKey, "true");
+    });
+}
+
+function setupCopyLinkButton() {
+    domElements["buttonCopyLink"].addEventListener("click", function onOverlayClick(event) {
+        // Copy current url to clipboard
+        navigator.clipboard.writeText(window.location.href).then(
+            function () {
+                console.log("Async: Copying to clipboard was successful!");
+            },
+            function (err) {
+                console.error("Async: Could not copy text: ", err);
+            }
+        );
     });
 }
 
@@ -233,6 +248,7 @@ function getDOMElements() {
     domElements["buttonRoom4"] = document.getElementById("buttonRoom4");
     domElements["daylightSlider"] = document.getElementById("sliderDaylight");
     domElements["dayLightSliderText"] = document.getElementById("daylightValue");
+    domElements["buttonCopyLink"] = document.getElementById("buttonCopyLink");
 }
 
 /*
