@@ -1228,19 +1228,52 @@ function processFileContents(view) {
          * This code reconstructs the received data into the original file based on the mime type and extension provided and then downloads the reconstructed file
          */
         var received = new Blob(file.data, { type: file.mimetype });
-        var a = document.createElement('a');
-        a.setAttribute('href', URL.createObjectURL(received));
-        a.setAttribute('download', `transfer.${file.extension}`);
+        var a = document.createElement("a");
+        a.setAttribute("href", URL.createObjectURL(received));
+        a.setAttribute("download", `transfer.${file.extension}`);
         document.body.append(a);
-        // if you are so inclined to make it auto-download, do something like: a.click();
+
+        // Use navigator share to share the file
+        // Determine platform support for navigator.share (only use this on phones)
+        if (navigator.share) {
+            shareFile(received);
+        } else {
+            // Click the link
+            a.click();
+        }
         a.remove();
-    }
-    else if (file.data.length > file.size) {
+    } else if (file.data.length > file.size) {
         file.receiving = false;
         console.error(`Received bigger file than advertised: ${file.data.length}/${file.size}`);
     }
 }
 
+function shareFile(file) {
+    const shareData = {
+        title: "Screenshot",
+        text: "",
+        url: "window.location.href",
+        files: [file],
+    };
+
+    console.log("sharing");
+
+    // Create a new button in the middle of the screen
+    const btn = document.createElement("button");
+    btn.textContent = "Share";
+    document.body.appendChild(btn);
+    const resultPara = document.querySelector(".result");
+
+    // Share must be triggered by "user activation"
+    btn.addEventListener("click", async () => {
+        try {
+            await navigator.share(shareData);
+            resultPara.textContent = "MDN shared successfully";
+        } catch (err) {
+            resultPara.textContent = `Error: ${err}`;
+        }
+    });
+}
 function processFreezeFrameMessage(view) {
     // Reset freeze frame if we got a freeze frame message and we are not "receiving" yet.
     if (!freezeFrame.receiving) {
