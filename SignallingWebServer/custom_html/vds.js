@@ -46,6 +46,7 @@ function setupUIElements() {
     setupToggleMenuButton();
     setupRoomButtons();
     setupSlider();
+    addResponseEventListener("handle_responses", receiveFromStreamer);
 }
 
 function getURLParameter(parameter) {
@@ -60,7 +61,11 @@ function sendToStreamer(key, value) {
         [key]: value,
     };
     emitUIInteraction(descriptor);
-    console.log(`Message to streamer: ${key} = ${value}`);
+    console.log(`Message to streamer: ${JSON.stringify(descriptor)}`);
+}
+
+function receiveFromStreamer(response) {
+    console.log(`Received response message from streamer: "${response}"`);
 }
 
 function setupPlayButton() {
