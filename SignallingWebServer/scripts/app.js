@@ -1230,15 +1230,31 @@ function processFileContents(view) {
         var received = new Blob(file.data, { type: file.mimetype });
         var a = document.createElement("a");
         a.setAttribute("href", URL.createObjectURL(received));
-        a.setAttribute("download", `transfer.${file.extension}`);
         document.body.append(a);
 
-        // Use navigator share to share the file
+        // Prepare data to be shared
+        const shareData = {
+            title: "Screenshot",
+            text: "",
+            url: "window.location.href",
+            files: [file.data],
+        };
+
         // Determine platform support for navigator.share (only use this on phones)
-        if (navigator.share) {
-            shareFile(received);
+        const isMobile = navigator.userAgent.match(/Android|iPhone|iPad|iPod/i);
+        if (navigator.canShare) {
+            if (navigator.canShare(shareData)) shareData(shareData);
+            else alert("Share data not integral.");
         } else {
             // Click the link
+            alert("navigator.canShare() not supported");
+
+            // Detect if the user is connected via smartphone
+            if (!isMobile) {
+                a.setAttribute("download", `screenshot.${file.extension}`);
+            }
+
+            console.log("Downloading screenshot");
             a.click();
         }
         a.remove();
@@ -1248,14 +1264,7 @@ function processFileContents(view) {
     }
 }
 
-function shareFile(file) {
-    const shareData = {
-        title: "Screenshot",
-        text: "",
-        url: "window.location.href",
-        files: [file],
-    };
-
+function shareData(shareData) {
     console.log("sharing");
 
     // Create a new button in the middle of the screen
@@ -1274,6 +1283,7 @@ function shareFile(file) {
         }
     });
 }
+
 function processFreezeFrameMessage(view) {
     // Reset freeze frame if we got a freeze frame message and we are not "receiving" yet.
     if (!freezeFrame.receiving) {
