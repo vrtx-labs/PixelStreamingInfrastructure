@@ -1280,14 +1280,11 @@ function processFileContents(view) {
             if (navigator.canShare(shareData)) shareData(shareData);
             else alert("Share data not integral.");
         } else {
-            // Click the link
-            alert("navigator.canShare() not supported");
-
             // Detect if the user is connected via smartphone
-            if (!isMobile) {
-                a.setAttribute("download", `screenshot.${file.extension}`);
-            }
+            if (!isMobile) a.setAttribute("download", `screenshot.${file.extension}`);
+            else alert("navigator.canShare() not supported");
 
+            // Click the link
             console.log("Downloading screenshot");
             a.click();
         }
