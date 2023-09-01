@@ -8,7 +8,7 @@
     --colour-background: #ffffff;
     --colour-text: #797979;
 
-    --translate-amount: 82%;
+    --translate-amount: 70%;
 }
 
 body {
@@ -70,6 +70,7 @@ video {
 
 #menuHeader {
     flex: 0 0 15%;
+    max-height: 15%;
     justify-content: space-between;
     border-bottom: 0.125rem solid var(--colour-base2);
 }
@@ -92,6 +93,7 @@ video {
 
 #headerMenuContent {
     flex: 0 0 15%;
+    max-height: 15%;
     justify-content: flex-start;
 }
 
