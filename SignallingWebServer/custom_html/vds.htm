@@ -1,7 +1,7 @@
 <!-- Copyright Epic Games, Inc. All Rights Reserved. -->
 <!DOCTYPE html>
 <html>
-    <head>
+    <>
         <link rel="icon" href="/images/favicon.ico" type="image/ico" />
         <!--<link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96x96.png">-->
         <!--<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">-->
@@ -10,6 +10,8 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Montserrat:wght@600&display=swap" rel="stylesheet" />
         <link type="text/css" rel="stylesheet" href="vds.css" />
+
+        <!-- Fix -->
         <script type="text/javascript">
             // This horrible hack is to make Fippo's adapter-latest.js work with Firefox when not on https
             // because FF does not let you access navigator.mediaDevices when on http.
@@ -27,9 +29,19 @@
                 }
             }
         </script>
+        <!-- External dependencies -->
+        <script type="text/javascript" src="hammer.js"></script>
+        <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+        <!-- WebRTC dependencies -->
         <script type="text/javascript" src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
         <script type="text/javascript" src="scripts/webRtcPlayer.js"></script>
+        
+        <!-- Pixel Streaming -->
         <script type="text/javascript" src="scripts/app.js"></script>
+        
+        <!-- Own Code -->
         <script type="text/javascript" src="vds.js"></script>
     </head>
 
@@ -40,6 +52,11 @@
                     <img class="fill" src="/images/velux-red.svg" type="svg" />
                 </a>
             </div>
+            <div class="vertical-container">
+                <canvas id="joystick" class="flex-center" height="300" width="300"></canvas>
+            </div>
+            <p id="xVal" class="light">X:</p>
+            <p id="yVal" class="light">Y:</p>
             <div id="lowerMenu" class="bottom-absolute horizontal-stretch vertical-container">
                 <div id="menuHeader" class="horizontal-container">
                     <h5 id="headerTitle" class="flex-item">Project Title | Room Name</h5>
