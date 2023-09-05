@@ -29,13 +29,15 @@ class MenuContent {
 // Variables
 let menuActive = false;
 
+// Setup: The event is linked to app.js OnLoadFinished in the setup function
+window.addEventListener("OnLoadFinished", () => {
+    setup();
+});
+
 function setup() {
     getDOMElements();
     setupUIElements();
-
-    setTimeout(function () {
-        activateDefaultSettings();
-    }, 50);
+    activateDefaultSettings();
 }
 
 function setupUIElements() {
@@ -202,7 +204,7 @@ function setupSlider() {
     let sliderText = domElements["dayLightSliderText"];
 
     // Construct the text for the slider value and send the current value to the streamer
-    updateSlider = function (value) {
+    let updateSlider = function (value) {
         let tod = new Date(0, 0, 0, 0, 0, 0, 0);
         tod.setTime(tod.getTime() + value * 60000); // Add slider value in milliseconds
 

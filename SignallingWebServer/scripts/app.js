@@ -2954,4 +2954,7 @@ function load() {
         console.log(`Received response message from streamer: "${response}"`);
     });
     start(false);
+
+    // Issue onLoadFinished event to window
+    window.dispatchEvent(new Event("OnLoadFinished"));
 }
