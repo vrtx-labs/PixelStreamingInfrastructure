@@ -380,12 +380,6 @@ video {
 }
 
 /************** Joystick CSS **************/
-#xVal,
-#yVal {
-    background-color: #ffffff;
-    color: #000;
-}
-
 #joystick {
     height: 300px;
     width: 300px;

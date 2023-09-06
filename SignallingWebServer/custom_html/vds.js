@@ -353,8 +353,13 @@ function initJoystick() {
         GlobalVariables.joystickX = Math.min(Math.max(x, -100), 100) / 100;
         GlobalVariables.joystickY = Math.min(Math.max(y, -100), 100) / 100;
 
-        document.getElementById("xVal").innerText = "X: " + GlobalVariables.joystickX;
-        document.getElementById("yVal").innerText = "Y: " + GlobalVariables.joystickY;
+        // Send current joystick position to streamer
+        // {"joystickValues":{"x":"1.00","y":"-0.07"}}
+        let descriptor = {
+            x: GlobalVariables.joystickX.toFixed(2),
+            y: GlobalVariables.joystickY.toFixed(2),
+        };
+        sendToStreamer(joystickValuesKey, descriptor);
 
         var coords = calculateCoords(ev.angle, ev.distance);
 
@@ -367,11 +372,6 @@ function initJoystick() {
     });
 
     mc.on("panend", function (ev) {
-        GlobalVariables.joystickX = 0;
-        GlobalVariables.joystickY = 0;
-        document.getElementById("xVal").innerText = "X: " + GlobalVariables.joystickX;
-        document.getElementById("yVal").innerText = "Y: " + GlobalVariables.joystickY;
-
         psp.alpha = 0.25;
         createjs.Tween.get(psp).to({ x: xCenter, y: yCenter }, 750, createjs.Ease.elasticOut);
     });
