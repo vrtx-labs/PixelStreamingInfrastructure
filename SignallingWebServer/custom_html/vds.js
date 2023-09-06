@@ -1,16 +1,8 @@
-// Constants
-const joystickPublishInterval = 5; // in milliseconds
+import { setupJoystick } from "./joystick.js";
+import { CommunicationKeys, sendToStreamer, setupStreamerCommunication } from "./streamerCommunication.js";
 
+// Constants
 //const localStoragePrefix = "velux.";
-const projectIDKey = "projectID";
-const roomNameKey = "roomName";
-const projectViewKey = "projectView";
-const settingsProjectViewKey = "settingsProjectView";
-const roomOptionKey = "roomOption";
-const daylightSliderKey = "daylightSliderValue";
-const screenshotKey = "screenshot";
-const mouseControlSchemeKey = "hoveringMouse";
-const joystickValuesKey = "joystickValues";
 
 // Enumn
 class MenuContent {
@@ -30,11 +22,8 @@ class MenuContent {
 
 // Variables
 const domElements = {}; // Holds references to DOM elements
-const GlobalVariables = {
+const LocalVariables = {
     menuActive: false,
-    joystickIntervalCache: null,
-    joystickX: 0,
-    joystickY: 0,
 };
 
 // Setup: The event is linked to app.js OnLoadFinished in the setup function
@@ -45,6 +34,7 @@ window.addEventListener("OnLoadFinished", () => {
 function setup() {
     getDOMElements();
     setupUIElements();
+    setupStreamerCommunication();
     activateDefaultSettings();
 }
 
@@ -57,26 +47,15 @@ function setupUIElements() {
     setupRoomButtons();
     setupSlider();
     setupJoystick();
-    addResponseEventListener("handle_responses", receiveFromStreamer);
 }
 
 function getURLParameter(parameter) {
     const parsedUrl = new URL(window.location.href);
-    const projectID = parsedUrl.searchParams.has(projectIDKey) ? parsedUrl.searchParams.get(projectIDKey) : null;
+    const projectID = parsedUrl.searchParams.has(CommunicationKeys.projectIDKey)
+        ? parsedUrl.searchParams.get(CommunicationKeys.projectIDKey)
+        : null;
 
     return projectID;
-}
-
-function sendToStreamer(key, value) {
-    let descriptor = {
-        [key]: value,
-    };
-    emitUIInteraction(descriptor);
-    console.log(`Message to streamer: ${JSON.stringify(descriptor)}`);
-}
-
-function receiveFromStreamer(response) {
-    console.log(`Received response message from streamer: "${response}"`);
 }
 
 function setupPlayButton() {
@@ -89,9 +68,9 @@ function startStream() {
     // Wait for the connection to establish - ToDo: React to a proper event or let the Unreal Application send one
     setTimeout(function () {
         // Read html attribute 'ProjectID'
-        const roomName = getURLParameter(roomNameKey);
+        const roomName = getURLParameter(CommunicationKeys.roomNameKey);
         console.log(`roomName: ${roomName}`);
-        if (roomName !== null) sendToStreamer(roomNameKey, roomName);
+        if (roomName !== null) sendToStreamer(CommunicationKeys.roomNameKey, roomName);
     }, 350);
 }
 
@@ -104,13 +83,14 @@ function setupToggleMenuButton() {
 
 function setupScreenshotButton() {
     domElements["buttonScreenshot"].addEventListener("click", function onOverlayClick(event) {
-        sendToStreamer(screenshotKey, "true");
+        sendToStreamer(CommunicationKeys.screenshotKey, "true");
     });
 }
 
 function setupCopyLinkButton() {
     domElements["buttonCopyLink"].addEventListener("click", function onOverlayClick(event) {
         // Copy current url to clipboard
+        if (!navigator.clipboard) return;
         navigator.clipboard.writeText(window.location.href).then(
             function () {
                 console.log("Async: Copying to clipboard was successful!");
@@ -125,13 +105,13 @@ function setupCopyLinkButton() {
 function toggleMenu() {
     let menu = domElements["menu"];
 
-    if (GlobalVariables.menuActive) {
-        GlobalVariables.menuActive = false;
+    if (LocalVariables.menuActive) {
+        LocalVariables.menuActive = false;
         // Toggle the menu by switching the class
         menu.classList.remove("menu-visible");
         menu.classList.add("menu-hidden");
     } else {
-        GlobalVariables.menuActive = true;
+        LocalVariables.menuActive = true;
         // Toggle the menu by switching the class
         menu.classList.add("menu-visible");
         menu.classList.remove("menu-hidden");
@@ -195,16 +175,16 @@ function showMenuContent(menuContent) {
 
 function setupRoomButtons() {
     domElements["buttonRoom1"].addEventListener("click", function onOverlayClick(event) {
-        sendToStreamer(roomNameKey, "1");
+        sendToStreamer(CommunicationKeys.roomNameKey, "1");
     });
     domElements["buttonRoom2"].addEventListener("click", function onOverlayClick(event) {
-        sendToStreamer(roomNameKey, "2");
+        sendToStreamer(CommunicationKeys.roomNameKey, "2");
     });
     domElements["buttonRoom3"].addEventListener("click", function onOverlayClick(event) {
-        sendToStreamer(roomNameKey, "3");
+        sendToStreamer(CommunicationKeys.roomNameKey, "3");
     });
     domElements["buttonRoom4"].addEventListener("click", function onOverlayClick(event) {
-        sendToStreamer(roomNameKey, "4");
+        sendToStreamer(CommunicationKeys.roomNameKey, "4");
     });
 }
 
@@ -218,7 +198,7 @@ function setupSlider() {
         tod.setTime(tod.getTime() + value * 60000); // Add slider value in milliseconds
 
         sliderText.innerHTML = tod.getHours() + ":" + ("00" + tod.getMinutes()).substr(-2);
-        sendToStreamer(daylightSliderKey, (value / 1440).toFixed(2));
+        sendToStreamer(CommunicationKeys.daylightSliderKey, (value / 1440).toFixed(2));
     };
 
     // Update the current slider value each time the slider handle is dragged
@@ -228,10 +208,6 @@ function setupSlider() {
 
     // Update the slider value at start
     updateSlider(slider.value);
-}
-
-function setupJoystick() {
-    initJoystick();
 }
 
 function activateDefaultSettings() {
@@ -297,103 +273,3 @@ function localStorageGet(localStorageKey) {
     );
 }
 */
-
-/* ToDo: Import this from a separate file
-Copyright (c) 2023 by Jeff Treleaven (https://codepen.io/jiffy/pen/zrqwON)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
-
-function initJoystick() {
-    // easal stuff goes hur
-    var xCenter = 150;
-    var yCenter = 150;
-    var stage = new createjs.Stage("joystick");
-
-    var psp = new createjs.Shape();
-    psp.graphics.beginFill("#333333").drawCircle(xCenter, yCenter, 50);
-
-    psp.alpha = 0.25;
-
-    var vertical = new createjs.Shape();
-    var horizontal = new createjs.Shape();
-    vertical.graphics.beginFill("#ff4d4d").drawRect(150, 0, 2, 300);
-    horizontal.graphics.beginFill("#ff4d4d").drawRect(0, 150, 300, 2);
-
-    stage.addChild(psp);
-    stage.addChild(vertical);
-    stage.addChild(horizontal);
-    createjs.Ticker.framerate = 60;
-    createjs.Ticker.addEventListener("tick", stage);
-    stage.update();
-
-    var joystick = document.getElementById("joystick");
-
-    // create a simple instance
-    // by default, it only adds horizontal recognizers
-    var mc = new Hammer(joystick);
-
-    mc.on("panstart", function (ev) {
-        var pos = joystick.offsetWidth - parseInt(joystick.style.width);
-        xCenter = psp.x;
-        yCenter = psp.y;
-        psp.alpha = 0.5;
-
-        GlobalVariables.joystickX = 0;
-        GlobalVariables.joystickY = 0;
-        GlobalVariables.joystickIntervalCache = setInterval(updateJoystickStatus, joystickPublishInterval);
-
-        stage.update();
-    });
-
-    // listen to events...
-    mc.on("panmove", function (ev) {
-        var pos = $("#joystick").position();
-
-        let x = ev.center.x - pos.left - 150;
-        let y = ev.center.y - pos.top - 150;
-
-        GlobalVariables.joystickX = Math.min(Math.max(x, -100), 100) / 100;
-        GlobalVariables.joystickY = (Math.min(Math.max(y, -100), 100) / 100) * -1;
-
-        var coords = calculateCoords(ev.angle, ev.distance);
-
-        psp.x = coords.x;
-        psp.y = coords.y;
-
-        psp.alpha = 0.5;
-
-        stage.update();
-    });
-
-    mc.on("panend", function (ev) {
-        clearInterval(GlobalVariables.joystickIntervalCache);
-        psp.alpha = 0.25;
-        createjs.Tween.get(psp).to({ x: xCenter, y: yCenter }, 750, createjs.Ease.elasticOut);
-    });
-}
-
-function updateJoystickStatus() {
-    // Send current joystick position to streamer
-    // Format: {"joystickValues":{"x":"1.00","y":"-0.07"}}
-    let descriptor = {
-        x: GlobalVariables.joystickX.toFixed(2),
-        y: GlobalVariables.joystickY.toFixed(2),
-    };
-    sendToStreamer(joystickValuesKey, descriptor);
-}
-
-function calculateCoords(angle, distance) {
-    var coords = {};
-    distance = Math.min(distance, 100);
-    var rads = (angle * Math.PI) / 180.0;
-
-    coords.x = distance * Math.cos(rads);
-    coords.y = distance * Math.sin(rads);
-
-    return coords;
-}
