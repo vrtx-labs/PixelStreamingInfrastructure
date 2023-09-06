@@ -11,7 +11,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 
 // Constants
-const joystickPublishInterval = 5; // in milliseconds
+const joystickPublishInterval = 16; // in milliseconds
 
 // Variables
 const LocalVariables = {
@@ -21,71 +21,64 @@ const LocalVariables = {
 };
 
 export function setupJoystick() {
-    // easal stuff goes hur
     var xCenter = 150;
     var yCenter = 150;
-    var stage = new createjs.Stage("joystick");
 
-    var psp = new createjs.Shape();
-    psp.graphics.beginFill("#333333").drawCircle(xCenter, yCenter, 50);
+    // Draw the joystick center
+    var joystickCenter = new createjs.Shape();
+    joystickCenter.graphics.beginFill("#333333").drawCircle(xCenter, yCenter, 50);
+    joystickCenter.alpha = 0.25;
 
-    psp.alpha = 0.25;
+    // Draw the joystick base and add the center
+    var joystickBase = new createjs.Stage("joystick");
+    joystickBase.addChild(joystickCenter);
 
-    var vertical = new createjs.Shape();
-    var horizontal = new createjs.Shape();
-    vertical.graphics.beginFill("#ff4d4d").drawRect(150, 0, 2, 300);
-    horizontal.graphics.beginFill("#ff4d4d").drawRect(0, 150, 300, 2);
-
-    stage.addChild(psp);
-    stage.addChild(vertical);
-    stage.addChild(horizontal);
+    // Initiate the update routine
     createjs.Ticker.framerate = 60;
-    createjs.Ticker.addEventListener("tick", stage);
-    stage.update();
+    createjs.Ticker.addEventListener("tick", joystickBase);
+    joystickBase.update();
 
-    var joystick = document.getElementById("joystick");
+    // Create a Hammer instance and bind it to the joystick
+    var joystickDOM = document.getElementById("joystick");
+    var joystick = new Hammer(joystickDOM);
 
-    // create a simple instance
-    // by default, it only adds horizontal recognizers
-    var mc = new Hammer(joystick);
+    // Start callback
+    joystick.on("panstart", function (eventData) {
+        xCenter = joystickCenter.x;
+        yCenter = joystickCenter.y;
+        joystickCenter.alpha = 0.5;
 
-    mc.on("panstart", function (ev) {
-        var pos = joystick.offsetWidth - parseInt(joystick.style.width);
-        xCenter = psp.x;
-        yCenter = psp.y;
-        psp.alpha = 0.5;
-
+        // Reset joystick and start publishing to streamer
         LocalVariables.joystickX = 0;
         LocalVariables.joystickY = 0;
         LocalVariables.joystickIntervalCache = setInterval(updateJoystickStatus, joystickPublishInterval);
 
-        stage.update();
+        joystickBase.update();
     });
 
-    // listen to events...
-    mc.on("panmove", function (ev) {
-        var pos = $("#joystick").position();
+    // Move callback
+    joystick.on("panmove", function (eventData) {
+        var pos = $("#joystick").position(); // Todo: is this cached already?
 
-        let x = ev.center.x - pos.left - 150;
-        let y = ev.center.y - pos.top - 150;
-
+        // Cache current position
+        let x = eventData.center.x - pos.left - 150;
+        let y = eventData.center.y - pos.top - 150;
         LocalVariables.joystickX = Math.min(Math.max(x, -100), 100) / 100;
         LocalVariables.joystickY = (Math.min(Math.max(y, -100), 100) / 100) * -1;
 
-        var coords = calculateCoords(ev.angle, ev.distance);
-
-        psp.x = coords.x;
-        psp.y = coords.y;
-
-        psp.alpha = 0.5;
-
-        stage.update();
+        // Update the visual representation of the joystick
+        var coordinates = calculateCoordinates(eventData.angle, eventData.distance);
+        joystickCenter.x = coordinates.x;
+        joystickCenter.y = coordinates.y;
+        joystickBase.update();
     });
 
-    mc.on("panend", function (ev) {
+    // End callback
+    joystick.on("panend", function (eventData) {
+        // Stop publishing to streamer and reset the joystick
         clearInterval(LocalVariables.joystickIntervalCache);
-        psp.alpha = 0.25;
-        createjs.Tween.get(psp).to({ x: xCenter, y: yCenter }, 750, createjs.Ease.elasticOut);
+        joystickCenter.alpha = 0.25;
+        createjs.Tween.get(joystickCenter).to({ x: xCenter, y: yCenter }, 750, createjs.Ease.elasticOut);
     });
 }
 
@@ -99,13 +92,13 @@ function updateJoystickStatus() {
     sendToStreamer(CommunicationKeys.joystickValuesKey, descriptor);
 }
 
-function calculateCoords(angle, distance) {
-    var coords = {};
+function calculateCoordinates(angle, distance) {
+    var coordinates = {};
     distance = Math.min(distance, 100);
     var rads = (angle * Math.PI) / 180.0;
 
-    coords.x = distance * Math.cos(rads);
-    coords.y = distance * Math.sin(rads);
+    coordinates.x = distance * Math.cos(rads);
+    coordinates.y = distance * Math.sin(rads);
 
-    return coords;
+    return coordinates;
 }
