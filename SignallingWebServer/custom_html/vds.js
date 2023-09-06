@@ -1,4 +1,6 @@
 // Constants
+const joystickPublishInterval = 5; // in milliseconds
+
 //const localStoragePrefix = "velux.";
 const projectIDKey = "projectID";
 const roomNameKey = "roomName";
@@ -30,6 +32,7 @@ class MenuContent {
 const domElements = {}; // Holds references to DOM elements
 const GlobalVariables = {
     menuActive: false,
+    joystickIntervalCache: null,
     joystickX: 0,
     joystickY: 0,
 };
@@ -340,6 +343,10 @@ function initJoystick() {
         yCenter = psp.y;
         psp.alpha = 0.5;
 
+        GlobalVariables.joystickX = 0;
+        GlobalVariables.joystickY = 0;
+        GlobalVariables.joystickIntervalCache = setInterval(updateJoystickStatus, joystickPublishInterval);
+
         stage.update();
     });
 
@@ -351,15 +358,7 @@ function initJoystick() {
         let y = ev.center.y - pos.top - 150;
 
         GlobalVariables.joystickX = Math.min(Math.max(x, -100), 100) / 100;
-        GlobalVariables.joystickY = Math.min(Math.max(y, -100), 100) / 100;
-
-        // Send current joystick position to streamer
-        // {"joystickValues":{"x":"1.00","y":"-0.07"}}
-        let descriptor = {
-            x: GlobalVariables.joystickX.toFixed(2),
-            y: GlobalVariables.joystickY.toFixed(2),
-        };
-        sendToStreamer(joystickValuesKey, descriptor);
+        GlobalVariables.joystickY = (Math.min(Math.max(y, -100), 100) / 100) * -1;
 
         var coords = calculateCoords(ev.angle, ev.distance);
 
@@ -372,9 +371,20 @@ function initJoystick() {
     });
 
     mc.on("panend", function (ev) {
+        clearInterval(GlobalVariables.joystickIntervalCache);
         psp.alpha = 0.25;
         createjs.Tween.get(psp).to({ x: xCenter, y: yCenter }, 750, createjs.Ease.elasticOut);
     });
+}
+
+function updateJoystickStatus() {
+    // Send current joystick position to streamer
+    // Format: {"joystickValues":{"x":"1.00","y":"-0.07"}}
+    let descriptor = {
+        x: GlobalVariables.joystickX.toFixed(2),
+        y: GlobalVariables.joystickY.toFixed(2),
+    };
+    sendToStreamer(joystickValuesKey, descriptor);
 }
 
 function calculateCoords(angle, distance) {
