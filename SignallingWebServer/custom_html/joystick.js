@@ -28,6 +28,17 @@ export function setupJoystick() {
     joystickCenter.graphics.beginFill("#333333").drawCircle(xCenter, yCenter, 50);
     joystickCenter.alpha = 0.25;
 
+    //// Add image
+    //var image = new Image();
+    //image.src = "./images/icons/footprint.svg";
+    //image.onload = function () {
+    //    // https://stackoverflow.com/questions/10593030/html-canvas-not-displaying-image
+    //    pic.getContext("2d").drawImage(image, 0, 0);
+
+    //    // use create js Graphic to draw the ./images/icons/footprint.svg image on the joystick center
+    //    var myGraphics = new createjs.Graphics().beginFill("red").drawCircle(0, 0, 50);
+    //    var fillCommand = myGraphics.beginFill("red").command;
+    //    fillCommand.bitmap("./images/icons/footprint.svg");
 
     // Draw the canvas and add the center
     var canvas = new createjs.Stage("joystick");
