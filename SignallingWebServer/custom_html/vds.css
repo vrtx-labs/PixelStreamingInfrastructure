@@ -1,3 +1,4 @@
+/* General */
 :root {
     /*Color scheme variables*/
     --colour-accent: #ee0000;
@@ -18,6 +19,7 @@ body {
     font-family: "Montserrat", sans-serif;
 }
 
+/* Direct ID References */
 #velux-logo {
     width: 18vmin;
     cursor: default;
@@ -121,6 +123,7 @@ body {
     border: 0.125rem solid var(--colour-accent);
 }
 
+/* Classes */
 .menu-hidden {
     transform: translateY(var(--translate-amount));
     animation: slideOut 0.5s none;
@@ -260,6 +263,25 @@ body {
     pointer-events: auto;
 }
 
+/* Positioning */
+.horizontal-stretch {
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+}
+
+.bottom-absolute {
+    position: absolute;
+    bottom: 0;
+}
+
+.top-absolute {
+    position: absolute;
+    top: 0;
+}
+
+/* Flex */
 .flex-item {
     display: flex;
     align-self: flex-start;
@@ -287,6 +309,7 @@ body {
     flex: 10;
 }
 
+/* Grid */
 .grid-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr) 3.5fr;
@@ -329,23 +352,6 @@ body {
     text-justify: center;
     font-family: "TransformVariableVF";
     color: var(--colour-text);
-}
-
-.horizontal-stretch {
-    margin-left: auto;
-    margin-right: auto;
-    left: 0;
-    right: 0;
-}
-
-.bottom-absolute {
-    position: absolute;
-    bottom: 0;
-}
-
-.top-absolute {
-    position: absolute;
-    top: 0;
 }
 
 /************** Joystick CSS **************/
