@@ -13,10 +13,17 @@
 }
 
 body {
-    overflow-y: hidden;
-    margin: 0px;
-    background-color: black;
     font-family: "Montserrat", sans-serif;
+    user-select: none;
+    touch-action: none;
+    height: 100vh;
+    /* mobile viewport bug fix */
+    height: -webkit-fill-available;
+    overflow: hidden;
+}
+
+html {
+    height: -webkit-fill-available;
 }
 
 /* Direct ID References */
@@ -26,6 +33,7 @@ body {
 }
 
 #lowerMenu {
+    bottom: 0;
     height: 40vmin;
     transform: translateY(var(--translate-amount));
     cursor: default;
@@ -84,7 +92,6 @@ body {
 
 #containerRoomOptions > button {
     border: none;
-
     font-size: 1rem;
     height: 8rem;
     width: 8rem;
