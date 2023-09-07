@@ -355,18 +355,24 @@ body {
 }
 
 /************** Joystick CSS **************/
+/* Some design is defined in joystick.js */
+
+#containerJoystick {
+    bottom: 14vmin;
+    height: 26vmin;
+    width: 100%;
+    background-color: transparent;
+    justify-content: center;
+}
+
 #joystick {
     height: 300px;
     width: 300px;
-    border-radius: 300px;
-    -moz-border-radius: 300px;
-    -webkit-border-radius: 300px;
-    text-align: center;
-    background-color: #80d5ff;
-    font: 24px/300px Helvetica, Arial, sans-serif;
+    background-color: var(--colour-base2);
+    border-radius: 100%;
     cursor: all-scroll;
     user-select: none;
-    z-index: -100;
+    touch-action: pan-y;
 }
 
 .noselect {

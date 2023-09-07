@@ -1,5 +1,3 @@
-import { CommunicationKeys, sendToStreamer } from "./streamerCommunication.js";
-
 /*
 Copyright (c) 2023 by Jeff Treleaven (https://codepen.io/jiffy/pen/zrqwON)
 
@@ -9,6 +7,7 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+import { CommunicationKeys, sendToStreamer } from "./streamerCommunication.js";
 
 // Constants
 const joystickPublishInterval = 16; // in milliseconds
@@ -29,14 +28,15 @@ export function setupJoystick() {
     joystickCenter.graphics.beginFill("#333333").drawCircle(xCenter, yCenter, 50);
     joystickCenter.alpha = 0.25;
 
-    // Draw the joystick base and add the center
-    var joystickBase = new createjs.Stage("joystick");
-    joystickBase.addChild(joystickCenter);
+
+    // Draw the canvas and add the center
+    var canvas = new createjs.Stage("joystick");
+    canvas.addChild(joystickCenter);
 
     // Initiate the update routine
     createjs.Ticker.framerate = 60;
-    createjs.Ticker.addEventListener("tick", joystickBase);
-    joystickBase.update();
+    createjs.Ticker.addEventListener("tick", canvas);
+    canvas.update();
 
     // Create a Hammer instance and bind it to the joystick
     var joystickDOM = document.getElementById("joystick");
@@ -53,24 +53,20 @@ export function setupJoystick() {
         LocalVariables.joystickY = 0;
         LocalVariables.joystickIntervalCache = setInterval(updateJoystickStatus, joystickPublishInterval);
 
-        joystickBase.update();
+        canvas.update();
     });
 
     // Move callback
     joystick.on("panmove", function (eventData) {
-        var pos = $("#joystick").position(); // Todo: is this cached already?
-
-        // Cache current position
-        let x = eventData.center.x - pos.left - 150;
-        let y = eventData.center.y - pos.top - 150;
-        LocalVariables.joystickX = Math.min(Math.max(x, -100), 100) / 100;
-        LocalVariables.joystickY = (Math.min(Math.max(y, -100), 100) / 100) * -1;
-
         // Update the visual representation of the joystick
         var coordinates = calculateCoordinates(eventData.angle, eventData.distance);
         joystickCenter.x = coordinates.x;
         joystickCenter.y = coordinates.y;
-        joystickBase.update();
+        canvas.update();
+
+        // Cache Values
+        LocalVariables.joystickX = Math.min(Math.max(joystickCenter.x, -100), 100) / 100;
+        LocalVariables.joystickY = (Math.min(Math.max(joystickCenter.y, -100), 100) / 100) * -1;
     });
 
     // End callback
