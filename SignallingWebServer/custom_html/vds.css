@@ -15,14 +15,15 @@
 body {
     font-family: "Montserrat", sans-serif;
 
-    /* Stop Scrolling ToDo: Do forms still work as intended on iOS? */
-    user-select: none;
-    touch-action: none;
-    overflow: hidden;
-
     /* mobile viewport bug fix */
     height: 100vh;
     height: -webkit-fill-available;
+}
+.stop-scrolling {
+    /* Stop Scrolling ToDo: Do forms still work as intended on iOS? */
+    /*user-select: none;*/
+    touch-action: none;
+    overflow: hidden;
 }
 
 html {

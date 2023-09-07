@@ -36,6 +36,9 @@ function setup() {
     setupUIElements();
     setupStreamerCommunication();
     activateDefaultSettings();
+    setTimeout(function () {
+        scrollToTop();
+    }, 50);
 }
 
 function setupUIElements() {
@@ -56,6 +59,17 @@ function getURLParameter(parameter) {
         : null;
 
     return projectID;
+}
+
+function scrollToTop() {
+    window.scroll({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+    });
+    setTimeout(function () {
+        document.body.classList.add("stop-scrolling");
+    }, 50);
 }
 
 function setupPlayButton() {
