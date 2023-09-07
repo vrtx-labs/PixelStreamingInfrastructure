@@ -14,15 +14,19 @@
 
 body {
     font-family: "Montserrat", sans-serif;
+
+    /* Stop Scrolling ToDo: Do forms still work as intended on iOS? */
     user-select: none;
     touch-action: none;
-    height: 100vh;
-    /* mobile viewport bug fix */
-    height: -webkit-fill-available;
     overflow: hidden;
+
+    /* mobile viewport bug fix */
+    height: 100vh;
+    height: -webkit-fill-available;
 }
 
 html {
+    /* mobile viewport bug fix */
     height: -webkit-fill-available;
 }
 
@@ -365,7 +369,7 @@ html {
 /* Some design is defined in joystick.js */
 
 #containerJoystick {
-    bottom: 14vmin;
+    bottom: 13vmin;
     height: 26vmin;
     width: 100%;
     background-color: transparent;
@@ -373,9 +377,10 @@ html {
 }
 
 #joystick {
-    height: 300px;
-    width: 300px;
+    height: 100%;
+    width: auto;
     background-color: var(--colour-base2);
+    opacity: 25%;
     border-radius: 100%;
     cursor: all-scroll;
     user-select: none;

@@ -14,6 +14,7 @@ const joystickPublishInterval = 16; // in milliseconds
 
 // Variables
 const LocalVariables = {
+    joystickCenter: null,
     joystickIntervalCache: null,
     joystickX: 0,
     joystickY: 0,
@@ -24,9 +25,8 @@ export function setupJoystick() {
     var yCenter = 150;
 
     // Draw the joystick center
-    var joystickCenter = new createjs.Shape();
-    joystickCenter.graphics.beginFill("#333333").drawCircle(xCenter, yCenter, 50);
-    joystickCenter.alpha = 0.25;
+    LocalVariables.joystickCenter = new createjs.Shape();
+    setJoystickCenterColor();
 
     //// Add image
     //var image = new Image();
@@ -42,7 +42,7 @@ export function setupJoystick() {
 
     // Draw the canvas and add the center
     var canvas = new createjs.Stage("joystick");
-    canvas.addChild(joystickCenter);
+    canvas.addChild(LocalVariables.joystickCenter);
 
     // Initiate the update routine
     createjs.Ticker.framerate = 60;
@@ -55,9 +55,9 @@ export function setupJoystick() {
 
     // Start callback
     joystick.on("panstart", function (eventData) {
-        xCenter = joystickCenter.x;
-        yCenter = joystickCenter.y;
-        joystickCenter.alpha = 0.5;
+        xCenter = LocalVariables.joystickCenter.x;
+        yCenter = LocalVariables.joystickCenter.y;
+        setJoystickCenterColor("#ee0000");
 
         // Reset joystick and start publishing to streamer
         LocalVariables.joystickX = 0;
@@ -71,21 +71,21 @@ export function setupJoystick() {
     joystick.on("panmove", function (eventData) {
         // Update the visual representation of the joystick
         var coordinates = calculateCoordinates(eventData.angle, eventData.distance);
-        joystickCenter.x = coordinates.x;
-        joystickCenter.y = coordinates.y;
+        LocalVariables.joystickCenter.x = coordinates.x;
+        LocalVariables.joystickCenter.y = coordinates.y;
         canvas.update();
 
         // Cache Values
-        LocalVariables.joystickX = Math.min(Math.max(joystickCenter.x, -100), 100) / 100;
-        LocalVariables.joystickY = (Math.min(Math.max(joystickCenter.y, -100), 100) / 100) * -1;
+        LocalVariables.joystickX = Math.min(Math.max(LocalVariables.joystickCenter.x, -100), 100) / 100;
+        LocalVariables.joystickY = (Math.min(Math.max(LocalVariables.joystickCenter.y, -100), 100) / 100) * -1;
     });
 
     // End callback
     joystick.on("panend", function (eventData) {
         // Stop publishing to streamer and reset the joystick
         clearInterval(LocalVariables.joystickIntervalCache);
-        joystickCenter.alpha = 0.25;
-        createjs.Tween.get(joystickCenter).to({ x: xCenter, y: yCenter }, 750, createjs.Ease.elasticOut);
+        setJoystickCenterColor();
+        createjs.Tween.get(LocalVariables.joystickCenter).to({ x: xCenter, y: yCenter }, 550, createjs.Ease.elasticOut);
     });
 }
 
@@ -97,6 +97,10 @@ function updateJoystickStatus() {
         y: LocalVariables.joystickY.toFixed(2),
     };
     sendToStreamer(CommunicationKeys.joystickValuesKey, descriptor);
+}
+
+function setJoystickCenterColor(color = "#333333", xCenter = 150, yCenter = 150) {
+    LocalVariables.joystickCenter.graphics.beginFill(color).drawCircle(xCenter, yCenter, 50);
 }
 
 function calculateCoordinates(angle, distance) {
