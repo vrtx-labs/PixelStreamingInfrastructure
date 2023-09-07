@@ -18,37 +18,6 @@ body {
     font-family: "Montserrat", sans-serif;
 }
 
-#playerUI {
-    width: 100%;
-    height: 100%;
-}
-
-canvas {
-    image-rendering: crisp-edges;
-    position: absolute;
-}
-
-video {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-}
-
-#player {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    background-color: #000;
-}
-
-#videoPlayOverlay {
-    position: absolute;
-    font-size: 1.8em;
-    width: 100%;
-    height: 100%;
-    color: var(--colour-background);
-}
-
 #velux-logo {
     width: 18vmin;
     cursor: default;
@@ -404,6 +373,37 @@ video {
 }
 
 /****************** CSS of the Pixel Streaming Interface ******************/
+
+#playerUI {
+    width: 100%;
+    height: 100%;
+}
+
+canvas {
+    image-rendering: crisp-edges;
+    position: absolute;
+}
+
+video {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+#player {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: #000;
+}
+
+#videoPlayOverlay {
+    position: absolute;
+    font-size: 1.8em;
+    width: 100%;
+    height: 100%;
+    color: var(--colour-background);
+}
 
 .clickableState {
     /* State for element to be clickable */
