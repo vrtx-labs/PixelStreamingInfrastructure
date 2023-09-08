@@ -1275,14 +1275,16 @@ function processFileContents(view) {
         };
 
         // Determine platform support for navigator.share (only use this on phones)
-        const isMobile = navigator.userAgent.match(/Android|iPhone|iPad|iPod/i);
         if (navigator.canShare) {
             if (navigator.canShare(shareData)) shareData(shareData);
             else alert("Share data not integral.");
         } else {
             // Detect if the user is connected via smartphone
-            if (!isMobile) a.setAttribute("download", `screenshot.${file.extension}`);
-            else alert("navigator.canShare() not supported");
+            if (window.isTouchDevice) {
+                // Check if http://
+                if (window.location.protocol == "http:") alert("Can't share screenshot: navigator.share() requires HTTPS.");
+                else alert("Can't share screenshot: navigator.share() not supported.");
+            } else a.setAttribute("download", `screenshot.${file.extension}`);
 
             // Click the link
             console.log("Downloading screenshot");

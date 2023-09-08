@@ -272,18 +272,3 @@ function getDOMElements() {
     domElements["dayLightSliderText"] = document.getElementById("daylightValue");
     domElements["buttonCopyLink"] = document.getElementById("buttonCopyLink");
 }
-
-/*
-function localStorageSet(localStorageKey, localStorageValue) {
-    window.localStorage.setItem(
-        localStoragePrefix + localStorageKey,
-        JSON.stringify(localStorageValue)
-    );
-}
-
-function localStorageGet(localStorageKey) {
-    JSON.parse(
-        window.localStorage.getItem(localStoragePrefix + localStorageKey)
-    );
-}
-*/
