@@ -1,14 +1,15 @@
 <!-- Copyright Epic Games, Inc. All Rights Reserved. -->
 <!DOCTYPE html>
 <html>
-        <link rel="icon" href="/images/favicon.ico" type="image/ico" />
+    <head>
+        <!--<link rel="icon" href="/images/favicon.ico" type="image/ico" />-->
         <!--<link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96x96.png">-->
         <!--<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">-->
         <link rel="icon" type="image/svg" sizes="96x96" href="/images/velux-red.svg" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Montserrat:wght@600&display=swap" rel="stylesheet" />
-        <link type="text/css" rel="stylesheet" href="vds.css" />
+        <link type="text/css" rel="stylesheet" href="homeOwnerView.css" />
 
         <!-- Fix -->
         <script type="text/javascript">
@@ -36,13 +37,14 @@
         <!-- WebRTC dependencies -->
         <script type="text/javascript" src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
         <script type="text/javascript" src="scripts/webRtcPlayer.js"></script>
-        
+
         <!-- Pixel Streaming -->
         <script type="text/javascript" src="scripts/app.js"></script>
-        
+
         <!-- Own Code -->
-        <script type="module" src="vds.js"></script>
+        <script type="module" src="homeOwnerView.js"></script>
         <script type="module" src="joystick.js"></script>
+        <script type="text/javascript" src="global.js"></script>
     </head>
 
     <body onload="load();">
@@ -53,8 +55,7 @@
                 </a>
             </div>
             <div id="containerJoystick" class="bottom-absolute horizontal-container horizontal-stretch">
-                <canvas id="joystick" class="flex-center" height="300" width="300">
-                </canvas>
+                <canvas id="joystick" class="flex-center" height="300" width="300"> </canvas>
             </div>
             <div id="lowerMenu" class="bottom-absolute horizontal-stretch vertical-container">
                 <div id="menuHeader" class="horizontal-container">

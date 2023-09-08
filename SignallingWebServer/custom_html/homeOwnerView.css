@@ -269,7 +269,7 @@ html {
     background-color: transparent;
     border: none;
 }
-.fill-screen > div {
+.fill-screen * {
     /* Because children of the transparent fill screen inherit the inability to be
 	clicked, we need to reset this behaviour */
     pointer-events: auto;
@@ -375,6 +375,10 @@ html {
     width: 100%;
     background-color: transparent;
     justify-content: center;
+    pointer-events: none;
+}
+#containerJoystick * {
+    pointer-events: auto;
 }
 
 #joystick {
@@ -386,15 +390,6 @@ html {
     cursor: all-scroll;
     user-select: none;
     touch-action: pan-y;
-}
-
-.noselect {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
 /****************** CSS of the Pixel Streaming Interface ******************/
@@ -428,6 +423,15 @@ video {
     width: 100%;
     height: 100%;
     color: var(--colour-background);
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .clickableState {
