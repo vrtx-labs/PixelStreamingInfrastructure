@@ -381,6 +381,13 @@ html {
     pointer-events: auto;
 }
 
+/* Disable on pc */
+@media (pointer: fine) {
+    #containerJoystick {
+        display: none;
+    }
+}
+
 #joystick {
     height: 100%;
     width: auto;
