@@ -231,6 +231,9 @@ function activateDefaultSettings() {
     // Set the control scheme to Hovering Mouse
     setRadioButtonState("control-tgl", true);
 
+    // Hide the cursor
+    setRadioButtonState("cursor-tgl", true);
+
     // Fake mouse with touches
     setFakeMouseWithTouches(true);
 }
