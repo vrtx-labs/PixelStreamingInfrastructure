@@ -82,6 +82,11 @@ export function setupJoystick() {
 
     // End callback
     joystick.on("panend", function (eventData) {
+        // Reset the values to 0 and send them to the streamer
+        LocalVariables.joystickX = 0;
+        LocalVariables.joystickY = 0;
+        updateJoystickStatus();
+
         // Stop publishing to streamer and reset the joystick
         clearInterval(LocalVariables.joystickIntervalCache);
         setJoystickCenterColor();
