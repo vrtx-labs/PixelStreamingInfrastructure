@@ -1981,9 +1981,27 @@ function updateVideoStreamSize() {
         let playerElement = document.getElementById("player");
         if (!playerElement) return;
 
+        let resolutionX = playerElement.clientWidth;
+        let resolutionY = playerElement.clientHeight;
+
+        // Re-scale to fit mobile screen
+        if (window.isTouchDevice) {
+            const maxY = 960;
+            if (resolutionY > maxY) {
+                let factor = maxY / resolutionY;
+                resolutionY = maxY;
+                resolutionX = Math.round(resolutionX * factor);
+            }
+        }
+
+        console.log(
+            `Player wants resolution: ${playerElement.clientWidth}x${playerElement.clientHeight}\n` +
+                `Player gets resolution: ${resolutionX}x${resolutionY}`
+        );
+
         let descriptor = {
-            "Resolution.Width": playerElement.clientWidth,
-            "Resolution.Height": playerElement.clientHeight,
+            "Resolution.Width": resolutionX,
+            "Resolution.Height": resolutionY,
         };
         emitCommand(descriptor);
         console.log(descriptor);
