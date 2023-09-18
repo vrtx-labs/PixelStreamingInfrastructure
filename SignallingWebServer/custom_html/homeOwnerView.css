@@ -12,6 +12,11 @@
     --translate-amount: 70%;
 }
 
+/* Set general font */
+* {
+    font-family: "TransformVariableVF";
+}
+
 html {
     /* mobile viewport bug fix */
     height: -webkit-fill-available;
@@ -20,8 +25,6 @@ html {
 }
 
 body {
-    font-family: "Montserrat", sans-serif;
-
     /* mobile viewport bug fix */
     height: 100vh;
     height: -webkit-fill-available;
@@ -43,6 +46,38 @@ body {
     cursor: default;
 }
 
+#containerHeader {
+    top: min(7vw, 2.5rem);
+    left: min(5vw, 2rem);
+    right: min(5vw, 2rem);
+
+    display: flex;
+    justify-content: space-between;
+
+    background-color: transparent;
+}
+
+#breadcrumbs {
+    margin-top: auto;
+    margin-bottom: auto;
+    color: white;
+    font-size: min(2vw, 1rem);
+}
+
+#buttonToggleMenu {
+    height: min(5vw, 2rem);
+}
+
+#buttonToggleMenu:active,
+#buttonToggleMenu:focus:hover {
+    border-top: 0.125rem solid var(--colour-base2);
+}
+
+#buttonToggleMenu:focus {
+    border-top: none;
+}
+
+/* ToDo: The id selectors below might be obsolete*/
 #lowerMenu {
     bottom: 0;
     height: 40vmin;
@@ -56,21 +91,11 @@ body {
     background: none;
 }
 
-#lowerMenu p {
-    font-family: "TransformVariableVF";
-}
-
 #menuHeader {
     flex: 0 0 15%;
     max-height: 15%;
     justify-content: space-between;
     border-bottom: 0.125rem solid var(--colour-base2);
-}
-
-#headerTitle {
-    align-self: flex-start;
-    font-size: 1rem;
-    margin: 1rem 0 1rem 3.7rem;
 }
 
 #menuButtons {
@@ -195,15 +220,6 @@ body {
     border-top: 0.125rem solid var(--colour-accent);
 }
 
-#buttonToggleMenu:active,
-#buttonToggleMenu:focus:hover {
-    border-top: 0.125rem solid var(--colour-base2);
-}
-
-#buttonToggleMenu:focus {
-    border-top: none;
-}
-
 .slide-container {
     width: 400px;
     height: 55%;
@@ -319,7 +335,7 @@ body {
 .flex-item {
     display: flex;
     align-self: flex-start;
-    margin: auto;
+    margin: 0;
 }
 
 .flex-center {

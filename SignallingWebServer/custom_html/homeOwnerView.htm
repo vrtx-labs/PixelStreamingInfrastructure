@@ -49,17 +49,30 @@
 
     <body onload="load();">
         <div id="veluxUI" class="noselect fill-screen">
+            <!-- Header -->
+            <div id="containerHeader" class="top-absolute horizontal-stretch horizontal-container">
+                <h5 id="breadcrumbs" class="flex-item">Project name | Room name</h5>
+                <button id="buttonToggleMenu" class="menu-button flex-item">
+                    <img id="menuArrowUp" class="svg-image" src="/images/buttons/hov_menu.svg" type="svg" />
+                </button>
+            </div>
+
             <div id="velux-logo" class="horizontal-stretch top-absolute">
                 <a class="fill" href="https://www.velux.dk/" target="_blank">
                     <img class="fill" src="/images/velux-red.svg" type="svg" />
                 </a>
             </div>
+
+            <!-- Menu top-right -->
+
+            <!-- Joystick -->
             <div id="containerJoystick" class="bottom-absolute horizontal-container horizontal-stretch">
                 <canvas id="joystick" class="flex-center" height="300" width="300"> </canvas>
             </div>
+
+            <!-- Lower menu (room options) -->
             <div id="lowerMenu" class="bottom-absolute horizontal-stretch vertical-container">
                 <div id="menuHeader" class="horizontal-container">
-                    <h5 id="headerTitle" class="flex-item">Project Title | Room Name</h5>
                     <div id="menuButtons" class="flex-item">
                         <button class="menu-button" id="buttonLink">
                             <img class="svg-image" src="/images/buttons/Icon_CopyLink.svg" type="svg" />
@@ -69,14 +82,6 @@
                         </button>
                         <button class="menu-button" id="buttonHelp">
                             <img class="svg-image" src="/images/buttons/Icon_Help.svg" type="svg" />
-                        </button>
-                        <button class="menu-button" id="buttonToggleMenu">
-                            <img
-                                id="menuArrowDown"
-                                class="svg-image hiddenState"
-                                src="/images/buttons/Icon_ArrowDown.svg"
-                                type="svg" />
-                            <img id="menuArrowUp" class="svg-image" src="/images/buttons/Icon_ArrowUp.svg" type="svg" />
                         </button>
                     </div>
                 </div>
@@ -109,7 +114,7 @@
                         <input id="sliderDaylight" type="range" min="0" max="1439" value="570.00" class="slider" />
                         <span id="daylightValue" class="">0</span>
                     </div>
-                    <div id="containerRoomOptions" class="horizontal-container hiddenState">
+                    <div id="containerRoomOptions" class="horizontal-container">
                         <button class="" id="buttonRoom1">
                             <div class="dummy-room"></div>
                             <h5>Room option 1</h5>
@@ -139,7 +144,7 @@
         <div id="playerUI" class="noselect">
             <div id="player"></div>
             <div id="overlay">
-                <div id="controls">
+                <!--<div id="controls">
                     <button class="tooltip" onclick="fullscreen()" id="fullscreen-btn">
                         <object data="images/Minimize.svg" type="image/svg+xml" id="minimize"></object>
                         <object data="images/Maximize.svg" type="image/svg+xml" id="maximize"></object>
@@ -153,7 +158,7 @@
                         <object data="images/Info.svg" type="image/svg+xml"></object>
                         <span class="tooltiptext">Information</span>
                     </button>
-                </div>
+                </div> -->
                 <div class="panel-wrap" id="settings-panel">
                     <div class="panel">
                         <div id="heading">Connection quality</div>
