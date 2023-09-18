@@ -38,6 +38,7 @@ body {
 
 /* Direct ID References */
 #velux-logo {
+    top: 1rem;
     width: 18vmin;
     cursor: default;
 }
