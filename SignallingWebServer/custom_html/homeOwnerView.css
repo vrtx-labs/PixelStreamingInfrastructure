@@ -15,7 +15,13 @@
 /* Set general font */
 * {
     font-family: "TransformVariableVF";
+    font-weight: inherit;
     color: var(--colour-accent);
+}
+
+p {
+    font-size: min(2vw, 1rem);
+    margin: auto 0.5rem;
 }
 
 html {
@@ -62,21 +68,24 @@ body {
     margin-top: auto;
     margin-bottom: auto;
     font-size: min(2vw, 1rem);
-    font-weight: inherit;
+}
+
+#containerButtonToggleMenu {
+    flex: none;
 }
 
 #buttonToggleMenu {
     height: min(5vw, 2rem);
 }
 
-#buttonToggleMenu:active,
+/*#buttonToggleMenu:active,
 #buttonToggleMenu:focus:hover {
     border-top: 0.125rem solid var(--colour-base2);
 }
 
 #buttonToggleMenu:focus {
     border-top: none;
-}
+}*/
 
 /* ToDo: The id selectors below might be obsolete*/
 #lowerMenu {
@@ -176,6 +185,13 @@ body {
 }
 
 /* Classes */
+.rounded-box {
+    width: auto;
+    border-radius: 5rem;
+    padding: 0.5rem 0.4rem;
+    background-color: var(--colour-base);
+}
+
 .menu-hidden {
     transform: translateY(var(--translate-amount));
     animation: slideOut 0.5s none;
@@ -207,18 +223,19 @@ body {
 }
 
 .menu-button {
+.button-base {
     background-color: transparent;
     background: none;
     border: none;
 }
 
-.menu-button:hover {
-    border-top: 0.125rem solid var(--colour-base2);
+.button-base:hover {
+    /*border-top: 0.125rem solid var(--colour-base2);*/
 }
 
-.menu-button:active,
-.menu-button:focus {
-    border-top: 0.125rem solid var(--colour-accent);
+.button-base:active,
+.button-base:focus {
+    /*border-top: 0.125rem solid var(--colour-accent);*/
 }
 
 .slide-container {

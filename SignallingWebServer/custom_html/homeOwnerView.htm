@@ -52,9 +52,12 @@
             <!-- Header -->
             <div id="containerHeader" class="top-absolute horizontal-stretch horizontal-container">
                 <h5 id="breadcrumbs" class="flex-item">Project name | Room name</h5>
-                <button id="buttonToggleMenu" class="menu-button flex-item">
-                    <img id="menuArrowUp" class="svg-image" src="/images/buttons/hov_menu.svg" type="svg" />
-                </button>
+                <div id="containerButtonToggleMenu" class="horizontal-container rounded-box">
+                    <p id="textToggleMenu">Menu</p>
+                    <button id="buttonToggleMenu" class="button-base flex-item">
+                        <img id="menuArrowUp" class="svg-image" src="/images/buttons/hov_menu.svg" type="svg" />
+                    </button>
+                </div>
             </div>
 
             <div id="velux-logo" class="horizontal-stretch top-absolute">
@@ -74,20 +77,20 @@
             <div id="lowerMenu" class="bottom-absolute horizontal-stretch vertical-container">
                 <div id="menuHeader" class="horizontal-container">
                     <div id="menuButtons" class="flex-item">
-                        <button class="menu-button" id="buttonLink">
+                        <button class="button-base" id="buttonLink">
                             <img class="svg-image" src="/images/buttons/Icon_CopyLink.svg" type="svg" />
                         </button>
-                        <button class="menu-button" id="buttonScreenshotMenu">
+                        <button class="button-base" id="buttonScreenshotMenu">
                             <img class="svg-image" src="/images/buttons/Icon_Screenshot.svg" type="svg" />
                         </button>
-                        <button class="menu-button" id="buttonHelp">
+                        <button class="button-base" id="buttonHelp">
                             <img class="svg-image" src="/images/buttons/Icon_Help.svg" type="svg" />
                         </button>
                     </div>
                 </div>
                 <div id="headerMenuContent" class="horizontal-container">
-                    <button id="buttonRoomOptions" class="flex-item menu-button">Room options</button>
-                    <button id="buttonTimeOfDay" class="flex-item menu-button">Simulate time of day</button>
+                    <button id="buttonRoomOptions" class="flex-item button-base">Room options</button>
+                    <button id="buttonTimeOfDay" class="flex-item button-base">Simulate time of day</button>
                 </div>
                 <div id="menuContent" class="fill horizontal-container">
                     <div id="containerHelp" class="grid-container">
