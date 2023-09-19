@@ -1,4 +1,4 @@
-/* General */
+/* General Declarations & Type Selectors*/
 :root {
     /*Color scheme variables*/
     --colour-accent: #FFFFFF;
@@ -8,8 +8,6 @@
     --colour-base2: #e4e1dd;
     --colour-background: #404040;
     --colour-text: #797979;
-
-    --translate-amount: 70%;
 }
 
 /* Set general font */
@@ -46,7 +44,7 @@ body {
     overflow: hidden;
 }
 
-/* Direct ID References */
+/* ID Selectors */
 #velux-logo {
     top: 1rem;
     width: 18vmin;
@@ -70,60 +68,10 @@ body {
     font-size: min(2vw, 1rem);
 }
 
-#buttonToggleMenu {
-    height: min(5vw, 2rem);
+
 }
 
-/*#buttonToggleMenu:active,
-#buttonToggleMenu:focus:hover {
-    border-top: 0.125rem solid var(--colour-base2);
-}
-
-#buttonToggleMenu:focus {
-    border-top: none;
-}*/
-
-/* ToDo: The id selectors below might be obsolete*/
-#lowerMenu {
-    bottom: 0;
-    height: 40vmin;
-    transform: translateY(var(--translate-amount));
-    cursor: default;
-}
-
-#lowerMenu button {
-    cursor: pointer;
     background-color: transparent;
-    background: none;
-}
-
-#menuHeader {
-    flex: 0 0 15%;
-    max-height: 15%;
-    justify-content: space-between;
-    border-bottom: 0.125rem solid var(--colour-base2);
-}
-
-#menuButtons {
-    align-self: flex-end;
-    justify-content: flex-end;
-    margin: 0.5rem 1rem auto 0;
-}
-
-#menuButtons>button {
-    width: 2rem;
-    height: 2rem;
-}
-
-#headerMenuContent {
-    flex: 0 0 15%;
-    max-height: 15%;
-    justify-content: flex-start;
-}
-
-#headerMenuContent>button {
-    margin: 0 3.5rem auto 3.5rem;
-    height: 1.5rem;
 }
 
 #containerSliderDaylight {
@@ -131,56 +79,15 @@ body {
     justify-content: space-between;
 }
 
-#containerRoomOptions {
-    padding-left: 3.5rem;
-}
-
-#containerRoomOptions>button {
-    border: none;
-    font-size: 1rem;
-    height: 8rem;
-    width: 8rem;
-    margin: auto 1rem auto 0;
-}
-
-#containerRoomOptions>button:hover {
-    background-color: var(--colour-base2);
-}
-
-#containerRoomOptions>button:active,
-#containerRoomOptions>button:focus {
-    background-color: var(--colour-accent2);
-    border-top: 0.075rem solid var(--colour-base2);
-    border-left: 0.125rem solid var(--colour-accent);
-}
-
-#containerHelp {
-    margin: 0 2rem 0 auto;
-}
-
-/* The menu parts for the copy link button and the screenshot button are very similar*/
-#containerScreenshot,
-#containerLink {
-    margin: 0 2rem 0 auto;
-}
-
-#containerScreenshot>button,
-#containerLink>button {
-    padding: 0.5rem;
-    border: 0.125rem solid var(--colour-base);
-}
-
-#containerScreenshot>button:hover,
-#containerLink>button:hover {
-    border: 0.125rem solid var(--colour-base2);
-}
-
-#containerScreenshot>button:active,
-#containerLink>button:active {
-    border: 0.125rem solid var(--colour-accent);
-}
-
 /* Classes */
+.stretch-container {
+    left: min(5vw, 2rem);
+    right: min(5vw, 2rem);
+
+    display: flex;
+    justify-content: space-between;
+}
+
 .rounded-box {
     width: auto;
     border-radius: 5rem;
@@ -188,37 +95,6 @@ body {
     background-color: var(--colour-base);
 }
 
-.menu-hidden {
-    transform: translateY(var(--translate-amount));
-    animation: slideOut 0.5s none;
-}
-
-@keyframes slideOut {
-    0% {
-        transform: translateY(0%);
-    }
-
-    100% {
-        transform: translateY(var(--translate-amount));
-    }
-}
-
-.menu-visible {
-    transform: translateY(0%);
-    animation: slideIn 0.5s forwards;
-}
-
-@keyframes slideIn {
-    0% {
-        transform: translateY(var(--translate-amount));
-    }
-
-    100% {
-        transform: translateY(0%);
-    }
-}
-
-.menu-button {
 .button-base {
     background-color: transparent;
     background: none;
@@ -271,12 +147,6 @@ body {
     height: 25px;
     background: #212f44;
     cursor: pointer;
-}
-
-.dummy-room {
-    width: 65%;
-    height: 65%;
-    background-color: var(--colour-accent2);
 }
 
 .char-icon {

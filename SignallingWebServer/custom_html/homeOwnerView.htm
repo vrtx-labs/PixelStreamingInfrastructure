@@ -55,18 +55,17 @@
                 <div id="containerButtonToggleMenu" class="horizontal-container rounded-box">
                     <p id="textToggleMenu">Menu</p>
                     <button id="buttonToggleMenu" class="button-base flex-item">
-                        <img id="menuArrowUp" class="svg-image" src="/images/buttons/hov_menu.svg" type="svg" />
+                        <img class="svg-image" src="/images/buttons/hov_menu.svg" type="svg" />
                     </button>
                 </div>
             </div>
 
+            <!-- Logo -->
             <div id="velux-logo" class="horizontal-stretch top-absolute">
                 <a class="fill" href="https://www.velux.dk/" target="_blank">
                     <img class="fill" src="/images/velux-red.svg" type="svg" />
                 </a>
             </div>
-
-            <!-- Menu top-right -->
 
             <!-- Joystick -->
             <div id="containerJoystick" class="bottom-absolute horizontal-container horizontal-stretch">
@@ -75,6 +74,8 @@
 
             <!-- Lower menu (room options) -->
             <div id="lowerMenu" class="bottom-absolute horizontal-stretch vertical-container">
+            <!-- Obsolete Menu, kept for the moment to avoid exceptions -->
+            <div id="lowerMenu" class="bottom-absolute horizontal-stretch vertical-container hiddenState">
                 <div id="menuHeader" class="horizontal-container">
                     <div id="menuButtons" class="flex-item">
                         <button class="button-base" id="buttonLink">
