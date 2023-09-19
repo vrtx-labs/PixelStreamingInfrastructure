@@ -67,7 +67,8 @@ p {
     font-size: min(2vw, 1rem);
 }
 
-
+#containerRoomOptions {
+    bottom: 2.5rem;
 }
 
 #containerFooter {
@@ -90,7 +91,7 @@ p {
 }
 
 .rounded-box {
-    width: auto;
+    width: fit-content;
     border-radius: 5rem;
     padding: 0.5rem 0.4rem;
     background-color: var(--colour-base);
@@ -100,6 +101,11 @@ p {
     background-color: transparent;
     background: none;
     border: none;
+}
+
+.selected-room {
+    background-color: var(--colour-accent);
+    color: var(--colour-base);
 }
 
 .button-base:hover {
