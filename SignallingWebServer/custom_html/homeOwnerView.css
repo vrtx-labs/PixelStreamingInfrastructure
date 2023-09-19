@@ -67,6 +67,13 @@ p {
     font-size: min(2vw, 1rem);
 }
 
+#containerMenu {
+    gap: 0.5rem;
+    max-width: 35vw;
+    flex-wrap: wrap;
+    justify-content: end;
+}
+
 #containerRoomOptions {
     bottom: 2.5rem;
 }
@@ -358,8 +365,7 @@ video {
     width: 100%;
     height: 100%;
     position: absolute;
-    /*background-color: var(--colour-background);*/
-    background-image: url('/images/buttons/hov_daylight.svg');
+    background-color: var(--colour-background);
 }
 
 #videoPlayOverlay {

@@ -146,7 +146,7 @@ function setupMenuContentButtons() {
     domElements["menuButtonScreenshot"].addEventListener("click", function onOverlayClick(event) {
         showMenuContent(MenuContent.Screenshot);
     });
-    domElements["buttonLink"].addEventListener("click", function onOverlayClick(event) {
+    domElements["buttonShare"].addEventListener("click", function onOverlayClick(event) {
         showMenuContent(MenuContent.Link);
     });
     domElements["buttonHelp"].addEventListener("click", function onOverlayClick(event) {
@@ -263,9 +263,9 @@ function getDOMElements() {
     domElements["menuContentScreenshot"] = document.getElementById("containerScreenshot");
     domElements["buttonRoomOptions"] = document.getElementById("buttonRoomOptions");
     domElements["buttonTimeOfDay"] = document.getElementById("buttonTimeOfDay");
-    domElements["menuButtonScreenshot"] = document.getElementById("buttonScreenshotMenu");
+    domElements["menuButtonScreenshot"] = document.getElementById("buttonScreenshot");
     domElements["buttonScreenshot"] = document.getElementById("buttonScreenshot");
-    domElements["buttonLink"] = document.getElementById("buttonLink");
+    domElements["buttonShare"] = document.getElementById("buttonShare");
     domElements["buttonHelp"] = document.getElementById("buttonHelp");
     domElements["buttonRoom1"] = document.getElementById("buttonRoom1");
     domElements["buttonRoom2"] = document.getElementById("buttonRoom2");
