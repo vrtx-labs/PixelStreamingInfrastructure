@@ -62,6 +62,7 @@ body {
     margin-top: auto;
     margin-bottom: auto;
     font-size: min(2vw, 1rem);
+    font-weight: inherit;
 }
 
 #buttonToggleMenu {
