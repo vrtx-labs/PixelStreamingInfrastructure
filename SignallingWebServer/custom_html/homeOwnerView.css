@@ -40,12 +40,12 @@ button {
 * {
     /* Set general font */
     font-family: "TransformVariableVF";
+    font-size: min(2vw, 1rem);
     font-weight: inherit;
     color: var(--colour-accent);
 }
 
 p {
-    font-size: min(2vw, 1rem);
     margin: auto 0.5rem;
 }
 
@@ -91,10 +91,14 @@ p {
 }
 
 .rounded-box {
+    height: fit-content;
     width: fit-content;
     border-radius: 5rem;
     padding: 0.5rem 0.4rem;
-    background-color: var(--colour-base);
+
+    background: rgba(37, 37, 37, 0.55);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
 }
 
 .button-base {
@@ -237,13 +241,11 @@ p {
 }
 
 .vertical-container {
-    background-color: var(--colour-base);
     display: flex;
     flex-direction: column;
 }
 
 .horizontal-container {
-    background-color: var(--colour-base);
     display: flex;
     flex-direction: row;
 }
@@ -356,7 +358,8 @@ video {
     width: 100%;
     height: 100%;
     position: absolute;
-    background-color: var(--colour-background);
+    /*background-color: var(--colour-background);*/
+    background-image: url('/images/buttons/hov_daylight.svg');
 }
 
 #videoPlayOverlay {
