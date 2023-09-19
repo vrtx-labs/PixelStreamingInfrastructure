@@ -1,13 +1,12 @@
-<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="48" height="48" rx="24" fill="#28231F" fill-opacity="0.64"/>
-<rect x="8" y="8" width="32" height="32" rx="16" fill="white"/>
-<path d="M24 27.2727C25.8075 27.2727 27.2727 25.8075 27.2727 24C27.2727 22.1925 25.8075 20.7273 24 20.7273C22.1925 20.7273 20.7273 22.1925 20.7273 24C20.7273 25.8075 22.1925 27.2727 24 27.2727Z" stroke="#28231F" stroke-width="0.999995" stroke-miterlimit="10"/>
-<path d="M16 24H18.5454" stroke="#28231F" stroke-width="0.999995"/>
-<path d="M29.4545 24H31.9999" stroke="#28231F" stroke-width="0.999995"/>
-<path d="M24 32V29.4545" stroke="#28231F" stroke-width="0.999995"/>
-<path d="M24 18.5455V16.0001" stroke="#28231F" stroke-width="0.999995"/>
-<path d="M18.3418 29.6582L20.1418 27.8582" stroke="#28231F" stroke-width="0.999995"/>
-<path d="M27.858 20.1418L29.658 18.3419" stroke="#28231F" stroke-width="0.999995"/>
-<path d="M18.3418 18.3419L20.1418 20.1418" stroke="#28231F" stroke-width="0.999995"/>
-<path d="M27.858 27.8582L29.658 29.6582" stroke="#28231F" stroke-width="0.999995"/>
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="32" height="32" rx="16" fill="white"/>
+<path d="M16 19.2727C17.8075 19.2727 19.2727 17.8075 19.2727 16C19.2727 14.1925 17.8075 12.7273 16 12.7273C14.1925 12.7273 12.7273 14.1925 12.7273 16C12.7273 17.8075 14.1925 19.2727 16 19.2727Z" stroke="#28231F" stroke-width="0.999995" stroke-miterlimit="10"/>
+<path d="M8 16H10.5454" stroke="#28231F" stroke-width="0.999995"/>
+<path d="M21.4545 16H23.9999" stroke="#28231F" stroke-width="0.999995"/>
+<path d="M16 24V21.4545" stroke="#28231F" stroke-width="0.999995"/>
+<path d="M16 10.5455V8.00004" stroke="#28231F" stroke-width="0.999995"/>
+<path d="M10.3418 21.6582L12.1418 19.8582" stroke="#28231F" stroke-width="0.999995"/>
+<path d="M19.858 12.1418L21.658 10.3418" stroke="#28231F" stroke-width="0.999995"/>
+<path d="M10.3418 10.3418L12.1418 12.1418" stroke="#28231F" stroke-width="0.999995"/>
+<path d="M19.858 19.8582L21.658 21.6582" stroke="#28231F" stroke-width="0.999995"/>
 </svg>
