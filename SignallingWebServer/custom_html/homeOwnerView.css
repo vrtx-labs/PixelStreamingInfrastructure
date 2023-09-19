@@ -1,12 +1,12 @@
 /* General */
 :root {
     /*Color scheme variables*/
-    --colour-accent: #ee0000;
+    --colour-accent: #FFFFFF;
     --colour-accent-active: #b41818;
     --colour-accent2: #f6ebd8;
-    --colour-base: #28231f;
+    --colour-base: #252525;
     --colour-base2: #e4e1dd;
-    --colour-background: #ffffff;
+    --colour-background: #404040;
     --colour-text: #797979;
 
     --translate-amount: 70%;
@@ -15,6 +15,7 @@
 /* Set general font */
 * {
     font-family: "TransformVariableVF";
+    color: var(--colour-accent);
 }
 
 html {
@@ -60,7 +61,6 @@ body {
 #breadcrumbs {
     margin-top: auto;
     margin-bottom: auto;
-    color: white;
     font-size: min(2vw, 1rem);
 }
 
@@ -346,14 +346,14 @@ body {
 }
 
 .vertical-container {
-    background-color: var(--colour-background);
+    background-color: var(--colour-base);
     display: flex;
     flex-direction: column;
     flex: 10;
 }
 
 .horizontal-container {
-    background-color: var(--colour-background);
+    background-color: var(--colour-base);
     display: flex;
     flex-direction: row;
     flex: 10;
@@ -467,7 +467,7 @@ video {
     width: 100%;
     height: 100%;
     position: absolute;
-    background-color: #000;
+    background-color: var(--colour-background);
 }
 
 #videoPlayOverlay {
@@ -475,7 +475,7 @@ video {
     font-size: 1.8em;
     width: 100%;
     height: 100%;
-    color: var(--colour-background);
+    color: var(--colour-base);
 }
 
 .noselect {
@@ -538,9 +538,9 @@ img#playButton {
 }
 
 #overlay button {
-    background-color: var(--colour-base);
-    border: 1px solid var(--colour-base);
-    color: var(--colour-base);
+    background-color: var(--colour-background);
+    border: 1px solid var(--colour-background);
+    color: var(--colour-background);
     position: relative;
     width: 3rem;
     height: 3rem;
@@ -575,7 +575,7 @@ img#playButton {
 .tooltip .tooltiptext {
     visibility: hidden;
     width: auto;
-    color: var(--colour-background);
+    color: var(--colour-base);
     text-align: center;
     border-radius: 15px;
     padding: 0px 10px;
@@ -610,7 +610,7 @@ img#playButton {
     left: 0;
     z-index: 20;
     padding: 5px 10px;
-    border: 3px solid var(--colour-background);
+    border: 3px solid var(--colour-base);
     width: max-content;
 }
 
@@ -814,8 +814,8 @@ img#playButton {
     padding: 2px;
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
-    background: var(--colour-background);
-    border: 3px solid var(--colour-background);
+    background: var(--colour-base);
+    border: 3px solid var(--colour-base);
     border-radius: 2em;
 }
 
@@ -832,7 +832,7 @@ img#playButton {
 }
 
 .tgl-flat:checked+.tgl-slider {
-    border: 3px solid var(--colour-background);
+    border: 3px solid var(--colour-base);
 }
 
 .tgl-flat:checked:hover+.tgl-slider {
@@ -846,7 +846,7 @@ img#playButton {
 
 .subtitle-text {
     margin: 0 0 0 1rem;
-    color: var(--colour-background);
+    color: var(--colour-base);
     position: relative;
 }
 
@@ -860,7 +860,7 @@ img#playButton {
 }
 
 .form-group label {
-    color: var(--colour-background);
+    color: var(--colour-base);
     vertical-align: middle;
     font-weight: normal;
 }
@@ -932,9 +932,9 @@ input {
 /* Flat buttons */
 input[type="button"] {
     background-color: transparent;
-    color: var(--colour-background);
+    color: var(--colour-base);
     font-family: "Montserrat";
-    border: 3px solid var(--colour-background);
+    border: 3px solid var(--colour-base);
     border-radius: 1rem;
     font-size: 0.75rem;
     padding-left: 0.5rem;
@@ -959,7 +959,7 @@ select,
 input[type="number"] {
     background-color: var(--colour-base);
     color: var(--colour-background);
-    border: 1px solid var(--colour-background);
+    border: 1px solid var(--colour-base);
     padding: 0.25rem;
     font-family: "Montserrat";
     border-radius: 0.25rem;
@@ -998,7 +998,7 @@ object {
 }
 
 #connectionStrength {
-    fill: var(--colour-background);
+    fill: var(--colour-base);
 }
 
 #minimize {
