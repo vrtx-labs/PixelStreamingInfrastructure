@@ -70,10 +70,6 @@ body {
     font-size: min(2vw, 1rem);
 }
 
-#containerButtonToggleMenu {
-    flex: none;
-}
-
 #buttonToggleMenu {
     height: min(5vw, 2rem);
 }
@@ -367,14 +363,12 @@ body {
     background-color: var(--colour-base);
     display: flex;
     flex-direction: column;
-    flex: 10;
 }
 
 .horizontal-container {
     background-color: var(--colour-base);
     display: flex;
     flex-direction: row;
-    flex: 10;
 }
 
 /* Grid */
