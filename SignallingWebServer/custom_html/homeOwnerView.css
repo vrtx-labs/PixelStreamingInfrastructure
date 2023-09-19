@@ -50,10 +50,14 @@ p {
 }
 
 /* ID Selectors */
-#velux-logo {
+#logoVelux {
     top: 1rem;
-    width: 18vmin;
+    width: 10vw;
     cursor: default;
+}
+
+#linkVelux {
+    display: block;
 }
 
 #containerHeader {
@@ -69,7 +73,7 @@ p {
 
 #containerMenu {
     gap: 0.5rem;
-    max-width: 35vw;
+    max-width: 38vw;
     flex-wrap: wrap;
     justify-content: end;
 }
