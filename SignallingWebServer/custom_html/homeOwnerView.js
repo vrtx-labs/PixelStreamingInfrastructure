@@ -190,16 +190,28 @@ function showMenuContent(menuContent) {
 function setupRoomButtons() {
     domElements["buttonRoom1"].addEventListener("click", function onOverlayClick(event) {
         sendToStreamer(CommunicationKeys.roomNameKey, "1");
+        setRoomButtonActive(this);
     });
     domElements["buttonRoom2"].addEventListener("click", function onOverlayClick(event) {
         sendToStreamer(CommunicationKeys.roomNameKey, "2");
+        setRoomButtonActive(this);
     });
     domElements["buttonRoom3"].addEventListener("click", function onOverlayClick(event) {
         sendToStreamer(CommunicationKeys.roomNameKey, "3");
+        setRoomButtonActive(this);
     });
     domElements["buttonRoom4"].addEventListener("click", function onOverlayClick(event) {
         sendToStreamer(CommunicationKeys.roomNameKey, "4");
+        setRoomButtonActive(this);
     });
+}
+
+function setRoomButtonActive(element) {
+    domElements["buttonRoom1"].classList.remove("selected-room");
+    domElements["buttonRoom2"].classList.remove("selected-room");
+    domElements["buttonRoom3"].classList.remove("selected-room");
+    domElements["buttonRoom4"].classList.remove("selected-room");
+    element.classList.add("selected-room");
 }
 
 function setupSlider() {
