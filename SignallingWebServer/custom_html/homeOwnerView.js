@@ -140,18 +140,18 @@ function setupMenuContentButtons() {
     domElements["buttonRoomOptions"].addEventListener("click", function onOverlayClick(event) {
         showMenuContent(MenuContent.RoomOptions);
     });
-    domElements["buttonTimeOfDay"].addEventListener("click", function onOverlayClick(event) {
+    domElements["buttonDaylight"].addEventListener("click", function onOverlayClick(event) {
         showMenuContent(MenuContent.DaylightSlider);
     });
-    domElements["menuButtonScreenshot"].addEventListener("click", function onOverlayClick(event) {
-        showMenuContent(MenuContent.Screenshot);
-    });
-    domElements["buttonShare"].addEventListener("click", function onOverlayClick(event) {
-        showMenuContent(MenuContent.Link);
-    });
-    domElements["buttonHelp"].addEventListener("click", function onOverlayClick(event) {
-        showMenuContent(MenuContent.Help);
-    });
+    //domElements["menuButtonScreenshot"].addEventListener("click", function onOverlayClick(event) {
+    //    showMenuContent(MenuContent.Screenshot);
+    //});
+    //domElements["buttonShare"].addEventListener("click", function onOverlayClick(event) {
+    //    showMenuContent(MenuContent.Link);
+    //});
+    //domElements["buttonHelp"].addEventListener("click", function onOverlayClick(event) {
+    //    showMenuContent(MenuContent.Help);
+    //});
 }
 
 function showMenuContent(menuContent) {
@@ -172,9 +172,13 @@ function showMenuContent(menuContent) {
             break;
         case MenuContent.RoomOptions:
             domElements["menuContentRoomOptions"].classList.remove("hiddenState");
+            domElements["containerButtonRoomOptions"].classList.add("hiddenState");
+            domElements["containerButtonDaylight"].classList.remove("hiddenState");
             break;
         case MenuContent.DaylightSlider:
             containerSliderDaylight.classList.remove("hiddenState");
+            domElements["containerButtonDaylight"].classList.add("hiddenState");
+            domElements["containerButtonRoomOptions"].classList.remove("hiddenState");
             break;
         case MenuContent.Link:
             domElements["menuContentLink"].classList.remove("hiddenState");
@@ -274,7 +278,7 @@ function getDOMElements() {
     domElements["menuContentLink"] = document.getElementById("containerLink");
     domElements["menuContentScreenshot"] = document.getElementById("containerScreenshot");
     domElements["buttonRoomOptions"] = document.getElementById("buttonRoomOptions");
-    domElements["buttonTimeOfDay"] = document.getElementById("buttonTimeOfDay");
+    domElements["buttonDaylight"] = document.getElementById("buttonDaylight");
     domElements["menuButtonScreenshot"] = document.getElementById("buttonScreenshot");
     domElements["buttonScreenshot"] = document.getElementById("buttonScreenshot");
     domElements["buttonShare"] = document.getElementById("buttonShare");
@@ -286,4 +290,6 @@ function getDOMElements() {
     domElements["daylightSlider"] = document.getElementById("sliderDaylight");
     domElements["dayLightSliderText"] = document.getElementById("daylightValue");
     domElements["buttonCopyLink"] = document.getElementById("buttonCopyLink");
+    domElements["containerButtonDaylight"] = document.getElementById("containerButtonDaylight");
+    domElements["containerButtonRoomOptions"] = document.getElementById("containerButtonRoomOptions");
 }

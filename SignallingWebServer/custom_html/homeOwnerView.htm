@@ -104,11 +104,17 @@
 
             <!-- Lower Menu -->
             <div id="containerFooter" class="bottom-absolute stretch-container horizontal-container">
-                <div id="containerButtonTimeOfDay" class="rounded-box horizontal-container">
-                    <button id="buttonTimeOfDay" class="button-base flex-item">
+                <div id="containerButtonDaylight" class="rounded-box horizontal-container">
+                    <button id="buttonDaylight" class="button-base flex-item">
                         <img class="svg-image" src="/images/buttons/hov_daylight.svg" type="svg" />
                     </button>
                     <p id="textToggleDaylight">Daylight</p>
+                </div>
+                <div id="containerButtonRoomOptions" class="rounded-box horizontal-container hiddenState">
+                    <button id="buttonRoomOptions" class="button-base flex-item">
+                        <img class="svg-image" src="/images/buttons/hov_rooms.svg" type="svg" />
+                    </button>
+                    <p id="textToggleDaylight">Rooms</p>
                 </div>
             </div>
 
@@ -124,10 +130,7 @@
                 <div id="menuHeader" class="horizontal-container">
                     <div id="menuButtons" class="flex-item"></div>
                 </div>
-                <div id="headerMenuContent" class="horizontal-container">
-                    <button id="buttonRoomOptions" class="flex-item button-base">Room options</button>
-                    <button id="buttonTimeOfDay" class="flex-item button-base">Simulate time of day</button>
-                </div>
+                <div id="headerMenuContent" class="horizontal-container"></div>
                 <div id="menuContent" class="fill horizontal-container">
                     <div id="containerHelp" class="grid-container">
                         <div class="char-icon grid-cell gr1 gc1"><p>W</p></div>
