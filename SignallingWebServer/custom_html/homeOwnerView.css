@@ -10,18 +10,6 @@
     --colour-text: #797979;
 }
 
-/* Set general font */
-* {
-    font-family: "TransformVariableVF";
-    font-weight: inherit;
-    color: var(--colour-accent);
-}
-
-p {
-    font-size: min(2vw, 1rem);
-    margin: auto 0.5rem;
-}
-
 html {
     /* mobile viewport bug fix */
     height: -webkit-fill-available;
@@ -44,6 +32,23 @@ body {
     overflow: hidden;
 }
 
+button {
+    height: min(5vw, 2rem);
+    cursor: pointer;
+}
+
+* {
+    /* Set general font */
+    font-family: "TransformVariableVF";
+    font-weight: inherit;
+    color: var(--colour-accent);
+}
+
+p {
+    font-size: min(2vw, 1rem);
+    margin: auto 0.5rem;
+}
+
 /* ID Selectors */
 #velux-logo {
     top: 1rem;
@@ -53,12 +58,6 @@ body {
 
 #containerHeader {
     top: min(7vw, 2.5rem);
-    left: min(5vw, 2rem);
-    right: min(5vw, 2rem);
-
-    display: flex;
-    justify-content: space-between;
-
     background-color: transparent;
 }
 
@@ -71,6 +70,8 @@ body {
 
 }
 
+#containerFooter {
+    bottom: 2.5rem;
     background-color: transparent;
 }
 
@@ -102,12 +103,12 @@ body {
 }
 
 .button-base:hover {
-    /*border-top: 0.125rem solid var(--colour-base2);*/
+    /* to be specified */
 }
 
 .button-base:active,
 .button-base:focus {
-    /*border-top: 0.125rem solid var(--colour-accent);*/
+    /* to be specified */
 }
 
 .slide-container {

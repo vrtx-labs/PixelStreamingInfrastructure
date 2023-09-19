@@ -50,7 +50,7 @@
     <body onload="load();">
         <div id="veluxUI" class="noselect fill-screen">
             <!-- Header -->
-            <div id="containerHeader" class="top-absolute horizontal-stretch horizontal-container">
+            <div id="containerHeader" class="top-absolute stretch-container horizontal-container">
                 <h5 id="breadcrumbs" class="flex-item">Project name | Room name</h5>
                 <div id="containerButtonToggleMenu" class="horizontal-container rounded-box">
                     <p id="textToggleMenu">Menu</p>
@@ -72,8 +72,16 @@
                 <canvas id="joystick" class="flex-center" height="300" width="300"> </canvas>
             </div>
 
-            <!-- Lower menu (room options) -->
-            <div id="lowerMenu" class="bottom-absolute horizontal-stretch vertical-container">
+            <!-- Lower Menu -->
+            <div id="containerFooter" class="bottom-absolute stretch-container horizontal-container">
+                <div id="containerButtonTimeOfDay" class="horizontal-container rounded-box">
+                    <button id="buttonTimeOfDay" class="button-base flex-item">
+                        <img class="svg-image" src="/images/buttons/hov_daylight.svg" type="svg" />
+                    </button>
+                    <p id="textToggleDaylight">Daylight</p>
+                </div>
+            </div>
+
             <!-- Obsolete Menu, kept for the moment to avoid exceptions -->
             <div id="lowerMenu" class="bottom-absolute horizontal-stretch vertical-container hiddenState">
                 <div id="menuHeader" class="horizontal-container">
