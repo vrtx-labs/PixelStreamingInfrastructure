@@ -410,7 +410,7 @@ video {
 
 .hiddenState {
     /* State to hide overlay, WebRTC communication is in progress and or is playing */
-    display: none;
+    display: none !important;
 }
 
 #playButton {
