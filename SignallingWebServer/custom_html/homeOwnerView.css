@@ -280,6 +280,7 @@ p {
 #containerSliderDaylightBackground {
     object-fit: cover;
     position: absolute;
+    border-radius: 5rem;
 }
 
 .slider {
