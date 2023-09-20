@@ -127,53 +127,6 @@ p {
     /* to be specified */
 }
 
-#containerSliderDaylight {
-    width: 50vw;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-#containerSliderDaylightBackground {
-    object-fit: cover;
-    position: absolute;
-}
-
-.slider {
-    margin: auto;
-    appearance: none;
-    -webkit-appearance: none;
-    width: 95%;
-    height: 100%;
-    background: transparent;
-    outline: none;
-    border: none;
-    z-index: 10;
-}
-
-.slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    border: none;
-    border-radius: 100%;
-    background-color: transparent;
-    width: 2rem;
-    height: 2rem;
-    background-image: url('/images/buttons/hov_daylight.svg');
-    background-repeat: no-repeat;
-    background-size: contain;
-}
-
-.slider::-moz-range-thumb {
-    border: none;
-    background-color: transparent;
-    border-radius: 100%;
-    width: 2rem;
-    height: 2rem;
-    background-image: url('/images/buttons/hov_daylight.svg');
-    background-repeat: no-repeat;
-    background-size: contain;
-}
-
 .char-icon {
     border: 0.125rem solid var(--colour-base2);
     font-size: 1rem;
@@ -314,6 +267,52 @@ p {
     text-justify: center;
     font-family: "TransformVariableVF";
     color: var(--colour-text);
+}
+
+/************** Slider CSS **************/
+#containerSliderDaylight {
+    width: 50vw;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#containerSliderDaylightBackground {
+    object-fit: cover;
+    position: absolute;
+}
+
+.slider {
+    margin: auto;
+    appearance: none;
+    -webkit-appearance: none;
+    width: 95%;
+    height: 100%;
+    background: transparent;
+    outline: none;
+    border: none;
+    z-index: 10;
+}
+
+.slider::-webkit-slider-thumb,
+.slider::-moz-range-thumb {
+    border: none;
+    background-color: transparent;
+    border-radius: 100%;
+    width: 2rem;
+    height: 2rem;
+
+    background-image: url('/images/buttons/hov_daylight.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+}
+
+.slider::-moz-range-thumb {
+    -moz-appearance: none;
 }
 
 /************** Joystick CSS **************/
