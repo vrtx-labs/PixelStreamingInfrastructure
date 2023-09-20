@@ -116,9 +116,19 @@
                     </button>
                     <p id="textToggleDaylight">Rooms</p>
                 </div>
+
+                <div id="containerSliderDaylight" class="horizontal-stretch bottom-absolute">
+                    <img
+                        id="containerSliderDaylightBackground"
+                        class="svg-image"
+                        src="/images/icons/hov_slider_background.svg"
+                        type="svg" />
+                    <input id="sliderDaylight" type="range" min="0" max="1439" value="570.00" class="slider" />
+                    <span id="daylightValue" class="hiddenState">0</span>
+                </div>
             </div>
 
-            <div id="containerRoomOptions" class="rounded-box horizontal-container horizontal-stretch bottom-absolute">
+            <div id="containerRoomOptions" class="rounded-box horizontal-stretch bottom-absolute hiddenState">
                 <button id="buttonRoom1" class="button-base rounded-box selected-room">Room 1</button>
                 <button id="buttonRoom2" class="button-base rounded-box">Room 2</button>
                 <button id="buttonRoom3" class="button-base rounded-box">Room 3</button>
@@ -151,10 +161,6 @@
                         <div class="gr3 gc5">
                             <p class="flex-center">Walk around</p>
                         </div>
-                    </div>
-                    <div id="containerSliderDaylight" class="flex-center hiddenState">
-                        <input id="sliderDaylight" type="range" min="0" max="1439" value="570.00" class="slider" />
-                        <span id="daylightValue" class="">0</span>
                     </div>
                     <div id="containerRoomOptions" class="horizontal-container">
                         <button class="" id="buttonRoom1">

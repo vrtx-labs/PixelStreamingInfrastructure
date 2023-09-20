@@ -170,13 +170,13 @@ function showMenuContent(menuContent) {
         case MenuContent.Help:
             domElements["menuContentHelp"].classList.remove("hiddenState");
             break;
-        case MenuContent.RoomOptions:
+        case MenuContent.RoomOptions: // Room Options and Daylight Slider are mutually exclusive
             domElements["menuContentRoomOptions"].classList.remove("hiddenState");
             domElements["containerButtonRoomOptions"].classList.add("hiddenState");
             domElements["containerButtonDaylight"].classList.remove("hiddenState");
             break;
         case MenuContent.DaylightSlider:
-            containerSliderDaylight.classList.remove("hiddenState");
+            domElements["menuContentDaylightSlider"].classList.remove("hiddenState");
             domElements["containerButtonDaylight"].classList.add("hiddenState");
             domElements["containerButtonRoomOptions"].classList.remove("hiddenState");
             break;
