@@ -1264,6 +1264,7 @@ function processFileContents(view) {
         var received = new Blob(file.data, { type: file.mimetype });
         var a = document.createElement("a");
         a.setAttribute("href", URL.createObjectURL(received));
+        a.setAttribute("target", "_blank");
         document.body.append(a);
 
         // Prepare data to be shared
@@ -1279,12 +1280,15 @@ function processFileContents(view) {
             if (navigator.canShare(shareData)) shareData(shareData);
             else alert("Share data not integral.");
         } else {
-            // Detect if the user is connected via smartphone
-            if (window.isTouchDevice) {
-                // Check if http://
+            // Detect if the user is connected via touch device
+            if (window.isTouchDevice()) {
+                // Log error
                 if (window.location.protocol == "http:") alert("Can't share screenshot: navigator.share() requires HTTPS.");
                 else alert("Can't share screenshot: navigator.share() not supported.");
-            } else a.setAttribute("download", `screenshot.${file.extension}`);
+            } else {
+                // Mark the link as a download link
+                a.setAttribute("download", `screenshot.${file.extension}`);
+            }
 
             // Click the link
             console.log("Downloading screenshot");
@@ -1304,15 +1308,14 @@ function shareData(shareData) {
     const btn = document.createElement("button");
     btn.textContent = "Share";
     document.body.appendChild(btn);
-    const resultPara = document.querySelector(".result");
 
     // Share must be triggered by "user activation"
     btn.addEventListener("click", async () => {
         try {
             await navigator.share(shareData);
-            resultPara.textContent = "MDN shared successfully";
+            console.log("MDN shared successfully");
         } catch (err) {
-            resultPara.textContent = `Error: ${err}`;
+            console.log(`Error: ${err}`);
         }
     });
 }
