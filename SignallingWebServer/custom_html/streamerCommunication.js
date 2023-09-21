@@ -28,6 +28,5 @@ function receiveFromStreamer(response) {
     let event = new CustomEvent("streamer_response", {
         detail: response,
     });
-
-    console.log(`Received response message from streamer: "${response}"`);
+    window.dispatchEvent(event);
 }
