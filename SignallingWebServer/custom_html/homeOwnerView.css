@@ -310,10 +310,10 @@ p {
     z-index: 10;
 }
 
-.slider::-webkit-slider-thumb,
+
 .slider::-moz-range-thumb {
-    border: none;
-    background-color: transparent;
+    appearance: none;
+    -moz-appearance: none;
     border-radius: 100%;
     width: 2rem;
     height: 2rem;
@@ -324,11 +324,15 @@ p {
 }
 
 .slider::-webkit-slider-thumb {
+    appearance: none;
     -webkit-appearance: none;
-}
+    border-radius: 100%;
+    width: 2rem;
+    height: 2rem;
 
-.slider::-moz-range-thumb {
-    -moz-appearance: none;
+    background-image: url('/images/buttons/hov_daylight.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 /************** Joystick CSS **************/
