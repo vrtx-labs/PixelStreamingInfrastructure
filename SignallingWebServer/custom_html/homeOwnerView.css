@@ -8,6 +8,9 @@
     --colour-base2: #e4e1dd;
     --colour-background: #404040;
     --colour-text: #797979;
+
+    /* Device specific break points */
+    --break-general: 1390px;
 }
 
 html {
@@ -71,11 +74,23 @@ p {
     font-size: min(2vw, 1rem);
 }
 
+@media screen and (max-width: 1390px) {
+    #breadcrumbs {
+        margin-top: 0;
+    }
+}
+
 #containerMenu {
     gap: 0.5rem;
     max-width: 38vw;
-    flex-wrap: wrap;
-    justify-content: end;
+}
+
+/*Reverse order of menu items on mobile*/
+@media screen and (max-width: 1390px) {
+    #containerMenu {
+        flex-flow: column-reverse;
+        align-items: end;
+    }
 }
 
 #containerFooter {
