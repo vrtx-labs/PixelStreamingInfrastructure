@@ -1,7 +1,7 @@
 // Constants
 export const CommunicationKeys = {
     projectIDKey: "projectID",
-    roomNameKey: "roomName",
+    activeRoomKey: "activeRoom",
     projectViewKey: "projectView",
     settingsProjectViewKey: "settingsProjectView",
     roomOptionKey: "roomOption",
@@ -9,6 +9,9 @@ export const CommunicationKeys = {
     screenshotKey: "screenshot",
     mouseControlSchemeKey: "hoveringMouse",
     joystickValuesKey: "joystickValues",
+    roomNamesKey: "roomNames",
+    daylightScoresKey: "daylightScores",
+    ventilationScoresKey: "ventilationScores",
 };
 
 export function setupStreamerCommunication() {

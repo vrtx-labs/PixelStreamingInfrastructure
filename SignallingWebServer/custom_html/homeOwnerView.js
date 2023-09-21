@@ -82,9 +82,9 @@ function startStream() {
     // Wait for the connection to establish - ToDo: React to a proper event or let the Unreal Application send one
     setTimeout(function () {
         // Read html attribute 'ProjectID'
-        const roomName = getURLParameter(CommunicationKeys.roomNameKey);
+        const roomName = getURLParameter(CommunicationKeys.activeRoomKey);
         console.log(`roomName: ${roomName}`);
-        if (roomName !== null) sendToStreamer(CommunicationKeys.roomNameKey, roomName);
+        if (roomName !== null) sendToStreamer(CommunicationKeys.activeRoomKey, roomName);
     }, 350);
 }
 
@@ -193,19 +193,19 @@ function showMenuContent(menuContent) {
 
 function setupRoomButtons() {
     domElements["buttonRoom1"].addEventListener("click", function onOverlayClick(event) {
-        sendToStreamer(CommunicationKeys.roomNameKey, "1");
+        sendToStreamer(CommunicationKeys.activeRoomKey, "1");
         setRoomButtonActive(this);
     });
     domElements["buttonRoom2"].addEventListener("click", function onOverlayClick(event) {
-        sendToStreamer(CommunicationKeys.roomNameKey, "2");
+        sendToStreamer(CommunicationKeys.activeRoomKey, "2");
         setRoomButtonActive(this);
     });
     domElements["buttonRoom3"].addEventListener("click", function onOverlayClick(event) {
-        sendToStreamer(CommunicationKeys.roomNameKey, "3");
+        sendToStreamer(CommunicationKeys.activeRoomKey, "3");
         setRoomButtonActive(this);
     });
     domElements["buttonRoom4"].addEventListener("click", function onOverlayClick(event) {
-        sendToStreamer(CommunicationKeys.roomNameKey, "4");
+        sendToStreamer(CommunicationKeys.activeRoomKey, "4");
         setRoomButtonActive(this);
     });
 }
@@ -292,4 +292,5 @@ function getDOMElements() {
     domElements["buttonCopyLink"] = document.getElementById("buttonCopyLink");
     domElements["containerButtonDaylight"] = document.getElementById("containerButtonDaylight");
     domElements["containerButtonRoomOptions"] = document.getElementById("containerButtonRoomOptions");
+    domElements["breadcrumbs"] = document.getElementById("breadcrumbs");
 }
