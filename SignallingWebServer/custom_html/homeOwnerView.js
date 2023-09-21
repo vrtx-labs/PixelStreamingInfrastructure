@@ -24,6 +24,7 @@ class MenuContent {
 const domElements = {}; // Holds references to DOM elements
 const LocalVariables = {
     menuActive: false,
+    projectName: "Default Project",
 };
 
 // Setup: The event is linked to app.js OnLoadFinished in the setup function
@@ -34,7 +35,7 @@ window.addEventListener("OnLoadFinished", () => {
 function setup() {
     getDOMElements();
     setupUIElements();
-    setupStreamerCommunication();
+    setupCommunication();
     activateDefaultSettings();
     setTimeout(function () {
         scrollToTop();
@@ -53,6 +54,7 @@ function setupUIElements() {
 }
 
 function getURLParameter(parameter) {
+    // Todo
     const parsedUrl = new URL(window.location.href);
     const projectID = parsedUrl.searchParams.has(CommunicationKeys.projectIDKey)
         ? parsedUrl.searchParams.get(CommunicationKeys.projectIDKey)
@@ -84,8 +86,68 @@ function startStream() {
         // Read html attribute 'ProjectID'
         const roomName = getURLParameter(CommunicationKeys.activeRoomKey);
         console.log(`roomName: ${roomName}`);
-        if (roomName !== null) sendToStreamer(CommunicationKeys.activeRoomKey, roomName);
+        if (roomName !== null) {
+            sendToStreamer(CommunicationKeys.activeRoomKey, roomName);
+        }
     }, 350);
+}
+
+function setupCommunication() {
+    setupStreamerCommunication();
+
+    // subscribe to "streamer_response" event on window
+    window.addEventListener("streamer_response", function (event) {
+        const incomingObject = JSON.parse(event.detail);
+        console.log(`Message from streamer: ${incomingObject}`);
+
+        // switch case for all possible incoming messages:
+        switch (Object.keys(incomingObject)[0]) {
+            case CommunicationKeys.projectIDKey:
+                // Set the project name
+                updateBreadcrumbs(domElements["buttonRoom1"].innerHTML, incomingObject[CommunicationKeys.projectIDKey]);
+                LocalVariables.projectName = incomingObject[CommunicationKeys.projectIDKey];
+                break;
+            case CommunicationKeys.roomNamesKey:
+                // Set the room names
+                UpdateRoomName(domElements["buttonRoom1"], incomingObject[CommunicationKeys.roomNamesKey][1]);
+                UpdateRoomName(domElements["buttonRoom2"], incomingObject[CommunicationKeys.roomNamesKey][2]);
+                UpdateRoomName(domElements["buttonRoom3"], incomingObject[CommunicationKeys.roomNamesKey][3]);
+                UpdateRoomName(domElements["buttonRoom4"], incomingObject[CommunicationKeys.roomNamesKey][4]);
+
+                // Activate the first room
+                domElements["buttonRoom1"].classList.add("selected-room");
+                break;
+            case CommunicationKeys.daylightScoresKey:
+                // Set the daylight scores
+                //domElements["daylightScore1"].innerHTML = incomingObject[CommunicationKeys.daylightScoresKey][0];
+                //domElements["daylightScore2"].innerHTML = incomingObject[CommunicationKeys.daylightScoresKey][1];
+                //domElements["daylightScore3"].innerHTML = incomingObject[CommunicationKeys.daylightScoresKey][2];
+                //domElements["daylightScore4"].innerHTML = incomingObject[CommunicationKeys.daylightScoresKey][3];
+                break;
+            case CommunicationKeys.ventilationScoresKey:
+                // Set the ventilation scores
+                //domElements["ventilationScore1"].innerHTML = incomingObject[CommunicationKeys.ventilationScoresKey][0];
+                //domElements["ventilationScore2"].innerHTML = incomingObject[CommunicationKeys.ventilationScoresKey][1];
+                //domElements["ventilationScore3"].innerHTML = incomingObject[CommunicationKeys.ventilationScoresKey][2];
+                //domElements["ventilationScore4"].innerHTML = incomingObject[CommunicationKeys.ventilationScoresKey][3];
+                break;
+            default:
+                break;
+        }
+    });
+}
+
+function updateBreadcrumbs(room, project = "") {
+    if (project === "" || project === undefined) project = LocalVariables.projectName;
+
+    domElements["breadcrumbs"].innerHTML = project + " | " + room;
+}
+
+function UpdateRoomName(element, name) {
+    // Check the name string for whitespace
+    if (name === undefined || name === null || name.trim() === "") element.classList.add("hiddenState");
+    element.innerHTML = name;
+    element.classList.remove("selected-room");
 }
 
 function setupToggleMenuButton() {
@@ -216,6 +278,7 @@ function setRoomButtonActive(element) {
     domElements["buttonRoom3"].classList.remove("selected-room");
     domElements["buttonRoom4"].classList.remove("selected-room");
     element.classList.add("selected-room");
+    updateBreadcrumbs(element.innerHTML);
 }
 
 function setupSlider() {
