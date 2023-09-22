@@ -120,7 +120,7 @@ function setupCommunication() {
                 break;
             case CommunicationKeys.daylightScoresKey:
                 // Set the daylight scores
-                //domElements["daylightScore1"].innerHTML = incomingObject[CommunicationKeys.daylightScoresKey][0];
+                //domElements["daylightScore1"].innerHTML = incomingObject[CommunicationKeys.daylightScoresKey][0]; // ToDo is this starting at 0 or 1?
                 //domElements["daylightScore2"].innerHTML = incomingObject[CommunicationKeys.daylightScoresKey][1];
                 //domElements["daylightScore3"].innerHTML = incomingObject[CommunicationKeys.daylightScoresKey][2];
                 //domElements["daylightScore4"].innerHTML = incomingObject[CommunicationKeys.daylightScoresKey][3];

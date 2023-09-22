@@ -38,6 +38,7 @@ body {
 button {
     height: min(5vw, 2rem);
     cursor: pointer;
+    border: none;
 }
 
 * {
@@ -46,6 +47,22 @@ button {
     font-size: min(2vw, 1rem);
     font-weight: inherit;
     color: var(--colour-accent);
+}
+
+h1 {
+    font-size: min(3vw, 2rem);
+}
+
+h2 {
+    font-size: min(2.3vw, 1.5rem);
+}
+
+h4 {
+    font-size: min(1.5vw, 1rem);
+}
+
+h5 {
+    font-size: min(1vw, 1rem);
 }
 
 p {
@@ -96,10 +113,39 @@ p {
 #containerFooter {
     bottom: 2.5rem;
     background-color: transparent;
+    align-items: end;
 }
 
 #containerRoomOptions {
     bottom: 2.5rem;
+}
+
+#containerScores {
+    border-radius: 1rem;
+    padding: 0;
+}
+
+#containerScores>div>h5 {
+    margin: auto auto 0 auto;
+    padding-top: 1rem;
+}
+
+#containerScoresPadding {
+    padding: 0.5rem 2.5rem 1rem 1.5rem;
+}
+
+#containerReadMore {
+    justify-content: space-between;
+    padding: 0.5rem;
+    background-color: var(--colour-accent);
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    height: inherit;
+}
+
+#containerReadMore>* {
+    color: var(--colour-base);
+    margin: auto;
 }
 
 /* Classes */
@@ -128,11 +174,6 @@ p {
     border: none;
 }
 
-.selected-room {
-    background-color: var(--colour-accent);
-    color: var(--colour-base);
-}
-
 .button-base:hover {
     /* to be specified */
 }
@@ -140,6 +181,30 @@ p {
 .button-base:active,
 .button-base:focus {
     /* to be specified */
+}
+
+.selected-room {
+    background-color: var(--colour-accent);
+    color: var(--colour-base);
+}
+
+.score-panel {
+    padding: .5rem .5rem 0 .5rem;
+    align-items: end;
+}
+
+.score-panel>img {
+    padding: 0 .5rem .5rem .5rem;
+    height: min(3.3vw, 3rem);
+}
+
+.score-panel>h1,
+.score-panel>h2,
+.score-panel>h3,
+.score-panel>h4,
+.score-panel>h5 {
+    margin: 0;
+    text-align: end;
 }
 
 .char-icon {
@@ -287,10 +352,8 @@ p {
 /************** Slider CSS **************/
 #containerSliderDaylight {
     width: 50vw;
-    height: 100%;
-    padding: 0;
-
-    display: flex;
+    height: min(5vw, 2rem);
+    padding: .5rem;
     justify-content: center;
 
     background-image: url("/images/icons/hov_slider_measure.svg");

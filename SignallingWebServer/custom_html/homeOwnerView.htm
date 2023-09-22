@@ -118,9 +118,29 @@
                     <p id="textToggleDaylight">Rooms</p>
                 </div>
 
-                <div id="containerSliderDaylight" class="rounded-box horizontal-stretch bottom-absolute hiddenState">
+                <div id="containerSliderDaylight" class="rounded-box horizontal-stretch horizontal-container hiddenState">
                     <input id="sliderDaylight" type="range" min="0" max="1439" value="570.00" class="slider" />
                     <span id="daylightValue" class="hiddenState">0</span>
+                </div>
+
+                <div id="containerScores" class="rounded-box vertical-container">
+                    <div id="containerScoresPadding">
+                        <h5>DAYLIGHT SCORE</h5>
+                        <div id="containerDaylightScore" class="horizontal-container score-panel">
+                            <h1>4.2</h1>
+                            <img class="svg-image" src="/images/icons/hov_climate_1.svg" type="svg" />
+                        </div>
+
+                        <h5>VENTILATION SCORE</h5>
+                        <div id="containerVentilationScore" class="horizontal-container score-panel">
+                            <h1>4.8</h1>
+                            <img class="svg-image" src="/images/icons/hov_climate_2.svg" type="svg" />
+                        </div>
+                    </div>
+                    <button id="containerReadMore" class="horizontal-container">
+                        <h4>Read More</h4>
+                        <h1>+</h1>
+                    </button>
                 </div>
             </div>
 
