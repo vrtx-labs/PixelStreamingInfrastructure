@@ -51,6 +51,7 @@ function setupUIElements() {
     setupRoomButtons();
     setupSlider();
     setupJoystick();
+    updateBreadcrumbs(domElements["buttonRoom1"].innerHTML, LocalVariables.projectName);
 }
 
 function getURLParameter(parameter) {
