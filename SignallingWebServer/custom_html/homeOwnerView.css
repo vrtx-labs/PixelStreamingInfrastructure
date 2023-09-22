@@ -118,8 +118,8 @@ p {
     padding: 0.5rem 0.4rem;
 
     background: rgba(37, 37, 37, 0.55);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
 }
 
 .button-base {
@@ -392,6 +392,7 @@ video {
     height: 100%;
     position: absolute;
     background-color: var(--colour-background);
+    /*background-image: url('https://www.riverbendtf.com/wp-content/uploads/2020/05/york-loft.jpg');*/
 }
 
 #videoPlayOverlay {
