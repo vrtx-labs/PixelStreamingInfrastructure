@@ -141,7 +141,7 @@ function setupCommunication() {
 function updateBreadcrumbs(room, project = "") {
     if (project === "" || project === undefined) project = LocalVariables.projectName;
 
-    domElements["breadcrumbs"].innerHTML = project + " | " + room;
+    domElements["breadcrumbs"].innerHTML = project + " / " + room;
 }
 
 function UpdateRoomName(element, name) {
