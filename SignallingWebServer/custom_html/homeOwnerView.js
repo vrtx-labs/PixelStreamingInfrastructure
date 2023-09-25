@@ -25,8 +25,8 @@ const domElements = {}; // Holds references to DOM elements
 const LocalVariables = {
     menuActive: false,
     projectName: "Default Project",
-    daylightScores: [3.2, 4.3, 4.0, 4.4],
-    ventilationScores: [3.0, 4.7, 4.8, 4.0],
+    daylightScores: [0, 0, 0, 0],
+    ventilationScores: [0, 0, 0, 0],
 };
 
 // Setup: The event is linked to app.js OnLoadFinished in the setup function
@@ -53,7 +53,9 @@ function setupUIElements() {
     setupRoomButtons();
     setupSlider();
     setupJoystick();
-    setActiveRoom(domElements["buttonRoom1"]);
+
+    // Update UI state
+    setActiveRoom();
     setBreadcrumbs(domElements["buttonRoom1"].innerHTML, LocalVariables.projectName);
 }
 
@@ -102,7 +104,6 @@ function setupCommunication() {
     // subscribe to "streamer_response" event on window
     window.addEventListener("streamer_response", function (event) {
         const incomingObject = JSON.parse(event.detail);
-        console.log(`Message from streamer: ${incomingObject}`);
 
         // switch case for all possible incoming messages:
         switch (Object.keys(incomingObject)[0]) {
@@ -113,27 +114,30 @@ function setupCommunication() {
                 break;
             case CommunicationKeys.roomNamesKey:
                 // Set the room names
-                setRoomName(domElements["buttonRoom1"], incomingObject[CommunicationKeys.roomNamesKey][1]);
-                setRoomName(domElements["buttonRoom2"], incomingObject[CommunicationKeys.roomNamesKey][2]);
-                setRoomName(domElements["buttonRoom3"], incomingObject[CommunicationKeys.roomNamesKey][3]);
-                setRoomName(domElements["buttonRoom4"], incomingObject[CommunicationKeys.roomNamesKey][4]);
+                setRoomName(domElements["buttonRoom1"], incomingObject[CommunicationKeys.roomNamesKey]["1"]);
+                setRoomName(domElements["buttonRoom2"], incomingObject[CommunicationKeys.roomNamesKey]["2"]);
+                setRoomName(domElements["buttonRoom3"], incomingObject[CommunicationKeys.roomNamesKey]["3"]);
+                setRoomName(domElements["buttonRoom4"], incomingObject[CommunicationKeys.roomNamesKey]["4"]);
 
                 // Activate the first room
                 domElements["buttonRoom1"].classList.add("selected-room");
                 break;
             case CommunicationKeys.daylightScoresKey:
                 // Set the daylight scores
-                //domElements["daylightScore1"].innerHTML = incomingObject[CommunicationKeys.daylightScoresKey][0]; // ToDo is this starting at 0 or 1?
-                //domElements["daylightScore2"].innerHTML = incomingObject[CommunicationKeys.daylightScoresKey][1];
-                //domElements["daylightScore3"].innerHTML = incomingObject[CommunicationKeys.daylightScoresKey][2];
-                //domElements["daylightScore4"].innerHTML = incomingObject[CommunicationKeys.daylightScoresKey][3];
+                LocalVariables.daylightScores[0] = parseFloat(incomingObject[CommunicationKeys.daylightScoresKey]["1"]);
+                LocalVariables.daylightScores[1] = parseFloat(incomingObject[CommunicationKeys.daylightScoresKey]["2"]);
+                LocalVariables.daylightScores[2] = parseFloat(incomingObject[CommunicationKeys.daylightScoresKey]["3"]);
+                LocalVariables.daylightScores[3] = parseFloat(incomingObject[CommunicationKeys.daylightScoresKey]["4"]);
                 break;
             case CommunicationKeys.ventilationScoresKey:
                 // Set the ventilation scores
-                //domElements["ventilationScore1"].innerHTML = incomingObject[CommunicationKeys.ventilationScoresKey][0];
-                //domElements["ventilationScore2"].innerHTML = incomingObject[CommunicationKeys.ventilationScoresKey][1];
-                //domElements["ventilationScore3"].innerHTML = incomingObject[CommunicationKeys.ventilationScoresKey][2];
-                //domElements["ventilationScore4"].innerHTML = incomingObject[CommunicationKeys.ventilationScoresKey][3];
+                LocalVariables.ventilationScores[0] = parseFloat(incomingObject[CommunicationKeys.ventilationScoresKey]["1"]);
+                LocalVariables.ventilationScores[1] = parseFloat(incomingObject[CommunicationKeys.ventilationScoresKey]["2"]);
+                LocalVariables.ventilationScores[2] = parseFloat(incomingObject[CommunicationKeys.ventilationScoresKey]["3"]);
+                LocalVariables.ventilationScores[3] = parseFloat(incomingObject[CommunicationKeys.ventilationScoresKey]["4"]);
+
+                // Update the daylight and ventilation scores
+                setActiveRoom();
                 break;
             default:
                 break;
@@ -276,7 +280,9 @@ function setupRoomButtons() {
     });
 }
 
-function setActiveRoom(element) {
+function setActiveRoom(element = undefined) {
+    if (element === undefined) element = domElements["buttonRoom1"];
+
     // Unmark all, then mark the selected room
     domElements["buttonRoom1"].classList.remove("selected-room");
     domElements["buttonRoom2"].classList.remove("selected-room");
