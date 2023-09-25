@@ -25,6 +25,8 @@ const domElements = {}; // Holds references to DOM elements
 const LocalVariables = {
     menuActive: false,
     projectName: "Default Project",
+    daylightScores: [3.2, 4.3, 4.0, 4.4],
+    ventilationScores: [3.0, 4.7, 4.8, 4.0],
 };
 
 // Setup: The event is linked to app.js OnLoadFinished in the setup function
@@ -51,7 +53,8 @@ function setupUIElements() {
     setupRoomButtons();
     setupSlider();
     setupJoystick();
-    updateBreadcrumbs(domElements["buttonRoom1"].innerHTML, LocalVariables.projectName);
+    setActiveRoom(domElements["buttonRoom1"]);
+    setBreadcrumbs(domElements["buttonRoom1"].innerHTML, LocalVariables.projectName);
 }
 
 function getURLParameter(parameter) {
@@ -105,15 +108,15 @@ function setupCommunication() {
         switch (Object.keys(incomingObject)[0]) {
             case CommunicationKeys.projectIDKey:
                 // Set the project name
-                updateBreadcrumbs(domElements["buttonRoom1"].innerHTML, incomingObject[CommunicationKeys.projectIDKey]);
+                setBreadcrumbs(domElements["buttonRoom1"].innerHTML, incomingObject[CommunicationKeys.projectIDKey]);
                 LocalVariables.projectName = incomingObject[CommunicationKeys.projectIDKey];
                 break;
             case CommunicationKeys.roomNamesKey:
                 // Set the room names
-                UpdateRoomName(domElements["buttonRoom1"], incomingObject[CommunicationKeys.roomNamesKey][1]);
-                UpdateRoomName(domElements["buttonRoom2"], incomingObject[CommunicationKeys.roomNamesKey][2]);
-                UpdateRoomName(domElements["buttonRoom3"], incomingObject[CommunicationKeys.roomNamesKey][3]);
-                UpdateRoomName(domElements["buttonRoom4"], incomingObject[CommunicationKeys.roomNamesKey][4]);
+                setRoomName(domElements["buttonRoom1"], incomingObject[CommunicationKeys.roomNamesKey][1]);
+                setRoomName(domElements["buttonRoom2"], incomingObject[CommunicationKeys.roomNamesKey][2]);
+                setRoomName(domElements["buttonRoom3"], incomingObject[CommunicationKeys.roomNamesKey][3]);
+                setRoomName(domElements["buttonRoom4"], incomingObject[CommunicationKeys.roomNamesKey][4]);
 
                 // Activate the first room
                 domElements["buttonRoom1"].classList.add("selected-room");
@@ -138,13 +141,13 @@ function setupCommunication() {
     });
 }
 
-function updateBreadcrumbs(room, project = "") {
+function setBreadcrumbs(room, project = "") {
     if (project === "" || project === undefined) project = LocalVariables.projectName;
 
     domElements["breadcrumbs"].innerHTML = project + " / " + room;
 }
 
-function UpdateRoomName(element, name) {
+function setRoomName(element, name) {
     // Check the name string for whitespace
     if (name === undefined || name === null || name.trim() === "") element.classList.add("hiddenState");
     element.innerHTML = name;
@@ -257,29 +260,37 @@ function showMenuContent(menuContent) {
 function setupRoomButtons() {
     domElements["buttonRoom1"].addEventListener("click", function onOverlayClick(event) {
         sendToStreamer(CommunicationKeys.activeRoomKey, "1");
-        setRoomButtonActive(this);
+        setActiveRoom(this);
     });
     domElements["buttonRoom2"].addEventListener("click", function onOverlayClick(event) {
         sendToStreamer(CommunicationKeys.activeRoomKey, "2");
-        setRoomButtonActive(this);
+        setActiveRoom(this);
     });
     domElements["buttonRoom3"].addEventListener("click", function onOverlayClick(event) {
         sendToStreamer(CommunicationKeys.activeRoomKey, "3");
-        setRoomButtonActive(this);
+        setActiveRoom(this);
     });
     domElements["buttonRoom4"].addEventListener("click", function onOverlayClick(event) {
         sendToStreamer(CommunicationKeys.activeRoomKey, "4");
-        setRoomButtonActive(this);
+        setActiveRoom(this);
     });
 }
 
-function setRoomButtonActive(element) {
+function setActiveRoom(element) {
+    // Unmark all, then mark the selected room
     domElements["buttonRoom1"].classList.remove("selected-room");
     domElements["buttonRoom2"].classList.remove("selected-room");
     domElements["buttonRoom3"].classList.remove("selected-room");
     domElements["buttonRoom4"].classList.remove("selected-room");
     element.classList.add("selected-room");
-    updateBreadcrumbs(element.innerHTML);
+
+    // Update the breadcrumbs in the top-left corner
+    setBreadcrumbs(element.innerHTML);
+
+    // Update the daylight and ventilation scores
+    let index = Array.prototype.indexOf.call(element.parentNode.children, element); // Get position of element in the DOM
+    domElements["daylightScore"].innerHTML = LocalVariables.daylightScores[index].toFixed(1);
+    domElements["ventilationScore"].innerHTML = LocalVariables.ventilationScores[index].toFixed(1);
 }
 
 function setupSlider() {
@@ -357,4 +368,6 @@ function getDOMElements() {
     domElements["containerButtonDaylight"] = document.getElementById("containerButtonDaylight");
     domElements["containerButtonRoomOptions"] = document.getElementById("containerButtonRoomOptions");
     domElements["breadcrumbs"] = document.getElementById("breadcrumbs");
+    domElements["daylightScore"] = document.getElementById("daylightScore");
+    domElements["ventilationScore"] = document.getElementById("ventilationScore");
 }
