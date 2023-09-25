@@ -61,11 +61,8 @@ function setupUIElements() {
 }
 
 function getURLParameter(parameter) {
-    // Todo
     const parsedUrl = new URL(window.location.href);
-    const projectID = parsedUrl.searchParams.has(CommunicationKeys.projectIDKey)
-        ? parsedUrl.searchParams.get(CommunicationKeys.projectIDKey)
-        : null;
+    const projectID = parsedUrl.searchParams.has(parameter) ? parsedUrl.searchParams.get(parameter) : null;
 
     return projectID;
 }
@@ -91,10 +88,10 @@ function startStream() {
     // Wait for the connection to establish - ToDo: React to a proper event or let the Unreal Application send one
     setTimeout(function () {
         // Read html attribute 'ProjectID'
-        const roomName = getURLParameter(CommunicationKeys.activeRoomKey);
-        console.log(`roomName: ${roomName}`);
-        if (roomName !== null) {
-            sendToStreamer(CommunicationKeys.activeRoomKey, roomName);
+        const projectID = getURLParameter(CommunicationKeys.projectIDKey);
+        console.log(`projectID: ${projectID}`);
+        if (projectID !== null) {
+            sendToStreamer(CommunicationKeys.projectIDKey, projectID);
         }
     }, 350);
 }
@@ -110,8 +107,8 @@ function setupCommunication() {
         switch (Object.keys(incomingObject)[0]) {
             case CommunicationKeys.projectIDKey:
                 // Set the project name
-                setBreadcrumbs(domElements["buttonRoom1"].innerHTML, incomingObject[CommunicationKeys.projectIDKey]);
                 LocalVariables.projectName = incomingObject[CommunicationKeys.projectIDKey];
+                setBreadcrumbs(domElements["buttonRoom1"].innerHTML, LocalVariables.projectName);
                 break;
             case CommunicationKeys.roomNamesKey:
                 // Set the room names
@@ -161,7 +158,6 @@ function setRoomName(element, name) {
 
 function setupToggleMenuButton() {
     domElements["toggleMenuButton"].addEventListener("click", function onOverlayClick(event) {
-        console.log("toggle menu");
         toggleMenu();
     });
 }
@@ -178,10 +174,10 @@ function setupCopyLinkButton() {
         if (!navigator.clipboard) return;
         navigator.clipboard.writeText(window.location.href).then(
             function () {
-                console.log("Async: Copying to clipboard was successful!");
+                console.log("Copying to clipboard was successful!");
             },
             function (err) {
-                console.error("Async: Could not copy text: ", err);
+                console.error("Could not copy text: ", err);
             }
         );
     });
