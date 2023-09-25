@@ -326,7 +326,7 @@ function activateDefaultSettings() {
     setRadioButtonState("control-tgl", true);
 
     // Hide the cursor
-    setRadioButtonState("cursor-tgl", true);
+    setRadioButtonState("cursor-tgl", false);
 
     // Fake mouse with touches
     setFakeMouseWithTouches(true);
