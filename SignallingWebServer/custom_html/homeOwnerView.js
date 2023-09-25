@@ -1,6 +1,7 @@
 import { domElements, getDOMElements } from "./references.js";
 import { setupJoystick } from "./joystick.js";
 import { CommunicationKeys, sendToStreamer, setupStreamerCommunication } from "./streamerCommunication.js";
+import "./global.js";
 
 // Constants
 //const localStoragePrefix = "velux.";
