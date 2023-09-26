@@ -1,4 +1,6 @@
+/* General Declarations & Type Selectors*/
 :root {
+    /*Color scheme variables*/
     --colour-accent: #ffffff;
     --colour-accent-active: #b41818;
     --colour-accent2: #f6ebd8;
@@ -6,214 +8,233 @@
     --colour-base2: #e4e1dd;
     --colour-background: #404040;
     --colour-text: #797979;
-    --break-general: 1390px
+
+    /* Device specific break points */
+    --break-general: 1390px;
 }
 
 html {
+    /* mobile viewport bug fix */
     height: -webkit-fill-available;
     margin: 0;
-    padding: 0
+    padding: 0;
 }
 
 body {
+    /* mobile viewport bug fix */
     height: 100vh;
     height: -webkit-fill-available;
     margin: 0;
-    padding: 0
+    padding: 0;
 }
 
 .stop-scrolling {
+    /* ToDo: Do forms still work as intended on iOS? */
+    /*user-select: none;*/
     touch-action: none;
-    overflow: hidden
+    overflow: hidden;
 }
 
 button {
     height: min(5vw, 2rem);
     cursor: pointer;
-    border: none
+    border: none;
 }
 
 * {
+    /* Set general font */
     font-family: "TransformVariableVF";
     font-size: min(2vw, 1rem);
     font-weight: inherit;
-    color: var(--colour-accent)
+    color: var(--colour-accent);
 }
 
 h1 {
-    font-size: min(3vw, 2rem)
+    font-size: min(3vw, 2rem);
 }
 
 h2 {
-    font-size: min(2.3vw, 1.5rem)
+    font-size: min(2.3vw, 1.5rem);
 }
 
 h4 {
-    font-size: min(1.5vw, 1rem)
+    font-size: min(1.5vw, 1rem);
 }
 
 h5 {
-    font-size: min(1vw, 1rem)
+    font-size: min(1vw, 1rem);
 }
 
 p {
-    margin: auto .5rem
+    margin: auto 0.5rem;
 }
 
+/* ID Selectors */
 #logoVelux {
     top: 1rem;
     width: 10vw;
-    cursor: default
+    cursor: default;
 }
 
 #linkVelux {
-    display: block
+    display: block;
 }
 
 #containerHeader {
     top: min(7vw, 2.5rem);
-    background-color: rgba(0, 0, 0, 0)
+    background-color: transparent;
 }
 
 #breadcrumbs {
     margin-top: auto;
     margin-bottom: auto;
-    font-size: min(2vw, 1rem)
+    font-size: min(2vw, 1rem);
 }
 
 @media screen and (max-width: 1390px) {
     #breadcrumbs {
-        margin-top: 0
+        margin-top: 0;
     }
 }
 
 #containerMenu {
-    gap: .5rem;
-    max-width: 38vw
+    gap: 0.5rem;
+    max-width: 38vw;
 }
 
+/*Reverse order of menu items on mobile*/
 @media screen and (max-width: 1390px) {
     #containerMenu {
         flex-flow: column-reverse;
-        align-items: end
+        align-items: end;
     }
 }
 
 #containerFooter {
     bottom: 2.5rem;
-    background-color: rgba(0, 0, 0, 0);
-    align-items: end
+    background-color: transparent;
+    align-items: end;
 }
 
 #containerRoomOptions {
-    bottom: 2.5rem
+    bottom: 2.5rem;
 }
 
 #containerScores {
     border-radius: 1rem;
-    padding: 0
+    padding: 0;
 }
 
-#containerScores>div>h5 {
+#containerScores > div > h5 {
     margin: auto auto 0 auto;
-    padding-top: 1rem
+    padding-top: 1rem;
 }
 
 #containerScoresPadding {
-    padding: .5rem 2.5rem 1rem 1.5rem
+    padding: 0.5rem 2.5rem 1rem 1.5rem;
 }
 
 #containerReadMore {
     justify-content: space-between;
-    padding: .5rem;
+    padding: 0.5rem;
     background-color: var(--colour-accent);
     border-bottom-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
-    height: inherit
+    height: inherit;
 }
 
-#containerReadMore>* {
+#containerReadMore > * {
     color: var(--colour-base);
-    margin: auto
+    margin: auto;
 }
 
+/* Classes */
 .stretch-container {
     left: min(5vw, 2rem);
     right: min(5vw, 2rem);
+
     display: flex;
-    justify-content: space-between
+    justify-content: space-between;
 }
 
 .rounded-box {
-    height: -moz-fit-content;
     height: fit-content;
-    width: -moz-fit-content;
     width: fit-content;
     border-radius: 5rem;
-    padding: .5rem .4rem;
-    background: rgba(37, 37, 37, .55);
+    padding: 0.5rem 0.4rem;
+
+    background: rgba(37, 37, 37, 0.55);
     backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px)
+    -webkit-backdrop-filter: blur(2px);
 }
 
 .button-base {
-    background-color: rgba(0, 0, 0, 0);
+    background-color: transparent;
     background: none;
-    border: none
+    border: none;
+}
+
+.button-base:hover {
+    /* to be specified */
+}
+
+.button-base:active,
+.button-base:focus {
+    /* to be specified */
 }
 
 .selected-room {
     background-color: var(--colour-accent);
-    color: var(--colour-base)
+    color: var(--colour-base);
 }
 
 .score-panel {
-    padding: .5rem .5rem 0 .5rem;
-    align-items: end
+    padding: 0.5rem 0.5rem 0 0.5rem;
+    align-items: end;
 }
 
-.score-panel>img {
-    padding: 0 .5rem .5rem .5rem;
-    height: min(3.3vw, 3rem)
+.score-panel > img {
+    padding: 0 0.5rem 0.5rem 0.5rem;
+    height: min(3.3vw, 3rem);
 }
 
-.score-panel>h1,
-.score-panel>h2,
-.score-panel>h3,
-.score-panel>h4,
-.score-panel>h5 {
+.score-panel > h1,
+.score-panel > h2,
+.score-panel > h3,
+.score-panel > h4,
+.score-panel > h5 {
     margin: 0;
-    text-align: end
+    text-align: end;
 }
 
 .char-icon {
-    border: .125rem solid var(--colour-base2);
+    border: 0.125rem solid var(--colour-base2);
     font-size: 1rem;
     padding: auto;
     width: 2rem;
     height: 2rem;
     display: grid;
     justify-content: center;
-    align-content: center
+    align-content: center;
 }
 
 .char-icon p {
     margin: auto;
     text-justify: center;
     font-family: "TransformVariableVF";
-    color: var(--colour-text)
+    color: var(--colour-text);
 }
 
 .svg-image {
-    background-color: rgba(0, 0, 0, 0);
+    background-color: transparent;
     width: 100%;
     height: 100%;
-    margin: 0
+    margin: 0;
 }
 
 .fill {
     width: 100%;
-    height: 100%
+    height: 100%;
 }
 
 .fill-screen {
@@ -223,128 +244,134 @@ p {
     height: 100%;
     bottom: 0;
     z-index: 50;
-    background-color: rgba(0, 0, 0, 0);
-    border: none
+
+    background-color: transparent;
+    border: none;
 }
 
 .fill-screen * {
-    pointer-events: auto
+    /* Because children of the transparent fill screen inherit the inability to be
+	clicked, we need to reset this behaviour */
+    pointer-events: auto;
 }
 
+/* Positioning */
 .horizontal-stretch {
     margin-left: auto;
     margin-right: auto;
     left: 0;
-    right: 0
+    right: 0;
 }
 
 .bottom-absolute {
     position: absolute;
-    bottom: 0
+    bottom: 0;
 }
 
 .top-absolute {
     position: absolute;
-    top: 0
+    top: 0;
 }
 
+/* Flex */
 .flex-item {
     display: flex;
     align-self: flex-start;
-    margin: 0
+    margin: 0;
 }
 
 .flex-center {
     display: flex;
     align-self: center;
     justify-self: center;
-    margin: auto
+    margin: auto;
 }
 
 .vertical-container {
     display: flex;
-    flex-direction: column
+    flex-direction: column;
 }
 
 .horizontal-container {
     display: flex;
-    flex-direction: row
+    flex-direction: row;
 }
 
+/* Grid */
 .grid-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr) 3.5fr;
     grid-template-rows: repeat(3, 1fr);
-    row-gap: .5rem;
-    -moz-column-gap: .5rem;
-    column-gap: .5rem
+    row-gap: 0.5rem;
+    column-gap: 0.5rem;
 }
 
 .grid-cell {
-    display: grid
+    display: grid;
 }
 
 .gr1 {
-    grid-row: 1
+    grid-row: 1;
 }
 
 .gr2 {
-    grid-row: 2
+    grid-row: 2;
 }
 
 .gr3 {
-    grid-row: 3
+    grid-row: 3;
 }
 
 .gc1 {
-    grid-column: 1
+    grid-column: 1;
 }
 
 .gc2 {
-    grid-column: 2
+    grid-column: 2;
 }
 
 .gc3 {
-    grid-column: 3
+    grid-column: 3;
 }
 
 .gc4 {
-    grid-column: 4
+    grid-column: 4;
 }
 
 .gc5 {
-    grid-column: 5
+    grid-column: 5;
 }
 
-.grid-cell>p {
+.grid-cell > p {
     margin: auto;
     text-justify: center;
     font-family: "TransformVariableVF";
-    color: var(--colour-text)
+    color: var(--colour-text);
 }
 
+/************** Slider CSS **************/
 #containerSliderDaylight {
     width: 50vw;
     height: min(5vw, 2rem);
-    padding: .5rem;
+    padding: 0.5rem;
     justify-content: center;
+
     background-image: url("/images/icons/hov_slider_measure.svg");
     background-repeat: no-repeat;
     background-size: 87% 100%;
-    background-position: center
+    background-position: center;
 }
 
 .slider {
     margin: auto;
-    -moz-appearance: none;
     appearance: none;
     -webkit-appearance: none;
     width: 92%;
     height: 100%;
-    background: rgba(0, 0, 0, 0);
+    background: transparent;
     outline: none;
     border: none;
-    z-index: 10
+    z-index: 10;
 }
 
 .slider::-moz-range-thumb {
@@ -353,9 +380,10 @@ p {
     border-radius: 100%;
     width: 2rem;
     height: 2rem;
+
     background-image: url("/images/buttons/hov_daylight.svg");
     background-repeat: no-repeat;
-    background-size: contain
+    background-size: contain;
 }
 
 .slider::-webkit-slider-thumb {
@@ -364,27 +392,32 @@ p {
     border-radius: 100%;
     width: 2rem;
     height: 2rem;
+
     background-image: url("/images/buttons/hov_daylight.svg");
     background-repeat: no-repeat;
-    background-size: contain
+    background-size: contain;
 }
+
+/************** Joystick CSS **************/
+/* Some design is defined in joystick.js */
 
 #containerJoystick {
     bottom: 13vmin;
     height: 26vmin;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: transparent;
     justify-content: center;
-    pointer-events: none
+    pointer-events: none;
 }
 
 #containerJoystick * {
-    pointer-events: auto
+    pointer-events: auto;
 }
 
-@media(pointer: fine) {
+/* Disable on pc */
+@media (pointer: fine) {
     #containerJoystick {
-        display: none
+        display: none;
     }
 }
 
@@ -395,33 +428,34 @@ p {
     opacity: 25%;
     border-radius: 100%;
     cursor: all-scroll;
-    -webkit-user-select: none;
-    -moz-user-select: none;
     user-select: none;
-    touch-action: pan-y
+    touch-action: pan-y;
 }
+
+/****************** CSS of the Pixel Streaming Interface ******************/
 
 #playerUI {
     width: 100%;
-    height: 100%
+    height: 100%;
 }
 
 canvas {
     image-rendering: crisp-edges;
-    position: absolute
+    position: absolute;
 }
 
 video {
     position: absolute;
     width: 100%;
-    height: 100%
+    height: 100%;
 }
 
 #player {
     width: 100%;
     height: 100%;
     position: absolute;
-    background-color: var(--colour-background)
+    background-color: var(--colour-background);
+    /*background-image: url('https://www.riverbendtf.com/wp-content/uploads/2020/05/york-loft.jpg');*/
 }
 
 #videoPlayOverlay {
@@ -429,51 +463,56 @@ video {
     font-size: 1.8em;
     width: 100%;
     height: 100%;
-    color: var(--colour-base)
+    color: var(--colour-base);
 }
 
 .noselect {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
+    -khtml-user-select: none;
     -moz-user-select: none;
-    user-select: none
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .clickableState {
+    /* State for element to be clickable */
     align-items: center;
     justify-content: center;
     display: flex;
-    cursor: pointer
+    cursor: pointer;
 }
 
 .textDisplayState {
+    /* State for element to show text, this is for informational use*/
     align-items: center;
     justify-content: center;
     display: flex;
-    cursor: pointer
+    cursor: pointer;
 }
 
 .hiddenState {
-    display: none !important
+    /* State to hide overlay, WebRTC communication is in progress and or is playing */
+    display: none !important;
 }
 
 #playButton {
     display: inline-block;
     height: auto;
-    z-index: 30
+    z-index: 30;
 }
 
 img#playButton {
     max-width: 241px;
-    width: 10%
+    width: 10%;
 }
 
 #freezeFrameOverlay {
-    background-color: rgba(0, 0, 0, 0)
+    background-color: transparent;
 }
 
 .freezeframeBackground {
-    background-color: #000 !important
+    background-color: #000 !important;
 }
 
 #overlay {
@@ -483,7 +522,7 @@ img#playButton {
     position: absolute;
     color: var(--colour-base);
     pointer-events: none;
-    overflow: hidden
+    overflow: hidden;
 }
 
 #overlay button {
@@ -493,32 +532,32 @@ img#playButton {
     position: relative;
     width: 3rem;
     height: 3rem;
-    padding: .5rem;
-    text-align: center
+    padding: 0.5rem;
+    text-align: center;
 }
 
 #fullscreen-btn {
-    padding: .6rem !important
+    padding: 0.6rem !important;
 }
 
 #overlay button:hover {
     background-color: var(--colour-base);
     border: 3px solid var(--colour-accent-active);
-    transition: .25s ease;
-    padding-left: .55rem;
-    padding-top: .55rem
+    transition: 0.25s ease;
+    padding-left: 0.55rem;
+    padding-top: 0.55rem;
 }
 
 #overlay button:active {
     border: 3px solid var(--colour-accent-active);
     background-color: var(--colour-accent-active);
-    padding-left: .55rem;
-    padding-top: .55rem
+    padding-left: 0.55rem;
+    padding-top: 0.55rem;
 }
 
 #overlay img {
     width: 100%;
-    height: 100%
+    height: 100%;
 }
 
 .tooltip .tooltiptext {
@@ -529,23 +568,27 @@ img#playButton {
     border-radius: 15px;
     padding: 0px 10px;
     font-family: "Montserrat", sans-serif;
-    font-size: .75rem;
-    letter-spacing: .75px;
+    font-size: 0.75rem;
+    letter-spacing: 0.75px;
+    /* Position the tooltip */
     position: absolute;
     top: 0;
     transform: translateY(25%);
     left: 125%;
-    z-index: 20
+    z-index: 20;
 }
 
 .tooltip:hover .tooltiptext {
     visibility: visible;
-    background-color: var(--colour-base)
+    background-color: var(--colour-base);
 }
 
 #connection .tooltiptext {
+    /*top: 125%;
+	transform: translateX(-25%);
+  	left: 0;*/
     z-index: 20;
-    padding: 5px 10px
+    padding: 5px 10px;
 }
 
 #settings-panel .tooltiptext {
@@ -556,8 +599,7 @@ img#playButton {
     z-index: 20;
     padding: 5px 10px;
     border: 3px solid var(--colour-base);
-    width: -moz-max-content;
-    width: max-content
+    width: max-content;
 }
 
 #controls {
@@ -566,36 +608,47 @@ img#playButton {
     left: 1%;
     font-family: "Michroma", sans-serif;
     pointer-events: all;
-    display: block
+    display: block;
 }
 
-#controls>* {
-    margin-bottom: .5rem;
+#controls > * {
+    margin-bottom: 0.5rem;
     border-radius: 50%;
     display: block;
     height: 2rem;
     line-height: 1.75rem;
-    padding: .5rem
+    padding: 0.5rem;
 }
 
 #controls #additionalinfo {
     text-align: center;
-    font-family: "Montserrat", sans-serif
+    font-family: "Montserrat", sans-serif;
 }
 
 #connection {
+    /*position: absolute;
+	bottom: 5%;*/
     padding-left: 7%;
     font-family: "Michroma", sans-serif;
     height: 3rem;
     width: 3rem;
-    pointer-events: all
+    pointer-events: all;
 }
 
 .noselect {
     -webkit-touch-callout: none;
+    /* iOS Safari */
     -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
     -moz-user-select: none;
-    user-select: none
+    /* Old versions of Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+									supported by Chrome, Edge, Opera and Firefox */
 }
 
 .panel-wrap {
@@ -606,62 +659,59 @@ img#playButton {
     height: 100%;
     min-width: 20vw;
     transform: translateX(100%);
-    transition: .3s ease-out;
+    transition: 0.3s ease-out;
     pointer-events: all;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     overflow-y: auto;
     overflow-x: hidden;
-    background-color: rgba(30, 29, 34, .5)
+    background-color: rgba(30, 29, 34, 0.5);
 }
 
 .panel-wrap-visible {
-    transform: translateX(0%)
+    transform: translateX(0%);
 }
 
 .panel {
     color: #eee;
     overflow-y: auto;
-    padding: 1em
+    padding: 1em;
 }
 
 #heading {
     display: inline-block;
     font-size: 2em;
-    -webkit-margin-before: .67em;
-    margin-block-start: .67em;
-    -webkit-margin-after: .67em;
-    margin-block-end: .67em;
-    -webkit-margin-start: 0px;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
     margin-inline-start: 0px;
-    -webkit-margin-end: 0px;
     margin-inline-end: 0px;
     position: relative;
-    padding: 0 0 0 2rem
+    padding: 0 0 0 2rem;
 }
 
 #close {
-    margin: .5rem;
-    padding-top: .5rem;
-    padding-bottom: .5rem;
-    padding-right: .5rem;
+    margin: 0.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-right: 0.5rem;
     font-size: 2em;
-    float: right
+    float: right;
 }
 
 #close:after {
-    padding-left: .5rem;
+    padding-left: 0.5rem;
     display: inline-block;
-    content: "×"
+    content: "\00d7";
+    /* This will render the 'X' */
 }
 
 #close:hover {
     color: var(--colour-accent-active);
-    transition: ease .3s
+    transition: ease 0.3s;
 }
 
 #content {
-    margin: 0 0 0 4rem
+    margin: 0 0 0 4rem;
 }
 
 .setting {
@@ -669,21 +719,22 @@ img#playButton {
     flex-direction: row;
     justify-content: space-between;
     padding: 0;
-    margin: .5rem 0
+    margin: 0.5rem 0;
 }
 
 .settings-text {
     margin-right: 2rem;
-    display: flex
+    display: flex;
 }
 
+/*** Toggle Switch styles ***/
 .tgl-switch {
     vertical-align: middle;
-    display: inline-block
+    display: inline-block;
 }
 
 .tgl-switch .tgl {
-    display: none
+    display: none;
 }
 
 .tgl,
@@ -692,8 +743,9 @@ img#playButton {
 .tgl *,
 .tgl *:after,
 .tgl *:before,
-.tgl+.tgl-slider {
-    box-sizing: border-box
+.tgl + .tgl-slider {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .tgl::-moz-selection,
@@ -702,18 +754,8 @@ img#playButton {
 .tgl *::-moz-selection,
 .tgl *:after::-moz-selection,
 .tgl *:before::-moz-selection,
-.tgl+.tgl-slider::-moz-selection {
-    background: none
-}
-
-.tgl::-moz-selection,
-.tgl:after::-moz-selection,
-.tgl:before::-moz-selection,
-.tgl *::-moz-selection,
-.tgl *:after::-moz-selection,
-.tgl *:before::-moz-selection,
-.tgl+.tgl-slider::-moz-selection {
-    background: none
+.tgl + .tgl-slider::-moz-selection {
+    background: none;
 }
 
 .tgl::selection,
@@ -722,11 +764,11 @@ img#playButton {
 .tgl *::selection,
 .tgl *:after::selection,
 .tgl *:before::selection,
-.tgl+.tgl-slider::selection {
-    background: none
+.tgl + .tgl-slider::selection {
+    background: none;
 }
 
-.tgl+.tgl-slider {
+.tgl + .tgl-slider {
     outline: 0;
     display: block;
     width: 40px;
@@ -735,62 +777,65 @@ img#playButton {
     cursor: pointer;
     -webkit-user-select: none;
     -moz-user-select: none;
-    user-select: none
+    -ms-user-select: none;
+    user-select: none;
 }
 
-.tgl+.tgl-slider:after,
-.tgl+.tgl-slider:before {
+.tgl + .tgl-slider:after,
+.tgl + .tgl-slider:before {
     position: relative;
     display: block;
     content: "";
     width: 50%;
-    height: 100%
+    height: 100%;
 }
 
-.tgl+.tgl-slider:after {
-    left: 0
+.tgl + .tgl-slider:after {
+    left: 0;
 }
 
-.tgl+.tgl-slider:before {
-    display: none
+.tgl + .tgl-slider:before {
+    display: none;
 }
 
-.tgl-flat+.tgl-slider {
+.tgl-flat + .tgl-slider {
     padding: 2px;
-    transition: all .2s ease;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
     background: var(--colour-base);
     border: 3px solid var(--colour-base);
-    border-radius: 2em
+    border-radius: 2em;
 }
 
-.tgl-flat+.tgl-slider:hover {
-    border: 3px solid var(--colour-accent-active)
+.tgl-flat + .tgl-slider:hover {
+    border: 3px solid var(--colour-accent-active);
 }
 
-.tgl-flat+.tgl-slider:after {
-    transition: all .2s ease;
+.tgl-flat + .tgl-slider:after {
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
     background: var(--colour-base);
     content: "";
-    border-radius: 1em
+    border-radius: 1em;
 }
 
-.tgl-flat:checked+.tgl-slider {
-    border: 3px solid var(--colour-base)
+.tgl-flat:checked + .tgl-slider {
+    border: 3px solid var(--colour-base);
 }
 
-.tgl-flat:checked:hover+.tgl-slider {
-    border: 3px solid var(--colour-accent-active)
+.tgl-flat:checked:hover + .tgl-slider {
+    border: 3px solid var(--colour-accent-active);
 }
 
-.tgl-flat:checked+.tgl-slider:after {
+.tgl-flat:checked + .tgl-slider:after {
     left: 50%;
-    background: var(--colour-accent-active)
+    background: var(--colour-accent-active);
 }
 
 .subtitle-text {
     margin: 0 0 0 1rem;
     color: var(--colour-base);
-    position: relative
+    position: relative;
 }
 
 .form-group {
@@ -799,43 +844,44 @@ img#playButton {
     grid-template-columns: 50% 50%;
     row-gap: 4px;
     padding-right: 10px;
-    padding-left: 10px
+    padding-left: 10px;
 }
 
 .form-group label {
     color: var(--colour-base);
     vertical-align: middle;
-    font-weight: normal
+    font-weight: normal;
 }
 
 #stats {
-    margin-left: 1rem
+    margin-left: 1rem;
 }
 
 #LatencyStats {
-    margin-left: 1rem
+    margin-left: 1rem;
 }
 
 #hiddenInput {
     position: absolute;
     left: -10%;
+    /* Although invisible, push off-screen to prevent user interaction. */
     width: 0px;
-    opacity: 0
+    opacity: 0;
 }
 
 #editTextButton {
     position: absolute;
     height: 40px;
-    width: 40px
+    width: 40px;
 }
 
 .form-group label {
     margin-right: 2rem;
-    min-width: 75%
+    min-width: 75%;
 }
 
 input {
-    text-align: right
+    text-align: right;
 }
 
 .warning {
@@ -846,7 +892,7 @@ input {
     height: 20px;
     border: 2px solid;
     border-radius: 40px;
-    display: none
+    display: none;
 }
 
 .warning::after,
@@ -858,117 +904,117 @@ input {
     border-radius: 3px;
     width: 2px;
     background: currentColor;
-    left: 7px
+    left: 7px;
 }
 
 .warning::after {
     top: 2px;
-    height: 8px
+    height: 8px;
 }
 
 .warning::before {
     height: 2px;
-    bottom: 2px
+    bottom: 2px;
 }
 
-input[type=button] {
-    background-color: rgba(0, 0, 0, 0);
+/* Flat buttons */
+input[type="button"] {
+    background-color: transparent;
     color: var(--colour-base);
     font-family: "Montserrat";
     border: 3px solid var(--colour-base);
     border-radius: 1rem;
-    font-size: .75rem;
-    padding-left: .5rem;
-    padding-right: .5rem
+    font-size: 0.75rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
 }
 
-input[type=button]:hover {
+input[type="button"]:hover {
     border: 3px solid var(--colour-accent-active);
-    transition: ease .3s
+    transition: ease 0.3s;
 }
 
-input[type=button]:active {
-    background-color: rgba(0, 0, 0, 0)
+input[type="button"]:active {
+    background-color: transparent;
 }
 
 #encoder-params-submit,
 #webrtc-params-submit {
-    text-align: center
+    text-align: center;
 }
 
 select,
-input[type=number] {
+input[type="number"] {
     background-color: var(--colour-base);
     color: var(--colour-background);
     border: 1px solid var(--colour-base);
-    padding: .25rem;
+    padding: 0.25rem;
     font-family: "Montserrat";
-    border-radius: .25rem
+    border-radius: 0.25rem;
 }
 
-input[type=number]::-webkit-inner-spin-button {
-    margin-left: .5rem
+input[type="number"]::-webkit-inner-spin-button {
+    margin-left: 0.5rem;
 }
 
-input[type=number]:disabled {
-    padding-right: .5rem;
-    -webkit-appearance: textfield;
+input[type="number"]:disabled {
+    padding-right: 0.5rem;
     appearance: textfield;
-    -moz-appearance: textfield
+    -moz-appearance: textfield;
 }
 
-input[type=number]:disabled::-webkit-inner-spin-button {
-    display: none
+input[type="number"]:disabled::-webkit-inner-spin-button {
+    display: none;
 }
 
 #streamingVideo {
-    pointer-events: all
+    pointer-events: all;
 }
 
 embed {
     border: none;
     width: 100%;
-    height: 100%
+    height: 100%;
 }
 
 g {
-    fill: var(--colour-accent)
+    fill: var(--colour-accent);
 }
 
 object {
-    pointer-events: none
+    pointer-events: none;
 }
 
 #connectionStrength {
-    fill: var(--colour-base)
+    fill: var(--colour-base);
 }
 
 #minimize {
-    display: none
+    display: none;
 }
 
 #afkOverlay {
     z-index: 999;
-    background-color: rgba(30, 29, 34, .5);
+    background-color: rgba(30, 29, 34, 0.5);
     display: inline-block;
     height: 100vh;
     width: 100vw;
     line-height: 100vh;
     text-align: center;
-    overflow: hidden
+    overflow: hidden;
 }
 
 #afkOverlay center {
     display: inline-block;
     line-height: 1.5;
-    height: 100vh
+    height: 100vh;
 }
 
 @font-face {
     font-family: "TransformVariableVF";
-    src: url("/fonts/VELUXTransformVariableVF.ttf")
+    src: url("/fonts/VELUXTransformVariableVF.ttf");
 }
 
 .font-velux {
-    font-family: "TransformVariableVF"
+    font-family: "TransformVariableVF";
 }
