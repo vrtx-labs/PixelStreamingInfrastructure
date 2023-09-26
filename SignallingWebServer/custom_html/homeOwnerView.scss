@@ -1,4 +1,9 @@
 /* General Declarations & Type Selectors*/
+
+/* Device specific break points */
+$breakpoint-general: 1500px;
+$scale-by-width: min(3.2vh, 3.5rem);
+
 :root {
     /*Color scheme variables*/
     --colour-accent: #ffffff;
@@ -8,9 +13,6 @@
     --colour-base2: #e4e1dd;
     --colour-background: #404040;
     --colour-text: #797979;
-
-    /* Device specific break points */
-    --break-general: 1390px;
 }
 
 html {
@@ -36,7 +38,6 @@ body {
 }
 
 button {
-    height: min(5vw, 2rem);
     cursor: pointer;
     border: none;
 }
@@ -91,7 +92,7 @@ p {
     font-size: min(2vw, 1rem);
 }
 
-@media screen and (max-width: 1390px) {
+@media screen and (max-width: $breakpoint-general) {
     #breadcrumbs {
         margin-top: 0;
     }
@@ -103,7 +104,7 @@ p {
 }
 
 /*Reverse order of menu items on mobile*/
-@media screen and (max-width: 1390px) {
+@media screen and (max-width: $breakpoint-general) {
     #containerMenu {
         flex-flow: column-reverse;
         align-items: end;
@@ -150,8 +151,8 @@ p {
 
 /* Classes */
 .stretch-container {
-    left: min(5vw, 2rem);
-    right: min(5vw, 2rem);
+    left: 2rem;
+    right: 2rem;
 
     display: flex;
     justify-content: space-between;
@@ -227,8 +228,8 @@ p {
 
 .svg-image {
     background-color: transparent;
-    width: 100%;
-    height: 100%;
+    width: auto;
+    height: $scale-by-width;
     margin: 0;
 }
 
@@ -352,7 +353,7 @@ p {
 /************** Slider CSS **************/
 #containerSliderDaylight {
     width: 50vw;
-    height: min(5vw, 2rem);
+    height: $scale-by-width;
     padding: 0.5rem;
     justify-content: center;
 
@@ -380,6 +381,7 @@ p {
     border-radius: 100%;
     width: 2rem;
     height: 2rem;
+    cursor: pointer;
 
     background-image: url("/images/buttons/hov_daylight.svg");
     background-repeat: no-repeat;
@@ -392,6 +394,7 @@ p {
     border-radius: 100%;
     width: 2rem;
     height: 2rem;
+    cursor: pointer;
 
     background-image: url("/images/buttons/hov_daylight.svg");
     background-repeat: no-repeat;

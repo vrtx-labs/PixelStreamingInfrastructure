@@ -5,8 +5,7 @@
     --colour-base: #252525;
     --colour-base2: #e4e1dd;
     --colour-background: #404040;
-    --colour-text: #797979;
-    --break-general: 1390px
+    --colour-text: #797979
 }
 
 html {
@@ -28,7 +27,6 @@ body {
 }
 
 button {
-    height: min(5vw, 2rem);
     cursor: pointer;
     border: none
 }
@@ -81,7 +79,7 @@ p {
     font-size: min(2vw, 1rem)
 }
 
-@media screen and (max-width: 1390px) {
+@media screen and (max-width: 1500px) {
     #breadcrumbs {
         margin-top: 0
     }
@@ -92,7 +90,7 @@ p {
     max-width: 38vw
 }
 
-@media screen and (max-width: 1390px) {
+@media screen and (max-width: 1500px) {
     #containerMenu {
         flex-flow: column-reverse;
         align-items: end
@@ -138,8 +136,8 @@ p {
 }
 
 .stretch-container {
-    left: min(5vw, 2rem);
-    right: min(5vw, 2rem);
+    left: 2rem;
+    right: 2rem;
     display: flex;
     justify-content: space-between
 }
@@ -206,8 +204,8 @@ p {
 
 .svg-image {
     background-color: rgba(0, 0, 0, 0);
-    width: 100%;
-    height: 100%;
+    width: auto;
+    height: min(3.2vh, 3.5rem);
     margin: 0
 }
 
@@ -325,7 +323,7 @@ p {
 
 #containerSliderDaylight {
     width: 50vw;
-    height: min(5vw, 2rem);
+    height: min(3.2vh, 3.5rem);
     padding: .5rem;
     justify-content: center;
     background-image: url("/images/icons/hov_slider_measure.svg");
@@ -353,6 +351,7 @@ p {
     border-radius: 100%;
     width: 2rem;
     height: 2rem;
+    cursor: pointer;
     background-image: url("/images/buttons/hov_daylight.svg");
     background-repeat: no-repeat;
     background-size: contain
@@ -364,6 +363,7 @@ p {
     border-radius: 100%;
     width: 2rem;
     height: 2rem;
+    cursor: pointer;
     background-image: url("/images/buttons/hov_daylight.svg");
     background-repeat: no-repeat;
     background-size: contain
