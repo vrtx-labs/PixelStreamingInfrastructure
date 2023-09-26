@@ -306,7 +306,7 @@ function setupSlider() {
         tod.setTime(tod.getTime() + value * 60000); // Add slider value in milliseconds
 
         sliderText.innerHTML = tod.getHours() + ":" + ("00" + tod.getMinutes()).substr(-2);
-        sendToStreamer(CommunicationKeys.daylightSliderKey, (value / 1440).toFixed(2));
+        sendToStreamer(CommunicationKeys.daylightSliderKey, (value / 1440).toFixed(6));
     };
 
     // Update the current slider value each time the slider handle is dragged
