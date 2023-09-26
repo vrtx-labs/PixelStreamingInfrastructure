@@ -11,8 +11,6 @@ class MenuContent {
     static Help = new MenuContent("Help");
     static RoomOptions = new MenuContent("RoomOptions");
     static DaylightSlider = new MenuContent("DaylightSlider");
-    static Link = new MenuContent("Link");
-    static Screenshot = new MenuContent("Screenshot");
 
     constructor(name) {
         this.name = name;
@@ -48,7 +46,7 @@ function setup() {
 function setupUIElements() {
     setupPlayButton();
     setupScreenshotButton();
-    setupCopyLinkButton();
+    setupShareButton();
     setupMenuContentButtons();
     setupToggleMenuButton();
     setupRoomButtons();
@@ -168,10 +166,13 @@ function setupScreenshotButton() {
     });
 }
 
-function setupCopyLinkButton() {
-    domElements["buttonCopyLink"].addEventListener("click", function onOverlayClick(event) {
+function setupShareButton() {
+    domElements["buttonShare"].addEventListener("click", function onOverlayClick(event) {
         // Copy current url to clipboard
-        if (!navigator.clipboard) return;
+        if (!Boolean(navigator.clipboard)) {
+            console.warn("Clipboard API not available");
+            return;
+        }
         navigator.clipboard.writeText(window.location.href).then(
             function () {
                 console.log("Copying to clipboard was successful!");
@@ -213,9 +214,6 @@ function setupMenuContentButtons() {
     //domElements["menuButtonScreenshot"].addEventListener("click", function onOverlayClick(event) {
     //    showMenuContent(MenuContent.Screenshot);
     //});
-    //domElements["buttonShare"].addEventListener("click", function onOverlayClick(event) {
-    //    showMenuContent(MenuContent.Link);
-    //});
     //domElements["buttonHelp"].addEventListener("click", function onOverlayClick(event) {
     //    showMenuContent(MenuContent.Help);
     //});
@@ -228,8 +226,6 @@ function showMenuContent(menuContent) {
     // Disable all elements
     domElements["menuContentRoomOptions"].classList.add("hiddenState");
     domElements["menuContentDaylightSlider"].classList.add("hiddenState");
-    domElements["menuContentLink"].classList.add("hiddenState");
-    domElements["menuContentScreenshot"].classList.add("hiddenState");
     domElements["menuContentHelp"].classList.add("hiddenState");
 
     // Switch the menu content in a switch case statement
@@ -246,12 +242,6 @@ function showMenuContent(menuContent) {
             domElements["menuContentDaylightSlider"].classList.remove("hiddenState");
             domElements["containerButtonDaylight"].classList.add("hiddenState");
             domElements["containerButtonRoomOptions"].classList.remove("hiddenState");
-            break;
-        case MenuContent.Link:
-            domElements["menuContentLink"].classList.remove("hiddenState");
-            break;
-        case MenuContent.Screenshot:
-            domElements["menuContentScreenshot"].classList.remove("hiddenState");
             break;
         default:
             break;
