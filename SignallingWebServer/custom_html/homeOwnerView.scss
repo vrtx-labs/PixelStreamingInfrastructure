@@ -1,8 +1,9 @@
-/* General Declarations & Type Selectors*/
+/*** General Declarations & Type Selectors ***/
 
 /* Device specific break points */
-$breakpoint-general: 1500px;
-$scale-by-width: min(3.2vh, 3.5rem);
+$breakpoint-general: 1480px;
+$scale-by-width: min(3vw, 1.9rem);
+$scale-font: min(1.25vw, 0.98rem);
 
 :root {
     /*Color scheme variables*/
@@ -43,34 +44,34 @@ button {
 }
 
 * {
-    /* Set general font */
+    /* Set general font & font size */
     font-family: "TransformVariableVF";
-    font-size: min(2vw, 1rem);
+    font-size: $scale-font;
     font-weight: inherit;
     color: var(--colour-accent);
 }
 
 h1 {
-    font-size: min(3vw, 2rem);
+    font-size: min(1.9vw, 1.7rem);
 }
 
 h2 {
-    font-size: min(2.3vw, 1.5rem);
+    font-size: min(1.7vw, 1.4rem);
 }
 
 h4 {
-    font-size: min(1.5vw, 1rem);
+    font-size: min(1.15vw, 0.8rem);
 }
 
 h5 {
-    font-size: min(1vw, 1rem);
+    font-size: min(1vw, 0.7rem);
 }
 
 p {
     margin: auto 0.5rem;
 }
 
-/* ID Selectors */
+/*** ID Selectors ***/
 #logoVelux {
     top: 1rem;
     width: 10vw;
@@ -84,6 +85,7 @@ p {
 #containerHeader {
     top: min(7vw, 2.5rem);
     background-color: transparent;
+    pointer-events: none;
 }
 
 #breadcrumbs {
@@ -103,8 +105,8 @@ p {
     max-width: 38vw;
 }
 
-/*Reverse order of menu items on mobile*/
 @media screen and (max-width: $breakpoint-general) {
+    /*Reverse order of menu items on mobile*/
     #containerMenu {
         flex-flow: column-reverse;
         align-items: end;
@@ -115,10 +117,17 @@ p {
     bottom: 2.5rem;
     background-color: transparent;
     align-items: end;
+    pointer-events: none;
 }
 
 #containerRoomOptions {
     bottom: 2.5rem;
+    height: $scale-by-width;
+    justify-content: space-between;
+    gap: 1rem;
+}
+#containerRoomOptions > button {
+    display: flex;
 }
 
 #containerScores {
@@ -149,7 +158,7 @@ p {
     margin: auto;
 }
 
-/* Classes */
+/*** Classes ***/
 .stretch-container {
     left: 2rem;
     right: 2rem;
@@ -296,6 +305,7 @@ p {
 .horizontal-container {
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 
 /* Grid */
