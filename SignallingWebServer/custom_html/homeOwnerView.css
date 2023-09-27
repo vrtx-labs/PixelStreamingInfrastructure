@@ -33,25 +33,25 @@ button {
 
 * {
     font-family: "TransformVariableVF";
-    font-size: min(2vw, 1rem);
+    font-size: min(1.25vw, .98rem);
     font-weight: inherit;
     color: var(--colour-accent)
 }
 
 h1 {
-    font-size: min(3vw, 2rem)
+    font-size: min(1.8vw, 1.6rem)
 }
 
 h2 {
-    font-size: min(2.3vw, 1.5rem)
+    font-size: min(1.7vw, 1.4rem)
 }
 
 h4 {
-    font-size: min(1.5vw, 1rem)
+    font-size: min(1.15vw, .8rem)
 }
 
 h5 {
-    font-size: min(1vw, 1rem)
+    font-size: min(1vw, .7rem)
 }
 
 p {
@@ -70,7 +70,8 @@ p {
 
 #containerHeader {
     top: min(7vw, 2.5rem);
-    background-color: rgba(0, 0, 0, 0)
+    background-color: rgba(0, 0, 0, 0);
+    pointer-events: none
 }
 
 #breadcrumbs {
@@ -79,7 +80,7 @@ p {
     font-size: min(2vw, 1rem)
 }
 
-@media screen and (max-width: 1500px) {
+@media screen and (max-width: 1480px) {
     #breadcrumbs {
         margin-top: 0
     }
@@ -90,7 +91,7 @@ p {
     max-width: 38vw
 }
 
-@media screen and (max-width: 1500px) {
+@media screen and (max-width: 1480px) {
     #containerMenu {
         flex-flow: column-reverse;
         align-items: end
@@ -100,11 +101,19 @@ p {
 #containerFooter {
     bottom: 2.5rem;
     background-color: rgba(0, 0, 0, 0);
-    align-items: end
+    align-items: end;
+    pointer-events: none
 }
 
 #containerRoomOptions {
-    bottom: 2.5rem
+    bottom: 2.5rem;
+    height: min(3vw, 1.9rem);
+    justify-content: space-between;
+    gap: 1rem
+}
+
+#containerRoomOptions>button {
+    display: flex
 }
 
 #containerScores {
@@ -205,7 +214,7 @@ p {
 .svg-image {
     background-color: rgba(0, 0, 0, 0);
     width: auto;
-    height: min(3.2vh, 3.5rem);
+    height: min(3vw, 1.9rem);
     margin: 0
 }
 
@@ -266,7 +275,8 @@ p {
 
 .horizontal-container {
     display: flex;
-    flex-direction: row
+    flex-direction: row;
+    align-items: center
 }
 
 .grid-container {
@@ -321,9 +331,41 @@ p {
     color: var(--colour-text)
 }
 
+.fade-out {
+    animation: fadeOut .8s ease-in-out forwards
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1
+    }
+
+    to {
+        opacity: 0
+    }
+}
+
+.fade-in {
+    animation: fadeIn .8s ease-in-out forwards
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+.startHidden {
+    display: none
+}
+
 #containerSliderDaylight {
     width: 50vw;
-    height: min(3.2vh, 3.5rem);
+    height: min(3vw, 1.9rem);
     padding: .5rem;
     justify-content: center;
     background-image: url("/images/icons/hov_slider_measure.svg");

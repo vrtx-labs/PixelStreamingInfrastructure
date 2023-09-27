@@ -185,23 +185,82 @@ function setupShareButton() {
 }
 
 function toggleMenu() {
-    let menu = domElements["menu"];
-
     if (LocalVariables.menuActive) {
         LocalVariables.menuActive = false;
-        // Toggle the menu by switching the class
-        menu.classList.remove("menu-visible");
-        menu.classList.add("menu-hidden");
+        // Hide the menu by removing the fade-in class
+        setClassActive(
+            [
+                domElements["buttonShare"],
+                domElements["buttonRefresh"],
+                domElements["buttonHelp"],
+                domElements["buttonScreenshot"],
+                domElements["collapseMenuImage"],
+            ],
+            "fade-in",
+            false
+        );
+
+        // And adding the fade-out class
+        setClassActive(
+            [
+                domElements["buttonShare"],
+                domElements["buttonRefresh"],
+                domElements["buttonHelp"],
+                domElements["buttonScreenshot"],
+                domElements["collapseMenuImage"],
+            ],
+            "fade-out",
+            true,
+            true // Hide after animation
+        );
     } else {
         LocalVariables.menuActive = true;
-        // Toggle the menu by switching the class
-        menu.classList.add("menu-visible");
-        menu.classList.remove("menu-hidden");
-    }
+        // Show the menu by adding the fade-in class
+        setClassActive(
+            [
+                domElements["buttonShare"],
+                domElements["buttonRefresh"],
+                domElements["buttonHelp"],
+                domElements["buttonScreenshot"],
+                domElements["collapseMenuImage"],
+            ],
+            "fade-in",
+            true
+        );
 
-    // Toggle the button icon
-    domElements["menuArrowDown"].classList.toggle("hiddenState");
-    domElements["menuArrowUp"].classList.toggle("hiddenState");
+        // And removing the fade-out class
+        setClassActive(
+            [
+                domElements["buttonShare"],
+                domElements["buttonRefresh"],
+                domElements["buttonHelp"],
+                domElements["buttonScreenshot"],
+                domElements["collapseMenuImage"],
+            ],
+            "fade-out",
+            false
+        );
+    }
+}
+
+function setClassActive(listOfElements, className, setActive, hideAfterAnimation = false) {
+    for (let i = 0; i < listOfElements.length; i++) {
+        if (setActive) {
+            listOfElements[i].classList.remove("hiddenState");
+            listOfElements[i].classList.add(className);
+            // on animation end, add the hiddenState class
+            if (hideAfterAnimation)
+                listOfElements[i].addEventListener(
+                    "animationend",
+                    () => {
+                        listOfElements[i].classList.add("hiddenState");
+                    },
+                    { once: true }
+                );
+        } else {
+            listOfElements[i].classList.remove(className);
+        }
+    }
 }
 
 function setupMenuContentButtons() {

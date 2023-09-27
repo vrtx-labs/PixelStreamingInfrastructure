@@ -52,28 +52,28 @@
             <div id="containerHeader" class="top-absolute stretch-container horizontal-container">
                 <h5 id="breadcrumbs" class="flex-item">Example Project / Room name</h5>
                 <div id="containerMenu" class="horizontal-container">
-                    <button id="containerButtonRefresh" class="horizontal-container rounded-box">
+                    <button id="containerButtonRefresh" class="hiddenState horizontal-container rounded-box">
                         <p>Refresh</p>
                         <div id="buttonRefresh" class="button-base flex-item">
                             <img class="svg-image" src="/images/buttons/hov_refresh.svg" type="svg" />
                         </div>
                     </button>
 
-                    <button id="containerButtonShare" class="horizontal-container rounded-box">
+                    <button id="containerButtonShare" class="hiddenState horizontal-container rounded-box">
                         <p>Share</p>
                         <div id="buttonShare" class="button-base flex-item">
                             <img class="svg-image" src="/images/buttons/hov_share.svg" type="svg" />
                         </div>
                     </button>
 
-                    <button id="containerButtonScreenshot" class="horizontal-container rounded-box">
+                    <button id="containerButtonScreenshot" class="hiddenState horizontal-container rounded-box">
                         <p>Screenshot</p>
                         <div id="buttonScreenshot" class="button-base flex-item">
                             <img class="svg-image" src="/images/buttons/hov_screenshot.svg" type="svg" />
                         </div>
                     </button>
 
-                    <button id="containerButtonHelp" class="horizontal-container rounded-box">
+                    <button id="containerButtonHelp" class="hiddenState horizontal-container rounded-box">
                         <p>Help</p>
                         <div id="buttonHelp" class="button-base flex-item">
                             <img class="svg-image" src="/images/buttons/hov_help.svg" type="svg" />
@@ -81,9 +81,14 @@
                     </button>
 
                     <button id="containerButtonToggleMenu" class="horizontal-container rounded-box">
-                        <p>Menu</p>
+                        <p id="toggleMenuButtonText" class="">Menu</p>
                         <div id="buttonToggleMenu" class="button-base flex-item">
-                            <img class="svg-image" src="/images/buttons/hov_menu.svg" type="svg" />
+                            <img id="menuButtonImage" class="svg-image" src="/images/buttons/hov_menu.svg" type="svg" />
+                            <img
+                                id="collapseMenuImage"
+                                class="hiddenState svg-image hiddenState"
+                                src="/images/buttons/hov_menu_collapse.svg"
+                                type="svg" />
                         </div>
                     </button>
                 </div>

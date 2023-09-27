@@ -2,8 +2,7 @@ export const domElements = {}; // Holds references to DOM elements
 
 export function getDOMElements() {
     domElements["videoPlayOverlay"] = document.getElementById("videoPlayOverlay");
-    domElements["menu"] = document.getElementById("lowerMenu");
-    domElements["toggleMenuButton"] = document.getElementById("buttonToggleMenu");
+    domElements["toggleMenuButton"] = document.getElementById("containerButtonToggleMenu");
     domElements["menuArrowDown"] = document.getElementById("menuArrowDown");
     domElements["menuArrowUp"] = document.getElementById("menuArrowUp");
     domElements["menuContentHelp"] = document.getElementById("containerHelp");
@@ -17,6 +16,7 @@ export function getDOMElements() {
     domElements["buttonScreenshot"] = document.getElementById("containerButtonScreenshot");
     domElements["buttonShare"] = document.getElementById("containerButtonShare");
     domElements["buttonHelp"] = document.getElementById("containerButtonHelp");
+    domElements["buttonRefresh"] = document.getElementById("containerButtonRefresh");
     domElements["buttonRoom1"] = document.getElementById("buttonRoom1");
     domElements["buttonRoom2"] = document.getElementById("buttonRoom2");
     domElements["buttonRoom3"] = document.getElementById("buttonRoom3");
@@ -29,4 +29,6 @@ export function getDOMElements() {
     domElements["breadcrumbs"] = document.getElementById("breadcrumbs");
     domElements["daylightScore"] = document.getElementById("daylightScore");
     domElements["ventilationScore"] = document.getElementById("ventilationScore");
+    domElements["menuButtonImage"] = document.getElementById("menuButtonImage");
+    domElements["collapseMenuImage"] = document.getElementById("collapseMenuImage");
 }
