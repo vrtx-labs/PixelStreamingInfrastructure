@@ -354,7 +354,7 @@ function setupSlider() {
         let tod = new Date(0, 0, 0, 0, 0, 0, 0);
         tod.setTime(tod.getTime() + value * 60000); // Add slider value in milliseconds
 
-        sliderText.innerHTML = tod.getHours() + ":" + ("00" + tod.getMinutes()).substr(-2);
+        sliderText.innerHTML = tod.getHours() + ":" + tod.getMinutes().toString().padStart(2, "0");
         sendToStreamer(CommunicationKeys.daylightSliderKey, (value / 1440).toFixed(6));
     };
 
@@ -364,7 +364,7 @@ function setupSlider() {
     };
 
     // Update the slider value at start
-    updateSlider(slider.value);
+    updateSlider(slider.value); // ToDo: Do this after establishing Unreal connection
 }
 
 function activateDefaultSettings() {
