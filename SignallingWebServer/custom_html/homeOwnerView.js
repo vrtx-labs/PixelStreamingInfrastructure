@@ -213,6 +213,13 @@ function toggleMenu() {
             true,
             true // Hide after animation
         );
+
+        // Show menuButtonImage and toggle text
+        setClassActive([domElements["menuButtonImage"], domElements["toggleMenuButtonText"]], "fade-in", true);
+        setClassActive([domElements["menuButtonImage"], domElements["toggleMenuButtonText"]], "fade-out", false);
+
+        //
+        domElements["collapseMenuImage"].style.position = "absolute";
     } else {
         LocalVariables.menuActive = true;
         // Show the menu by adding the fade-in class
@@ -239,6 +246,20 @@ function toggleMenu() {
             ],
             "fade-out",
             false
+        );
+
+        // Hide menuButtonImage and toggle text
+        setClassActive([domElements["menuButtonImage"], domElements["toggleMenuButtonText"]], "fade-in", false);
+        setClassActive([domElements["menuButtonImage"], domElements["toggleMenuButtonText"]], "fade-out", true, true);
+
+        //
+        domElements["collapseMenuImage"].style.position = "absolute";
+        domElements["collapseMenuImage"].addEventListener(
+            "animationend",
+            () => {
+                domElements["collapseMenuImage"].style.position = "relative";
+            },
+            { once: true }
         );
     }
 }
@@ -270,12 +291,6 @@ function setupMenuContentButtons() {
     domElements["buttonDaylight"].addEventListener("click", function onOverlayClick(event) {
         showMenuContent(MenuContent.DaylightSlider);
     });
-    //domElements["menuButtonScreenshot"].addEventListener("click", function onOverlayClick(event) {
-    //    showMenuContent(MenuContent.Screenshot);
-    //});
-    //domElements["buttonHelp"].addEventListener("click", function onOverlayClick(event) {
-    //    showMenuContent(MenuContent.Help);
-    //});
 }
 
 function showMenuContent(menuContent) {
@@ -285,7 +300,6 @@ function showMenuContent(menuContent) {
     // Disable all elements
     domElements["menuContentRoomOptions"].classList.add("hiddenState");
     domElements["menuContentDaylightSlider"].classList.add("hiddenState");
-    domElements["menuContentHelp"].classList.add("hiddenState");
 
     // Switch the menu content in a switch case statement
     switch (menuContent) {

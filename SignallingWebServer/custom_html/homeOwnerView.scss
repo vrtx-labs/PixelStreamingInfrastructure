@@ -1,6 +1,6 @@
 /*** General Declarations & Type Selectors ***/
 
-/* Device specific break points */
+/* Device specific break points & scaling */
 $breakpoint-general: 1480px;
 $scale-by-width: min(3vw, 1.9rem);
 $scale-font: min(1.25vw, 0.98rem);
@@ -92,7 +92,7 @@ p {
 #breadcrumbs {
     margin-top: auto;
     margin-bottom: auto;
-    font-size: min(2vw, 1rem);
+    font-size: min(2vw, 1rem); // ToDo: Generalize
 }
 
 @media screen and (max-width: $breakpoint-general) {
@@ -112,6 +112,10 @@ p {
         flex-flow: column-reverse;
         align-items: end;
     }
+}
+
+#collapseMenuImage {
+    position: absolute;
 }
 
 #containerFooter {

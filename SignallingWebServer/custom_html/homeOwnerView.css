@@ -98,6 +98,10 @@ p {
     }
 }
 
+#collapseMenuImage {
+    position: absolute
+}
+
 #containerFooter {
     bottom: 2.5rem;
     background-color: rgba(0, 0, 0, 0);

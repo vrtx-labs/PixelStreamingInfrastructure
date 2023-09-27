@@ -31,4 +31,5 @@ export function getDOMElements() {
     domElements["ventilationScore"] = document.getElementById("ventilationScore");
     domElements["menuButtonImage"] = document.getElementById("menuButtonImage");
     domElements["collapseMenuImage"] = document.getElementById("collapseMenuImage");
+    domElements["toggleMenuButtonText"] = document.getElementById("toggleMenuButtonText");
 }
