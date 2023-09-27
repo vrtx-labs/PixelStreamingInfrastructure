@@ -392,6 +392,32 @@ p {
     }
 }
 
+.collapseAndFade {
+    animation: collapse $menu-animation-duration ease-in-out forwards, fadeOut $menu-animation-duration ease-in-out forwards;
+}
+
+@keyframes collapse {
+    from {
+        transform: translateX(0%);
+    }
+    to {
+        transform: translateX(100%);
+    }
+}
+
+.expandAndFade {
+    animation: expand $menu-animation-duration ease-in-out forwards, fadeIn $menu-animation-duration ease-in-out forwards;
+}
+
+@keyframes expand {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0%);
+    }
+}
+
 /* Misc */
 .startHidden {
     display: none;

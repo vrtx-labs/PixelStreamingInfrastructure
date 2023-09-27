@@ -215,6 +215,8 @@ function toggleMenu() {
         );
 
         // Show menuButtonImage and toggle text
+        domElements["toggleMenuButtonText"].classList.remove("collapseAndFade");
+        domElements["toggleMenuButtonText"].classList.add("expandAndFade");
         setClassActive([domElements["menuButtonImage"], domElements["toggleMenuButtonText"]], "fade-in", true);
         setClassActive([domElements["menuButtonImage"], domElements["toggleMenuButtonText"]], "fade-out", false);
 
@@ -249,8 +251,10 @@ function toggleMenu() {
         );
 
         // Hide menuButtonImage and toggle text
+        domElements["toggleMenuButtonText"].classList.add("collapseAndFade");
+        domElements["toggleMenuButtonText"].classList.remove("expandAndFade");
         setClassActive([domElements["menuButtonImage"], domElements["toggleMenuButtonText"]], "fade-in", false);
-        setClassActive([domElements["menuButtonImage"], domElements["toggleMenuButtonText"]], "fade-out", true, true);
+        setClassActive([domElements["menuButtonImage"], domElements["toggleMenuButtonText"]], "fade-out", true, true); // ToDo: This line is only necessary for hiding after animation
 
         //
         domElements["collapseMenuImage"].style.position = "absolute";
