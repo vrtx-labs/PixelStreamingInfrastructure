@@ -155,7 +155,7 @@ function setRoomName(element, name) {
 }
 
 function setupToggleMenuButton() {
-    domElements["toggleMenuButton"].addEventListener("click", function onOverlayClick(event) {
+    domElements["containerButtonToggleMenu"].addEventListener("click", function onOverlayClick(event) {
         toggleMenu();
     });
 }
@@ -215,13 +215,13 @@ function toggleMenu() {
         );
 
         // Show menuButtonImage and toggle text
-        domElements["toggleMenuButtonText"].classList.remove("collapseAndFade");
+        domElements["toggleMenuButtonText"].classList.remove("fade-out");
         domElements["toggleMenuButtonText"].classList.add("expandAndFade");
         setClassActive([domElements["menuButtonImage"], domElements["toggleMenuButtonText"]], "fade-in", true);
         setClassActive([domElements["menuButtonImage"], domElements["toggleMenuButtonText"]], "fade-out", false);
 
         //
-        domElements["collapseMenuImage"].style.position = "absolute";
+        //domElements["collapseMenuImage"].style.position = "absolute";
     } else {
         LocalVariables.menuActive = true;
         // Show the menu by adding the fade-in class
@@ -250,21 +250,22 @@ function toggleMenu() {
             false
         );
 
-        // Hide menuButtonImage and toggle text
-        domElements["toggleMenuButtonText"].classList.add("collapseAndFade");
+        // Hide menuButtonImage and toggle text^
+        domElements["containerButtonToggleMenu"].classList.add("fade-trough");
+        domElements["toggleMenuButtonText"].classList.add("fade-out");
         domElements["toggleMenuButtonText"].classList.remove("expandAndFade");
         setClassActive([domElements["menuButtonImage"], domElements["toggleMenuButtonText"]], "fade-in", false);
         setClassActive([domElements["menuButtonImage"], domElements["toggleMenuButtonText"]], "fade-out", true, true); // ToDo: This line is only necessary for hiding after animation
 
         //
-        domElements["collapseMenuImage"].style.position = "absolute";
-        domElements["collapseMenuImage"].addEventListener(
-            "animationend",
-            () => {
-                domElements["collapseMenuImage"].style.position = "relative";
-            },
-            { once: true }
-        );
+        //domElements["collapseMenuImage"].style.position = "absolute";
+        //domElements["collapseMenuImage"].addEventListener(
+        //    "animationend",
+        //    () => {
+        //        domElements["collapseMenuImage"].style.position = "relative";
+        //    },
+        //    { once: true }
+        //);
     }
 }
 

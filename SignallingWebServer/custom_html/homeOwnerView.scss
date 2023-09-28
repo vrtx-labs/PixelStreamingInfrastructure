@@ -104,6 +104,7 @@ p {
 #containerMenu {
     gap: 0.5rem;
     max-width: 38vw;
+    justify-content: end;
 }
 
 @media screen and (max-width: $breakpoint-general) {
@@ -114,7 +115,8 @@ p {
     }
 }
 
-#collapseMenuImage {
+#collapseMenuImage,
+#menuButtonImage {
     position: absolute;
 }
 
@@ -371,11 +373,13 @@ p {
 }
 
 @keyframes fadeOut {
-    from {
-        opacity: 1;
-    }
-    to {
+    0% {
         opacity: 0;
+        transform: translateX(0%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(700%);
     }
 }
 
@@ -384,39 +388,64 @@ p {
 }
 
 @keyframes fadeIn {
-    from {
+    0% {
+        opacity: 0;
+        transform: translateX(700%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0%);
+    }
+}
+
+.fade-trough {
+    animation: fadeTrough $menu-animation-duration ease-in-out forwards;
+}
+
+@keyframes fadeTrough {
+    0% {
+        opacity: 1;
+    }
+    50% {
         opacity: 0;
     }
-    to {
+    100% {
         opacity: 1;
     }
 }
 
-.collapseAndFade {
-    animation: collapse $menu-animation-duration ease-in-out forwards, fadeOut $menu-animation-duration ease-in-out forwards;
-}
+//.collapseAndFade {
+//    animation: collapse $menu-animation-duration ease-in-out forwards, fadeOut $menu-animation-duration ease-in-out forwards;
+//}
 
-@keyframes collapse {
-    from {
-        transform: translateX(0%);
-    }
-    to {
-        transform: translateX(100%);
-    }
-}
+//.collapse {
+//    animation: collapse $menu-animation-duration ease-in-out forwards;
+//}
 
-.expandAndFade {
-    animation: expand $menu-animation-duration ease-in-out forwards, fadeIn $menu-animation-duration ease-in-out forwards;
-}
+//@keyframes collapse {
+//    0% {
+//        transform: translateX(0%);
+//    }
+//    50% {
+//        transform: translateX(150%);
+//    }
+//    100% {
+//        transform: translateX(0%);
+//    }
+//}
 
-@keyframes expand {
-    from {
-        transform: translateX(100%);
-    }
-    to {
-        transform: translateX(0%);
-    }
-}
+//.expandAndFade {
+//    animation: expand $menu-animation-duration ease-in-out forwards, fadeIn $menu-animation-duration ease-in-out forwards;
+//}
+
+//@keyframes expand {
+//    from {
+//        transform: translateX(100%);
+//    }
+//    to {
+//        transform: translateX(0%);
+//    }
+//}
 
 /* Misc */
 .startHidden {

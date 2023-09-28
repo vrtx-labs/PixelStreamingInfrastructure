@@ -2,7 +2,7 @@ export const domElements = {}; // Holds references to DOM elements
 
 export function getDOMElements() {
     domElements["videoPlayOverlay"] = document.getElementById("videoPlayOverlay");
-    domElements["toggleMenuButton"] = document.getElementById("containerButtonToggleMenu");
+    domElements["containerButtonToggleMenu"] = document.getElementById("containerButtonToggleMenu");
     domElements["menuArrowDown"] = document.getElementById("menuArrowDown");
     domElements["menuArrowUp"] = document.getElementById("menuArrowUp");
     domElements["menuContentHelp"] = document.getElementById("containerHelp");
