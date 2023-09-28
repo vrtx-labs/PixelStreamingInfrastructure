@@ -414,39 +414,6 @@ p {
     }
 }
 
-//.collapseAndFade {
-//    animation: collapse $menu-animation-duration ease-in-out forwards, fadeOut $menu-animation-duration ease-in-out forwards;
-//}
-
-//.collapse {
-//    animation: collapse $menu-animation-duration ease-in-out forwards;
-//}
-
-//@keyframes collapse {
-//    0% {
-//        transform: translateX(0%);
-//    }
-//    50% {
-//        transform: translateX(150%);
-//    }
-//    100% {
-//        transform: translateX(0%);
-//    }
-//}
-
-//.expandAndFade {
-//    animation: expand $menu-animation-duration ease-in-out forwards, fadeIn $menu-animation-duration ease-in-out forwards;
-//}
-
-//@keyframes expand {
-//    from {
-//        transform: translateX(100%);
-//    }
-//    to {
-//        transform: translateX(0%);
-//    }
-//}
-
 /* Misc */
 .startHidden {
     display: none;
