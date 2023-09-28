@@ -9,8 +9,7 @@ $menu-animation-duration: 0.8s;
 :root {
     /*Color scheme variables*/
     --colour-accent: #ffffff;
-    --colour-accent-active: #b41818;
-    --colour-accent2: #f6ebd8;
+    --colour-accent2: #c70000;
     --colour-base: #252525;
     --colour-base2: #e4e1dd;
     --colour-background: #404040;
@@ -165,7 +164,52 @@ p {
     margin: auto;
 }
 
+#overlayClimateScores {
+    background: rgba(37, 37, 37, 0.55);
+}
+#overlayClimateScores * {
+    pointer-events: auto;
+}
+
+#drawerClimateScores {
+    width: fit-content;
+    top: 0;
+    bottom: 0;
+    padding: 6rem 4rem 4rem 4rem;
+    background-color: var(--colour-accent);
+}
+
+#closeClimateScores {
+    right: 4rem;
+    top: 2rem;
+}
+
+#roomSelectionClimateScores {
+    gap: 1.5rem;
+}
+
+#containerClimateScoreCards {
+    width: 100%;
+    justify-content: space-between;
+    gap: 3rem;
+}
+
 /*** Classes ***/
+.paragraph-color,
+.paragraph-color * {
+    color: var(--colour-text);
+}
+
+.fade-color {
+    color: var(--colour-text);
+    opacity: 0.3;
+}
+
+.label-color,
+.label-color * {
+    color: var(--colour-base);
+}
+
 .stretch-container {
     left: 2rem;
     right: 2rem;
@@ -205,9 +249,35 @@ p {
     color: var(--colour-base);
 }
 
+.button-border-top {
+    border: none;
+    padding: 1.5rem 0 1.5rem 0;
+    pointer-events: all;
+    border-top: 0.15rem solid var(--colour-accent);
+}
+
+.button-border-top:hover {
+    border-top: 0.15rem solid rgba(199, 0, 0, 0.5);
+}
+
+.button-border-top:active,
+.button-border-top:focus,
+.selected-room.button-border-top {
+    border-top: 0.15rem solid var(--colour-accent2);
+    color: var(--colour-base);
+}
+
+.score-card {
+    width: 25vmax;
+    height: 25vmax;
+    padding: 0.5rem;
+}
+
 .score-panel {
+    width: 100%;
     padding: 0.5rem 0.5rem 0 0.5rem;
     align-items: end;
+    justify-content: space-around;
 }
 
 .score-panel > img {
@@ -222,6 +292,10 @@ p {
 .score-panel > h5 {
     margin: 0;
     text-align: end;
+}
+
+.score-card {
+    border: 0.125rem solid var(--colour-base2);
 }
 
 .char-icon {
@@ -290,6 +364,11 @@ p {
     top: 0;
 }
 
+.right-absolute {
+    position: absolute;
+    right: 0;
+}
+
 /* Flex */
 .flex-item {
     display: flex;
@@ -307,6 +386,10 @@ p {
 .vertical-container {
     display: flex;
     flex-direction: column;
+}
+.vertical-container > * {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .horizontal-container {
@@ -527,7 +610,7 @@ video {
     height: 100%;
     position: absolute;
     background-color: var(--colour-background);
-    /*background-image: url('https://www.riverbendtf.com/wp-content/uploads/2020/05/york-loft.jpg');*/
+    //background-image: url("https://www.riverbendtf.com/wp-content/uploads/2020/05/york-loft.jpg");
 }
 
 #videoPlayOverlay {

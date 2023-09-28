@@ -81,7 +81,7 @@
                     </button>
 
                     <button id="containerButtonToggleMenu" class="horizontal-container rounded-box hiddenState">
-                        <p id="toggleMenuButtonText" class="">Menu</p>
+                        <p id="toggleMenuButtonText" class="">Tools</p>
                         <div id="buttonToggleMenu" class="button-base flex-item">
                             <img id="dummy" class="svg-image" style="opacity: 0" src="/images/buttons/hov_menu.svg" type="svg" />
                             <img
@@ -150,6 +150,49 @@
                         <h4>Read More</h4>
                         <h1>+</h1>
                     </button>
+                </div>
+            </div>
+
+            <!-- Climate Scores Detail Drawer -->
+            <div id="overlayClimateScores" class="fill-screen paragraph-color">
+                <div id="drawerClimateScores" class="right-absolute">
+                    <button id="closeClimateScores" class="right-absolute button-base">
+                        <img src="/images/icons/x.svg" type="svg" class="svg-image" />
+                    </button>
+                    <div id="roomSelectionClimateScores" class="horizontal-stretch horizontal-container">
+                        <button id="buttonRoom1Climate" class="button-base button-border-top selected-room">Base room</button>
+                        <button id="buttonRoom2Climate" class="button-base button-border-top">Option 1</button>
+                        <button id="buttonRoom3Climate" class="button-base button-border-top">Option 2</button>
+                        <button id="buttonRoom4Climate" class="button-base button-border-top">Option 3</button>
+                    </div>
+                    <div id="containerClimateScoreCards" class="horizontal-container">
+                        <div id="daylightScoreCard" class="score-card vertical-container">
+                            <h4 class="label-color">DAYLIGHT SCORE</h4>
+                            <div id="containerDaylightScoreClimate" class="horizontal-container score-panel">
+                                <div class="horizontal-container">
+                                    <h1 id="daylightScoreClimate" class="label-color">3.9</h1>
+                                    <h1 class="fade-color">/5</h1>
+                                </div>
+
+                                <img class="svg-image" src="/images/icons/hov_climate_sun_colored.svg" type="svg" />
+                            </div>
+                            <h3 class="label-color">Good level of sunlight</h3>
+                            <p>
+                                There is an adequate amount of daylight in the room, which makes the room optimal for all
+                                activities. More light than in your current room
+                            </p>
+                        </div>
+                        <div id="ventilationScoreCard" class="score-card vertical-container">
+                            <h4 class="label-color">VENTILATION SCORE</h4>
+                            <div id="containerVentilationScoreClimate" class="horizontal-container score-panel">
+                                <div class="horizontal-container">
+                                    <h1 id="ventilationScoreClimate" class="label-color">2.8</h1>
+                                    <h1 class="fade-color">/5</h1>
+                                </div>
+                                <img class="svg-image" src="/images/icons/hov_climate_air_colored.svg" type="svg" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
