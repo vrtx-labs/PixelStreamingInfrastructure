@@ -47,11 +47,17 @@
     </head>
 
     <body onload="load();">
-        <div id="veluxUI" class="noselect fill-screen">
+        <main id="veluxUI" class="noselect fill-screen">
             <!-- Header -->
-            <div id="containerHeader" class="top-absolute stretch-container horizontal-container">
+            <header id="containerHeader" class="top-absolute stretch-container horizontal-container">
+                <!-- Logo -->
+                <div id="logoVelux" class="horizontal-stretch top-absolute">
+                    <a id="linkVelux" class="fill" href="https://www.velux.dk/" target="_blank">
+                        <img class="fill" src="/images/icons/velux-red.svg" type="svg" />
+                    </a>
+                </div>
                 <h5 id="breadcrumbs" class="flex-item">Example Project / Room name</h5>
-                <div id="containerMenu" class="horizontal-container">
+                <nav id="containerMenu" class="horizontal-container">
                     <button id="containerButtonRefresh" class="horizontal-container rounded-box">
                         <p>Refresh</p>
                         <div id="buttonRefresh" class="button-base flex-item">
@@ -97,15 +103,8 @@
                                 type="svg" />
                         </div>
                     </button>
-                </div>
-            </div>
-
-            <!-- Logo -->
-            <div id="logoVelux" class="horizontal-stretch top-absolute">
-                <a id="linkVelux" class="fill" href="https://www.velux.dk/" target="_blank">
-                    <img class="fill" src="/images/icons/velux-red.svg" type="svg" />
-                </a>
-            </div>
+                </nav>
+            </header>
 
             <!-- Joystick -->
             <div id="containerJoystick" class="bottom-absolute horizontal-container horizontal-stretch">
@@ -113,7 +112,7 @@
             </div>
 
             <!-- Lower Menu -->
-            <div id="containerFooter" class="bottom-absolute stretch-container horizontal-container">
+            <footer id="containerFooter" class="bottom-absolute stretch-container horizontal-container">
                 <button id="containerButtonDaylight" class="rounded-box horizontal-container">
                     <div id="buttonDaylight" class="button-base flex-item">
                         <img class="svg-image" src="/images/buttons/hov_daylight.svg" type="svg" />
@@ -151,22 +150,22 @@
                         <h1>+</h1>
                     </button>
                 </div>
-            </div>
+            </footer>
 
             <!-- Climate Scores Detail Drawer -->
-            <div id="overlayClimateScores" class="fill-screen paragraph-color hiddenState">
+            <aside id="overlayClimateScores" class="fill-screen paragraph-color hiddenState">
                 <div id="drawerClimateScores" class="right-absolute">
                     <button id="closeClimateScores" class="right-absolute button-base">
                         <img src="/images/icons/x.svg" type="svg" class="svg-image" />
                     </button>
-                    <div id="roomSelectionClimateScores" class="horizontal-stretch horizontal-container">
+                    <nav id="roomSelectionClimateScores" class="horizontal-stretch horizontal-container">
                         <button id="buttonRoom1Climate" class="button-base button-border-top selected-room">Base room</button>
                         <button id="buttonRoom2Climate" class="button-base button-border-top">Option 1</button>
                         <button id="buttonRoom3Climate" class="button-base button-border-top">Option 2</button>
                         <button id="buttonRoom4Climate" class="button-base button-border-top">Option 3</button>
-                    </div>
-                    <div id="containerClimateScoreCards" class="horizontal-container">
-                        <div id="daylightScoreCard" class="score-card vertical-container">
+                    </nav>
+                    <section id="containerClimateScoreCards" class="horizontal-container">
+                        <section id="daylightScoreCard" class="score-card vertical-container">
                             <h4 class="label-color">DAYLIGHT SCORE</h4>
                             <div id="containerDaylightScoreClimate" class="horizontal-container score-panel">
                                 <div class="horizontal-container">
@@ -181,8 +180,8 @@
                                 There is an adequate amount of daylight in the room, which makes the room optimal for all
                                 activities. More light than in your current room
                             </p>
-                        </div>
-                        <div id="ventilationScoreCard" class="score-card vertical-container">
+                        </section>
+                        <section id="ventilationScoreCard" class="score-card vertical-container">
                             <h4 class="label-color">VENTILATION SCORE</h4>
                             <div id="containerVentilationScoreClimate" class="horizontal-container score-panel">
                                 <div class="horizontal-container">
@@ -191,19 +190,19 @@
                                 </div>
                                 <img class="svg-image" src="/images/icons/hov_climate_air_colored.svg" type="svg" />
                             </div>
-                        </div>
-                    </div>
+                        </section>
+                    </section>
                 </div>
-            </div>
+            </aside>
 
-            <div id="containerRoomOptions" class="rounded-box horizontal-stretch horizontal-container bottom-absolute">
+            <nav id="containerRoomOptions" class="rounded-box horizontal-stretch horizontal-container bottom-absolute">
                 <button id="buttonRoom1" class="button-base rounded-box selected-room">Base room</button>
                 <button id="buttonRoom2" class="button-base rounded-box">Option 1</button>
                 <button id="buttonRoom3" class="button-base rounded-box">Option 2</button>
                 <button id="buttonRoom4" class="button-base rounded-box">Option 3</button>
-            </div>
-        </div>
-        <div id="playerUI" class="noselect">
+            </nav>
+        </main>
+        <aside id="playerUI" class="noselect">
             <div id="player"></div>
             <div id="overlay">
                 <div id="controls" style="display: none">
@@ -491,6 +490,6 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </aside>
     </body>
 </html>
