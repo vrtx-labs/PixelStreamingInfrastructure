@@ -21,6 +21,10 @@ export function getDOMElements() {
     domElements["buttonRoom2"] = document.getElementById("buttonRoom2");
     domElements["buttonRoom3"] = document.getElementById("buttonRoom3");
     domElements["buttonRoom4"] = document.getElementById("buttonRoom4");
+    domElements["buttonRoom1Climate"] = document.getElementById("buttonRoom1Climate");
+    domElements["buttonRoom2Climate"] = document.getElementById("buttonRoom2Climate");
+    domElements["buttonRoom3Climate"] = document.getElementById("buttonRoom3Climate");
+    domElements["buttonRoom4Climate"] = document.getElementById("buttonRoom4Climate");
     domElements["daylightSlider"] = document.getElementById("sliderDaylight");
     domElements["dayLightSliderText"] = document.getElementById("daylightValue");
     domElements["buttonCopyLink"] = document.getElementById("buttonCopyLink");

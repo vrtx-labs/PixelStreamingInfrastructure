@@ -328,39 +328,58 @@ function showMenuContent(menuContent) {
 }
 
 function setupRoomButtons() {
-    domElements["buttonRoom1"].addEventListener("click", function onOverlayClick(event) {
-        sendToStreamer(CommunicationKeys.activeRoomKey, "1");
-        setActiveRoom(this);
+    [domElements["buttonRoom1"], domElements["buttonRoom1Climate"]].forEach((element) => {
+        element.addEventListener("click", function onOverlayClick(event) {
+            sendToStreamer(CommunicationKeys.activeRoomKey, "1");
+            setActiveRoom([domElements["buttonRoom1"], domElements["buttonRoom1Climate"]]);
+        });
     });
-    domElements["buttonRoom2"].addEventListener("click", function onOverlayClick(event) {
-        sendToStreamer(CommunicationKeys.activeRoomKey, "2");
-        setActiveRoom(this);
+    [domElements["buttonRoom2"], domElements["buttonRoom2Climate"]].forEach((element) => {
+        element.addEventListener("click", function onOverlayClick(event) {
+            sendToStreamer(CommunicationKeys.activeRoomKey, "2");
+            setActiveRoom([domElements["buttonRoom2"], domElements["buttonRoom2Climate"]]);
+        });
     });
-    domElements["buttonRoom3"].addEventListener("click", function onOverlayClick(event) {
-        sendToStreamer(CommunicationKeys.activeRoomKey, "3");
-        setActiveRoom(this);
+    [domElements["buttonRoom3"], domElements["buttonRoom3Climate"]].forEach((element) => {
+        element.addEventListener("click", function onOverlayClick(event) {
+            sendToStreamer(CommunicationKeys.activeRoomKey, "3");
+            setActiveRoom([domElements["buttonRoom3"], domElements["buttonRoom3Climate"]]);
+        });
     });
-    domElements["buttonRoom4"].addEventListener("click", function onOverlayClick(event) {
-        sendToStreamer(CommunicationKeys.activeRoomKey, "4");
-        setActiveRoom(this);
+    [domElements["buttonRoom4"], domElements["buttonRoom4Climate"]].forEach((element) => {
+        element.addEventListener("click", function onOverlayClick(event) {
+            sendToStreamer(CommunicationKeys.activeRoomKey, "4");
+            setActiveRoom([domElements["buttonRoom4"], domElements["buttonRoom4Climate"]]);
+        });
     });
 }
 
-function setActiveRoom(element = undefined) {
-    if (element === undefined) element = domElements["buttonRoom1"];
+function setActiveRoom(roomButtons = undefined) {
+    if (roomButtons === undefined) roomButtons = [domElements["buttonRoom1"], domElements["buttonRoom1Climate"]];
 
     // Unmark all, then mark the selected room
-    domElements["buttonRoom1"].classList.remove("selected-room");
-    domElements["buttonRoom2"].classList.remove("selected-room");
-    domElements["buttonRoom3"].classList.remove("selected-room");
-    domElements["buttonRoom4"].classList.remove("selected-room");
-    element.classList.add("selected-room");
+    [
+        domElements["buttonRoom1"],
+        domElements["buttonRoom1Climate"],
+        domElements["buttonRoom2"],
+        domElements["buttonRoom2Climate"],
+        domElements["buttonRoom3"],
+        domElements["buttonRoom3Climate"],
+        domElements["buttonRoom4"],
+        domElements["buttonRoom4Climate"],
+    ].forEach((button) => {
+        button.classList.remove("selected-room");
+    });
+
+    roomButtons.forEach((button) => {
+        button.classList.add("selected-room");
+    });
 
     // Update the breadcrumbs in the top-left corner
-    setBreadcrumbs(element.innerHTML);
+    setBreadcrumbs(roomButtons.innerHTML);
 
     // Update the daylight and ventilation scores
-    let index = Array.prototype.indexOf.call(element.parentNode.children, element); // Get position of element in the DOM
+    let index = Array.prototype.indexOf.call(roomButtons[0].parentNode.children, roomButtons[0]); // Get position of element in the DOM
     domElements["daylightScore"].innerHTML = LocalVariables.daylightScores[index].toFixed(1);
     domElements["ventilationScore"].innerHTML = LocalVariables.ventilationScores[index].toFixed(1);
 }
