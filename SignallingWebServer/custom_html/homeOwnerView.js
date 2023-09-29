@@ -52,6 +52,7 @@ function setupUIElements() {
     setupRoomButtons();
     setupSlider();
     setupJoystick();
+    setupClimateDrawer();
 
     // Update UI state
     setActiveRoom();
@@ -384,6 +385,15 @@ function setupSlider() {
 
     // Update the slider value at start
     updateSlider(slider.value); // ToDo: Do this after establishing Unreal connection
+}
+
+function setupClimateDrawer() {
+    domElements["buttonReadMoreClimateScores"].addEventListener("click", function onOverlayClick(event) {
+        domElements["overlayClimateScores"].classList.remove("hiddenState");
+    });
+    domElements["closeClimateScores"].addEventListener("click", function onOverlayClick(event) {
+        domElements["overlayClimateScores"].classList.add("hiddenState");
+    });
 }
 
 function activateDefaultSettings() {

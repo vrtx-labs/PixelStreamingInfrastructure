@@ -32,4 +32,7 @@ export function getDOMElements() {
     domElements["menuButtonImage"] = document.getElementById("menuButtonImage");
     domElements["collapseMenuImage"] = document.getElementById("collapseMenuImage");
     domElements["toggleMenuButtonText"] = document.getElementById("toggleMenuButtonText");
+    domElements["overlayClimateScores"] = document.getElementById("overlayClimateScores");
+    domElements["closeClimateScores"] = document.getElementById("closeClimateScores");
+    domElements["buttonReadMoreClimateScores"] = document.getElementById("containerReadMore");
 }
