@@ -206,6 +206,31 @@ $menu-animation-duration: 0.8s;
     gap: 3rem;
 }
 
+#containerDaylightRatingClimate,
+#containerVentilationRatingClimate {
+    margin-top: 0.5rem;
+
+    img {
+        height: 1.2rem;
+        width: auto;
+        margin-right: 0.4rem;
+    }
+}
+
+#containerDaylightRatingClimate {
+    > div > p {
+        max-width: 50%;
+        margin-top: 0.5rem;
+    }
+}
+
+#containerVentilationRatingClimate {
+    > div > p {
+        max-width: 90%;
+        margin-top: 0.5rem;
+    }
+}
+
 /*** Classes ***/
 
 /* Design-Specific Classes */
@@ -283,8 +308,8 @@ $menu-animation-duration: 0.8s;
     }
 
     .score-card {
-        width: 25vmax;
-        height: 25vmax;
+        width: 17vmax;
+        height: 17vmax;
         padding: 1rem;
         border: 0.125rem solid var(--colour-base2);
 
@@ -295,7 +320,13 @@ $menu-animation-duration: 0.8s;
             h4,
             h5 {
                 margin: 0;
+                font-weight: 500;
             }
+        }
+
+        p {
+            font-size: min(1.1vw, 0.65rem);
+            font-weight: 500;
         }
     }
 
