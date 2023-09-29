@@ -17,6 +17,7 @@ $menu-animation-duration: 0.8s;
     --colour-base2: #e4e1dd;
     --colour-background: #404040;
     --colour-text: #797979;
+    --colour-url: #5e8ed6;
 }
 
 @layer general {
@@ -73,6 +74,10 @@ $menu-animation-duration: 0.8s;
 
     p {
         margin: auto 0.5rem;
+    }
+
+    a {
+        color: var(--colour-url);
     }
 }
 
@@ -185,6 +190,7 @@ $menu-animation-duration: 0.8s;
 
 #drawerClimateScores {
     width: fit-content;
+    max-width: 42%;
     top: 0;
     bottom: 0;
     padding: 6rem 4rem 4rem 4rem;
