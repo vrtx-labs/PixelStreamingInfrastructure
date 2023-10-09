@@ -26,6 +26,25 @@ const LocalVariables = {
     projectName: "Default Project",
     daylightScores: [0, 0, 0, 0],
     ventilationScores: [0, 0, 0, 0],
+    ventilationRenewalTimes: [0, 0, 0, 0],
+    daylightTextsGood: [
+        "Good level of daylight",
+        "There is an adequate amount of daylight in the room, which makes the room optimal for all activities.",
+    ],
+    daylightTextsMedium: ["Medium level of daylight", "The amount of daylight in the room can be improved."],
+    daylightTextsBad: [
+        "Bad level of daylight",
+        "There is an inadequate amount of daylight in the room, which makes the room suboptimal for all activities.",
+    ],
+    ventilationTextsGood: [
+        "Good level of ventilation",
+        "The room is well ventilated, which makes the room optimal for all activities.",
+    ],
+    ventilationTextsMedium: ["Medium level of ventilation", "The amount of fresh air, can be improved."],
+    ventilationTextsBad: [
+        "Bad level of ventilation",
+        "The room is poorly ventilated, which makes the room suboptimal for all activities.",
+    ],
 };
 
 // Setup: The event is linked to app.js OnLoadFinished in the setup function

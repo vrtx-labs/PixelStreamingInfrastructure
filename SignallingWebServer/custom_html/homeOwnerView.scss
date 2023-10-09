@@ -167,12 +167,15 @@ $menu-animation-duration: 0.8s;
 }
 
 #containerReadMore {
-    justify-content: space-between;
+    height: inherit;
+    margin-bottom: 0;
     padding: 0.5rem;
+
     background-color: var(--colour-accent);
     border-bottom-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
-    height: inherit;
+
+    justify-content: space-between;
 
     > * {
         color: var(--colour-base);
@@ -190,11 +193,17 @@ $menu-animation-duration: 0.8s;
 
 #drawerClimateScores {
     width: fit-content;
-    max-width: 42%;
+    max-width: 36vw;
     top: 0;
     bottom: 0;
     padding: 6rem 4rem 4rem 4rem;
     background-color: var(--colour-accent);
+}
+
+@media screen and (max-width: $breakpoint-general) {
+    #drawerClimateScores {
+        max-width: 100%;
+    }
 }
 
 #closeClimateScores {
@@ -208,7 +217,7 @@ $menu-animation-duration: 0.8s;
 
 #containerClimateScoreCards {
     width: 100%;
-    justify-content: space-between;
+    justify-content: start;
     gap: 3rem;
 }
 
@@ -314,8 +323,8 @@ $menu-animation-duration: 0.8s;
     }
 
     .score-card {
-        width: 17vmax;
-        height: 17vmax;
+        width: 14rem;
+        height: 14rem;
         padding: 1rem;
         border: 0.125rem solid var(--colour-base2);
 
