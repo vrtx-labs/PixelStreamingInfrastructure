@@ -6,7 +6,7 @@ import "./global.js";
 // Constants
 //const localStoragePrefix = "velux.";
 
-// Enumn
+// Enumns
 class MenuContent {
     static Help = new MenuContent("Help");
     static RoomOptions = new MenuContent("RoomOptions");
@@ -17,6 +17,18 @@ class MenuContent {
     }
     toString() {
         return `menuContent.${this.name}`;
+    }
+}
+class ScoreType {
+    static Daylight = new ScoreType("Daylight");
+    static Ventilation = new ScoreType("Ventilation");
+    static VentilationRenewalTimes = new ScoreType("VentilationRenewalTimes");
+
+    constructor(name) {
+        this.name = name;
+    }
+    toString() {
+        return `scoreType.${this.name}`;
     }
 }
 
@@ -53,6 +65,7 @@ const LocalVariables = {
     ventilationPercentageTextLower: "Slower to change air in your room",
     ventilationPercentageTextHigher: "Faster to change air in your room",
     ventilationPercentageTextEqual: "Same as in your current room",
+    airRenewalTime: "Air renewal time is up to",
 };
 
 // Setup: The event is linked to app.js OnLoadFinished in the setup function
@@ -417,12 +430,13 @@ function setActiveRoom(roomNumber = 1) {
     });
 
     // Update the daylight and ventilation texts
-    UpdateScoreTexts(true, roomNumber);
-    UpdateScoreTexts(false, roomNumber);
+    UpdateScoreTexts(ScoreType.Daylight, roomNumber);
+    UpdateScoreTexts(ScoreType.Ventilation, roomNumber);
 
     // Update percentage values & ventilation renewal times
-    updatePercentageValues(true, roomNumber);
-    updatePercentageValues(false, roomNumber);
+    updateScoreMetrics(ScoreType.Daylight, roomNumber);
+    updateScoreMetrics(ScoreType.Ventilation, roomNumber);
+    updateScoreMetrics(ScoreType.VentilationRenewalTimes, roomNumber);
 
     // Compute and set improvement percentages for ventilation and daylight in respect to room 1
     let ventilationImprovement = 0;
@@ -438,11 +452,13 @@ function setActiveRoom(roomNumber = 1) {
 }
 
 // Updates either daylight or ventilation texts corresponding to the room number
-function UpdateScoreTexts(updateDaylightTexts, roomNumber) {
+function UpdateScoreTexts(scoreType, roomNumber) {
+    if (!(scoreType instanceof ScoreType)) return;
+
     // Score type
     let headerElement = references.domElements["daylightHeadingClimate"];
     let textElement = references.domElements["daylightTextClimate"];
-    if (!updateDaylightTexts) {
+    if (scoreType == ScoreType.Ventilation) {
         headerElement = references.domElements["ventilationHeadingClimate"];
         textElement = references.domElements["ventilationTextClimate"];
     }
@@ -459,7 +475,7 @@ function UpdateScoreTexts(updateDaylightTexts, roomNumber) {
         case "good":
             scoreHeading = LocalVariables.daylightTextsGood[0];
             scoreText = LocalVariables.daylightTextsGood[1];
-            if (!updateDaylightTexts) {
+            if (scoreType == ScoreType.Ventilation) {
                 scoreHeading = LocalVariables.ventilationTextsGood[0];
                 scoreText = LocalVariables.ventilationTextsGood[1];
             }
@@ -467,7 +483,7 @@ function UpdateScoreTexts(updateDaylightTexts, roomNumber) {
         case "medium":
             scoreHeading = LocalVariables.daylightTextsMedium[0];
             scoreText = LocalVariables.daylightTextsMedium[1];
-            if (!updateDaylightTexts) {
+            if (scoreType == ScoreType.Ventilation) {
                 scoreHeading = LocalVariables.ventilationTextsMedium[0];
                 scoreText = LocalVariables.ventilationTextsMedium[1];
             }
@@ -475,7 +491,7 @@ function UpdateScoreTexts(updateDaylightTexts, roomNumber) {
         case "low":
             scoreHeading = LocalVariables.daylightTextsLow[0];
             scoreText = LocalVariables.daylightTextsLow[1];
-            if (!updateDaylightTexts) {
+            if (scoreType == ScoreType.Ventilation) {
                 scoreHeading = LocalVariables.ventilationTextsLow[0];
                 scoreText = LocalVariables.ventilationTextsLow[1];
             }
@@ -489,7 +505,9 @@ function UpdateScoreTexts(updateDaylightTexts, roomNumber) {
     textElement.innerHTML = scoreText;
 }
 
-function updatePercentageValues(updateDaylightValues, roomNumber) {
+function updateScoreMetrics(scoreType, roomNumber) {
+    if (!(scoreType instanceof ScoreType)) return;
+
     // Set the percentage value
     let value = LocalVariables.daylightPercentages[roomNumber - 1];
     let isHigher = value > LocalVariables.daylightPercentages[0];
@@ -504,41 +522,52 @@ function updatePercentageValues(updateDaylightValues, roomNumber) {
     let textHigher = LocalVariables.daylightPercentageTextHigher;
     let textLower = LocalVariables.daylightPercentageTextLower;
 
-    // In case of changing the ventilation values, update the references
-    if (!updateDaylightValues) {
+    // Overwrite the references, if necessary
+    if (scoreType == ScoreType.Daylight) {
+        // In case of upating the daylight values, the references are already set
+        // So we only need to update the icon
+        updateArrowImage(references.domElements["daylightArrowImages"], isHigher);
+    } else if (scoreType == ScoreType.Ventilation) {
+        // Ventilation: Re-calculate the values
         value = LocalVariables.ventilationPercentages[roomNumber - 1];
         isHigher = value > LocalVariables.ventilationPercentages[0];
         isLower = value < LocalVariables.ventilationPercentages[0];
 
+        // Set the references
         valueElement = references.domElements["ventilationPercentageClimate"];
         textElement = references.domElements["ventilationPercentageTextClimate"];
 
+        // Set the results
         textEqual = LocalVariables.ventilationPercentageTextEqual;
         textHigher = LocalVariables.ventilationPercentageTextHigher;
         textLower = LocalVariables.ventilationPercentageTextLower;
+
+        // Update the icon
+        updateArrowImage(references.domElements["ventilationArrowImages"], isHigher);
+    } else if (scoreType == ScoreType.VentilationRenewalTimes) {
+        // VentilationRenewalTimes: Re-calculate the values
+        value = LocalVariables.ventilationRenewalTimes[roomNumber - 1];
+        isHigher = value > LocalVariables.ventilationRenewalTimes[0];
+        isLower = value < LocalVariables.ventilationRenewalTimes[0];
+
+        // Set the references
+        valueElement = references.domElements["ventilationMinutesClimate"];
+        textElement = references.domElements["ventilationMinutesTextClimate"];
+
+        // The result is not dependent on the percentage value
+        textEqual = textHigher = textLower = LocalVariables.airRenewalTime + " " + value + " minutes";
+
+        // Update the icon
+        updateArrowImage(references.domElements["ventilationMinutesArrowImages"], isHigher);
     }
 
     // Set the percentage value and the text
     valueElement.innerHTML = value + "%";
+    if (scoreType == ScoreType.VentilationRenewalTimes) valueElement.innerHTML = value + " min";
     textElement.innerHTML = textEqual;
     if (isHigher) textElement.innerHTML = textHigher;
     else if (isLower) textElement.innerHTML = textLower;
-
-    //// Times ToDo: Use Enum to distinguish three different cases: daylight, ventilation, ventilation renewal times
-    //if (!updateDaylightValues) {
-    //    references.domElements["ventilationMinutesClimate"].innerHTML = LocalVariables.ventilationRenewalTimes[roomNumber - 1];
-    //    references.domElements["ventilationMinutesTextClimate"];
-    //}
-
-    // Update Icons
-    updateArrowImage(references.domElements["daylightArrowImages"], isHigher);
-    updateArrowImage(references.domElements["ventilationArrowImages"], isHigher);
-    updateArrowImage(references.domElements["ventilationMinutesArrowImages"], isHigher);
-
-    updateVentilationRenewalTimes();
 }
-
-function updateVentilationRenewalTimes() {}
 
 function updateArrowImage(imageList, up) {
     if (imageList === undefined || imageList === null || imageList.length !== 2) return;
