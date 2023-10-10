@@ -1,4 +1,4 @@
-import { domElements, getDOMElements } from "./references.js";
+import * as references from "./references.js";
 import { setupJoystick } from "./joystick.js";
 import { CommunicationKeys, sendToStreamer, setupStreamerCommunication } from "./streamerCommunication.js";
 import "./global.js";
@@ -40,7 +40,7 @@ const LocalVariables = {
         "Good level of ventilation",
         "The room is well ventilated, which makes the room optimal for all activities.",
     ],
-    ventilationTextsMedium: ["Medium level of ventilation", "The amount of fresh air, can be improved."],
+    ventilationTextsMedium: ["Medium level of ventilation", "The amount of fresh air in the room can be improved."],
     ventilationTextsBad: [
         "Bad level of ventilation",
         "The room is poorly ventilated, which makes the room suboptimal for all activities.",
@@ -53,7 +53,7 @@ window.addEventListener("OnLoadFinished", () => {
 });
 
 function setup() {
-    getDOMElements();
+    references.getDOMElements();
     setupUIElements();
     setupCommunication();
     activateDefaultSettings();
@@ -75,7 +75,7 @@ function setupUIElements() {
 
     // Update UI state
     setActiveRoom();
-    setBreadcrumbs(domElements["buttonRoom1"].innerHTML, LocalVariables.projectName);
+    setBreadcrumbs(references.getRoomElementsByNumber(1)[0].innerHTML, LocalVariables.projectName);
 }
 
 function getURLParameter(parameter) {
@@ -97,7 +97,7 @@ function scrollToTop() {
 }
 
 function setupPlayButton() {
-    domElements["videoPlayOverlay"].addEventListener("click", function onOverlayClick(event) {
+    references.domElements["videoPlayOverlay"].addEventListener("click", function onOverlayClick(event) {
         startStream();
     });
 }
@@ -126,17 +126,17 @@ function setupCommunication() {
             case CommunicationKeys.projectIDKey:
                 // Set the project name
                 LocalVariables.projectName = incomingObject[CommunicationKeys.projectIDKey];
-                setBreadcrumbs(domElements["buttonRoom1"].innerHTML, LocalVariables.projectName);
+                setBreadcrumbs(references.getRoomElementsByNumber(1)[0].innerHTML, LocalVariables.projectName);
                 break;
             case CommunicationKeys.roomNamesKey:
                 // Set the room names
-                setRoomName(domElements["buttonRoom1"], incomingObject[CommunicationKeys.roomNamesKey]["1"]);
-                setRoomName(domElements["buttonRoom2"], incomingObject[CommunicationKeys.roomNamesKey]["2"]);
-                setRoomName(domElements["buttonRoom3"], incomingObject[CommunicationKeys.roomNamesKey]["3"]);
-                setRoomName(domElements["buttonRoom4"], incomingObject[CommunicationKeys.roomNamesKey]["4"]);
+                setRoomName(1, incomingObject[CommunicationKeys.roomNamesKey]["1"]);
+                setRoomName(2, incomingObject[CommunicationKeys.roomNamesKey]["2"]);
+                setRoomName(3, incomingObject[CommunicationKeys.roomNamesKey]["3"]);
+                setRoomName(4, incomingObject[CommunicationKeys.roomNamesKey]["4"]);
 
                 // Activate the first room
-                domElements["buttonRoom1"].classList.add("selected-room");
+                setActiveRoom();
                 break;
             case CommunicationKeys.daylightScoresKey:
                 // Set the daylight scores
@@ -164,30 +164,32 @@ function setupCommunication() {
 function setBreadcrumbs(room, project = "") {
     if (project === "" || project === undefined) project = LocalVariables.projectName;
 
-    domElements["breadcrumbs"].innerHTML = project + " / " + room;
+    references.domElements["breadcrumbs"].innerHTML = project + " / " + room;
 }
 
-function setRoomName(element, name) {
-    // Check the name string for whitespace
-    if (name === undefined || name === null || name.trim() === "") element.classList.add("hiddenState");
-    element.innerHTML = name;
-    element.classList.remove("selected-room");
+function setRoomName(roomNumber, name) {
+    // Get room references
+    references.getRoomElementsByNumber(roomNumber).forEach((room) => {
+        // Check the name string for whitespace
+        if (name === undefined || name === null || name.trim() === "") room.classList.add("hiddenState");
+        room.innerHTML = name;
+    });
 }
 
 function setupToggleMenuButton() {
-    domElements["containerButtonToggleMenu"].addEventListener("click", function onOverlayClick(event) {
+    references.domElements["containerButtonToggleMenu"].addEventListener("click", function onOverlayClick(event) {
         toggleMenu();
     });
 }
 
 function setupScreenshotButton() {
-    domElements["buttonScreenshot"].addEventListener("click", function onOverlayClick(event) {
+    references.domElements["buttonScreenshot"].addEventListener("click", function onOverlayClick(event) {
         sendToStreamer(CommunicationKeys.screenshotKey, "true");
     });
 }
 
 function setupShareButton() {
-    domElements["buttonShare"].addEventListener("click", function onOverlayClick(event) {
+    references.domElements["buttonShare"].addEventListener("click", function onOverlayClick(event) {
         // Copy current url to clipboard
         if (!Boolean(navigator.clipboard)) {
             console.warn("Clipboard API not available");
@@ -210,11 +212,11 @@ function toggleMenu() {
         // Hide the menu by removing the fade-in class
         setClassActive(
             [
-                domElements["buttonShare"],
-                domElements["buttonRefresh"],
-                domElements["buttonHelp"],
-                domElements["buttonScreenshot"],
-                domElements["collapseMenuImage"],
+                references.domElements["buttonShare"],
+                references.domElements["buttonRefresh"],
+                references.domElements["buttonHelp"],
+                references.domElements["buttonScreenshot"],
+                references.domElements["collapseMenuImage"],
             ],
             "fade-in",
             false
@@ -223,11 +225,11 @@ function toggleMenu() {
         // And adding the fade-out class
         setClassActive(
             [
-                domElements["buttonShare"],
-                domElements["buttonRefresh"],
-                domElements["buttonHelp"],
-                domElements["buttonScreenshot"],
-                domElements["collapseMenuImage"],
+                references.domElements["buttonShare"],
+                references.domElements["buttonRefresh"],
+                references.domElements["buttonHelp"],
+                references.domElements["buttonScreenshot"],
+                references.domElements["collapseMenuImage"],
             ],
             "fade-out",
             true,
@@ -235,23 +237,31 @@ function toggleMenu() {
         );
 
         // Show menuButtonImage and toggle text
-        domElements["toggleMenuButtonText"].classList.remove("fade-out");
-        domElements["toggleMenuButtonText"].classList.add("expandAndFade");
-        setClassActive([domElements["menuButtonImage"], domElements["toggleMenuButtonText"]], "fade-in", true);
-        setClassActive([domElements["menuButtonImage"], domElements["toggleMenuButtonText"]], "fade-out", false);
+        references.domElements["toggleMenuButtonText"].classList.remove("fade-out");
+        references.domElements["toggleMenuButtonText"].classList.add("expandAndFade");
+        setClassActive(
+            [references.domElements["menuButtonImage"], references.domElements["toggleMenuButtonText"]],
+            "fade-in",
+            true
+        );
+        setClassActive(
+            [references.domElements["menuButtonImage"], references.domElements["toggleMenuButtonText"]],
+            "fade-out",
+            false
+        );
 
         //
-        //domElements["collapseMenuImage"].style.position = "absolute";
+        //references.domElements["collapseMenuImage"].style.position = "absolute";
     } else {
         LocalVariables.menuActive = true;
         // Show the menu by adding the fade-in class
         setClassActive(
             [
-                domElements["buttonShare"],
-                domElements["buttonRefresh"],
-                domElements["buttonHelp"],
-                domElements["buttonScreenshot"],
-                domElements["collapseMenuImage"],
+                references.domElements["buttonShare"],
+                references.domElements["buttonRefresh"],
+                references.domElements["buttonHelp"],
+                references.domElements["buttonScreenshot"],
+                references.domElements["collapseMenuImage"],
             ],
             "fade-in",
             true
@@ -260,29 +270,38 @@ function toggleMenu() {
         // And removing the fade-out class
         setClassActive(
             [
-                domElements["buttonShare"],
-                domElements["buttonRefresh"],
-                domElements["buttonHelp"],
-                domElements["buttonScreenshot"],
-                domElements["collapseMenuImage"],
+                references.domElements["buttonShare"],
+                references.domElements["buttonRefresh"],
+                references.domElements["buttonHelp"],
+                references.domElements["buttonScreenshot"],
+                references.domElements["collapseMenuImage"],
             ],
             "fade-out",
             false
         );
 
         // Hide menuButtonImage and toggle text^
-        domElements["containerButtonToggleMenu"].classList.add("fade-trough");
-        domElements["toggleMenuButtonText"].classList.add("fade-out");
-        domElements["toggleMenuButtonText"].classList.remove("expandAndFade");
-        setClassActive([domElements["menuButtonImage"], domElements["toggleMenuButtonText"]], "fade-in", false);
-        setClassActive([domElements["menuButtonImage"], domElements["toggleMenuButtonText"]], "fade-out", true, true); // ToDo: This line is only necessary for hiding after animation
+        references.domElements["containerButtonToggleMenu"].classList.add("fade-trough");
+        references.domElements["toggleMenuButtonText"].classList.add("fade-out");
+        references.domElements["toggleMenuButtonText"].classList.remove("expandAndFade");
+        setClassActive(
+            [references.domElements["menuButtonImage"], references.domElements["toggleMenuButtonText"]],
+            "fade-in",
+            false
+        );
+        setClassActive(
+            [references.domElements["menuButtonImage"], references.domElements["toggleMenuButtonText"]],
+            "fade-out",
+            true,
+            true
+        ); // ToDo: This line is only necessary for hiding after animation
 
         //
-        //domElements["collapseMenuImage"].style.position = "absolute";
-        //domElements["collapseMenuImage"].addEventListener(
+        //references.domElements["collapseMenuImage"].style.position = "absolute";
+        //references.domElements["collapseMenuImage"].addEventListener(
         //    "animationend",
         //    () => {
-        //        domElements["collapseMenuImage"].style.position = "relative";
+        //        references.domElements["collapseMenuImage"].style.position = "relative";
         //    },
         //    { once: true }
         //);
@@ -310,10 +329,10 @@ function setClassActive(listOfElements, className, setActive, hideAfterAnimation
 }
 
 function setupMenuContentButtons() {
-    domElements["buttonRoomOptions"].addEventListener("click", function onOverlayClick(event) {
+    references.domElements["buttonRoomOptions"].addEventListener("click", function onOverlayClick(event) {
         showMenuContent(MenuContent.RoomOptions);
     });
-    domElements["buttonDaylight"].addEventListener("click", function onOverlayClick(event) {
+    references.domElements["buttonDaylight"].addEventListener("click", function onOverlayClick(event) {
         showMenuContent(MenuContent.DaylightSlider);
     });
 }
@@ -323,23 +342,23 @@ function showMenuContent(menuContent) {
     if (!(menuContent instanceof MenuContent)) return;
 
     // Disable all elements
-    domElements["menuContentRoomOptions"].classList.add("hiddenState");
-    domElements["menuContentDaylightSlider"].classList.add("hiddenState");
+    references.domElements["menuContentRoomOptions"].classList.add("hiddenState");
+    references.domElements["menuContentDaylightSlider"].classList.add("hiddenState");
 
     // Switch the menu content in a switch case statement
     switch (menuContent) {
         case MenuContent.Help:
-            domElements["menuContentHelp"].classList.remove("hiddenState");
+            references.domElements["menuContentHelp"].classList.remove("hiddenState");
             break;
         case MenuContent.RoomOptions: // Room Options and Daylight Slider are mutually exclusive
-            domElements["menuContentRoomOptions"].classList.remove("hiddenState");
-            domElements["containerButtonRoomOptions"].classList.add("hiddenState");
-            domElements["containerButtonDaylight"].classList.remove("hiddenState");
+            references.domElements["menuContentRoomOptions"].classList.remove("hiddenState");
+            references.domElements["containerButtonRoomOptions"].classList.add("hiddenState");
+            references.domElements["containerButtonDaylight"].classList.remove("hiddenState");
             break;
         case MenuContent.DaylightSlider:
-            domElements["menuContentDaylightSlider"].classList.remove("hiddenState");
-            domElements["containerButtonDaylight"].classList.add("hiddenState");
-            domElements["containerButtonRoomOptions"].classList.remove("hiddenState");
+            references.domElements["menuContentDaylightSlider"].classList.remove("hiddenState");
+            references.domElements["containerButtonDaylight"].classList.add("hiddenState");
+            references.domElements["containerButtonRoomOptions"].classList.remove("hiddenState");
             break;
         default:
             break;
@@ -347,65 +366,68 @@ function showMenuContent(menuContent) {
 }
 
 function setupRoomButtons() {
-    [domElements["buttonRoom1"], domElements["buttonRoom1Climate"]].forEach((element) => {
+    references.getRoomElementsByNumber(1).forEach((element) => {
         element.addEventListener("click", function onOverlayClick(event) {
-            sendToStreamer(CommunicationKeys.activeRoomKey, "1");
-            setActiveRoom([domElements["buttonRoom1"], domElements["buttonRoom1Climate"]]);
+            setActiveRoom(1);
         });
     });
-    [domElements["buttonRoom2"], domElements["buttonRoom2Climate"]].forEach((element) => {
+    references.getRoomElementsByNumber(2).forEach((element) => {
         element.addEventListener("click", function onOverlayClick(event) {
-            sendToStreamer(CommunicationKeys.activeRoomKey, "2");
-            setActiveRoom([domElements["buttonRoom2"], domElements["buttonRoom2Climate"]]);
+            setActiveRoom(2);
         });
     });
-    [domElements["buttonRoom3"], domElements["buttonRoom3Climate"]].forEach((element) => {
+    references.getRoomElementsByNumber(3).forEach((element) => {
         element.addEventListener("click", function onOverlayClick(event) {
-            sendToStreamer(CommunicationKeys.activeRoomKey, "3");
-            setActiveRoom([domElements["buttonRoom3"], domElements["buttonRoom3Climate"]]);
+            setActiveRoom(3);
         });
     });
-    [domElements["buttonRoom4"], domElements["buttonRoom4Climate"]].forEach((element) => {
+    references.getRoomElementsByNumber(4).forEach((element) => {
         element.addEventListener("click", function onOverlayClick(event) {
-            sendToStreamer(CommunicationKeys.activeRoomKey, "4");
-            setActiveRoom([domElements["buttonRoom4"], domElements["buttonRoom4Climate"]]);
+            setActiveRoom(4);
         });
     });
 }
 
-function setActiveRoom(roomButtons = undefined) {
-    if (roomButtons === undefined) roomButtons = [domElements["buttonRoom1"], domElements["buttonRoom1Climate"]];
-
+function setActiveRoom(roomNumber = 1) {
     // Unmark all, then mark the selected room
-    [
-        domElements["buttonRoom1"],
-        domElements["buttonRoom1Climate"],
-        domElements["buttonRoom2"],
-        domElements["buttonRoom2Climate"],
-        domElements["buttonRoom3"],
-        domElements["buttonRoom3Climate"],
-        domElements["buttonRoom4"],
-        domElements["buttonRoom4Climate"],
-    ].forEach((button) => {
+    references.getAllRoomElements().forEach((button) => {
         button.classList.remove("selected-room");
     });
-
-    roomButtons.forEach((button) => {
-        button.classList.add("selected-room");
+    references.getRoomElementsByNumber(roomNumber).forEach((button) => {
+        if (button !== undefined && button.classList !== undefined) button.classList.add("selected-room");
     });
 
     // Update the breadcrumbs in the top-left corner
-    setBreadcrumbs(roomButtons.innerHTML);
+    setBreadcrumbs(references.getRoomElementsByNumber(roomNumber)[0].innerHTML);
 
     // Update the daylight and ventilation scores
-    let index = Array.prototype.indexOf.call(roomButtons[0].parentNode.children, roomButtons[0]); // Get position of element in the DOM
-    domElements["daylightScore"].innerHTML = LocalVariables.daylightScores[index].toFixed(1);
-    domElements["ventilationScore"].innerHTML = LocalVariables.ventilationScores[index].toFixed(1);
+    references.getDaylightScores().forEach((score) => {
+        score.innerHTML = LocalVariables.daylightScores[roomNumber - 1].toFixed(1);
+    });
+    references.getVentilationScores().forEach((score) => {
+        score.innerHTML = LocalVariables.ventilationScores[roomNumber - 1].toFixed(1);
+    });
+
+    // Update the daylight and ventilation texts
+
+    // Update ventilation renewal times
+
+    // Compute and set improvement percentages for ventilation and daylight in respect to room 1
+    let ventilationImprovement = 0;
+    let daylightImprovement = 0;
+    if (roomNumber !== 1) {
+        ventilationImprovement =
+            (LocalVariables.ventilationScores[roomNumber - 1] / LocalVariables.ventilationScores[0]) * 100 - 100;
+        daylightImprovement = (LocalVariables.daylightScores[roomNumber - 1] / LocalVariables.daylightScores[0]) * 100 - 100;
+    }
+
+    // Send to streamer
+    sendToStreamer(CommunicationKeys.activeRoomKey, roomNumber);
 }
 
 function setupSlider() {
-    let slider = domElements["daylightSlider"];
-    let sliderText = domElements["dayLightSliderText"];
+    let slider = references.domElements["daylightSlider"];
+    let sliderText = references.domElements["dayLightSliderText"];
 
     // Construct the text for the slider value and send the current value to the streamer
     let updateSlider = function (value) {
@@ -426,11 +448,11 @@ function setupSlider() {
 }
 
 function setupClimateDrawer() {
-    domElements["buttonReadMoreClimateScores"].addEventListener("click", function onOverlayClick(event) {
-        domElements["overlayClimateScores"].classList.remove("hiddenState");
+    references.domElements["buttonReadMoreClimateScores"].addEventListener("click", function onOverlayClick(event) {
+        references.domElements["overlayClimateScores"].classList.remove("hiddenState");
     });
-    domElements["closeClimateScores"].addEventListener("click", function onOverlayClick(event) {
-        domElements["overlayClimateScores"].classList.add("hiddenState");
+    references.domElements["closeClimateScores"].addEventListener("click", function onOverlayClick(event) {
+        references.domElements["overlayClimateScores"].classList.add("hiddenState");
     });
 }
 
