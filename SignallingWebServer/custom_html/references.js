@@ -27,6 +27,21 @@ export function getDOMElements() {
     domElements["closeClimateScores"] = document.getElementById("closeClimateScores");
     domElements["buttonReadMoreClimateScores"] = document.getElementById("containerReadMore");
 
+    domElements["daylightPercentageClimate"] = document.getElementById("daylightPercentageClimate");
+    domElements["daylightPercentageTextClimate"] = document.getElementById("daylightPercentageTextClimate");
+    domElements["ventilationPercentageClimate"] = document.getElementById("ventilationPercentageClimate");
+    domElements["ventilationPercentageTextClimate"] = document.getElementById("ventilationPercentageTextClimate");
+    domElements["ventilationMinutesClimate"] = document.getElementById("ventilationMinutesClimate");
+    domElements["ventilationMinutesTextClimate"] = document.getElementById("ventilationMinutesTextClimate");
+
+    domElements["daylightArrowImages"] = document.getElementById("containerDaylightArrowClimate").getElementsByTagName("img");
+    domElements["ventilationArrowImages"] = document
+        .getElementById("containerVentilationArrowClimate")
+        .getElementsByTagName("img");
+    domElements["ventilationMinutesArrowImages"] = document
+        .getElementById("containerVentilationMinutesArrowClimate")
+        .getElementsByTagName("img");
+
     // Tools
     domElements["buttonScreenshot"] = document.getElementById("containerButtonScreenshot");
     domElements["buttonShare"] = document.getElementById("containerButtonShare");

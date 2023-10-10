@@ -26,14 +26,16 @@ const LocalVariables = {
     projectName: "Default Project",
     daylightScores: [0, 0, 0, 0],
     ventilationScores: [0, 0, 0, 0],
+    daylightPercentages: [0, 0, 0, 0],
+    ventilationPercentages: [0, 0, 0, 0],
     ventilationRenewalTimes: [0, 0, 0, 0],
     daylightTextsGood: [
         "Good level of daylight",
         "There is an adequate amount of daylight in the room, which makes the room optimal for all activities.",
     ],
     daylightTextsMedium: ["Medium level of daylight", "The amount of daylight in the room can be improved."],
-    daylightTextsBad: [
-        "Bad level of daylight",
+    daylightTextsLow: [
+        "Low level of daylight",
         "There is an inadequate amount of daylight in the room, which makes the room suboptimal for all activities.",
     ],
     ventilationTextsGood: [
@@ -41,10 +43,16 @@ const LocalVariables = {
         "The room is well ventilated, which makes the room optimal for all activities.",
     ],
     ventilationTextsMedium: ["Medium level of ventilation", "The amount of fresh air in the room can be improved."],
-    ventilationTextsBad: [
-        "Bad level of ventilation",
+    ventilationTextsLow: [
+        "Low level of ventilation",
         "The room is poorly ventilated, which makes the room suboptimal for all activities.",
     ],
+    daylightPercentageTextLower: "Less light than in your current room",
+    daylightPercentageTextHigher: "More light than in your current room",
+    daylightPercentageTextEqual: "Same as in your current room",
+    ventilationPercentageTextLower: "Slower to change air in your room",
+    ventilationPercentageTextHigher: "Faster to change air in your room",
+    ventilationPercentageTextEqual: "Same as in your current room",
 };
 
 // Setup: The event is linked to app.js OnLoadFinished in the setup function
@@ -412,7 +420,9 @@ function setActiveRoom(roomNumber = 1) {
     UpdateScoreTexts(true, roomNumber);
     UpdateScoreTexts(false, roomNumber);
 
-    // Update ventilation renewal times
+    // Update percentage values & ventilation renewal times
+    updatePercentageValues(true, roomNumber);
+    updatePercentageValues(false, roomNumber);
 
     // Compute and set improvement percentages for ventilation and daylight in respect to room 1
     let ventilationImprovement = 0;
@@ -440,7 +450,7 @@ function UpdateScoreTexts(updateDaylightTexts, roomNumber) {
     // Score level
     let scoreRating = "medium";
     if (LocalVariables.daylightScores[roomNumber - 1] > 4) scoreRating = "good";
-    else if (LocalVariables.daylightScores[roomNumber - 1] < 2.5) scoreRating = "bad";
+    else if (LocalVariables.daylightScores[roomNumber - 1] < 2.5) scoreRating = "low";
 
     // Find the correct texts
     let scoreHeading = "";
@@ -462,12 +472,12 @@ function UpdateScoreTexts(updateDaylightTexts, roomNumber) {
                 scoreText = LocalVariables.ventilationTextsMedium[1];
             }
             break;
-        case "bad":
-            scoreHeading = LocalVariables.daylightTextsBad[0];
-            scoreText = LocalVariables.daylightTextsBad[1];
+        case "low":
+            scoreHeading = LocalVariables.daylightTextsLow[0];
+            scoreText = LocalVariables.daylightTextsLow[1];
             if (!updateDaylightTexts) {
-                scoreHeading = LocalVariables.ventilationTextsBad[0];
-                scoreText = LocalVariables.ventilationTextsBad[1];
+                scoreHeading = LocalVariables.ventilationTextsLow[0];
+                scoreText = LocalVariables.ventilationTextsLow[1];
             }
             break;
         default:
@@ -477,6 +487,68 @@ function UpdateScoreTexts(updateDaylightTexts, roomNumber) {
     // Set the texts
     headerElement.innerHTML = scoreHeading;
     textElement.innerHTML = scoreText;
+}
+
+function updatePercentageValues(updateDaylightValues, roomNumber) {
+    // Set the percentage value
+    let value = LocalVariables.daylightPercentages[roomNumber - 1];
+    let isHigher = value > LocalVariables.daylightPercentages[0];
+    let isLower = value < LocalVariables.daylightPercentages[0];
+
+    // Set the the references (text & value)
+    let valueElement = references.domElements["daylightPercentageClimate"];
+    let textElement = references.domElements["daylightPercentageTextClimate"];
+
+    // Set the results
+    let textEqual = LocalVariables.daylightPercentageTextEqual;
+    let textHigher = LocalVariables.daylightPercentageTextHigher;
+    let textLower = LocalVariables.daylightPercentageTextLower;
+
+    // In case of changing the ventilation values, update the references
+    if (!updateDaylightValues) {
+        value = LocalVariables.ventilationPercentages[roomNumber - 1];
+        isHigher = value > LocalVariables.ventilationPercentages[0];
+        isLower = value < LocalVariables.ventilationPercentages[0];
+
+        valueElement = references.domElements["ventilationPercentageClimate"];
+        textElement = references.domElements["ventilationPercentageTextClimate"];
+
+        textEqual = LocalVariables.ventilationPercentageTextEqual;
+        textHigher = LocalVariables.ventilationPercentageTextHigher;
+        textLower = LocalVariables.ventilationPercentageTextLower;
+    }
+
+    // Set the percentage value and the text
+    valueElement.innerHTML = value + "%";
+    textElement.innerHTML = textEqual;
+    if (isHigher) textElement.innerHTML = textHigher;
+    else if (isLower) textElement.innerHTML = textLower;
+
+    //// Times ToDo: Use Enum to distinguish three different cases: daylight, ventilation, ventilation renewal times
+    //if (!updateDaylightValues) {
+    //    references.domElements["ventilationMinutesClimate"].innerHTML = LocalVariables.ventilationRenewalTimes[roomNumber - 1];
+    //    references.domElements["ventilationMinutesTextClimate"];
+    //}
+
+    // Update Icons
+    updateArrowImage(references.domElements["daylightArrowImages"], isHigher);
+    updateArrowImage(references.domElements["ventilationArrowImages"], isHigher);
+    updateArrowImage(references.domElements["ventilationMinutesArrowImages"], isHigher);
+
+    updateVentilationRenewalTimes();
+}
+
+function updateVentilationRenewalTimes() {}
+
+function updateArrowImage(imageList, up) {
+    if (imageList === undefined || imageList === null || imageList.length !== 2) return;
+    if (up) {
+        imageList[0].classList.remove("hiddenState");
+        imageList[1].classList.add("hiddenState");
+    } else {
+        imageList[0].classList.add("hiddenState");
+        imageList[1].classList.remove("hiddenState");
+    }
 }
 
 function setupSlider() {

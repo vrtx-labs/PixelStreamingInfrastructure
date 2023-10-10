@@ -183,11 +183,17 @@
                             </p>
                             <div id="containerDaylightRatingClimate" class="horizontal-container score-panel">
                                 <div>
-                                    <div class="horizontal-container">
+                                    <div id="containerDaylightArrowClimate" class="horizontal-container">
                                         <img class="svg-image" src="/images/icons/hov_climate_arrow_sun_up.svg" type="svg" />
-                                        <h1 class="">36%</h1>
+                                        <img
+                                            class="svg-image hiddenState"
+                                            src="/images/icons/hov_climate_arrow_sun_down.svg"
+                                            type="svg" />
+                                        <h1 id="daylightPercentageClimate" class="">36%</h1>
                                     </div>
-                                    <p class="fade-color">More light than in your current room</p>
+                                    <p id="daylightPercentageTextClimate" class="fade-color">
+                                        More light than in your current room
+                                    </p>
                                 </div>
                             </div>
                         </section>
@@ -208,18 +214,28 @@
                             </p>
                             <div id="containerVentilationRatingClimate" class="horizontal-container score-panel">
                                 <div>
-                                    <div class="horizontal-container">
+                                    <div id="containerVentilationArrowClimate" class="horizontal-container">
                                         <img class="svg-image" src="/images/icons/hov_climate_arrow_air_up.svg" type="svg" />
-                                        <h1 class="">36%</h1>
+                                        <img
+                                            class="svg-image hiddenState"
+                                            src="/images/icons/hov_climate_arrow_air_down.svg"
+                                            type="svg" />
+                                        <h1 id="ventilationPercentageClimate" class="">36%</h1>
                                     </div>
-                                    <p class="fade-color">Faster to change air in your room</p>
+                                    <p id="ventilationPercentageTextClimate" class="fade-color">
+                                        Faster to change air in your room
+                                    </p>
                                 </div>
                                 <div>
-                                    <div class="horizontal-container">
-                                        <img class="svg-image" src="/images/icons/hov_climate_arrow_air_down.svg" type="svg" />
-                                        <h1 class="">15min</h1>
+                                    <div id="containerVentilationMinutesArrowClimate" class="horizontal-container">
+                                        <img class="svg-image" src="/images/icons/hov_climate_arrow_air_up.svg" type="svg" />
+                                        <img
+                                            class="svg-image hiddenState"
+                                            src="/images/icons/hov_climate_arrow_air_down.svg"
+                                            type="svg" />
+                                        <h1 id="ventilationMinutesClimate" class="">15min</h1>
                                     </div>
-                                    <p class="fade-color">Air renewal time is up to 15 min</p>
+                                    <p id="ventilationMinutesTextClimate" class="fade-color">Air renewal time is up to 15 min</p>
                                 </div>
                             </div>
                         </section>
