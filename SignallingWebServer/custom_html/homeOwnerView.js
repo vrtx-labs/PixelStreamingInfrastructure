@@ -409,6 +409,8 @@ function setActiveRoom(roomNumber = 1) {
     });
 
     // Update the daylight and ventilation texts
+    UpdateScoreTexts(true, roomNumber);
+    UpdateScoreTexts(false, roomNumber);
 
     // Update ventilation renewal times
 
@@ -423,6 +425,58 @@ function setActiveRoom(roomNumber = 1) {
 
     // Send to streamer
     sendToStreamer(CommunicationKeys.activeRoomKey, roomNumber);
+}
+
+// Updates either daylight or ventilation texts corresponding to the room number
+function UpdateScoreTexts(updateDaylightTexts, roomNumber) {
+    // Score type
+    let headerElement = references.domElements["daylightHeadingClimate"];
+    let textElement = references.domElements["daylightTextClimate"];
+    if (!updateDaylightTexts) {
+        headerElement = references.domElements["ventilationHeadingClimate"];
+        textElement = references.domElements["ventilationTextClimate"];
+    }
+
+    // Score level
+    let scoreRating = "medium";
+    if (LocalVariables.daylightScores[roomNumber - 1] > 4) scoreRating = "good";
+    else if (LocalVariables.daylightScores[roomNumber - 1] < 2.5) scoreRating = "bad";
+
+    // Find the correct texts
+    let scoreHeading = "";
+    let scoreText = "";
+    switch (scoreRating) {
+        case "good":
+            scoreHeading = LocalVariables.daylightTextsGood[0];
+            scoreText = LocalVariables.daylightTextsGood[1];
+            if (!updateDaylightTexts) {
+                scoreHeading = LocalVariables.ventilationTextsGood[0];
+                scoreText = LocalVariables.ventilationTextsGood[1];
+            }
+            break;
+        case "medium":
+            scoreHeading = LocalVariables.daylightTextsMedium[0];
+            scoreText = LocalVariables.daylightTextsMedium[1];
+            if (!updateDaylightTexts) {
+                scoreHeading = LocalVariables.ventilationTextsMedium[0];
+                scoreText = LocalVariables.ventilationTextsMedium[1];
+            }
+            break;
+        case "bad":
+            scoreHeading = LocalVariables.daylightTextsBad[0];
+            scoreText = LocalVariables.daylightTextsBad[1];
+            if (!updateDaylightTexts) {
+                scoreHeading = LocalVariables.ventilationTextsBad[0];
+                scoreText = LocalVariables.ventilationTextsBad[1];
+            }
+            break;
+        default:
+            break;
+    }
+
+    // Set the texts
+    headerElement.innerHTML = scoreHeading;
+    textElement.innerHTML = scoreText;
 }
 
 function setupSlider() {
