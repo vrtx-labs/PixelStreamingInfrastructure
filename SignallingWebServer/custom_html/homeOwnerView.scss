@@ -1,13 +1,15 @@
 /*** General Declarations & Type Selectors ***/
 
 /* Layers */
-@layer general, design-specific;
+@layer general, design-specific, animations;
 
 /* Device specific break points & scaling */
 $breakpoint-general: 1480px;
 $scale-by-width: min(3vw, 1.9rem);
 $scale-font: min(1.25vw, 0.98rem);
 $menu-animation-duration: 0.8s;
+$move-animation-duration: 1s;
+$fade-animation-duration: 0.4s;
 
 :root {
     /*Color scheme variables*/
@@ -82,167 +84,175 @@ $menu-animation-duration: 0.8s;
 }
 
 /*** ID Selectors ***/
-#logoVelux {
-    position: fixed;
-    top: 1rem;
-    width: 10vw;
-    cursor: default;
-}
+@layer design-specific {
+    #logoVelux {
+        position: fixed;
+        top: 1rem;
+        width: 10vw;
+        cursor: default;
+    }
 
-#linkVelux {
-    display: block;
-}
+    #linkVelux {
+        display: block;
+    }
 
-#containerHeader {
-    top: min(7vw, 2.5rem);
-    background-color: transparent;
-    pointer-events: none;
-}
+    #containerHeader {
+        top: min(7vw, 2.5rem);
+        background-color: transparent;
+        pointer-events: none;
+    }
 
-#breadcrumbs {
-    margin-top: auto;
-    margin-bottom: auto;
-    font-size: min(2vw, 1rem); // ToDo: Generalize
-}
-
-@media screen and (max-width: $breakpoint-general) {
     #breadcrumbs {
-        margin-top: 0;
+        margin-top: auto;
+        margin-bottom: auto;
+        font-size: min(2vw, 1rem); // ToDo: Generalize
     }
-}
 
-#containerMenu {
-    gap: 0.5rem;
-    max-width: 38vw;
-    justify-content: end;
-}
+    @media screen and (max-width: $breakpoint-general) {
+        #breadcrumbs {
+            margin-top: 0;
+        }
+    }
 
-@media screen and (max-width: $breakpoint-general) {
-    /*Reverse order of menu items on mobile*/
     #containerMenu {
-        flex-flow: column-reverse;
+        gap: 0.5rem;
+        max-width: 38vw;
+        justify-content: end;
+    }
+
+    @media screen and (max-width: $breakpoint-general) {
+        /*Reverse order of menu items on mobile*/
+        #containerMenu {
+            flex-flow: column-reverse;
+            align-items: end;
+        }
+    }
+
+    #collapseMenuImage,
+    #menuButtonImage {
+        position: absolute;
+    }
+
+    #containerFooter {
+        bottom: 2.5rem;
+        background-color: transparent;
         align-items: end;
-    }
-}
-
-#collapseMenuImage,
-#menuButtonImage {
-    position: absolute;
-}
-
-#containerFooter {
-    bottom: 2.5rem;
-    background-color: transparent;
-    align-items: end;
-    pointer-events: none;
-}
-
-#containerRoomOptions {
-    bottom: 2.5rem;
-    height: $scale-by-width;
-    justify-content: space-between;
-    gap: 1rem;
-}
-#containerRoomOptions > button {
-    display: flex;
-}
-
-#containerScores {
-    border-radius: 1rem;
-    padding: 0;
-
-    > div > h5 {
-        margin: auto auto 0 auto;
-        padding-top: 1rem;
+        pointer-events: none;
     }
 
-    .score-panel {
-        align-items: end;
+    #containerRoomOptions {
+        bottom: 2.5rem;
+        height: $scale-by-width;
+        justify-content: space-between;
+        gap: 1rem;
     }
-}
-
-#containerScoresPadding {
-    padding: 0.5rem 2rem 0rem 1.5rem;
-    margin: 0;
-}
-
-#containerReadMore {
-    height: inherit;
-    margin-bottom: 0;
-    padding: 0.5rem;
-
-    background-color: var(--colour-accent);
-    border-bottom-left-radius: 1rem;
-    border-bottom-right-radius: 1rem;
-
-    justify-content: space-between;
-
-    > * {
-        color: var(--colour-base);
-        margin: auto;
+    #containerRoomOptions > button {
+        display: flex;
     }
-}
 
-#overlayClimateScores {
-    background: rgba(37, 37, 37, 0.55);
+    #containerScores {
+        border-radius: 1rem;
+        padding: 0;
 
-    * {
-        pointer-events: auto;
+        > div > h5 {
+            margin: auto auto 0 auto;
+            padding-top: 1rem;
+        }
+
+        .score-panel {
+            align-items: end;
+        }
     }
-}
 
-#drawerClimateScores {
-    width: fit-content;
-    max-width: 36vw;
-    top: 0;
-    bottom: 0;
-    padding: 6rem 4rem 4rem 4rem;
-    background-color: var(--colour-accent);
-}
+    #containerScoresPadding {
+        padding: 0.5rem 2rem 0rem 1.5rem;
+        margin: 0;
+    }
 
-@media screen and (max-width: $breakpoint-general) {
+    #containerReadMore {
+        height: inherit;
+        margin-bottom: 0;
+        padding: 0.5rem;
+
+        background-color: var(--colour-accent);
+        border-bottom-left-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+
+        justify-content: space-between;
+
+        > * {
+            color: var(--colour-base);
+            margin: auto;
+        }
+    }
+
+    #overlayClimateScores {
+        background: rgba(37, 37, 37, 0.55);
+
+        transition: opacity $fade-animation-duration linear;
+        opacity: 0;
+
+        * {
+            pointer-events: auto;
+        }
+    }
+
     #drawerClimateScores {
-        max-width: 100%;
+        width: fit-content;
+        max-width: 36vw;
+        top: 0;
+        bottom: 0;
+        padding: 6rem 4rem 4rem 4rem;
+        background-color: var(--colour-accent);
+
+        transition: transform $move-animation-duration ease-in-out;
+        transform: translateX(300%);
     }
-}
 
-#closeClimateScores {
-    right: 4rem;
-    top: 2rem;
-}
-
-#roomSelectionClimateScores {
-    gap: 1.5rem;
-}
-
-#containerClimateScoreCards {
-    width: 100%;
-    justify-content: start;
-    gap: 3rem;
-}
-
-#containerDaylightRatingClimate,
-#containerVentilationRatingClimate {
-    margin-top: 0.5rem;
-
-    img {
-        height: 1.2rem;
-        width: auto;
-        margin-right: 0.4rem;
+    @media screen and (max-width: $breakpoint-general) {
+        #drawerClimateScores {
+            max-width: 100%;
+        }
     }
-}
 
-#containerDaylightRatingClimate {
-    > div > p {
-        max-width: 60%;
+    #closeClimateScores {
+        right: 4rem;
+        top: 2rem;
+    }
+
+    #roomSelectionClimateScores {
+        gap: 1.5rem;
+    }
+
+    #containerClimateScoreCards {
+        width: 100%;
+        justify-content: start;
+        gap: 3rem;
+    }
+
+    #containerDaylightRatingClimate,
+    #containerVentilationRatingClimate {
         margin-top: 0.5rem;
-    }
-}
 
-#containerVentilationRatingClimate {
-    > div > p {
-        max-width: 90%;
-        margin-top: 0.5rem;
+        img {
+            height: 1.2rem;
+            width: auto;
+            margin-right: 0.4rem;
+        }
+    }
+
+    #containerDaylightRatingClimate {
+        > div > p {
+            max-width: 60%;
+            margin-top: 0.5rem;
+        }
+    }
+
+    #containerVentilationRatingClimate {
+        > div > p {
+            max-width: 90%;
+            margin-top: 0.5rem;
+        }
     }
 }
 
@@ -392,6 +402,10 @@ $menu-animation-duration: 0.8s;
         height: $scale-by-width;
         margin: 0;
     }
+
+    .no-pointer {
+        pointer-events: none;
+    }
 }
 
 /* General Classes */
@@ -525,135 +539,149 @@ $menu-animation-duration: 0.8s;
 }
 
 /* Animations */
-.fade-out {
-    animation: fadeOut $menu-animation-duration ease-in-out forwards;
-}
+@layer animations {
+    .menu-out {
+        animation: menuOut $menu-animation-duration ease-in-out forwards;
+    }
 
-@keyframes fadeOut {
-    0% {
-        opacity: 0;
+    @keyframes menuOut {
+        0% {
+            opacity: 0;
+            transform: translateX(0%);
+        }
+        100% {
+            opacity: 1;
+            transform: translateX(700%);
+        }
+    }
+
+    .menu-in {
+        animation: menuIn $menu-animation-duration ease-in-out forwards;
+    }
+
+    @keyframes menuIn {
+        0% {
+            opacity: 0;
+            transform: translateX(700%);
+        }
+        100% {
+            opacity: 1;
+            transform: translateX(0%);
+        }
+    }
+
+    .fade-trough {
+        animation: fadeTrough $menu-animation-duration ease-in-out forwards;
+    }
+
+    @keyframes fadeTrough {
+        0% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    /* Transitions */
+    .move-in {
         transform: translateX(0%);
     }
-    100% {
-        opacity: 1;
-        transform: translateX(700%);
-    }
-}
 
-.fade-in {
-    animation: fadeIn $menu-animation-duration ease-in-out forwards;
-}
-
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-        transform: translateX(700%);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0%);
-    }
-}
-
-.fade-trough {
-    animation: fadeTrough $menu-animation-duration ease-in-out forwards;
-}
-
-@keyframes fadeTrough {
-    0% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0;
-    }
-    100% {
+    .fade-in {
         opacity: 1;
     }
 }
 
 /************** Slider CSS **************/
-#containerSliderDaylight {
-    width: 50vw;
-    height: $scale-by-width;
-    padding: 0.5rem;
-    justify-content: center;
+@layer design-specific {
+    #containerSliderDaylight {
+        width: 50vw;
+        height: $scale-by-width;
+        padding: 0.5rem;
+        justify-content: center;
 
-    background-image: url("/images/hov_slider_measure.svg");
-    background-repeat: no-repeat;
-    background-size: 87% 100%;
-    background-position: center;
-}
+        background-image: url("/images/hov_slider_measure.svg");
+        background-repeat: no-repeat;
+        background-size: 87% 100%;
+        background-position: center;
+    }
 
-.slider {
-    margin: auto;
-    appearance: none;
-    -webkit-appearance: none;
-    width: 92%;
-    height: 100%;
-    background: transparent;
-    outline: none;
-    border: none;
-    z-index: 10;
-}
+    .slider {
+        margin: auto;
+        appearance: none;
+        -webkit-appearance: none;
+        width: 92%;
+        height: 100%;
+        background: transparent;
+        outline: none;
+        border: none;
+        z-index: 10;
+    }
 
-.slider::-moz-range-thumb {
-    appearance: none;
-    -moz-appearance: none;
-    border-radius: 100%;
-    width: 2rem;
-    height: 2rem;
-    cursor: pointer;
+    .slider::-moz-range-thumb {
+        appearance: none;
+        -moz-appearance: none;
+        border-radius: 100%;
+        width: 2rem;
+        height: 2rem;
+        cursor: pointer;
 
-    background-image: url("/images/buttons/hov_daylight.svg");
-    background-repeat: no-repeat;
-    background-size: contain;
-}
+        background-image: url("/images/buttons/hov_daylight.svg");
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
 
-.slider::-webkit-slider-thumb {
-    appearance: none;
-    -webkit-appearance: none;
-    border-radius: 100%;
-    width: 2rem;
-    height: 2rem;
-    cursor: pointer;
+    .slider::-webkit-slider-thumb {
+        appearance: none;
+        -webkit-appearance: none;
+        border-radius: 100%;
+        width: 2rem;
+        height: 2rem;
+        cursor: pointer;
 
-    background-image: url("/images/buttons/hov_daylight.svg");
-    background-repeat: no-repeat;
-    background-size: contain;
+        background-image: url("/images/buttons/hov_daylight.svg");
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
 }
 
 /************** Joystick CSS **************/
 /* Some design is defined in joystick.js */
-
-#containerJoystick {
-    bottom: 13vmin;
-    height: 26vmin;
-    width: 100%;
-    background-color: transparent;
-    justify-content: center;
-    pointer-events: none;
-}
-
-#containerJoystick * {
-    pointer-events: auto;
-}
-
-/* Disable on pc */
-@media (pointer: fine) {
+@layer design-specific {
     #containerJoystick {
-        display: none;
+        bottom: 13vmin;
+        height: 26vmin;
+        width: 100%;
+        background-color: transparent;
+        justify-content: center;
+        pointer-events: none;
     }
-}
 
-#joystick {
-    height: 100%;
-    width: auto;
-    background-color: var(--colour-base2);
-    opacity: 25%;
-    border-radius: 100%;
-    cursor: all-scroll;
-    user-select: none;
-    touch-action: pan-y;
+    #containerJoystick * {
+        pointer-events: auto;
+    }
+
+    /* Disable on pc */
+    @media (pointer: fine) {
+        #containerJoystick {
+            display: none;
+        }
+    }
+
+    #joystick {
+        height: 100%;
+        width: auto;
+        background-color: var(--colour-base2);
+        opacity: 25%;
+        border-radius: 100%;
+        cursor: all-scroll;
+        user-select: none;
+        touch-action: pan-y;
+    }
 }
 
 /****************** CSS of the Pixel Streaming Interface ******************/

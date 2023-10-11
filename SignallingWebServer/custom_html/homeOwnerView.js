@@ -230,7 +230,7 @@ function setupShareButton() {
 function toggleMenu() {
     if (LocalVariables.menuActive) {
         LocalVariables.menuActive = false;
-        // Hide the menu by removing the fade-in class
+        // Hide the menu by removing the menu-in class
         setClassActive(
             [
                 references.domElements["buttonShare"],
@@ -239,11 +239,11 @@ function toggleMenu() {
                 references.domElements["buttonScreenshot"],
                 references.domElements["collapseMenuImage"],
             ],
-            "fade-in",
+            "menu-in",
             false
         );
 
-        // And adding the fade-out class
+        // And adding the menu-out class
         setClassActive(
             [
                 references.domElements["buttonShare"],
@@ -252,22 +252,22 @@ function toggleMenu() {
                 references.domElements["buttonScreenshot"],
                 references.domElements["collapseMenuImage"],
             ],
-            "fade-out",
+            "menu-out",
             true,
             true // Hide after animation
         );
 
         // Show menuButtonImage and toggle text
-        references.domElements["toggleMenuButtonText"].classList.remove("fade-out");
+        references.domElements["toggleMenuButtonText"].classList.remove("menu-out");
         references.domElements["toggleMenuButtonText"].classList.add("expandAndFade");
         setClassActive(
             [references.domElements["menuButtonImage"], references.domElements["toggleMenuButtonText"]],
-            "fade-in",
+            "menu-in",
             true
         );
         setClassActive(
             [references.domElements["menuButtonImage"], references.domElements["toggleMenuButtonText"]],
-            "fade-out",
+            "menu-out",
             false
         );
 
@@ -275,7 +275,7 @@ function toggleMenu() {
         //references.domElements["collapseMenuImage"].style.position = "absolute";
     } else {
         LocalVariables.menuActive = true;
-        // Show the menu by adding the fade-in class
+        // Show the menu by adding the menu-in class
         setClassActive(
             [
                 references.domElements["buttonShare"],
@@ -284,11 +284,11 @@ function toggleMenu() {
                 references.domElements["buttonScreenshot"],
                 references.domElements["collapseMenuImage"],
             ],
-            "fade-in",
+            "menu-in",
             true
         );
 
-        // And removing the fade-out class
+        // And removing the menu-out class
         setClassActive(
             [
                 references.domElements["buttonShare"],
@@ -297,22 +297,22 @@ function toggleMenu() {
                 references.domElements["buttonScreenshot"],
                 references.domElements["collapseMenuImage"],
             ],
-            "fade-out",
+            "menu-out",
             false
         );
 
         // Hide menuButtonImage and toggle text^
         references.domElements["containerButtonToggleMenu"].classList.add("fade-trough");
-        references.domElements["toggleMenuButtonText"].classList.add("fade-out");
+        references.domElements["toggleMenuButtonText"].classList.add("menu-out");
         references.domElements["toggleMenuButtonText"].classList.remove("expandAndFade");
         setClassActive(
             [references.domElements["menuButtonImage"], references.domElements["toggleMenuButtonText"]],
-            "fade-in",
+            "menu-in",
             false
         );
         setClassActive(
             [references.domElements["menuButtonImage"], references.domElements["toggleMenuButtonText"]],
-            "fade-out",
+            "menu-out",
             true,
             true
         ); // ToDo: This line is only necessary for hiding after animation
@@ -604,10 +604,28 @@ function setupSlider() {
 
 function setupClimateDrawer() {
     references.domElements["buttonReadMoreClimateScores"].addEventListener("click", function onOverlayClick(event) {
-        references.domElements["overlayClimateScores"].classList.remove("hiddenState");
+        // Fade in the overlay and make it block clicks
+        references.domElements["overlayClimateScores"].classList.remove("no-pointer");
+        references.domElements["overlayClimateScores"].classList.add("fade-in");
+
+        // Move out the drawer
+        references.domElements["drawerClimateScores"].classList.add("move-in");
     });
     references.domElements["closeClimateScores"].addEventListener("click", function onOverlayClick(event) {
-        references.domElements["overlayClimateScores"].classList.add("hiddenState");
+        // Fade out the overlay and allow clicks to pass through
+        references.domElements["overlayClimateScores"].classList.remove("fade-in");
+
+        // On animation end, add hiddenState class
+        references.domElements["overlayClimateScores"].addEventListener(
+            "transitionend",
+            () => {
+                references.domElements["overlayClimateScores"].classList.add("no-pointer");
+            },
+            { once: true }
+        );
+
+        // Move in the drawer
+        references.domElements["drawerClimateScores"].classList.remove("move-in");
     });
 }
 

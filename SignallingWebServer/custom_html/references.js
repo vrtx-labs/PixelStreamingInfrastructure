@@ -24,6 +24,7 @@ export function getDOMElements() {
     domElements["ventilationTextClimate"] = document.getElementById("ventilationTextClimate");
 
     domElements["overlayClimateScores"] = document.getElementById("overlayClimateScores");
+    domElements["drawerClimateScores"] = document.getElementById("drawerClimateScores");
     domElements["closeClimateScores"] = document.getElementById("closeClimateScores");
     domElements["buttonReadMoreClimateScores"] = document.getElementById("containerReadMore");
 
