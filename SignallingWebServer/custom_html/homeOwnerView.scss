@@ -219,6 +219,9 @@ $fade-animation-duration: 0.4s;
     #closeClimateScores {
         right: 4rem;
         top: 2rem;
+        > .svg-image {
+            height: 1.2rem;
+        }
     }
 
     #roomSelectionClimateScores {
