@@ -60,22 +60,27 @@ $fade-animation-duration: 0.4s;
 
     h1 {
         font-size: min(1.8vw, 1.6rem);
+        font-weight: 270;
     }
 
     h2 {
         font-size: min(1.7vw, 1.4rem);
+        font-weight: 250;
     }
 
     h4 {
         font-size: min(1.15vw, 0.8rem);
+        font-weight: 220;
     }
 
     h5 {
         font-size: min(1vw, 0.7rem);
+        font-weight: 210;
     }
 
     p {
         margin: auto 0.5rem;
+        font-weight: 230;
     }
 
     a {
@@ -339,6 +344,8 @@ $fade-animation-duration: 0.4s;
     .score-card {
         width: 14rem;
         height: 14rem;
+        //min-width: 40vw;
+        //min-height: 40vw;
         padding: 1rem;
         border: 0.125rem solid var(--colour-base2);
 
@@ -355,7 +362,7 @@ $fade-animation-duration: 0.4s;
 
         p {
             font-size: min(1.1vw, 0.65rem);
-            font-weight: 500;
+            font-weight: 600;
         }
     }
 
