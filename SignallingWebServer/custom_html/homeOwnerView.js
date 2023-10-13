@@ -5,6 +5,31 @@ import "./global.js";
 
 // Constants
 //const localStoragePrefix = "velux.";
+const daylightTextsGood = [
+    "Good level of daylight",
+    "There is an adequate amount of daylight in the room, which makes the room optimal for all activities.",
+];
+const daylightTextsMedium = ["Medium level of daylight", "The amount of daylight in the room can be improved."];
+const daylightTextsLow = [
+    "Low level of daylight",
+    "There is an inadequate amount of daylight in the room, which makes the room suboptimal for all activities.",
+];
+const ventilationTextsGood = [
+    "Good level of ventilation",
+    "The room is well ventilated, which makes the room optimal for all activities.",
+];
+const ventilationTextsMedium = ["Medium level of ventilation", "The amount of fresh air in the room can be improved."];
+const ventilationTextsLow = [
+    "Low level of ventilation",
+    "The room is poorly ventilated, which makes the room suboptimal for all activities.",
+];
+const daylightPercentageTextLower = "Less light than in your current room";
+const daylightPercentageTextHigher = "More light than in your current room";
+const daylightPercentageTextEqual = "Same as in your current room";
+const ventilationPercentageTextLower = "Slower to change air in your room";
+const ventilationPercentageTextHigher = "Faster to change air in your room";
+const ventilationPercentageTextEqual = "Same as in your current room";
+const airRenewalTimeText = "Air renewal time is up to";
 
 // Enumns
 class MenuContent {
@@ -41,31 +66,6 @@ const LocalVariables = {
     daylightPercentages: [0, 0, 0, 0],
     ventilationPercentages: [0, 0, 0, 0],
     ventilationRenewalTimes: [0, 0, 0, 0],
-    daylightTextsGood: [
-        "Good level of daylight",
-        "There is an adequate amount of daylight in the room, which makes the room optimal for all activities.",
-    ],
-    daylightTextsMedium: ["Medium level of daylight", "The amount of daylight in the room can be improved."],
-    daylightTextsLow: [
-        "Low level of daylight",
-        "There is an inadequate amount of daylight in the room, which makes the room suboptimal for all activities.",
-    ],
-    ventilationTextsGood: [
-        "Good level of ventilation",
-        "The room is well ventilated, which makes the room optimal for all activities.",
-    ],
-    ventilationTextsMedium: ["Medium level of ventilation", "The amount of fresh air in the room can be improved."],
-    ventilationTextsLow: [
-        "Low level of ventilation",
-        "The room is poorly ventilated, which makes the room suboptimal for all activities.",
-    ],
-    daylightPercentageTextLower: "Less light than in your current room",
-    daylightPercentageTextHigher: "More light than in your current room",
-    daylightPercentageTextEqual: "Same as in your current room",
-    ventilationPercentageTextLower: "Slower to change air in your room",
-    ventilationPercentageTextHigher: "Faster to change air in your room",
-    ventilationPercentageTextEqual: "Same as in your current room",
-    airRenewalTime: "Air renewal time is up to",
 };
 
 // Setup: The event is linked to app.js OnLoadFinished in the setup function
@@ -473,27 +473,27 @@ function UpdateScoreTexts(scoreType, roomNumber) {
     let scoreText = "";
     switch (scoreRating) {
         case "good":
-            scoreHeading = LocalVariables.daylightTextsGood[0];
-            scoreText = LocalVariables.daylightTextsGood[1];
+            scoreHeading = daylightTextsGood[0];
+            scoreText = daylightTextsGood[1];
             if (scoreType == ScoreType.Ventilation) {
-                scoreHeading = LocalVariables.ventilationTextsGood[0];
-                scoreText = LocalVariables.ventilationTextsGood[1];
+                scoreHeading = ventilationTextsGood[0];
+                scoreText = ventilationTextsGood[1];
             }
             break;
         case "medium":
-            scoreHeading = LocalVariables.daylightTextsMedium[0];
-            scoreText = LocalVariables.daylightTextsMedium[1];
+            scoreHeading = daylightTextsMedium[0];
+            scoreText = daylightTextsMedium[1];
             if (scoreType == ScoreType.Ventilation) {
-                scoreHeading = LocalVariables.ventilationTextsMedium[0];
-                scoreText = LocalVariables.ventilationTextsMedium[1];
+                scoreHeading = ventilationTextsMedium[0];
+                scoreText = ventilationTextsMedium[1];
             }
             break;
         case "low":
-            scoreHeading = LocalVariables.daylightTextsLow[0];
-            scoreText = LocalVariables.daylightTextsLow[1];
+            scoreHeading = daylightTextsLow[0];
+            scoreText = daylightTextsLow[1];
             if (scoreType == ScoreType.Ventilation) {
-                scoreHeading = LocalVariables.ventilationTextsLow[0];
-                scoreText = LocalVariables.ventilationTextsLow[1];
+                scoreHeading = ventilationTextsLow[0];
+                scoreText = ventilationTextsLow[1];
             }
             break;
         default:
@@ -518,9 +518,9 @@ function updateScoreMetrics(scoreType, roomNumber) {
     let textElement = references.domElements["daylightPercentageTextClimate"];
 
     // Set the results
-    let textEqual = LocalVariables.daylightPercentageTextEqual;
-    let textHigher = LocalVariables.daylightPercentageTextHigher;
-    let textLower = LocalVariables.daylightPercentageTextLower;
+    let textEqual = daylightPercentageTextEqual;
+    let textHigher = daylightPercentageTextHigher;
+    let textLower = daylightPercentageTextLower;
 
     // Overwrite the references, if necessary
     if (scoreType == ScoreType.Daylight) {
@@ -538,9 +538,9 @@ function updateScoreMetrics(scoreType, roomNumber) {
         textElement = references.domElements["ventilationPercentageTextClimate"];
 
         // Set the results
-        textEqual = LocalVariables.ventilationPercentageTextEqual;
-        textHigher = LocalVariables.ventilationPercentageTextHigher;
-        textLower = LocalVariables.ventilationPercentageTextLower;
+        textEqual = ventilationPercentageTextEqual;
+        textHigher = ventilationPercentageTextHigher;
+        textLower = ventilationPercentageTextLower;
 
         // Update the icon
         updateArrowImage(references.domElements["ventilationArrowImages"], isHigher);
@@ -555,7 +555,7 @@ function updateScoreMetrics(scoreType, roomNumber) {
         textElement = references.domElements["ventilationMinutesTextClimate"];
 
         // The result is not dependent on the percentage value
-        textEqual = textHigher = textLower = LocalVariables.airRenewalTime + " " + value + " minutes";
+        textEqual = textHigher = textLower = airRenewalTimeText + " " + value + " minutes";
 
         // Update the icon
         updateArrowImage(references.domElements["ventilationMinutesArrowImages"], isHigher);
