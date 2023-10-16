@@ -13,10 +13,10 @@ export async function getRoomData(projectID) {
     };
 
     // Return a promise that resolves to the room data
-    return fetch("https://vds-cms.vrtxlabs.cloud/api/projects/10/?populate[0]=rooms", requestOptions)
+    return fetch(`https://vds-cms.vrtxlabs.cloud/api/projects/${projectID}/?populate[0]=rooms`, requestOptions)
         .then((response) => response.text())
         .then((result) => {
-            return parseResponse(result, projectID);
+            return parseResponse(result);
         })
         .catch((error) => console.log("error", error));
 }
@@ -58,6 +58,12 @@ function parseResponse(jsonData) {
                 airRenewalTimeArray[i]
             )
         );
+    }
+
+    // Print the room data that was received
+    console.log("Data received from the server:");
+    for (let roomindex = 0; roomindex < roomsArray.length; roomindex++) {
+        console.log(roomsArray[roomindex]);
     }
 
     // return a new promise

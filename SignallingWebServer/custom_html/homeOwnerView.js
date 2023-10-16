@@ -49,7 +49,6 @@ window.addEventListener("OnLoadFinished", () => {
 async function setup() {
     // Request project data from the server. On Success, setup the frontend
     let projectID = getURLParameter(CommunicationKeys.projectIDKey);
-    console.log(`request`);
     await serverCommunication
         .getRoomData(projectID)
         .then((roomsArray) => {
@@ -103,7 +102,7 @@ function setupUIElements() {
 }
 
 function getURLParameter(parameter) {
-    const parsedUrl = new URL(window.location.href);
+    const parsedUrl = new URL(document.location);
     const value = parsedUrl.searchParams.has(parameter) ? parsedUrl.searchParams.get(parameter) : null;
 
     return value;
