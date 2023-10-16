@@ -79,7 +79,7 @@ async function setup() {
 function setupFrontend() {
     references.getDOMElements();
     setupUIElements();
-    setupCommunication();
+    setupStreamerCommunication();
     activateDefaultSettings();
     setTimeout(function () {
         scrollToTop();
@@ -136,54 +136,6 @@ function startStream() {
             sendToStreamer(CommunicationKeys.projectIDKey, projectID);
         }
     }, 350);
-}
-
-function setupCommunication() {
-    setupStreamerCommunication();
-
-    // Get Data from backend server instead
-    //    // subscribe to "streamer_response" event on window
-    //    window.addEventListener("streamer_response", function (event) {
-    //        const incomingObject = JSON.parse(event.detail);
-
-    //        // switch case for all possible incoming messages:
-    //        switch (Object.keys(incomingObject)[0]) {
-    //            case CommunicationKeys.projectIDKey:
-    //                // Set the project name
-    //                LocalVariables.projectName = incomingObject[CommunicationKeys.projectIDKey];
-    //                setBreadcrumbs(references.getRoomElementsByNumber(1)[0].innerHTML, LocalVariables.projectName);
-    //                break;
-    //            case CommunicationKeys.roomNamesKey:
-    //                // Set the room names
-    //                setRoomName(1, incomingObject[CommunicationKeys.roomNamesKey]["1"]);
-    //                setRoomName(2, incomingObject[CommunicationKeys.roomNamesKey]["2"]);
-    //                setRoomName(3, incomingObject[CommunicationKeys.roomNamesKey]["3"]);
-    //                setRoomName(4, incomingObject[CommunicationKeys.roomNamesKey]["4"]);
-
-    //                // Activate the first room
-    //                setActiveRoom();
-    //                break;
-    //            case CommunicationKeys.daylightScoresKey:
-    //                // Set the daylight scores
-    //                LocalVariables.daylightScores[0] = parseFloat(incomingObject[CommunicationKeys.daylightScoresKey]["1"]);
-    //                LocalVariables.daylightScores[1] = parseFloat(incomingObject[CommunicationKeys.daylightScoresKey]["2"]);
-    //                LocalVariables.daylightScores[2] = parseFloat(incomingObject[CommunicationKeys.daylightScoresKey]["3"]);
-    //                LocalVariables.daylightScores[3] = parseFloat(incomingObject[CommunicationKeys.daylightScoresKey]["4"]);
-    //                break;
-    //            case CommunicationKeys.ventilationScoresKey:
-    //                // Set the ventilation scores
-    //                LocalVariables.ventilationScores[0] = parseFloat(incomingObject[CommunicationKeys.ventilationScoresKey]["1"]);
-    //                LocalVariables.ventilationScores[1] = parseFloat(incomingObject[CommunicationKeys.ventilationScoresKey]["2"]);
-    //                LocalVariables.ventilationScores[2] = parseFloat(incomingObject[CommunicationKeys.ventilationScoresKey]["3"]);
-    //                LocalVariables.ventilationScores[3] = parseFloat(incomingObject[CommunicationKeys.ventilationScoresKey]["4"]);
-
-    //                // Update the daylight and ventilation scores
-    //                setActiveRoom();
-    //                break;
-    //            default:
-    //                break;
-    //        }
-    //    });
 }
 
 function setBreadcrumbs(room, project = "") {
