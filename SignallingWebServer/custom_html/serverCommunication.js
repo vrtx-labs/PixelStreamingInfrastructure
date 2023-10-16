@@ -1,6 +1,6 @@
-import { Room } from "./dataModels.js";
+import { Room, Project } from "./dataModels.js";
 
-export async function getRoomData(projectID) {
+export async function getProjectData(projectID) {
     var myHeaders = new Headers();
     myHeaders.append(
         "Authorization",
@@ -16,58 +16,42 @@ export async function getRoomData(projectID) {
     return fetch(`https://vds-cms.vrtxlabs.cloud/api/projects/${projectID}/?populate[0]=rooms`, requestOptions)
         .then((response) => response.text())
         .then((result) => {
-            return parseResponse(result);
+            return parseProjectData(result, projectID);
         })
         .catch((error) => console.log("error", error));
 }
 
-function parseResponse(jsonData) {
+function parseProjectData(jsonData, projectID) {
     if (jsonData === null || jsonData === undefined) {
         console.error("No data received");
         return;
     }
 
-    // Initialize arrays for each value
-    const daylightScoreArray = [];
-    const airRenewalTimeArray = [];
-    const ventilationScoreArray = [];
-    const daylightImprovementPercentageArray = [];
-    const ventilationImprovementPercentageArray = [];
-
     // Extract values from the JSON object
     jsonData = JSON.parse(jsonData);
-    const rooms = findJsonField("rooms", jsonData);
-    rooms.data.forEach((room) => {
-        // Inside each room, search for the values we want to extract
-        daylightScoreArray.push(findJsonField("daylightScore", room.attributes));
-        airRenewalTimeArray.push(findJsonField("airRenewalTime", room.attributes));
-        ventilationScoreArray.push(findJsonField("ventilationScore", room.attributes));
-        daylightImprovementPercentageArray.push(findJsonField("daylightImprovementPercentage", room.attributes));
-        ventilationImprovementPercentageArray.push(findJsonField("ventilationImprovementPercentage", room.attributes));
-    });
-
-    // Create a new Room object for each room
     const roomsArray = [];
-    for (let i = 0; i < rooms.data.length; i++) {
+    const rooms = findJsonField("rooms", jsonData);
+
+    // Fill the room data, creating a room object for each room
+    rooms.data.forEach((room) => {
         roomsArray.push(
             new Room(
-                daylightScoreArray[i],
-                ventilationScoreArray[i],
-                daylightImprovementPercentageArray[i],
-                ventilationImprovementPercentageArray[i],
-                airRenewalTimeArray[i]
+                findJsonField("daylightScore", room.attributes),
+                findJsonField("ventilationScore", room.attributes),
+                findJsonField("daylightImprovementPercentage", room.attributes),
+                findJsonField("ventilationImprovementPercentage", room.attributes),
+                findJsonField("airRenewalTime", room.attributes)
             )
         );
-    }
+    });
 
-    // Print the room data that was received
+    // Create a new project object
+    let project = new Project(projectID, jsonData.data.attributes.name, roomsArray);
     console.log("Data received from the server:");
-    for (let roomindex = 0; roomindex < roomsArray.length; roomindex++) {
-        console.log(roomsArray[roomindex]);
-    }
+    console.log(project);
 
-    // return a new promise
-    return roomsArray;
+    // Return the extracted data in the form of a project object
+    return project;
 }
 
 function findJsonField(searchField, JSON) {

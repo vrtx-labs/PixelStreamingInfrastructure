@@ -24,6 +24,14 @@ export class ScoreType {
     }
 }
 
+export class Project {
+    constructor(id, name, rooms) {
+        this.id = id;
+        this.name = name;
+        this.rooms = rooms;
+    }
+}
+
 export class Room {
     constructor(
         daylightScore,

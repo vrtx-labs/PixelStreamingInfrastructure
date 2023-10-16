@@ -1,6 +1,6 @@
 import * as references from "./references.js";
 import * as serverCommunication from "./serverCommunication.js";
-import { MenuContent, ScoreType, Room } from "./dataModels.js";
+import { MenuContent, ScoreType, Room, Project } from "./dataModels.js";
 import { setupJoystick } from "./joystick.js";
 import { CommunicationKeys, sendToStreamer, setupStreamerCommunication } from "./streamerCommunication.js";
 import "./serverCommunication.js";
@@ -50,10 +50,11 @@ async function setup() {
     // Request project data from the server. On Success, setup the frontend
     let projectID = getURLParameter(CommunicationKeys.projectIDKey);
     await serverCommunication
-        .getRoomData(projectID)
-        .then((roomsArray) => {
-            // Set the room data after successful fetch and continue with the setup
-            LocalVariables.roomData = roomsArray;
+        .getProjectData(projectID)
+        .then((project) => {
+            // Set the room data after successfully fetching it, then continue with the setup
+            LocalVariables.projectName = project.name;
+            LocalVariables.roomData = project.rooms;
             setupFrontend();
         })
         .catch((error) => {
