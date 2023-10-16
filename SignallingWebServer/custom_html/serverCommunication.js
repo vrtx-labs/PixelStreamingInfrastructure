@@ -1,15 +1,30 @@
-var myHeaders = new Headers();
-myHeaders.append("Authorization", "bearer none"); // Insert API Token here
+import { Room } from "./dataModels.js";
 
-var requestOptions = {
-    method: "GET",
-    headers: myHeaders,
-};
+export async function getRoomData(projectID) {
+    var myHeaders = new Headers();
+    myHeaders.append(
+        "Authorization",
+        "bearer " // Insert API Token here
+    );
 
-fetch("https://vds-cms.vrtxlabs.cloud/api/projects/10/?populate[0]=rooms", requestOptions)
-    .then((response) => response.text())
-    .then((result) => parseResponse(result))
-    .catch((error) => console.log("error", error));
+    var requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+    };
+
+    // Return a promise that resolves to the room data
+    fetch("https://vds-cms.vrtxlabs.cloud/api/projects/10/?populate[0]=rooms", requestOptions)
+        .then((response) => response.text())
+        .then((result) => {
+            // reuturn a ne promise
+            return new Promise((resolve, reject) => {
+                // Parse the response and resolve the promise with the data
+                const roomsArray = parseResponse(result);
+                resolve(roomsArray);
+            });
+        })
+        .catch((error) => console.log("error", error));
+}
 
 function parseResponse(jsonData) {
     if (jsonData === null) {
@@ -36,20 +51,27 @@ function parseResponse(jsonData) {
         ventilationImprovementPercentageArray.push(findJsonField("ventilationImprovementPercentage", room.attributes));
     });
 
-    // Create arrays with names based on their contents
-    const arrays = {
-        daylightScoreArray,
-        airRenewalTimeArray,
-        ventilationScoreArray,
-        daylightImprovementPercentageArray,
-        ventilationImprovementPercentageArray,
-    };
-
-    // Print the arrays
-    console.log("Data received from server:");
-    for (const name in arrays) {
-        console.log(`${name}: ${arrays[name]}`);
+    // Create a new Room object for each room
+    const roomsArray = [];
+    for (let i = 0; i < rooms.data.length; i++) {
+        roomsArray.push(
+            new Room(
+                daylightScoreArray[i],
+                ventilationScoreArray[i],
+                daylightImprovementPercentageArray[i],
+                ventilationImprovementPercentageArray[i],
+                airRenewalTimeArray[i]
+            )
+        );
     }
+
+    // Print the room data
+    console.log("Data received from server:");
+    for (const room of roomsArray) {
+        console.log(room);
+    }
+
+    return roomsArray;
 }
 
 function findJsonField(searchField, JSON) {

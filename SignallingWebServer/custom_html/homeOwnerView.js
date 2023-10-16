@@ -1,7 +1,10 @@
 import * as references from "./references.js";
+import * as serverCommunication from "./serverCommunication.js";
+import { MenuContent, ScoreType, Room } from "./dataModels.js";
 import { setupJoystick } from "./joystick.js";
 import { CommunicationKeys, sendToStreamer, setupStreamerCommunication } from "./streamerCommunication.js";
-import "./global.js";
+import "./serverCommunication.js";
+import "./global.js"; // ToDo: Find a better place for the code in here
 
 // Constants
 //const localStoragePrefix = "velux.";
@@ -31,41 +34,11 @@ const ventilationPercentageTextHigher = "Faster to change air in your room";
 const ventilationPercentageTextEqual = "Same as in your current room";
 const airRenewalTimeText = "Air renewal time is up to";
 
-// Enumns
-class MenuContent {
-    static Help = new MenuContent("Help");
-    static RoomOptions = new MenuContent("RoomOptions");
-    static DaylightSlider = new MenuContent("DaylightSlider");
-
-    constructor(name) {
-        this.name = name;
-    }
-    toString() {
-        return `menuContent.${this.name}`;
-    }
-}
-class ScoreType {
-    static Daylight = new ScoreType("Daylight");
-    static Ventilation = new ScoreType("Ventilation");
-    static VentilationRenewalTimes = new ScoreType("VentilationRenewalTimes");
-
-    constructor(name) {
-        this.name = name;
-    }
-    toString() {
-        return `scoreType.${this.name}`;
-    }
-}
-
 // Variables
 const LocalVariables = {
     menuActive: false,
     projectName: "Default Project",
-    daylightScores: [0, 0, 0, 0],
-    ventilationScores: [0, 0, 0, 0],
-    daylightPercentages: [0, 0, 0, 0],
-    ventilationPercentages: [0, 0, 0, 0],
-    ventilationRenewalTimes: [0, 0, 0, 0],
+    roomData: [null, null, null, null],
 };
 
 // Setup: The event is linked to app.js OnLoadFinished in the setup function
@@ -73,7 +46,40 @@ window.addEventListener("OnLoadFinished", () => {
     setup();
 });
 
-function setup() {
+async function setup() {
+    // Request project data from the server. On Success, setup the frontend
+    let projectID = getURLParameter(CommunicationKeys.projectIDKey);
+    console.log(`request`);
+    serverCommunication
+        .getRoomData(projectID)
+        .then((roomsArray) => {
+            // Set the room data
+            console.log("here!");
+            LocalVariables.roomData = roomsArray;
+            console.log(`resulting roomsArray: ${roomsArray}`);
+
+            setupFrontend();
+        })
+        .catch((error) => {
+            // Handle any errors that occurred during the fetch request
+            console.error(`An error occurred while fetching project data from the server. Showing mock-up data. Error: ${error}`);
+            // fill room data with mock-up data
+
+            LocalVariables.roomData = [null, null, null, null];
+            for (let roomIndex = 0; roomIndex < LocalVariables.roomData.length; roomIndex++) {
+                LocalVariables.roomData[roomIndex] = new Room(
+                    roomIndex + 2,
+                    roomIndex + 2,
+                    roomIndex * 20,
+                    25 * roomIndex,
+                    8 - roomIndex * 2
+                );
+            }
+            setupFrontend();
+        });
+}
+
+function setupFrontend() {
     references.getDOMElements();
     setupUIElements();
     setupCommunication();
@@ -101,9 +107,9 @@ function setupUIElements() {
 
 function getURLParameter(parameter) {
     const parsedUrl = new URL(window.location.href);
-    const projectID = parsedUrl.searchParams.has(parameter) ? parsedUrl.searchParams.get(parameter) : null;
+    const value = parsedUrl.searchParams.has(parameter) ? parsedUrl.searchParams.get(parameter) : null;
 
-    return projectID;
+    return value;
 }
 
 function scrollToTop() {
@@ -138,48 +144,49 @@ function startStream() {
 function setupCommunication() {
     setupStreamerCommunication();
 
-    // subscribe to "streamer_response" event on window
-    window.addEventListener("streamer_response", function (event) {
-        const incomingObject = JSON.parse(event.detail);
+    // Get Data from backend server instead
+    //    // subscribe to "streamer_response" event on window
+    //    window.addEventListener("streamer_response", function (event) {
+    //        const incomingObject = JSON.parse(event.detail);
 
-        // switch case for all possible incoming messages:
-        switch (Object.keys(incomingObject)[0]) {
-            case CommunicationKeys.projectIDKey:
-                // Set the project name
-                LocalVariables.projectName = incomingObject[CommunicationKeys.projectIDKey];
-                setBreadcrumbs(references.getRoomElementsByNumber(1)[0].innerHTML, LocalVariables.projectName);
-                break;
-            case CommunicationKeys.roomNamesKey:
-                // Set the room names
-                setRoomName(1, incomingObject[CommunicationKeys.roomNamesKey]["1"]);
-                setRoomName(2, incomingObject[CommunicationKeys.roomNamesKey]["2"]);
-                setRoomName(3, incomingObject[CommunicationKeys.roomNamesKey]["3"]);
-                setRoomName(4, incomingObject[CommunicationKeys.roomNamesKey]["4"]);
+    //        // switch case for all possible incoming messages:
+    //        switch (Object.keys(incomingObject)[0]) {
+    //            case CommunicationKeys.projectIDKey:
+    //                // Set the project name
+    //                LocalVariables.projectName = incomingObject[CommunicationKeys.projectIDKey];
+    //                setBreadcrumbs(references.getRoomElementsByNumber(1)[0].innerHTML, LocalVariables.projectName);
+    //                break;
+    //            case CommunicationKeys.roomNamesKey:
+    //                // Set the room names
+    //                setRoomName(1, incomingObject[CommunicationKeys.roomNamesKey]["1"]);
+    //                setRoomName(2, incomingObject[CommunicationKeys.roomNamesKey]["2"]);
+    //                setRoomName(3, incomingObject[CommunicationKeys.roomNamesKey]["3"]);
+    //                setRoomName(4, incomingObject[CommunicationKeys.roomNamesKey]["4"]);
 
-                // Activate the first room
-                setActiveRoom();
-                break;
-            case CommunicationKeys.daylightScoresKey:
-                // Set the daylight scores
-                LocalVariables.daylightScores[0] = parseFloat(incomingObject[CommunicationKeys.daylightScoresKey]["1"]);
-                LocalVariables.daylightScores[1] = parseFloat(incomingObject[CommunicationKeys.daylightScoresKey]["2"]);
-                LocalVariables.daylightScores[2] = parseFloat(incomingObject[CommunicationKeys.daylightScoresKey]["3"]);
-                LocalVariables.daylightScores[3] = parseFloat(incomingObject[CommunicationKeys.daylightScoresKey]["4"]);
-                break;
-            case CommunicationKeys.ventilationScoresKey:
-                // Set the ventilation scores
-                LocalVariables.ventilationScores[0] = parseFloat(incomingObject[CommunicationKeys.ventilationScoresKey]["1"]);
-                LocalVariables.ventilationScores[1] = parseFloat(incomingObject[CommunicationKeys.ventilationScoresKey]["2"]);
-                LocalVariables.ventilationScores[2] = parseFloat(incomingObject[CommunicationKeys.ventilationScoresKey]["3"]);
-                LocalVariables.ventilationScores[3] = parseFloat(incomingObject[CommunicationKeys.ventilationScoresKey]["4"]);
+    //                // Activate the first room
+    //                setActiveRoom();
+    //                break;
+    //            case CommunicationKeys.daylightScoresKey:
+    //                // Set the daylight scores
+    //                LocalVariables.daylightScores[0] = parseFloat(incomingObject[CommunicationKeys.daylightScoresKey]["1"]);
+    //                LocalVariables.daylightScores[1] = parseFloat(incomingObject[CommunicationKeys.daylightScoresKey]["2"]);
+    //                LocalVariables.daylightScores[2] = parseFloat(incomingObject[CommunicationKeys.daylightScoresKey]["3"]);
+    //                LocalVariables.daylightScores[3] = parseFloat(incomingObject[CommunicationKeys.daylightScoresKey]["4"]);
+    //                break;
+    //            case CommunicationKeys.ventilationScoresKey:
+    //                // Set the ventilation scores
+    //                LocalVariables.ventilationScores[0] = parseFloat(incomingObject[CommunicationKeys.ventilationScoresKey]["1"]);
+    //                LocalVariables.ventilationScores[1] = parseFloat(incomingObject[CommunicationKeys.ventilationScoresKey]["2"]);
+    //                LocalVariables.ventilationScores[2] = parseFloat(incomingObject[CommunicationKeys.ventilationScoresKey]["3"]);
+    //                LocalVariables.ventilationScores[3] = parseFloat(incomingObject[CommunicationKeys.ventilationScoresKey]["4"]);
 
-                // Update the daylight and ventilation scores
-                setActiveRoom();
-                break;
-            default:
-                break;
-        }
-    });
+    //                // Update the daylight and ventilation scores
+    //                setActiveRoom();
+    //                break;
+    //            default:
+    //                break;
+    //        }
+    //    });
 }
 
 function setBreadcrumbs(room, project = "") {
@@ -423,10 +430,10 @@ function setActiveRoom(roomNumber = 1) {
 
     // Update the daylight and ventilation scores
     references.getDaylightScores().forEach((score) => {
-        score.innerHTML = LocalVariables.daylightScores[roomNumber - 1].toFixed(1);
+        score.innerHTML = LocalVariables.roomData[roomNumber - 1].daylightScore.toFixed(1);
     });
     references.getVentilationScores().forEach((score) => {
-        score.innerHTML = LocalVariables.ventilationScores[roomNumber - 1].toFixed(1);
+        score.innerHTML = LocalVariables.roomData[roomNumber - 1].ventilationScore.toFixed(1);
     });
 
     // Update the daylight and ventilation texts
@@ -436,15 +443,16 @@ function setActiveRoom(roomNumber = 1) {
     // Update percentage values & ventilation renewal times
     updateScoreMetrics(ScoreType.Daylight, roomNumber);
     updateScoreMetrics(ScoreType.Ventilation, roomNumber);
-    updateScoreMetrics(ScoreType.VentilationRenewalTimes, roomNumber);
+    updateScoreMetrics(ScoreType.AirRenewalTimes, roomNumber);
 
     // Compute and set improvement percentages for ventilation and daylight in respect to room 1
     let ventilationImprovement = 0;
     let daylightImprovement = 0;
     if (roomNumber !== 1) {
         ventilationImprovement =
-            (LocalVariables.ventilationScores[roomNumber - 1] / LocalVariables.ventilationScores[0]) * 100 - 100;
-        daylightImprovement = (LocalVariables.daylightScores[roomNumber - 1] / LocalVariables.daylightScores[0]) * 100 - 100;
+            (LocalVariables.roomData[roomNumber - 1].ventilationScore / LocalVariables.roomData[0].ventilationScore) * 100 - 100;
+        daylightImprovement =
+            (LocalVariables.roomData[roomNumber - 1].daylightScore / LocalVariables.roomData[0].daylightScore) * 100 - 100;
     }
 
     // Send to streamer
@@ -465,8 +473,10 @@ function UpdateScoreTexts(scoreType, roomNumber) {
 
     // Score level
     let scoreRating = "medium";
-    if (LocalVariables.daylightScores[roomNumber - 1] > 4) scoreRating = "good";
-    else if (LocalVariables.daylightScores[roomNumber - 1] < 2.5) scoreRating = "low";
+    let score = LocalVariables.roomData[roomNumber - 1].daylightScore;
+    if (scoreType == ScoreType.Ventilation) score = LocalVariables.roomData[roomNumber - 1].ventilationScore;
+    if (score > 3.0) scoreRating = "good";
+    else if (score < 2.0) scoreRating = "low";
 
     // Find the correct texts
     let scoreHeading = "";
@@ -509,9 +519,9 @@ function updateScoreMetrics(scoreType, roomNumber) {
     if (!(scoreType instanceof ScoreType)) return;
 
     // Set the percentage value
-    let value = LocalVariables.daylightPercentages[roomNumber - 1];
-    let isHigher = value > LocalVariables.daylightPercentages[0];
-    let isLower = value < LocalVariables.daylightPercentages[0];
+    let value = LocalVariables.roomData[roomNumber - 1].daylightImprovementPercentage;
+    let isHigher = value > LocalVariables.roomData[0].daylightImprovementPercentage;
+    let isLower = value < LocalVariables.roomData[0].daylightImprovementPercentage;
 
     // Set the the references (text & value)
     let valueElement = references.domElements["daylightPercentageClimate"];
@@ -529,9 +539,9 @@ function updateScoreMetrics(scoreType, roomNumber) {
         updateArrowImage(references.domElements["daylightArrowImages"], isHigher);
     } else if (scoreType == ScoreType.Ventilation) {
         // Ventilation: Re-calculate the values
-        value = LocalVariables.ventilationPercentages[roomNumber - 1];
-        isHigher = value > LocalVariables.ventilationPercentages[0];
-        isLower = value < LocalVariables.ventilationPercentages[0];
+        value = LocalVariables.roomData[roomNumber - 1].ventilationImprovementPercentage;
+        isHigher = value > LocalVariables.roomData[0].ventilationImprovementPercentage;
+        isLower = value < LocalVariables.roomData[0].ventilationImprovementPercentage;
 
         // Set the references
         valueElement = references.domElements["ventilationPercentageClimate"];
@@ -544,11 +554,11 @@ function updateScoreMetrics(scoreType, roomNumber) {
 
         // Update the icon
         updateArrowImage(references.domElements["ventilationArrowImages"], isHigher);
-    } else if (scoreType == ScoreType.VentilationRenewalTimes) {
-        // VentilationRenewalTimes: Re-calculate the values
-        value = LocalVariables.ventilationRenewalTimes[roomNumber - 1];
-        isHigher = value > LocalVariables.ventilationRenewalTimes[0];
-        isLower = value < LocalVariables.ventilationRenewalTimes[0];
+    } else if (scoreType == ScoreType.AirRenewalTimes) {
+        // AirRenewalTimes: Re-calculate the values
+        value = LocalVariables.roomData[roomNumber - 1].airRenewalTime;
+        isHigher = value > LocalVariables.roomData[0].airRenewalTime;
+        isLower = value < LocalVariables.roomData[0].airRenewalTime;
 
         // Set the references
         valueElement = references.domElements["ventilationMinutesClimate"];
@@ -563,7 +573,7 @@ function updateScoreMetrics(scoreType, roomNumber) {
 
     // Set the percentage value and the text
     valueElement.innerHTML = value + "%";
-    if (scoreType == ScoreType.VentilationRenewalTimes) valueElement.innerHTML = value + " min";
+    if (scoreType == ScoreType.AirRenewalTimes) valueElement.innerHTML = value + " min";
     textElement.innerHTML = textEqual;
     if (isHigher) textElement.innerHTML = textHigher;
     else if (isLower) textElement.innerHTML = textLower;
