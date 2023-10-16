@@ -50,21 +50,18 @@ async function setup() {
     // Request project data from the server. On Success, setup the frontend
     let projectID = getURLParameter(CommunicationKeys.projectIDKey);
     console.log(`request`);
-    serverCommunication
+    await serverCommunication
         .getRoomData(projectID)
         .then((roomsArray) => {
-            // Set the room data
-            console.log("here!");
+            // Set the room data after successful fetch and continue with the setup
             LocalVariables.roomData = roomsArray;
-            console.log(`resulting roomsArray: ${roomsArray}`);
-
             setupFrontend();
         })
         .catch((error) => {
             // Handle any errors that occurred during the fetch request
             console.error(`An error occurred while fetching project data from the server. Showing mock-up data. Error: ${error}`);
-            // fill room data with mock-up data
 
+            // fill room data with mock-up data
             LocalVariables.roomData = [null, null, null, null];
             for (let roomIndex = 0; roomIndex < LocalVariables.roomData.length; roomIndex++) {
                 LocalVariables.roomData[roomIndex] = new Room(
