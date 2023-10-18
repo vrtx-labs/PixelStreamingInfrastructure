@@ -1,19 +1,13 @@
 import { Room, Project } from "./dataModels.js";
 
 export async function getProjectData(projectID) {
-    var myHeaders = new Headers();
-    myHeaders.append(
-        "Authorization",
-        "bearer " // Insert API Token here
-    );
-
     var requestOptions = {
         method: "GET",
-        headers: myHeaders,
+        headers: new Headers(),
     };
 
     // Return a promise that resolves to the room data
-    return fetch(`https://vds-cms.vrtxlabs.cloud/api/projects/${projectID}/?populate[0]=rooms`, requestOptions)
+    return fetch(`https://vds-cms.vrtxlabs.cloud/api/projects/${projectID}`, requestOptions)
         .then((response) => response.text())
         .then((result) => {
             return parseProjectData(result, projectID);
