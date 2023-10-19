@@ -41,6 +41,7 @@ const airRenewalTimeText = "Air renewal time is up to";
 const LocalVariables = {
     menuActive: false,
     projectName: "Default Project",
+    projectID: null,
     roomData: [null, null, null, null],
     timeFormatUseAMPM: false,
 };
@@ -51,10 +52,13 @@ window.addEventListener("OnLoadFinished", () => {
 });
 
 async function setup() {
+    // Get the project ID from the URL
+    LocalVariables.projectID = getURLParameter(CommunicationKeys.projectIDKey);
+    console.log(`projectID: ${LocalVariables.projectID}`);
+
     // Request project data from the server. On Success, setup the frontend
-    let projectID = getURLParameter(CommunicationKeys.projectIDKey);
     await serverCommunication
-        .getProjectData(projectID)
+        .getProjectData(LocalVariables.projectID)
         .then((project) => {
             // Set the room data after successfully fetching it, then continue with the setup
             LocalVariables.projectName = project.name;
@@ -64,7 +68,8 @@ async function setup() {
         .catch((error) => {
             // Handle any errors that occurred during the fetch request
             console.error(
-                `An error occurred while fetching project data from the server. Showing mock-up data. Error: ${error}`
+                `An error occurred while fetching project data from the server. ` +
+                    `Showing mock-up data. Error: ${error}`
             );
 
             // fill room data with mock-up data
@@ -135,11 +140,8 @@ function setupPlayButton() {
 function startStream() {
     // Wait for the connection to establish - ToDo: React to a proper event or let the Unreal Application send one
     setTimeout(function () {
-        // Read html attribute 'ProjectID'
-        const projectID = getURLParameter(CommunicationKeys.projectIDKey);
-        console.log(`projectID: ${projectID}`);
-        if (projectID !== null) {
-            sendToStreamer(CommunicationKeys.projectIDKey, projectID);
+        if (LocalVariables.projectID !== null) {
+            sendToStreamer(CommunicationKeys.projectIDKey, LocalVariables.projectID);
         }
 
         // Update the slider value at start
