@@ -64,7 +64,8 @@ export function getDOMElements() {
     domElements["buttonRoomOptions"] = document.getElementById("containerButtonRoomOptions");
     domElements["buttonDaylight"] = document.getElementById("containerButtonDaylight");
     domElements["daylightSlider"] = document.getElementById("sliderDaylight");
-    domElements["dayLightSliderText"] = document.getElementById("daylightValue");
+    domElements["daylightValueSlider"] = document.getElementById("daylightValueSlider");
+    domElements["daylightValueButton"] = document.getElementById("daylightValueButton");
     domElements["containerButtonDaylight"] = document.getElementById("containerButtonDaylight");
     domElements["containerButtonRoomOptions"] = document.getElementById("containerButtonRoomOptions");
     domElements["breadcrumbs"] = document.getElementById("breadcrumbs");

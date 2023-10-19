@@ -554,14 +554,16 @@ function updateArrowImage(imageList, up) {
 
 function setupSlider() {
     let slider = references.domElements["daylightSlider"];
-    let sliderText = references.domElements["dayLightSliderText"];
+    let sliderText = references.domElements["daylightValueSlider"];
+    let slideButtonText = references.domElements["daylightValueButton"];
 
     // Construct the text for the slider value and send the current value to the streamer
     let updateSlider = function (value) {
         let tod = new Date(0, 0, 0, 0, 0, 0, 0);
         tod.setTime(tod.getTime() + value * 60000); // Add slider value in milliseconds
 
-        sliderText.innerHTML = tod.getHours() + ":" + tod.getMinutes().toString().padStart(2, "0");
+        sliderText.innerHTML = slideButtonText.innerHTML =
+            tod.getHours() + ":" + tod.getMinutes().toString().padStart(2, "0");
         sendToStreamer(CommunicationKeys.daylightSliderKey, (value / 1440).toFixed(6));
     };
 
