@@ -42,6 +42,7 @@ const LocalVariables = {
     menuActive: false,
     projectName: "Default Project",
     roomData: [null, null, null, null],
+    timeFormatUseAMPM: false,
 };
 
 // Setup: The event is linked to app.js OnLoadFinished in the setup function
@@ -140,6 +141,9 @@ function startStream() {
         if (projectID !== null) {
             sendToStreamer(CommunicationKeys.projectIDKey, projectID);
         }
+
+        // Update the slider value at start
+        updateSlider(slider.value);
     }, 350);
 }
 
@@ -553,27 +557,40 @@ function updateArrowImage(imageList, up) {
 }
 
 function setupSlider() {
+    // Update the current slider value each time the slider handle is dragged (and once at setup)
+    updateSlider();
+    references.domElements["daylightSlider"].oninput = function () {
+        updateSlider();
+    };
+}
+
+// Construct the text for the slider value and send the current value to the streamer
+function updateSlider() {
+    // Get references
     let slider = references.domElements["daylightSlider"];
     let sliderText = references.domElements["daylightValueSlider"];
     let slideButtonText = references.domElements["daylightValueButton"];
 
-    // Construct the text for the slider value and send the current value to the streamer
-    let updateSlider = function (value) {
-        let tod = new Date(0, 0, 0, 0, 0, 0, 0);
-        tod.setTime(tod.getTime() + value * 60000); // Add slider value in milliseconds
+    // Get the current time of day as given by the slider value
+    let tod = new Date(0, 0, 0, 0, 0, 0, 0);
+    tod.setTime(tod.getTime() + slider.value * 60000); // Add slider value in milliseconds
 
-        sliderText.innerHTML = slideButtonText.innerHTML =
-            tod.getHours() + ":" + tod.getMinutes().toString().padStart(2, "0");
-        sendToStreamer(CommunicationKeys.daylightSliderKey, (value / 1440).toFixed(6));
-    };
+    // Create a readable time string, either 24 h clock or am/pm
+    let timeString = tod.getHours() + ":" + tod.getMinutes().toString().padStart(2, "0");
+    if (LocalVariables.timeFormatUseAMPM) timeString = createAMPMTimestring(tod.getHours(), tod.getMinutes());
+    sliderText.innerHTML = slideButtonText.innerHTML = timeString;
 
-    // Update the current slider value each time the slider handle is dragged
-    slider.oninput = function () {
-        updateSlider(this.value);
-    };
+    // Notify streamer of time change
+    sendToStreamer(CommunicationKeys.daylightSliderKey, (slider.value / 1440).toFixed(6));
+}
 
-    // Update the slider value at start
-    updateSlider(slider.value); // ToDo: Do this after establishing Unreal connection
+function createAMPMTimestring(hours, minutes) {
+    let ampm = hours >= 12 ? "pm" : "am";
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+
+    return hours + ":" + minutes + " " + ampm;
 }
 
 function setupClimateDrawer() {
