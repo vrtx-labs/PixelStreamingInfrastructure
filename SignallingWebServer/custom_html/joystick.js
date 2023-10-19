@@ -90,7 +90,11 @@ export function setupJoystick() {
         // Stop publishing to streamer and reset the joystick
         clearInterval(LocalVariables.joystickIntervalCache);
         setJoystickCenterColor();
-        createjs.Tween.get(LocalVariables.joystickCenter).to({ x: xCenter, y: yCenter }, 550, createjs.Ease.elasticOut);
+        createjs.Tween.get(LocalVariables.joystickCenter).to(
+            { x: xCenter, y: yCenter },
+            550,
+            createjs.Ease.elasticOut
+        );
     });
 }
 

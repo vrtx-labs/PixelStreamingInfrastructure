@@ -21,7 +21,10 @@ const ventilationTextsGood = [
     "Good level of ventilation",
     "The room is well ventilated, which makes the room optimal for all activities.",
 ];
-const ventilationTextsMedium = ["Medium level of ventilation", "The amount of fresh air in the room can be improved."];
+const ventilationTextsMedium = [
+    "Medium level of ventilation",
+    "The amount of fresh air in the room can be improved.",
+];
 const ventilationTextsLow = [
     "Low level of ventilation",
     "The room is poorly ventilated, which makes the room suboptimal for all activities.",
@@ -59,7 +62,9 @@ async function setup() {
         })
         .catch((error) => {
             // Handle any errors that occurred during the fetch request
-            console.error(`An error occurred while fetching project data from the server. Showing mock-up data. Error: ${error}`);
+            console.error(
+                `An error occurred while fetching project data from the server. Showing mock-up data. Error: ${error}`
+            );
 
             // fill room data with mock-up data
             LocalVariables.roomData = [null, null, null, null];
@@ -154,9 +159,12 @@ function setRoomName(roomNumber, name) {
 }
 
 function setupToggleMenuButton() {
-    references.domElements["containerButtonToggleMenu"].addEventListener("click", function onOverlayClick(event) {
-        toggleMenu();
-    });
+    references.domElements["containerButtonToggleMenu"].addEventListener(
+        "click",
+        function onOverlayClick(event) {
+            toggleMenu();
+        }
+    );
 }
 
 function setupScreenshotButton() {
@@ -399,9 +407,14 @@ function setActiveRoom(roomNumber = 1) {
     let daylightImprovement = 0;
     if (roomNumber !== 1) {
         ventilationImprovement =
-            (LocalVariables.roomData[roomNumber - 1].ventilationScore / LocalVariables.roomData[0].ventilationScore) * 100 - 100;
+            (LocalVariables.roomData[roomNumber - 1].ventilationScore /
+                LocalVariables.roomData[0].ventilationScore) *
+                100 -
+            100;
         daylightImprovement =
-            (LocalVariables.roomData[roomNumber - 1].daylightScore / LocalVariables.roomData[0].daylightScore) * 100 - 100;
+            (LocalVariables.roomData[roomNumber - 1].daylightScore / LocalVariables.roomData[0].daylightScore) *
+                100 -
+            100;
     }
 
     // Send to streamer
@@ -562,14 +575,17 @@ function setupSlider() {
 }
 
 function setupClimateDrawer() {
-    references.domElements["buttonReadMoreClimateScores"].addEventListener("click", function onOverlayClick(event) {
-        // Fade in the overlay and make it block clicks
-        references.domElements["overlayClimateScores"].classList.remove("no-pointer");
-        references.domElements["overlayClimateScores"].classList.add("fade-in");
+    references.domElements["buttonReadMoreClimateScores"].addEventListener(
+        "click",
+        function onOverlayClick(event) {
+            // Fade in the overlay and make it block clicks
+            references.domElements["overlayClimateScores"].classList.remove("no-pointer");
+            references.domElements["overlayClimateScores"].classList.add("fade-in");
 
-        // Move out the drawer
-        references.domElements["drawerClimateScores"].classList.add("move-in");
-    });
+            // Move out the drawer
+            references.domElements["drawerClimateScores"].classList.add("move-in");
+        }
+    );
     references.domElements["closeClimateScores"].addEventListener("click", function onOverlayClick(event) {
         // Fade out the overlay and allow clicks to pass through
         references.domElements["overlayClimateScores"].classList.remove("fade-in");

@@ -30,11 +30,15 @@ export function getDOMElements() {
     domElements["daylightPercentageClimate"] = document.getElementById("daylightPercentageClimate");
     domElements["daylightPercentageTextClimate"] = document.getElementById("daylightPercentageTextClimate");
     domElements["ventilationPercentageClimate"] = document.getElementById("ventilationPercentageClimate");
-    domElements["ventilationPercentageTextClimate"] = document.getElementById("ventilationPercentageTextClimate");
+    domElements["ventilationPercentageTextClimate"] = document.getElementById(
+        "ventilationPercentageTextClimate"
+    );
     domElements["ventilationMinutesClimate"] = document.getElementById("ventilationMinutesClimate");
     domElements["ventilationMinutesTextClimate"] = document.getElementById("ventilationMinutesTextClimate");
 
-    domElements["daylightArrowImages"] = document.getElementById("containerDaylightArrowClimate").getElementsByTagName("img");
+    domElements["daylightArrowImages"] = document
+        .getElementById("containerDaylightArrowClimate")
+        .getElementsByTagName("img");
     domElements["ventilationArrowImages"] = document
         .getElementById("containerVentilationArrowClimate")
         .getElementsByTagName("img");
