@@ -1,7 +1,6 @@
 export const domElements = {}; // Holds references to DOM elements
 
 export function getDOMElements() {
-    // ToDo: check for unused elements
     // Rooms
     domElements["buttonRoom1"] = document.getElementById("buttonRoom1");
     domElements["buttonRoom2"] = document.getElementById("buttonRoom2");
@@ -48,12 +47,10 @@ export function getDOMElements() {
     domElements["buttonShare"] = document.getElementById("containerButtonShare");
     domElements["buttonHelp"] = document.getElementById("containerButtonHelp");
     domElements["buttonRefresh"] = document.getElementById("containerButtonRefresh");
-    domElements["buttonCopyLink"] = document.getElementById("buttonCopyLink");
     domElements["containerButtonToggleMenu"] = document.getElementById("containerButtonToggleMenu");
     domElements["menuContentHelp"] = document.getElementById("containerHelp");
     domElements["menuContentRoomOptions"] = document.getElementById("containerRoomOptions");
     domElements["menuContentDaylightSlider"] = document.getElementById("containerSliderDaylight");
-    domElements["menuButtonScreenshot"] = document.getElementById("containerButtonScreenshot");
     domElements["menuButtonImage"] = document.getElementById("menuButtonImage");
     domElements["collapseMenuImage"] = document.getElementById("collapseMenuImage");
     domElements["toggleMenuButtonText"] = document.getElementById("toggleMenuButtonText");
