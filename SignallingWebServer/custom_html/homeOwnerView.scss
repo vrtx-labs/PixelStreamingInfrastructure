@@ -151,9 +151,10 @@ $fade-animation-duration: 0.4s;
         height: $scale-by-width;
         justify-content: space-between;
         gap: 1rem;
-    }
-    #containerRoomOptions > button {
-        display: flex;
+
+        .button-base:not(.selected-room) {
+            background-color: transparent;
+        }
     }
 
     #containerScores {
@@ -268,6 +269,22 @@ $fade-animation-duration: 0.4s;
 /*** Classes ***/
 
 /* Design-Specific Classes */
+
+@layer general {
+    .button-base {
+        border: none;
+        background-color: transparent;
+    }
+
+    .button-base:hover {
+        /* to be specified */
+    }
+
+    .button-base:active,
+    .button-base:focus {
+        /* to be specified */
+    }
+}
 @layer design-specific {
     .paragraph-color,
     .paragraph-color * {
@@ -301,21 +318,6 @@ $fade-animation-duration: 0.4s;
         background: rgba(37, 37, 37, 0.55);
         backdrop-filter: blur(2px);
         -webkit-backdrop-filter: blur(2px);
-    }
-
-    .button-base {
-        background-color: transparent;
-        background: none;
-        border: none;
-    }
-
-    .button-base:hover {
-        /* to be specified */
-    }
-
-    .button-base:active,
-    .button-base:focus {
-        /* to be specified */
     }
 
     .selected-room {
