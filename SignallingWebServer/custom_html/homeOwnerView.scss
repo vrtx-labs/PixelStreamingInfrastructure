@@ -615,27 +615,35 @@ $fade-animation-duration: 0.4s;
 /************** Slider CSS **************/
 @layer design-specific {
     #containerSliderDaylight {
-        width: 50vw;
+        width: fit-content;
         height: $scale-by-width;
         padding: 0.5rem;
-        justify-content: center;
+        justify-content: space-between;
 
-        background-image: url("/images/hov_slider_measure.svg");
-        background-repeat: no-repeat;
-        background-size: 87% 100%;
-        background-position: center;
+        > div {
+            width: 6rem;
+        }
+
+        p {
+            text-align: center;
+        }
     }
 
     .slider {
-        margin: auto;
+        margin: 0;
         appearance: none;
         -webkit-appearance: none;
-        width: 92%;
+        width: 45vw;
         height: 100%;
         background: transparent;
         outline: none;
         border: none;
         z-index: 10;
+
+        background-image: url("/images/hov_slider_measure.svg");
+        background-repeat: no-repeat;
+        background-size: 95% 100%;
+        background-position: center;
     }
 
     .slider::-moz-range-thumb {
