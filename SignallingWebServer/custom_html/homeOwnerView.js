@@ -59,17 +59,17 @@ async function setup() {
     // Request project data from the server. On Success, setup the frontend
     await serverCommunication
         .getProjectData(LocalVariables.projectID)
-        .then((project) => {
+        .then((projectData) => {
             // Set the room data after successfully fetching it, then continue with the setup
-            LocalVariables.projectName = project.name;
-            LocalVariables.roomData = project.rooms;
+            LocalVariables.projectName = projectData.name;
+            LocalVariables.roomData = projectData.rooms;
             setupFrontend();
         })
         .catch((error) => {
             // Handle any errors that occurred during the fetch request
             console.error(
-                `An error occurred while fetching project data from the server. ` +
-                    `Showing mock-up data. Error: ${error}`
+                `An error occurred while processing the fetched project data. ` +
+                    `Showing mock-up data. ${error}`
             );
 
             // fill room data with mock-up data

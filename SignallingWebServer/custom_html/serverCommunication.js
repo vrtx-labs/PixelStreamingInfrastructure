@@ -8,7 +8,12 @@ export async function getProjectData(projectID) {
 
     // Return a promise that resolves to the room data
     return fetch(`https://vds-cms.vrtxlabs.cloud/api/projects/${projectID}`, requestOptions)
-        .then((response) => response.text())
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("HTTP error, status = " + response.status + " " + response.statusText);
+            }
+            return response.text();
+        })
         .then((result) => {
             return parseProjectData(result, projectID);
         })
@@ -16,13 +21,13 @@ export async function getProjectData(projectID) {
 }
 
 function parseProjectData(jsonData, projectID) {
-    if (jsonData === null || jsonData === undefined) {
-        console.error("No data received");
-        return;
+    jsonData = JSON.parse(jsonData);
+    if (jsonData === null || jsonData === undefined || jsonData.data === null || jsonData.data === undefined) {
+        // Throw new error
+        throw new Error("No data received");
     }
 
     // Extract values from the JSON object
-    jsonData = JSON.parse(jsonData);
     console.log("Data received from the server:");
     console.log(jsonData);
     const roomsArray = [];
