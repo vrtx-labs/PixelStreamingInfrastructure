@@ -145,7 +145,7 @@ function startStream() {
         }
 
         // Update the slider value at start
-        updateSlider(slider.value);
+        updateSlider();
     }, 350);
 }
 
