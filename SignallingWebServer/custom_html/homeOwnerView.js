@@ -200,7 +200,7 @@ function setupShareButton() {
 function toggleMenu() {
     if (LocalVariables.menuActive) {
         LocalVariables.menuActive = false;
-        // Hide the menu by removing the menu-in class
+        // Hide the menu by removing the move-in class
         setClassActive(
             [
                 references.domElements["buttonShare"],
@@ -209,43 +209,26 @@ function toggleMenu() {
                 references.domElements["buttonScreenshot"],
                 references.domElements["collapseMenuImage"],
             ],
-            "menu-in",
+            "move-in",
             false
-        );
-
-        // And adding the menu-out class
-        setClassActive(
-            [
-                references.domElements["buttonShare"],
-                references.domElements["buttonRefresh"],
-                references.domElements["buttonHelp"],
-                references.domElements["buttonScreenshot"],
-                references.domElements["collapseMenuImage"],
-            ],
-            "menu-out",
-            true,
-            true // Hide after animation
         );
 
         // Show menuButtonImage and toggle text
-        references.domElements["toggleMenuButtonText"].classList.remove("menu-out");
-        references.domElements["toggleMenuButtonText"].classList.add("expandAndFade");
         setClassActive(
-            [references.domElements["menuButtonImage"], references.domElements["toggleMenuButtonText"]],
-            "menu-in",
+            [
+                references.domElements["menuButtonImage"],
+                references.domElements["toggleMenuButtonText"],
+                domElements["toggleMenuButtonText"],
+            ],
+            "move-in",
             true
-        );
-        setClassActive(
-            [references.domElements["menuButtonImage"], references.domElements["toggleMenuButtonText"]],
-            "menu-out",
-            false
         );
 
         //
         //references.domElements["collapseMenuImage"].style.position = "absolute";
     } else {
         LocalVariables.menuActive = true;
-        // Show the menu by adding the menu-in class
+        // Show the menu by adding the move-in class
         setClassActive(
             [
                 references.domElements["buttonShare"],
@@ -254,21 +237,8 @@ function toggleMenu() {
                 references.domElements["buttonScreenshot"],
                 references.domElements["collapseMenuImage"],
             ],
-            "menu-in",
+            "move-in",
             true
-        );
-
-        // And removing the menu-out class
-        setClassActive(
-            [
-                references.domElements["buttonShare"],
-                references.domElements["buttonRefresh"],
-                references.domElements["buttonHelp"],
-                references.domElements["buttonScreenshot"],
-                references.domElements["collapseMenuImage"],
-            ],
-            "menu-out",
-            false
         );
 
         // Hide menuButtonImage and toggle text^
@@ -277,25 +247,9 @@ function toggleMenu() {
         references.domElements["toggleMenuButtonText"].classList.remove("expandAndFade");
         setClassActive(
             [references.domElements["menuButtonImage"], references.domElements["toggleMenuButtonText"]],
-            "menu-in",
+            "move-in",
             false
         );
-        setClassActive(
-            [references.domElements["menuButtonImage"], references.domElements["toggleMenuButtonText"]],
-            "menu-out",
-            true,
-            true
-        ); // ToDo: This line is only necessary for hiding after animation
-
-        //
-        //references.domElements["collapseMenuImage"].style.position = "absolute";
-        //references.domElements["collapseMenuImage"].addEventListener(
-        //    "animationend",
-        //    () => {
-        //        references.domElements["collapseMenuImage"].style.position = "relative";
-        //    },
-        //    { once: true }
-        //);
     }
 }
 
@@ -304,15 +258,18 @@ function setClassActive(listOfElements, className, setActive, hideAfterAnimation
         if (setActive) {
             listOfElements[i].classList.remove("hiddenState");
             listOfElements[i].classList.add(className);
-            // on animation end, add the hiddenState class
-            if (hideAfterAnimation)
-                listOfElements[i].addEventListener(
-                    "animationend",
-                    () => {
-                        listOfElements[i].classList.add("hiddenState");
-                    },
-                    { once: true }
-                );
+
+            // On end of the animation, add the hiddenState class
+            if (hideAfterAnimation) {
+                ["animationend", "transitionend"].forEach((trigger) => {
+                    listOfElements[i].addEventListener(
+                        () => {
+                            listOfElements[i].classList.add("hiddenState");
+                        },
+                        { once: true }
+                    );
+                });
+            }
         } else {
             listOfElements[i].classList.remove(className);
         }

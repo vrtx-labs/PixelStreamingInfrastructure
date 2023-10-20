@@ -556,52 +556,10 @@ $fade-animation-duration: 0.4s;
         animation: menuOut $menu-animation-duration ease-in-out forwards;
     }
 
-    @keyframes menuOut {
-        0% {
-            opacity: 0;
-            transform: translateX(0%);
-        }
-        100% {
-            opacity: 1;
-            transform: translateX(700%);
-        }
-    }
-
-    .menu-in {
-        animation: menuIn $menu-animation-duration ease-in-out forwards;
-    }
-
-    @keyframes menuIn {
-        0% {
-            opacity: 0;
-            transform: translateX(700%);
-        }
-        100% {
-            opacity: 1;
-            transform: translateX(0%);
-        }
-    }
-
-    .fade-trough {
-        animation: fadeTrough $menu-animation-duration ease-in-out forwards;
-    }
-
-    @keyframes fadeTrough {
-        0% {
-            opacity: 1;
-        }
-        50% {
-            opacity: 0;
-        }
-        100% {
-            opacity: 1;
-        }
-    }
-
     /* Transitions */
     .transition-move {
         transition: transform $move-animation-duration ease-in-out;
-        transform: translateX(300%);
+        transform: translateX(700%);
     }
 
     .move-in {
