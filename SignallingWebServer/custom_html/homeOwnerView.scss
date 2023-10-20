@@ -259,8 +259,8 @@ $fade-animation-duration: 0.4s;
     }
 
     #containerVentilationRatingClimate {
+        gap: 0.5rem;
         > div > p {
-            max-width: 90%;
             margin-top: 0.5rem;
         }
     }

@@ -535,7 +535,7 @@ function updateScoreMetrics(scoreType, roomNumber) {
 
     // Set the percentage value and the text
     valueElement.innerHTML = value + "%";
-    if (scoreType == ScoreType.AirRenewalTimes) valueElement.innerHTML = value + " min";
+    if (scoreType == ScoreType.AirRenewalTimes) valueElement.innerHTML = value + " m";
     textElement.innerHTML = textEqual;
     if (isHigher) textElement.innerHTML = textHigher;
     else if (isLower) textElement.innerHTML = textLower;
