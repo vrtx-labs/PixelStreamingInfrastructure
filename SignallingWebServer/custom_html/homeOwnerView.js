@@ -357,26 +357,20 @@ function showMenuContent(menuContent) {
 }
 
 function setupRoomButtons() {
-    references.getRoomElementsByNumber(1).forEach((element) => {
-        element.addEventListener("click", function onOverlayClick(event) {
-            setActiveRoom(1);
+    for (let roomNumber = 1; roomNumber <= 4; roomNumber++) {
+        references.getRoomElementsByNumber(roomNumber).forEach((element) => {
+            element.addEventListener("click", function onOverlayClick(event) {
+                setActiveRoom(roomNumber);
+            });
         });
-    });
-    references.getRoomElementsByNumber(2).forEach((element) => {
-        element.addEventListener("click", function onOverlayClick(event) {
-            setActiveRoom(2);
-        });
-    });
-    references.getRoomElementsByNumber(3).forEach((element) => {
-        element.addEventListener("click", function onOverlayClick(event) {
-            setActiveRoom(3);
-        });
-    });
-    references.getRoomElementsByNumber(4).forEach((element) => {
-        element.addEventListener("click", function onOverlayClick(event) {
-            setActiveRoom(4);
-        });
-    });
+
+        // Hide the room, if we have no data for it
+        if (roomNumber > LocalVariables.roomData.length) {
+            references.getRoomElementsByNumber(roomNumber).forEach((element) => {
+                element.classList.add("hiddenState");
+            });
+        }
+    }
 }
 
 function setActiveRoom(roomNumber = 1) {
