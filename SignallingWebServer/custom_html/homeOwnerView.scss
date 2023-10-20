@@ -196,9 +196,6 @@ $fade-animation-duration: 0.4s;
     #overlayClimateScores {
         background: rgba(37, 37, 37, 0.55);
 
-        transition: opacity $fade-animation-duration linear;
-        opacity: 0;
-
         * {
             pointer-events: auto;
         }
@@ -211,9 +208,6 @@ $fade-animation-duration: 0.4s;
         bottom: 0;
         padding: 6rem 4rem 4rem 4rem;
         background-color: var(--colour-accent);
-
-        transition: transform $move-animation-duration ease-in-out;
-        transform: translateX(300%);
     }
 
     @media screen and (max-width: $breakpoint-general) {
@@ -605,8 +599,18 @@ $fade-animation-duration: 0.4s;
     }
 
     /* Transitions */
+    .transition-move {
+        transition: transform $move-animation-duration ease-in-out;
+        transform: translateX(300%);
+    }
+
     .move-in {
         transform: translateX(0%);
+    }
+
+    .transition-fade {
+        transition: opacity $fade-animation-duration linear;
+        opacity: 0;
     }
 
     .fade-in {
