@@ -17,12 +17,14 @@ export async function getProjectData(projectID) {
         .then((result) => {
             return parseProjectData(result, projectID);
         })
-        .catch((error) => console.log("error", error));
+        .catch((error) => {
+            throw new Error(error);
+        });
 }
 
 function parseProjectData(jsonData, projectID) {
     jsonData = JSON.parse(jsonData);
-    if (jsonData === null || jsonData === undefined || jsonData.data === null || jsonData.data === undefined) {
+    if (jsonData === null || jsonData === undefined) {
         // Throw new error
         throw new Error("No data received");
     }
@@ -36,8 +38,6 @@ function parseProjectData(jsonData, projectID) {
     // Fill the room data, creating a room object for each room
     rooms.forEach((room) => {
         let climateData = room.climate_data;
-        console.log("climateData:");
-        console.log(climateData);
 
         roomsArray.push(
             new Room(
@@ -52,8 +52,6 @@ function parseProjectData(jsonData, projectID) {
 
     // Create a new project object
     let project = new Project(projectID, findJsonField("name", jsonData), roomsArray);
-    console.log("Data received from the server:");
-    console.log(project);
 
     // Return the extracted data in the form of a project object
     return project;
