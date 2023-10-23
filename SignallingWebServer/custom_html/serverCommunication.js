@@ -38,6 +38,10 @@ function parseProjectData(jsonData, projectID) {
     // Fill the room data, creating a room object for each room
     rooms.forEach((room) => {
         let climateData = room.climate_data;
+        if (climateData === null || climateData === undefined) {
+            roomsArray.push(0, 0, 0, 0, 0);
+            return;
+        }
 
         roomsArray.push(
             new Room(
