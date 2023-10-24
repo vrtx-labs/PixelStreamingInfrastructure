@@ -34,12 +34,14 @@ export class Project {
 
 export class Room {
     constructor(
+        name,
         daylightScore,
         ventilationScore,
         daylightImprovementPercentage,
         ventilationImprovementPercentage, //
         airRenewalTime //
     ) {
+        this.name = name;
         this.daylightScore = daylightScore;
         this.ventilationScore = ventilationScore;
         this.daylightImprovementPercentage = daylightImprovementPercentage;
