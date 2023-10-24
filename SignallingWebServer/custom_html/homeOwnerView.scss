@@ -134,6 +134,10 @@ $fade-animation-duration: 0.4s;
         }
     }
 
+    #containerButtonToggleMenu {
+        justify-content: center;
+    }
+
     #collapseMenuImage,
     #menuButtonImage {
         position: absolute;
@@ -557,7 +561,12 @@ $fade-animation-duration: 0.4s;
     }
 
     /* Transitions */
-    .transition-move {
+    .transition-move-300 {
+        transition: transform $move-animation-duration ease-in-out;
+        transform: translateX(300%);
+    }
+
+    .transition-move-700 {
         transition: transform $move-animation-duration ease-in-out;
         transform: translateX(700%);
     }
@@ -572,6 +581,38 @@ $fade-animation-duration: 0.4s;
     }
 
     .fade-in {
+        opacity: 1;
+    }
+
+    .transition-shrink {
+        transition: width $move-animation-duration cubic-bezier(0.23, 0.77, 0.36, 1),
+            margin $move-animation-duration linear, opacity $fade-animation-duration linear;
+        width: 0;
+        margin: 0;
+        opacity: 0;
+    }
+
+    .transition-shrink-fit {
+        transition: width $move-animation-duration cubic-bezier(0.23, 0.77, 0.36, 1),
+            margin $fade-animation-duration linear;
+        width: 2.9rem;
+        margin: 0;
+    }
+
+    .grow {
+        width: 100%;
+        opacity: 1;
+        margin: auto 0.5rem;
+    }
+
+    .transition-fade-move {
+        transition: transform $move-animation-duration ease-in-out, opacity $move-animation-duration linear;
+        transform: translateX(90%);
+        opacity: 0;
+    }
+
+    .fade-move-in {
+        transform: translateX(0%);
         opacity: 1;
     }
 }

@@ -62,7 +62,7 @@
                 <nav id="containerMenu" class="horizontal-container">
                     <button
                         id="containerButtonRefresh"
-                        class="horizontal-container rounded-box button-base transition-move">
+                        class="horizontal-container rounded-box button-base transition-move-700">
                         <p>Refresh</p>
                         <div id="buttonRefresh" class="flex-item">
                             <img class="svg-image" src="/images/buttons/hov_refresh.svg" type="svg" />
@@ -71,7 +71,7 @@
 
                     <button
                         id="containerButtonShare"
-                        class="horizontal-container rounded-box button-base transition-move">
+                        class="horizontal-container rounded-box button-base transition-move-700">
                         <p>Share</p>
                         <div id="buttonShare" class="flex-item">
                             <img class="svg-image" src="/images/buttons/hov_share.svg" type="svg" />
@@ -80,7 +80,7 @@
 
                     <button
                         id="containerButtonScreenshot"
-                        class="horizontal-container rounded-box button-base transition-move">
+                        class="horizontal-container rounded-box button-base transition-move-700">
                         <p>Screenshot</p>
                         <div id="buttonScreenshot" class="flex-item">
                             <img class="svg-image" src="/images/buttons/hov_screenshot.svg" type="svg" />
@@ -89,7 +89,7 @@
 
                     <button
                         id="containerButtonHelp"
-                        class="horizontal-container rounded-box button-base transition-move">
+                        class="horizontal-container rounded-box button-base transition-move-700">
                         <p>Help</p>
                         <div id="buttonHelp" class="flex-item">
                             <img class="svg-image" src="/images/buttons/hov_help.svg" type="svg" />
@@ -98,8 +98,8 @@
 
                     <button
                         id="containerButtonToggleMenu"
-                        class="horizontal-container rounded-box button-base transition-move move-in">
-                        <p id="toggleMenuButtonText" class="">Tools</p>
+                        class="horizontal-container rounded-box button-base transition-shrink-fit grow">
+                        <p id="toggleMenuButtonText" class="transition-shrink grow">Tools</p>
                         <div id="buttonToggleMenu" class="flex-item">
                             <img
                                 id="dummy"
@@ -109,13 +109,13 @@
                                 type="svg" />
                             <img
                                 id="menuButtonImage"
-                                class="svg-image"
+                                class="svg-image transition-fade fade-in"
                                 style="position: absolute"
                                 src="/images/buttons/hov_menu.svg"
                                 type="svg" />
                             <img
                                 id="collapseMenuImage"
-                                class="svg-image hiddenState"
+                                class="svg-image transition-fade"
                                 src="/images/buttons/hov_menu_collapse.svg"
                                 type="svg" />
                         </div>
@@ -175,13 +175,13 @@
 
             <!-- Climate Scores Detail Drawer -->
             <aside id="overlayClimateScores" class="fill-screen paragraph-color no-pointer transition-fade">
-                <div id="drawerClimateScores" class="right-absolute transition-move">
+                <div id="drawerClimateScores" class="right-absolute transition-move-300">
                     <button id="closeClimateScores" class="right-absolute button-base">
                         <img src="/images/icons/x.svg" type="svg" class="svg-image" />
                     </button>
                     <nav id="roomSelectionClimateScores" class="horizontal-stretch horizontal-container">
                         <button id="buttonRoom1Climate" class="button-base button-border-top selected-room">
-                            Base room
+                            Current room
                         </button>
                         <button id="buttonRoom2Climate" class="button-base button-border-top">Option 1</button>
                         <button id="buttonRoom3Climate" class="button-base button-border-top">Option 2</button>

@@ -155,16 +155,6 @@ function setBreadcrumbs(room, project = "") {
     references.domElements["breadcrumbs"].innerHTML = project + " / " + room;
 }
 
-
-function setupToggleMenuButton() {
-    references.domElements["containerButtonToggleMenu"].addEventListener(
-        "click",
-        function onOverlayClick(event) {
-            toggleMenu();
-        }
-    );
-}
-
 function setupScreenshotButton() {
     references.domElements["buttonScreenshot"].addEventListener("click", function onOverlayClick(event) {
         sendToStreamer(CommunicationKeys.screenshotKey, "true");
@@ -189,6 +179,15 @@ function setupShareButton() {
     });
 }
 
+function setupToggleMenuButton() {
+    references.domElements["containerButtonToggleMenu"].addEventListener(
+        "click",
+        function onOverlayClick(event) {
+            toggleMenu();
+        }
+    );
+}
+
 function toggleMenu() {
     if (LocalVariables.menuActive) {
         LocalVariables.menuActive = false;
@@ -199,25 +198,20 @@ function toggleMenu() {
                 references.domElements["buttonRefresh"],
                 references.domElements["buttonHelp"],
                 references.domElements["buttonScreenshot"],
-                references.domElements["collapseMenuImage"],
             ],
             "move-in",
             false
         );
 
         // Show menuButtonImage and toggle text
-        setClassActive(
-            [
-                references.domElements["menuButtonImage"],
-                references.domElements["toggleMenuButtonText"],
-                domElements["toggleMenuButtonText"],
-            ],
-            "move-in",
-            true
-        );
+        references.domElements["toggleMenuButtonText"].classList.add("grow");
+        references.domElements["menuButtonImage"].classList.add("fade-in");
 
-        //
-        //references.domElements["collapseMenuImage"].style.position = "absolute";
+        // Hide menu collapse icon
+        references.domElements["collapseMenuImage"].classList.remove("fade-in");
+
+        // Grow menu button container
+        references.domElements["containerButtonToggleMenu"].classList.add("grow");
     } else {
         LocalVariables.menuActive = true;
         // Show the menu by adding the move-in class
@@ -227,21 +221,20 @@ function toggleMenu() {
                 references.domElements["buttonRefresh"],
                 references.domElements["buttonHelp"],
                 references.domElements["buttonScreenshot"],
-                references.domElements["collapseMenuImage"],
             ],
             "move-in",
             true
         );
 
-        // Hide menuButtonImage and toggle text^
-        references.domElements["containerButtonToggleMenu"].classList.add("fade-trough");
-        references.domElements["toggleMenuButtonText"].classList.add("menu-out");
-        references.domElements["toggleMenuButtonText"].classList.remove("expandAndFade");
-        setClassActive(
-            [references.domElements["menuButtonImage"], references.domElements["toggleMenuButtonText"]],
-            "move-in",
-            false
-        );
+        // Hide menuButtonImage and toggle text
+        references.domElements["toggleMenuButtonText"].classList.remove("grow");
+        references.domElements["menuButtonImage"].classList.remove("fade-in");
+
+        // Show menu collapse icon
+        references.domElements["collapseMenuImage"].classList.add("fade-in");
+
+        // Shrink menu button container
+        references.domElements["containerButtonToggleMenu"].classList.remove("grow");
     }
 }
 
@@ -251,7 +244,7 @@ function setClassActive(listOfElements, className, setActive, hideAfterAnimation
             listOfElements[i].classList.remove("hiddenState");
             listOfElements[i].classList.add(className);
 
-            // On end of the animation, add the hiddenState class
+            // On end of the animation, add the hiddenState class (ToDo: Is thos obsolete?)
             if (hideAfterAnimation) {
                 ["animationend", "transitionend"].forEach((trigger) => {
                     listOfElements[i].addEventListener(
