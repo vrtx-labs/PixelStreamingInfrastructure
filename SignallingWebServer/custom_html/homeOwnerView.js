@@ -203,15 +203,18 @@ function toggleMenu() {
             false
         );
 
-        // Show menuButtonImage and toggle text
-        references.domElements["toggleMenuButtonText"].classList.add("grow");
-        references.domElements["menuButtonImage"].classList.add("fade-in");
+        // Timeout to wait for the animation to finish
+        setTimeout(function () {
+            // Show menuButtonImage and toggle text
+            references.domElements["toggleMenuButtonText"].classList.add("grow");
+            references.domElements["menuButtonImage"].classList.add("fade-in");
 
-        // Hide menu collapse icon
-        references.domElements["collapseMenuImage"].classList.remove("fade-in");
+            // Hide menu collapse icon
+            references.domElements["collapseMenuImage"].classList.remove("fade-in");
 
-        // Grow menu button container
-        references.domElements["containerButtonToggleMenu"].classList.add("grow");
+            // Grow menu button container
+            references.domElements["containerButtonToggleMenu"].classList.add("grow");
+        }, 600);
     } else {
         LocalVariables.menuActive = true;
         // Show the menu by adding the move-in class
@@ -238,23 +241,11 @@ function toggleMenu() {
     }
 }
 
-function setClassActive(listOfElements, className, setActive, hideAfterAnimation = false) {
+function setClassActive(listOfElements, className, setActive) {
     for (let i = 0; i < listOfElements.length; i++) {
         if (setActive) {
             listOfElements[i].classList.remove("hiddenState");
             listOfElements[i].classList.add(className);
-
-            // On end of the animation, add the hiddenState class (ToDo: Is thos obsolete?)
-            if (hideAfterAnimation) {
-                ["animationend", "transitionend"].forEach((trigger) => {
-                    listOfElements[i].addEventListener(
-                        () => {
-                            listOfElements[i].classList.add("hiddenState");
-                        },
-                        { once: true }
-                    );
-                });
-            }
         } else {
             listOfElements[i].classList.remove(className);
         }
