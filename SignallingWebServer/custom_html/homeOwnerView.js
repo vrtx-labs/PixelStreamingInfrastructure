@@ -155,14 +155,6 @@ function setBreadcrumbs(room, project = "") {
     references.domElements["breadcrumbs"].innerHTML = project + " / " + room;
 }
 
-function setRoomName(roomNumber, name) {
-    // Get room references
-    references.getRoomElementsByNumber(roomNumber).forEach((room) => {
-        // Check the name string for whitespace
-        if (name === undefined || name === null || name.trim() === "") room.classList.add("hiddenState");
-        room.innerHTML = name;
-    });
-}
 
 function setupToggleMenuButton() {
     references.domElements["containerButtonToggleMenu"].addEventListener(
@@ -316,6 +308,7 @@ function showMenuContent(menuContent) {
 function setupRoomButtons() {
     for (let roomNumber = 1; roomNumber <= 4; roomNumber++) {
         references.getRoomElementsByNumber(roomNumber).forEach((element) => {
+            setRoomName(roomNumber, LocalVariables.roomData[roomNumber - 1].name);
             element.addEventListener("click", function onOverlayClick(event) {
                 setActiveRoom(roomNumber);
             });
@@ -328,6 +321,15 @@ function setupRoomButtons() {
             });
         }
     }
+}
+
+function setRoomName(roomNumber, name) {
+    // Get room references
+    references.getRoomElementsByNumber(roomNumber).forEach((room) => {
+        // Check the name string for whitespace
+        if (name === undefined || name === null || name.trim() === "") room.classList.add("hiddenState");
+        room.innerHTML = name;
+    });
 }
 
 function setActiveRoom(roomNumber = 1) {
