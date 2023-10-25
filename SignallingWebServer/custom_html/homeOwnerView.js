@@ -76,6 +76,7 @@ async function setup() {
             LocalVariables.roomData = [null, null, null, null];
             for (let roomIndex = 0; roomIndex < LocalVariables.roomData.length; roomIndex++) {
                 LocalVariables.roomData[roomIndex] = new Room(
+                    "Room " + (roomIndex + 1),
                     roomIndex + 2,
                     roomIndex + 2,
                     roomIndex * 20,
@@ -291,8 +292,8 @@ function showMenuContent(menuContent) {
 
 function setupRoomButtons() {
     for (let roomNumber = 1; roomNumber <= 4; roomNumber++) {
+        setRoomName(roomNumber, LocalVariables.roomData[roomNumber - 1].name);
         references.getRoomElementsByNumber(roomNumber).forEach((element) => {
-            setRoomName(roomNumber, LocalVariables.roomData[roomNumber - 1].name);
             element.addEventListener("click", function onOverlayClick(event) {
                 setActiveRoom(roomNumber);
             });
