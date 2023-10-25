@@ -508,7 +508,7 @@ function updateSlider() {
     // Get references
     let slider = references.domElements["daylightSlider"];
     let sliderText = references.domElements["daylightValueSlider"];
-    let slideButtonText = references.domElements["daylightValueButton"];
+    let sliderButtonText = references.domElements["daylightValueButton"];
 
     // Get the current time of day as given by the slider value
     let tod = new Date(0, 0, 0, 0, 0, 0, 0);
@@ -517,7 +517,8 @@ function updateSlider() {
     // Create a readable time string, either 24 h clock or am/pm
     let timeString = tod.getHours() + ":" + tod.getMinutes().toString().padStart(2, "0");
     if (LocalVariables.timeFormatUseAMPM) timeString = createAMPMTimestring(tod.getHours(), tod.getMinutes());
-    sliderText.innerHTML = slideButtonText.innerHTML = timeString;
+    sliderText.innerHTML = timeString;
+    sliderButtonText.innerHTML = "Time of day " + timeString;
 
     // Notify streamer of time change
     sendToStreamer(CommunicationKeys.daylightSliderKey, (slider.value / 1440).toFixed(6));
