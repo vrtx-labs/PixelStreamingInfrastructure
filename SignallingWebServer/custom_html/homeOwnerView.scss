@@ -10,6 +10,7 @@ $scale-font: min(1.25vw, 0.98rem);
 $menu-animation-duration: 0.8s;
 $move-animation-duration: 1s;
 $fade-animation-duration: 0.4s;
+$hover-animation-duration: 0.2s;
 
 :root {
     /*Color scheme variables*/
@@ -20,6 +21,7 @@ $fade-animation-duration: 0.4s;
     --colour-background: #404040;
     --colour-text: #797979;
     --colour-url: #5e8ed6;
+    --colour-hover: #dbd7d1;
 }
 
 @layer general {
@@ -198,6 +200,11 @@ $fade-animation-duration: 0.4s;
             color: var(--colour-base);
             margin: auto;
         }
+
+        transition: background-color $hover-animation-duration ease-in-out;
+        &:hover {
+            background-color: var(--colour-hover);
+        }
     }
 
     #overlayClimateScores {
@@ -275,12 +282,15 @@ $fade-animation-duration: 0.4s;
     .button-base {
         border: none;
         background-color: transparent;
+        &:hover {
+            & .svg-background {
+                fill: var(--colour-hover);
+            }
+        }
     }
 
-    .button-base:hover {
-        & .svg-background {
-            fill: #dbd7d1;
-        }
+    .svg-background {
+        transition: fill $hover-animation-duration ease-in-out;
     }
 }
 @layer design-specific {

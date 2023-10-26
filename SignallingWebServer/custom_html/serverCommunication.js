@@ -34,8 +34,6 @@ function parseProjectData(jsonData, projectID) {
 
     // Extract values from the JSON object
     jsonData = JSON.parse(jsonData);
-    console.log("Data received from server:");
-    console.log(jsonData);
     const roomsArray = [];
     const rooms = findJsonField("rooms", jsonData);
 
@@ -61,6 +59,8 @@ function parseProjectData(jsonData, projectID) {
 
     // Create a new project object
     let project = new Project(projectID, findJsonField("name", jsonData), roomsArray);
+    console.log("Data received from server:");
+    console.log(project);
 
     // Return the extracted data in the form of a project object
     return project;
