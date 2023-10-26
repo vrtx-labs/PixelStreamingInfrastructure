@@ -101,6 +101,7 @@ function setupFrontend() {
 function setupUIElements() {
     setupPlayButton();
     setupScreenshotButton();
+    setupRefreshButton();
     setupShareButton();
     setupMenuContentButtons();
     setupToggleMenuButton();
@@ -159,6 +160,12 @@ function setBreadcrumbs(room, project = "") {
 function setupScreenshotButton() {
     references.domElements["buttonScreenshot"].addEventListener("click", function onOverlayClick(event) {
         sendToStreamer(CommunicationKeys.screenshotKey, "true");
+    });
+}
+
+function setupRefreshButton() {
+    references.domElements["buttonRefresh"].addEventListener("click", function onOverlayClick(event) {
+        sendToStreamer(CommunicationKeys.refreshKey, "true");
     });
 }
 

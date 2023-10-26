@@ -7,6 +7,7 @@ export const CommunicationKeys = {
     roomOptionKey: "roomOption",
     daylightSliderKey: "daylightSliderValue",
     screenshotKey: "screenshot",
+    refreshKey: "refresh",
     mouseControlSchemeKey: "hoveringMouse",
     joystickValuesKey: "joystickValues",
     roomNamesKey: "roomNames",
