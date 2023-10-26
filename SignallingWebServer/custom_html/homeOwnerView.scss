@@ -164,6 +164,10 @@ $hover-animation-duration: 0.2s;
         .button-base:not(.selected-room) {
             background-color: transparent;
         }
+
+        .button-base:not(.selected-room):hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
     }
 
     #containerScores {
