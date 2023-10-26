@@ -2,7 +2,7 @@ import { Room, Project } from "./dataModels.js";
 
 export async function getProjectData(projectID) {
     if (projectID === null || projectID === undefined) {
-        throw new Error("Project ID is not defined. Try adding ?project_id= to the URL.");
+        throw new Error("Project ID is not defined. Try adding &project_id= to the URL and supply an ID.");
     }
 
     var requestOptions = {

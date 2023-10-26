@@ -49,6 +49,9 @@ $fade-animation-duration: 0.4s;
         cursor: pointer;
         border: none;
     }
+    svg {
+        height: 100%;
+    }
 
     * {
         /* Set general font & font size */
@@ -275,12 +278,9 @@ $fade-animation-duration: 0.4s;
     }
 
     .button-base:hover {
-        /* to be specified */
-    }
-
-    .button-base:active,
-    .button-base:focus {
-        /* to be specified */
+        & .svg-background {
+            fill: #dbd7d1;
+        }
     }
 }
 @layer design-specific {
