@@ -75,38 +75,48 @@ $hover-animation-duration: 0.2s;
     }
 
     h1 {
-        font-size: 1.6rem; // min(1.8vw, 1.6rem);
+        font-size: 1.6em;
         font-weight: 270;
     }
 
     h2 {
-        font-size: 1.4rem; // min(1.7vw, 1.4rem);
+        font-size: 1.4em;
         font-weight: 250;
     }
 
     h3 {
-        font-size: 1rem; // min(1.4vw, 1.2rem);
+        font-size: 1em;
         font-weight: 235;
     }
 
     h4 {
-        font-size: 0.8rem; // min(1.15vw, 0.8rem);
+        font-size: 0.8em;
         font-weight: 220;
     }
 
     h5 {
-        font-size: 0.7rem; // min(1vw, 0.7rem);
+        font-size: 0.7em;
         font-weight: 210;
     }
 
     p {
-        margin: auto 0.5rem; //0.5rem;
+        margin: auto 0.5rem;
         font-weight: 230;
     }
 
     a {
         color: var(--colour-url);
         text-decoration: none;
+    }
+
+    /* Fonts */
+    @font-face {
+        font-family: "TransformVariableVF";
+        src: url("/fonts/VELUXTransformVariableVF.ttf");
+    }
+
+    .font-velux {
+        font-family: "TransformVariableVF";
     }
 }
 
@@ -124,7 +134,7 @@ $hover-animation-duration: 0.2s;
     }
 
     #containerHeader {
-        top: 2.5rem; //min(7vw, 2.5rem);
+        top: 2.5rem;
         background-color: transparent;
         pointer-events: none;
     }
@@ -396,7 +406,7 @@ $hover-animation-duration: 0.2s;
         }
 
         p {
-            font-size: 0.65rem; // min(1.1vw, 0.65rem);
+            font-size: 0.65em;
             font-weight: 600;
         }
     }
@@ -414,24 +424,24 @@ $hover-animation-duration: 0.2s;
         > {
             img {
                 padding: 0 0.5rem 0.5rem 0.5rem;
-                height: 3rem; //min(3.3vw, 3rem);
+                height: 3rem;
             }
         }
     }
 
     .hero-value {
-        font-size: 3rem; // min(3vw, 3rem);
+        font-size: 3em;
         font-weight: 250;
     }
 
     .label {
-        font-size: 2.3rem; // min(2.3vw, 2.3rem);
+        font-size: 2.3em;
         font-weight: 200;
     }
 
     .char-icon {
         border: 0.125rem solid var(--colour-base2);
-        font-size: 1rem;
+        font-size: 1em;
         padding: auto;
         width: 2rem;
         height: 2rem;
@@ -901,7 +911,7 @@ img#playButton {
     border-radius: 15px;
     padding: 0px 10px;
     font-family: "Montserrat", sans-serif;
-    font-size: 0.75rem;
+    font-size: 0.75em;
     letter-spacing: 0.75px;
     /* Position the tooltip */
     position: absolute;
@@ -1257,7 +1267,7 @@ input[type="button"] {
     font-family: "Montserrat";
     border: 3px solid var(--colour-base);
     border-radius: 1rem;
-    font-size: 0.75rem;
+    font-size: 0.75em;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
 }
@@ -1341,13 +1351,4 @@ object {
     display: inline-block;
     line-height: 1.5;
     height: 100vh;
-}
-
-@font-face {
-    font-family: "TransformVariableVF";
-    src: url("/fonts/VELUXTransformVariableVF.ttf");
-}
-
-.font-velux {
-    font-family: "TransformVariableVF";
 }
