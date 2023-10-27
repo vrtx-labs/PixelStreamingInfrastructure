@@ -60,11 +60,11 @@ $hover-animation-duration: 0.2s;
         width: auto;
     }
 
+    /* Set general font & font size */
     body * {
-        /* Set general font & font size */
         font-family: "TransformVariableVF";
         font-size: $font-size-general;
-        font-weight: inherit;
+        font-weight: 240;
         color: var(--colour-accent);
     }
 
@@ -75,33 +75,34 @@ $hover-animation-duration: 0.2s;
     }
 
     h1 {
-        font-size: 1.6rem;
+        font-size: 3rem;
         font-weight: 270;
+        line-height: 1em;
     }
 
     h2 {
         font-size: 1.25rem;
-        font-weight: 250;
+        font-weight: 240;
     }
 
     h3 {
         font-size: 1rem;
-        font-weight: 235;
+        font-weight: 240;
     }
 
     h4 {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
         font-weight: 220;
     }
 
     h5 {
-        font-size: 0.7rem;
+        font-size: 0.5rem;
         font-weight: 210;
     }
 
     p {
         margin: auto 0.5rem;
-        font-weight: 230;
+        font-weight: 240;
     }
 
     a {
@@ -195,8 +196,8 @@ $hover-animation-duration: 0.2s;
         border-radius: 1rem;
         padding: 0;
 
-        > div > h5 {
-            margin: auto auto 0 auto;
+        > div > h4 {
+            margin: auto auto 0.5rem auto;
             padding-top: 1rem;
         }
 
@@ -422,11 +423,6 @@ $hover-animation-duration: 0.2s;
     .hero-value {
         font-size: 3rem;
         font-weight: 250;
-    }
-
-    .label {
-        font-size: 2.3rem;
-        font-weight: 200;
     }
 
     .char-icon {
