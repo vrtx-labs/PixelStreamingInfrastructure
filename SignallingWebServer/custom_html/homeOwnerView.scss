@@ -7,7 +7,7 @@
 $breakpoint-general: 1375px;
 $navigation-element-height: 2rem; // min(3vw, 1.9rem);
 $navigation-element-height-breakpoint: min(4vw, 1.4rem);
-$font-size-general: 1em;
+$font-size-general: 1rem;
 $font-size-breakpoint: min(2vw, $font-size-general);
 
 /* Animation Durations */
@@ -60,7 +60,7 @@ $hover-animation-duration: 0.2s;
         width: auto;
     }
 
-    * {
+    body * {
         /* Set general font & font size */
         font-family: "TransformVariableVF";
         font-size: $font-size-general;
@@ -69,33 +69,33 @@ $hover-animation-duration: 0.2s;
     }
 
     @media screen and (max-width: $breakpoint-general) {
-        * {
+        body * {
             font-size: $font-size-breakpoint;
         }
     }
 
     h1 {
-        font-size: 1.6em;
+        font-size: 1.6rem;
         font-weight: 270;
     }
 
     h2 {
-        font-size: 1.4em;
+        font-size: 1.25rem;
         font-weight: 250;
     }
 
     h3 {
-        font-size: 1em;
+        font-size: 1rem;
         font-weight: 235;
     }
 
     h4 {
-        font-size: 0.8em;
+        font-size: 0.8rem;
         font-weight: 220;
     }
 
     h5 {
-        font-size: 0.7em;
+        font-size: 0.7rem;
         font-weight: 210;
     }
 
@@ -107,16 +107,6 @@ $hover-animation-duration: 0.2s;
     a {
         color: var(--colour-url);
         text-decoration: none;
-    }
-
-    /* Fonts */
-    @font-face {
-        font-family: "TransformVariableVF";
-        src: url("/fonts/VELUXTransformVariableVF.ttf");
-    }
-
-    .font-velux {
-        font-family: "TransformVariableVF";
     }
 }
 
@@ -134,7 +124,7 @@ $hover-animation-duration: 0.2s;
     }
 
     #containerHeader {
-        top: 2.5rem;
+        top: 2.5rem; //min(7vw, 2.5rem);
         background-color: transparent;
         pointer-events: none;
     }
@@ -406,7 +396,7 @@ $hover-animation-duration: 0.2s;
         }
 
         p {
-            font-size: 0.65em;
+            font-size: 0.65rem;
             font-weight: 600;
         }
     }
@@ -424,24 +414,24 @@ $hover-animation-duration: 0.2s;
         > {
             img {
                 padding: 0 0.5rem 0.5rem 0.5rem;
-                height: 3rem;
+                height: 3rem; //min(3.3vw, 3rem);
             }
         }
     }
 
     .hero-value {
-        font-size: 3em;
+        font-size: 3rem;
         font-weight: 250;
     }
 
     .label {
-        font-size: 2.3em;
+        font-size: 2.3rem;
         font-weight: 200;
     }
 
     .char-icon {
         border: 0.125rem solid var(--colour-base2);
-        font-size: 1em;
+        font-size: 1rem;
         padding: auto;
         width: 2rem;
         height: 2rem;
@@ -657,7 +647,7 @@ $hover-animation-duration: 0.2s;
     }
 
     .grow {
-        width: min(6.5rem, 100%);
+        width: auto;
         opacity: 1;
         margin: auto 0.5rem;
     }
@@ -911,7 +901,7 @@ img#playButton {
     border-radius: 15px;
     padding: 0px 10px;
     font-family: "Montserrat", sans-serif;
-    font-size: 0.75em;
+    font-size: 0.75rem;
     letter-spacing: 0.75px;
     /* Position the tooltip */
     position: absolute;
@@ -1267,7 +1257,7 @@ input[type="button"] {
     font-family: "Montserrat";
     border: 3px solid var(--colour-base);
     border-radius: 1rem;
-    font-size: 0.75em;
+    font-size: 0.75rem;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
 }
@@ -1351,4 +1341,13 @@ object {
     display: inline-block;
     line-height: 1.5;
     height: 100vh;
+}
+
+@font-face {
+    font-family: "TransformVariableVF";
+    src: url("/fonts/VELUXTransformVariableVF.ttf");
+}
+
+.font-velux {
+    font-family: "TransformVariableVF";
 }

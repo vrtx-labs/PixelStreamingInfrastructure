@@ -214,7 +214,7 @@ function toggleMenu() {
         // Timeout to wait for the animation to finish
         setTimeout(function () {
             // Show menuButtonImage and toggle text
-            references.domElements["toggleMenuButtonText"].classList.add("grow");
+            references.domElements["toggleMenuButtonText"].classList.remove("hiddenState");
             references.domElements["menuButtonImage"].classList.add("fade-in");
 
             // Hide menu collapse icon
@@ -238,7 +238,7 @@ function toggleMenu() {
         );
 
         // Hide menuButtonImage and toggle text
-        references.domElements["toggleMenuButtonText"].classList.remove("grow");
+        references.domElements["toggleMenuButtonText"].classList.add("hiddenState");
         references.domElements["menuButtonImage"].classList.remove("fade-in");
 
         // Show menu collapse icon
