@@ -100,7 +100,7 @@ $hover-animation-duration: 0.2s;
         font-weight: 210;
     }
 
-    p {
+    button > p {
         margin: auto 0.5rem;
         font-weight: 240;
     }
@@ -258,7 +258,7 @@ $hover-animation-duration: 0.2s;
 
     #closeClimateScores {
         right: 4rem;
-        top: 2rem;
+        top: 3rem;
         > .svg-image {
             height: 1.2rem;
         }
@@ -270,6 +270,7 @@ $hover-animation-duration: 0.2s;
 
     #containerClimateScoreCards {
         width: 100%;
+        margin-top: 3.3rem;
         justify-content: start;
         gap: 3rem;
     }
@@ -298,6 +299,19 @@ $hover-animation-duration: 0.2s;
             margin-top: 0.5rem;
         }
     }
+
+    #climateImprintHeader {
+        font-size: 2rem;
+        font-weight: 260;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    #climateImprint {
+        margin: 0;
+        font-weight: 240;
+        line-height: 1.5rem;
+    }
 }
 
 /*** Classes ***/
@@ -323,11 +337,6 @@ $hover-animation-duration: 0.2s;
     .paragraph-color,
     .paragraph-color * {
         color: var(--colour-text);
-    }
-
-    .fade-color {
-        color: var(--colour-text);
-        opacity: 0.3;
     }
 
     .label-color,
@@ -360,6 +369,7 @@ $hover-animation-duration: 0.2s;
     }
 
     .button-border-top {
+        height: 4rem;
         border: none;
         padding: 1.5rem 0 1.5rem 0;
         pointer-events: all;
@@ -392,13 +402,17 @@ $hover-animation-duration: 0.2s;
             h4,
             h5 {
                 margin: 0;
-                font-weight: 500;
+                font-weight: 550;
             }
         }
 
         p {
-            font-size: 0.65rem;
-            font-weight: 600;
+            font-size: 0.75rem;
+            font-weight: 550;
+            margin-top: 0.5rem;
+            margin-right: 0;
+            margin-bottom: 1rem;
+            margin-left: 0;
         }
     }
 
@@ -406,7 +420,8 @@ $hover-animation-duration: 0.2s;
         width: 100%;
         justify-content: space-between;
         align-items: start;
-        margin-top: 0;
+        margin-top: 0.5rem;
+        margin-bottom: 1rem;
 
         * {
             margin: 0;
@@ -414,15 +429,30 @@ $hover-animation-duration: 0.2s;
 
         > {
             img {
-                padding: 0 0.5rem 0.5rem 0.5rem;
                 height: 3rem; //min(3.3vw, 3rem);
             }
         }
     }
 
+    .fade-color {
+        color: var(--colour-text);
+        opacity: 0.3;
+    }
+
+    p.fade-color {
+        color: var(--colour-background);
+        font-weight: 240;
+        opacity: 1;
+    }
+
     .hero-value {
         font-size: 3rem;
-        font-weight: 250;
+        font-weight: 260;
+    }
+    .percentage-value {
+        font-size: 1.5rem;
+        font-weight: 260;
+        color: var(--colour-background);
     }
 
     .char-icon {
@@ -454,6 +484,13 @@ $hover-animation-duration: 0.2s;
         .svg-image {
             height: $navigation-element-height-breakpoint;
         }
+    }
+
+    .divider {
+        width: 400%;
+        transform: translateX(-4rem);
+        height: 1px;
+        background-color: var(--colour-base2);
     }
 
     .no-pointer {

@@ -188,13 +188,13 @@
                     <div id="containerScoresPadding">
                         <h4>DAYLIGHT SCORE</h4>
                         <div id="containerDaylightScore" class="horizontal-container score-panel">
-                            <h1 id="daylightScore" class="label">4.2</h1>
+                            <h1 id="daylightScore">4.2</h1>
                             <img class="svg-image" src="/images/icons/hov_climate_sun.svg" type="svg" />
                         </div>
 
                         <h4>VENTILATION SCORE</h4>
                         <div id="containerVentilationScore" class="horizontal-container score-panel">
-                            <h1 id="ventilationScore" class="label">4.8</h1>
+                            <h1 id="ventilationScore">4.8</h1>
                             <img class="svg-image" src="/images/icons/hov_climate_air.svg" type="svg" />
                         </div>
                     </div>
@@ -219,6 +219,7 @@
                         <button id="buttonRoom3Climate" class="button-base button-border-top">Option 2</button>
                         <button id="buttonRoom4Climate" class="button-base button-border-top">Option 3</button>
                     </nav>
+                    <div class="divider"></div>
                     <section id="containerClimateScoreCards" class="horizontal-container">
                         <!-- Card Daylight Rating-->
                         <section id="daylightScoreCard" class="score-card vertical-container">
@@ -234,7 +235,7 @@
                                     src="/images/icons/hov_climate_sun_colored.svg"
                                     type="svg" />
                             </div>
-                            <h5 id="daylightHeadingClimate" class="label-color">Good level of sunlight</h5>
+                            <h4 id="daylightHeadingClimate" class="label-color">Good level of sunlight</h4>
                             <p id="daylightTextClimate">
                                 There is an adequate amount of daylight in the room, which makes the room
                                 optimal for all activities.
@@ -250,7 +251,7 @@
                                             class="svg-image hiddenState"
                                             src="/images/icons/hov_climate_arrow_sun_down.svg"
                                             type="svg" />
-                                        <h1 id="daylightPercentageClimate" class="">36%</h1>
+                                        <h1 id="daylightPercentageClimate" class="percentage-value">36%</h1>
                                     </div>
                                     <p id="daylightPercentageTextClimate" class="fade-color">
                                         More light than in your current room
@@ -272,9 +273,9 @@
                                     src="/images/icons/hov_climate_air_colored.svg"
                                     type="svg" />
                             </div>
-                            <h5 id="ventilationHeadingClimate" class="label-color">
+                            <h4 id="ventilationHeadingClimate" class="label-color">
                                 Good level of ventilation
-                            </h5>
+                            </h4>
                             <p id="ventilationTextClimate">
                                 There will be low chance of over heating and the room will be a healthy and
                                 comfortable place.
@@ -292,7 +293,7 @@
                                             class="svg-image hiddenState"
                                             src="/images/icons/hov_climate_arrow_air_down.svg"
                                             type="svg" />
-                                        <h1 id="ventilationPercentageClimate" class="">36%</h1>
+                                        <h1 id="ventilationPercentageClimate" class="percentage-value">36%</h1>
                                     </div>
                                     <p id="ventilationPercentageTextClimate" class="fade-color">
                                         Faster to change air in your room
@@ -310,7 +311,7 @@
                                             class="svg-image hiddenState"
                                             src="/images/icons/hov_climate_arrow_air_down.svg"
                                             type="svg" />
-                                        <h1 id="ventilationMinutesClimate" class="">15min</h1>
+                                        <h1 id="ventilationMinutesClimate" class="percentage-value">15min</h1>
                                     </div>
                                     <p id="ventilationMinutesTextClimate" class="fade-color">
                                         Air renewal time is up to 15 min
@@ -320,13 +321,14 @@
                         </section>
                     </section>
                     <section>
-                        <h1 class="label label-color">Our calculations are<br />compliant to EU 17037</h1>
-                        <p>
-                            EU 17037 sets standards for individual spaces within a building and recognizes that
-                            optimal daylighting varies by room type. Performance levels are established for each
-                            of four daylighting design criteria: daylighting, views, access, and glare. These
-                            criteria establish a minimum acceptable daylighting environment for building
-                            occupants and address health, comfort, and productivity.
+                        <h1 id="climateImprintHeader" class="label-color">Setting a new standard</h1>
+                        <p id="climateImprint">
+                            Both the daylight and natural ventilation score is a great help when checking how
+                            the VELUX design proposals affect a room's indoor climate. The higher the score, the
+                            better the room is fit for people, activity and life.<br /><br />Based on the
+                            European standards for daylight and ventilation in buildings (EU 17037), the score
+                            is an aggregated total that reflects how well the room meets professional metrics
+                            for human wellbeing.
                         </p>
                     </section>
                 </div>
