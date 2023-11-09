@@ -19,13 +19,11 @@ $hover-animation-duration: 0.2s;
 :root {
     /*Color scheme variables*/
     --colour-accent: #ffffff;
-    --colour-accent2: #c70000;
-    --colour-base: #252525;
-    --colour-base2: #e4e1dd;
-    --colour-background: #404040;
-    --colour-text: #797979;
-    --colour-url: #5e8ed6;
-    --colour-hover: #dbd7d1;
+    --colour-accent-red: #c70000;
+    --colour-base-black: #28231f;
+    --colour-base-grey: #dbd7d1;
+    --colour-background: #454142;
+    --colour-text: #78716b;
 }
 
 @layer general {
@@ -103,11 +101,6 @@ $hover-animation-duration: 0.2s;
     h5 {
         font-size: 0.5rem;
         font-weight: 210;
-    }
-
-    a {
-        color: var(--colour-url);
-        text-decoration: none;
     }
 }
 
@@ -227,13 +220,13 @@ $hover-animation-duration: 0.2s;
         justify-content: space-between;
 
         > * {
-            color: var(--colour-base);
+            color: var(--colour-base-black);
             margin: auto;
         }
 
         transition: background-color $hover-animation-duration ease-in-out;
         &:hover {
-            background-color: var(--colour-hover);
+            background-color: var(--colour-base-grey);
         }
     }
 
@@ -329,7 +322,7 @@ $hover-animation-duration: 0.2s;
         background-color: transparent;
         &:hover {
             & .svg-background {
-                fill: var(--colour-hover);
+                fill: var(--colour-base-grey);
             }
         }
     }
@@ -346,7 +339,7 @@ $hover-animation-duration: 0.2s;
 
     .label-color,
     .label-color * {
-        color: var(--colour-base);
+        color: var(--colour-base-black);
     }
 
     .stretch-container {
@@ -370,7 +363,7 @@ $hover-animation-duration: 0.2s;
 
     .selected-room {
         background-color: var(--colour-accent);
-        color: var(--colour-base);
+        color: var(--colour-base-black);
     }
 
     .button-border-top {
@@ -388,8 +381,8 @@ $hover-animation-duration: 0.2s;
     .button-border-top:active,
     .button-border-top:focus,
     .selected-room.button-border-top {
-        border-top: 0.15rem solid var(--colour-accent2);
-        color: var(--colour-base);
+        border-top: 0.15rem solid var(--colour-accent-red);
+        color: var(--colour-base-black);
     }
 
     .score-card {
@@ -398,7 +391,7 @@ $hover-animation-duration: 0.2s;
         //min-width: 40vw;
         //min-height: 40vw;
         padding: 1rem;
-        border: 0.125rem solid var(--colour-base2);
+        border: 0.125rem solid var(--colour-base-grey);
 
         > {
             h1,
@@ -448,8 +441,7 @@ $hover-animation-duration: 0.2s;
     }
 
     .fade-color {
-        color: var(--colour-text);
-        opacity: 0.3;
+        color: var(--colour-base-grey);
     }
 
     p.fade-color {
@@ -469,7 +461,7 @@ $hover-animation-duration: 0.2s;
     }
 
     .char-icon {
-        border: 0.125rem solid var(--colour-base2);
+        border: 0.125rem solid var(--colour-base-grey);
         font-size: 1rem;
         padding: auto;
         width: 2rem;
@@ -503,7 +495,7 @@ $hover-animation-duration: 0.2s;
         width: 400%;
         transform: translateX(-4rem);
         height: 1px;
-        background-color: var(--colour-base2);
+        background-color: var(--colour-base-grey);
     }
 
     .no-pointer {
@@ -806,7 +798,7 @@ $hover-animation-duration: 0.2s;
     #joystick {
         height: 100%;
         width: auto;
-        background-color: var(--colour-base2);
+        background-color: var(--colour-base-grey);
         opacity: 25%;
         border-radius: 100%;
         cursor: all-scroll;
@@ -845,7 +837,7 @@ video {
     font-size: 1.8em;
     width: 100%;
     height: 100%;
-    color: var(--colour-base);
+    color: var(--colour-base-black);
 }
 
 .noselect {
@@ -902,7 +894,7 @@ img#playButton {
     height: 100%;
     z-index: 20;
     position: absolute;
-    color: var(--colour-base);
+    color: var(--colour-base-black);
     pointer-events: none;
     overflow: hidden;
 }
@@ -923,7 +915,7 @@ img#playButton {
 }
 
 #overlay button:hover {
-    background-color: var(--colour-base);
+    background-color: var(--colour-base-black);
     border: 3px solid var(--colour-accent-active);
     transition: 0.25s ease;
     padding-left: 0.55rem;
@@ -945,7 +937,7 @@ img#playButton {
 .tooltip .tooltiptext {
     visibility: hidden;
     width: auto;
-    color: var(--colour-base);
+    color: var(--colour-base-black);
     text-align: center;
     border-radius: 15px;
     padding: 0px 10px;
@@ -962,7 +954,7 @@ img#playButton {
 
 .tooltip:hover .tooltiptext {
     visibility: visible;
-    background-color: var(--colour-base);
+    background-color: var(--colour-base-black);
 }
 
 #connection .tooltiptext {
@@ -980,7 +972,7 @@ img#playButton {
     left: 0;
     z-index: 20;
     padding: 5px 10px;
-    border: 3px solid var(--colour-base);
+    border: 3px solid var(--colour-base-black);
     width: max-content;
 }
 
@@ -1184,8 +1176,8 @@ img#playButton {
     padding: 2px;
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
-    background: var(--colour-base);
-    border: 3px solid var(--colour-base);
+    background: var(--colour-base-black);
+    border: 3px solid var(--colour-base-black);
     border-radius: 2em;
 }
 
@@ -1196,13 +1188,13 @@ img#playButton {
 .tgl-flat + .tgl-slider:after {
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
-    background: var(--colour-base);
+    background: var(--colour-base-black);
     content: "";
     border-radius: 1em;
 }
 
 .tgl-flat:checked + .tgl-slider {
-    border: 3px solid var(--colour-base);
+    border: 3px solid var(--colour-base-black);
 }
 
 .tgl-flat:checked:hover + .tgl-slider {
@@ -1216,7 +1208,7 @@ img#playButton {
 
 .subtitle-text {
     margin: 0 0 0 1rem;
-    color: var(--colour-base);
+    color: var(--colour-base-black);
     position: relative;
 }
 
@@ -1230,7 +1222,7 @@ img#playButton {
 }
 
 .form-group label {
-    color: var(--colour-base);
+    color: var(--colour-base-black);
     vertical-align: middle;
     font-weight: normal;
 }
@@ -1302,9 +1294,9 @@ input {
 /* Flat buttons */
 input[type="button"] {
     background-color: transparent;
-    color: var(--colour-base);
+    color: var(--colour-base-black);
     font-family: "Montserrat";
-    border: 3px solid var(--colour-base);
+    border: 3px solid var(--colour-base-black);
     border-radius: 1rem;
     font-size: 0.75rem;
     padding-left: 0.5rem;
@@ -1327,9 +1319,9 @@ input[type="button"]:active {
 
 select,
 input[type="number"] {
-    background-color: var(--colour-base);
+    background-color: var(--colour-base-black);
     color: var(--colour-background);
-    border: 1px solid var(--colour-base);
+    border: 1px solid var(--colour-base-black);
     padding: 0.25rem;
     font-family: "Montserrat";
     border-radius: 0.25rem;
@@ -1368,7 +1360,7 @@ object {
 }
 
 #connectionStrength {
-    fill: var(--colour-base);
+    fill: var(--colour-base-black);
 }
 
 #minimize {
