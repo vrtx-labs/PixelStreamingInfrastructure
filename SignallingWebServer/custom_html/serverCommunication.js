@@ -11,7 +11,9 @@ export async function getProjectData(projectID) {
     };
 
     // Return a promise that resolves to the room data
-    return fetch(`https://vds-cms.vrtxlabs.cloud/api/projects/${projectID}`, requestOptions)
+    let url = `https://vds-cms.vrtxlabs.cloud/api/projects/${projectID}`;
+    url = "http://localhost:1337/api/projects/LnHHLSTPCFkyp494J9Ep9CN8"; // Testing
+    return fetch(url, requestOptions)
         .then((response) => {
             if (!response.ok) {
                 throw new Error("HTTP error, status = " + response.status + " " + response.statusText);
@@ -34,17 +36,15 @@ function parseProjectData(jsonData, projectID) {
 
     // Extract values from the JSON object
     jsonData = JSON.parse(jsonData);
+    console.log("Data received from server:");
+    console.log(jsonData);
+
     const roomsArray = [];
-    const rooms = findJsonField("rooms", jsonData);
+    const room = findJsonField("rooms", jsonData)[0];
+    let climateData = room?.climate_data;
 
-    // Fill the room data, creating a room object for each room
-    rooms.forEach((room) => {
-        let climateData = room.climate_data;
-        if (climateData === null || climateData === undefined) {
-            roomsArray.push(room.name ?? "", 0, 0, 0, 0, 0);
-            return;
-        }
-
+    if ((room !== null && room !== undefined) || (climateData !== null && climateData !== undefined)) {
+        // Fill the room data of the first room
         roomsArray.push(
             new Room(
                 room.name,
@@ -55,7 +55,29 @@ function parseProjectData(jsonData, projectID) {
                 climateData.airRenewalTime
             )
         );
-    });
+
+        console.log(room.room_variants.length.toString());
+
+        // Fill the room data, creating a room object for each room
+        room.room_variants.forEach((variant) => {
+            climateData = variant?.climate_data;
+            if (climateData === null || climateData === undefined) {
+                roomsArray.push(room.name, 0, 0, 0, 0, 0);
+                return;
+            }
+
+            roomsArray.push(
+                new Room(
+                    room.name,
+                    climateData.daylightScore,
+                    climateData.ventilationScore,
+                    climateData.daylightImprovementPercentage,
+                    climateData.ventilationImprovementPercentage,
+                    climateData.airRenewalTime
+                )
+            );
+        });
+    }
 
     // Create a new project object
     let project = new Project(projectID, findJsonField("name", jsonData), roomsArray);
