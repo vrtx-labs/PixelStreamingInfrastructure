@@ -112,7 +112,7 @@ function setupUIElements() {
 
     // Update UI state
     setActiveRoom();
-    setBreadcrumbs(references.getRoomElementsByNumber(1)[0].innerHTML, LocalVariables.projectName);
+    setBreadcrumbs(LocalVariables.projectName);
 }
 
 function getURLParameter(parameter) {
@@ -151,8 +151,8 @@ function startStream() {
     }, 350);
 }
 
-function setBreadcrumbs(room, project = "") {
-    if (project === "" || project === undefined) project = LocalVariables.projectName;
+function setBreadcrumbs(project) {
+    let room = LocalVariables.roomData[0].name;
 
     references.domElements["breadcrumbs"].innerHTML = project + " / " + room;
 }
@@ -299,23 +299,28 @@ function showMenuContent(menuContent) {
 
 function setupRoomButtons() {
     for (let roomNumber = 1; roomNumber <= 4; roomNumber++) {
+        // Hide the room, if we have no data for it
+        if (roomNumber > LocalVariables.roomData.length) {
+            references.getRoomElementsByNumber(roomNumber).forEach((element) => {
+                element.classList.add("hiddenState");
+            });
+
+            continue;
+        }
+
         setRoomName(roomNumber, LocalVariables.roomData[roomNumber - 1].name);
         references.getRoomElementsByNumber(roomNumber).forEach((element) => {
             element.addEventListener("click", function onOverlayClick(event) {
                 setActiveRoom(roomNumber);
             });
         });
-
-        // Hide the room, if we have no data for it
-        if (roomNumber > LocalVariables.roomData.length) {
-            references.getRoomElementsByNumber(roomNumber).forEach((element) => {
-                element.classList.add("hiddenState");
-            });
-        }
     }
 }
 
 function setRoomName(roomNumber, name) {
+    if (roomNumber > 1) name = "Option " + roomNumber;
+    else name = "Original";
+
     // Get room references
     references.getRoomElementsByNumber(roomNumber).forEach((room) => {
         // Check the name string for whitespace
@@ -332,9 +337,6 @@ function setActiveRoom(roomNumber = 1) {
     references.getRoomElementsByNumber(roomNumber).forEach((button) => {
         if (button !== undefined && button.classList !== undefined) button.classList.add("selected-room");
     });
-
-    // Update the breadcrumbs in the top-left corner
-    setBreadcrumbs(references.getRoomElementsByNumber(roomNumber)[0].innerHTML);
 
     // Update the daylight and ventilation scores
     references.getDaylightScores().forEach((score) => {
