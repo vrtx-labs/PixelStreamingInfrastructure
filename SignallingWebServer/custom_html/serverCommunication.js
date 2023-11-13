@@ -12,7 +12,6 @@ export async function getProjectData(projectID) {
 
     // Return a promise that resolves to the room data
     let url = `https://vds-cms.vrtxlabs.cloud/api/projects/${projectID}`;
-    url = "http://localhost:1337/api/projects/LnHHLSTPCFkyp494J9Ep9CN8"; // Testing
     return fetch(url, requestOptions)
         .then((response) => {
             if (!response.ok) {
