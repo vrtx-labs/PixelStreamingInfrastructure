@@ -1,6 +1,7 @@
 // Constants
 export const CommunicationKeys = {
     projectIDKey: "project_id",
+    roomIDKey: "room_id",
     activeRoomKey: "activeRoom",
     projectViewKey: "projectView",
     settingsProjectViewKey: "settingsProjectView",

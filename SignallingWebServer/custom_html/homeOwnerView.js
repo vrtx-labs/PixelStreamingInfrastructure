@@ -42,6 +42,7 @@ const LocalVariables = {
     menuActive: false,
     projectName: "Default Project",
     projectID: null,
+    roomID: null,
     roomData: [null, null, null, null],
     timeFormatUseAMPM: false,
 };
@@ -54,11 +55,13 @@ window.addEventListener("OnLoadFinished", () => {
 async function setup() {
     // Get the project ID from the URL
     LocalVariables.projectID = getURLParameter(CommunicationKeys.projectIDKey);
+    LocalVariables.roomID = getURLParameter(CommunicationKeys.roomIDKey);
     console.log(`projectID: ${LocalVariables.projectID}`);
+    console.log(`roomID: ${LocalVariables.roomID}`);
 
     // Request project data from the server. On Success, setup the frontend
     await serverCommunication
-        .getProjectData(LocalVariables.projectID)
+        .getProjectData(LocalVariables.projectID, LocalVariables.roomID)
         .then((projectData) => {
             // Set the room data after successfully fetching it, then continue with the setup
             LocalVariables.projectName = projectData.name;

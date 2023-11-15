@@ -1,6 +1,6 @@
 import { Room, Project } from "./dataModels.js";
 
-export async function getProjectData(projectID) {
+export async function getProjectData(projectID, roomID) {
     if (projectID === null || projectID === undefined) {
         throw new Error("Project ID is not defined. Try adding &project_id= to the URL and supply an ID.");
     }
@@ -11,7 +11,7 @@ export async function getProjectData(projectID) {
     };
 
     // Return a promise that resolves to the room data
-    let url = `https://vds-cms.vrtxlabs.cloud/api/projects/${projectID}`;
+    let url = `https://vds-cms.vrtxlabs.cloud/api/projects/${projectID}?room_id=${roomID}`;
     return fetch(url, requestOptions)
         .then((response) => {
             if (!response.ok) {
