@@ -114,8 +114,10 @@ function setupUIElements() {
     setupClimateDrawer();
 
     // Update UI state
+    const foundProjectID = LocalVariables.projectID !== null;
     setActiveRoom();
-    setBreadcrumbs(LocalVariables.projectName);
+    setBreadcrumbs();
+    setMenuActive(foundProjectID);
 }
 
 function getURLParameter(parameter) {
@@ -136,6 +138,16 @@ function scrollToTop() {
     }, 50);
 }
 
+function setMenuActive(active) {
+    if (active) {
+        references.domElements["containerMenu"].classList.remove("hiddenState");
+        references.domElements["containerFooter"].classList.remove("hiddenState");
+    } else {
+        references.domElements["containerMenu"].classList.add("hiddenState");
+        references.domElements["containerFooter"].classList.add("hiddenState");
+    }
+}
+
 function setupPlayButton() {
     references.domElements["videoPlayOverlay"].addEventListener("click", function onOverlayClick(event) {
         startStream();
@@ -154,10 +166,19 @@ function startStream() {
     }, 350);
 }
 
-function setBreadcrumbs(project) {
-    let room = LocalVariables.roomData[0].name;
+function setBreadcrumbs() {
+    const hasProjectID = LocalVariables.projectID !== null;
+    const hasRoomID = LocalVariables.roomID !== null;
+    if (!hasProjectID && !hasRoomID) {
+        references.domElements["breadcrumbs"].innerHTML = "";
+        return;
+    }
 
-    references.domElements["breadcrumbs"].innerHTML = project + " / " + room;
+    const project = LocalVariables.projectName;
+    const room = LocalVariables.roomData[0].name;
+
+    if (hasProjectID && hasRoomID) references.domElements["breadcrumbs"].innerHTML = project + " / " + room;
+    else if (hasProjectID) references.domElements["breadcrumbs"].innerHTML = project;
 }
 
 function setupScreenshotButton() {
