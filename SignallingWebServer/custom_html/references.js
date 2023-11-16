@@ -61,13 +61,16 @@ export function getDOMElements() {
 
     // Misc
     domElements["videoPlayOverlay"] = document.getElementById("videoPlayOverlay");
+    domElements["containerFooter"] = document.getElementById("containerFooter");
+    domElements["containerMenu"] = document.getElementById("containerMenu");
+    domElements["containerButtonRoomOptions"] = document.getElementById("containerButtonRoomOptions");
     domElements["buttonRoomOptions"] = document.getElementById("containerButtonRoomOptions");
     domElements["buttonDaylight"] = document.getElementById("containerButtonDaylight");
     domElements["daylightSlider"] = document.getElementById("sliderDaylight");
     domElements["daylightValueSlider"] = document.getElementById("daylightValueSlider");
     domElements["daylightValueButton"] = document.getElementById("daylightValueButton");
     domElements["containerButtonDaylight"] = document.getElementById("containerButtonDaylight");
-    domElements["containerButtonRoomOptions"] = document.getElementById("containerButtonRoomOptions");
+
     domElements["breadcrumbs"] = document.getElementById("breadcrumbs");
 }
 

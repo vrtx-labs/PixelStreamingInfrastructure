@@ -38,6 +38,9 @@ function parseProjectData(jsonData, projectID) {
     console.log("Data received from server:");
     console.log(jsonData);
 
+    // We only share one room at a time via the first slot of the room array.
+    // The Backend middleware will write the room data matching the requested id
+    // in this slot.
     const roomsArray = [];
     const room = findJsonField("rooms", jsonData)[0];
     let climateData = room?.climate_data;
