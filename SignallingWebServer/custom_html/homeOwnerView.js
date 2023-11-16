@@ -1,13 +1,12 @@
 import * as references from "./references.js";
 import * as serverCommunication from "./serverCommunication.js";
+import * as streamerCommunication from "./streamerCommunication.js";
 import { MenuContent, ScoreType, Room, Project } from "./dataModels.js";
 import { setupJoystick } from "./joystick.js";
-import { CommunicationKeys, sendToStreamer, setupStreamerCommunication } from "./streamerCommunication.js";
 import "./serverCommunication.js";
 import "./global.js"; // ToDo: Find a better place for the code in here
 
 // Constants
-//const localStoragePrefix = "velux.";
 const daylightTextsGood = [
     "Good level of daylight",
     "There is an adequate amount of daylight in the room, which makes the room optimal for all activities.",
@@ -39,6 +38,7 @@ const airRenewalTimeText = "Air renewal time is up to";
 
 // Variables
 const LocalVariables = {
+    designAdvisorViewActive: false,
     menuActive: false,
     projectName: "Default Project",
     projectID: null,
@@ -54,8 +54,9 @@ window.addEventListener("OnLoadFinished", () => {
 
 async function setup() {
     // Get the project ID from the URL
-    LocalVariables.projectID = getURLParameter(CommunicationKeys.projectIDKey);
-    LocalVariables.roomID = getURLParameter(CommunicationKeys.roomIDKey);
+    LocalVariables.projectID = getURLParameter(streamerCommunication.CommunicationKeys.projectIDKey);
+    LocalVariables.designAdvisorViewActive = LocalVariables.projectID === null;
+    LocalVariables.roomID = getURLParameter(streamerCommunication.CommunicationKeys.roomIDKey);
     console.log(`projectID: ${LocalVariables.projectID}`);
     console.log(`roomID: ${LocalVariables.roomID}`);
 
@@ -94,7 +95,7 @@ async function setup() {
 function setupFrontend() {
     references.getDOMElements();
     setupUIElements();
-    setupStreamerCommunication();
+    streamerCommunication.setupStreamerCommunication();
     activateDefaultSettings();
     setTimeout(function () {
         scrollToTop();
@@ -114,10 +115,11 @@ function setupUIElements() {
     setupClimateDrawer();
 
     // Update UI state
-    const foundProjectID = LocalVariables.projectID !== null;
+
     setActiveRoom();
     setBreadcrumbs();
-    setMenuActive(foundProjectID);
+    console.log(LocalVariables.designAdvisorViewActive);
+    setMenuActive(!LocalVariables.designAdvisorViewActive);
 }
 
 function getURLParameter(parameter) {
@@ -183,13 +185,13 @@ function setBreadcrumbs() {
 
 function setupScreenshotButton() {
     references.domElements["buttonScreenshot"].addEventListener("click", function onOverlayClick(event) {
-        sendToStreamer(CommunicationKeys.screenshotKey, "true");
+        streamerCommunication.sendToStreamer(streamerCommunication.CommunicationKeys.screenshotKey, "true");
     });
 }
 
 function setupRefreshButton() {
     references.domElements["buttonRefresh"].addEventListener("click", function onOverlayClick(event) {
-        sendToStreamer(CommunicationKeys.refreshKey, "true");
+        streamerCommunication.sendToStreamer(streamerCommunication.CommunicationKeys.refreshKey, "true");
     });
 }
 
@@ -395,7 +397,7 @@ function setActiveRoom(roomNumber = 1) {
     }
 
     // Send to streamer
-    sendToStreamer(CommunicationKeys.activeRoomKey, roomNumber);
+    streamerCommunication.sendToStreamer(streamerCommunication.CommunicationKeys.activeRoomKey, roomNumber);
 }
 
 // Updates either daylight or ventilation texts corresponding to the room number
@@ -555,7 +557,10 @@ function updateSlider() {
     sliderButtonText.innerHTML = "Time of day " + timeString;
 
     // Notify streamer of time change
-    sendToStreamer(CommunicationKeys.daylightSliderKey, (slider.value / 1440).toFixed(6));
+    streamerCommunication.sendToStreamer(
+        streamerCommunication.CommunicationKeys.daylightSliderKey,
+        (slider.value / 1440).toFixed(6)
+    );
 }
 
 function createAMPMTimestring(hours, minutes) {

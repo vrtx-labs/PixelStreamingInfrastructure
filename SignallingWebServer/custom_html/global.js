@@ -17,6 +17,7 @@ window.isTouchDevice = function () {
 };
 
 /*
+//const localStoragePrefix = "velux.";
 window.localStorageSet = function (localStorageKey, localStorageValue) {
     window.localStorage.setItem(
         localStoragePrefix + localStorageKey,
