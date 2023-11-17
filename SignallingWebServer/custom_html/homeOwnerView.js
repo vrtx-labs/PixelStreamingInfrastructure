@@ -159,9 +159,11 @@ function setupPlayButton() {
 function startStream() {
     // Wait for the connection to establish - ToDo: React to a proper event or let the Unreal Application send one
     setTimeout(function () {
-        if (LocalVariables.projectID !== null) {
-            sendToStreamer(CommunicationKeys.projectIDKey, LocalVariables.projectID);
-        }
+        streamerCommunication.sendHandshakeToStreamer(
+            LocalVariables.designAdvisorViewActive,
+            LocalVariables.projectID,
+            LocalVariables.roomID
+        );
 
         // Update the slider value at start
         updateSlider();

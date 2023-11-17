@@ -28,6 +28,18 @@ export function sendToStreamer(key, value) {
     console.log(`Message to streamer: ${JSON.stringify(descriptor)}`);
 }
 
+export function sendHandshakeToStreamer(isDesignAdvisor, projectID, roomID) {
+    let descriptor = {
+        handshake: {
+            isDesignAdvisor: isDesignAdvisor,
+            [CommunicationKeys.projectIDKey]: projectID,
+            [CommunicationKeys.roomIDKey]: roomID,
+        },
+    };
+    emitUIInteraction(descriptor);
+    console.log(`Initiating handshake with streamer: ${JSON.stringify(descriptor)}`);
+}
+
 function receiveFromStreamer(response) {
     // trigger event on window
     let event = new CustomEvent("streamer_response", {
