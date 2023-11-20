@@ -144,9 +144,11 @@ function setMenuActive(active) {
     if (active) {
         references.domElements["containerMenu"].classList.remove("hiddenState");
         references.domElements["containerFooter"].classList.remove("hiddenState");
+        references.domElements["containerFeedback"].classList.add("hiddenState");
     } else {
         references.domElements["containerMenu"].classList.add("hiddenState");
         references.domElements["containerFooter"].classList.add("hiddenState");
+        references.domElements["containerFeedback"].classList.remove("hiddenState");
     }
 }
 

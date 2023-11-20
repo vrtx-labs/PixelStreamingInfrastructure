@@ -57,6 +57,14 @@ const hov_daylight = `<svg width="32" height="32" viewBox="0 0 32 32" fill="none
 <path d="M19.8582 19.8582L21.6581 21.6582" stroke="#28231F" stroke-width="0.999995"/>
 </svg>`;
 
+const hov_bug_report = `<svg xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 -960 960 960" width="32">
+<rect width="32" height="32" rx="16" fill="white"/>
+<path d="M480-120q-64 0-114.5-33T283-240l-95 54-40-69 103-60q-3-11-5-22.5t-4-22.5H120v-80h122q2-12 4-23.5t5-22.5l-103-60 40-69 94 55q8-14 18.5-27.5T322-612q-2-7-2-14v-14q0-24 7-46t19-41l-66-66 56-57 70 68q17-9 35.5-13.5T480-800q20 0 39 5t36 14l69-69 56 57-66 66q12 19 18.5 41t6.5 46v13.5q0 6.5-2 13.5 11 11 21.5 25t18.5 28l95-54 40 69-104 59q3 11 5.5 22.5T718-440h122v80H718q-2 12-4 23.5t-5 22.5l103 60-40 69-95-55q-32 54-82.5 87T480-120Zm-76-546q17-7 36.5-10.5T480-680q20 0 38.5 3t35.5 10q-8-23-28-38t-46-15q-26 0-47 15.5T404-666Zm76 466q73 0 116.5-61T640-400q0-70-40.5-135T480-600q-78 0-119 64.5T320-400q0 78 43.5 139T480-200Zm-40-80v-240h80v240h-80Z"/></svg>`;
+
+const hov_feature_request = `<svg xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 -960 960 960" width="32">
+<rect width="32" height="32" rx="16" fill="white"/>
+<path d="M480-80q-26 0-47-12.5T400-126q-33 0-56.5-23.5T320-206v-142q-59-39-94.5-103T190-590q0-121 84.5-205.5T480-880q121 0 205.5 84.5T770-590q0 77-35.5 140T640-348v142q0 33-23.5 56.5T560-126q-12 21-33 33.5T480-80Zm-80-126h160v-36H400v36Zm0-76h160v-38H400v38Zm-8-118h58v-108l-88-88 42-42 76 76 76-76 42 42-88 88v108h58q54-26 88-76.5T690-590q0-88-61-149t-149-61q-88 0-149 61t-61 149q0 63 34 113.5t88 76.5Zm88-162Zm0-38Z"/></svg>`;
+
 // Create a class with elementID and svg image string
 class svgImage {
     constructor(elementID, svgImageString) {
@@ -75,6 +83,8 @@ var svgImages = [
     new svgImage("collapseMenuImage", hov_menu_collapse),
     new svgImage("svgRooms", hov_rooms),
     new svgImage("svgDaylight", hov_daylight),
+    new svgImage("svgBugReport", hov_bug_report),
+    new svgImage("svgFeatureRequest", hov_feature_request),
 ];
 
 function setInlineSVG(svgImage) {

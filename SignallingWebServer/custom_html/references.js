@@ -63,6 +63,7 @@ export function getDOMElements() {
     domElements["videoPlayOverlay"] = document.getElementById("videoPlayOverlay");
     domElements["containerFooter"] = document.getElementById("containerFooter");
     domElements["containerMenu"] = document.getElementById("containerMenu");
+    domElements["containerFeedback"] = document.getElementById("containerFeedback");
     domElements["containerButtonRoomOptions"] = document.getElementById("containerButtonRoomOptions");
     domElements["buttonRoomOptions"] = document.getElementById("containerButtonRoomOptions");
     domElements["buttonDaylight"] = document.getElementById("containerButtonDaylight");
