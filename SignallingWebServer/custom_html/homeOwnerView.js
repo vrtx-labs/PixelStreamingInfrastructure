@@ -95,6 +95,7 @@ async function setup() {
 function setupFrontend() {
     references.getDOMElements();
     setupUIElements();
+    setupStreamerCommunication();
     streamerCommunication.setupStreamerCommunication();
     activateDefaultSettings();
     setTimeout(function () {
@@ -103,7 +104,6 @@ function setupFrontend() {
 }
 
 function setupUIElements() {
-    setupPlayButton();
     setupScreenshotButton();
     setupRefreshButton();
     setupShareButton();
@@ -152,24 +152,29 @@ function setMenuActive(active) {
     }
 }
 
-function setupPlayButton() {
-    references.domElements["videoPlayOverlay"].addEventListener("click", function onOverlayClick(event) {
-        startStream();
+function setupStreamerCommunication() {
+    // Wait for the connection to establish
+    window.addEventListener("streamer_response", function (event) {
+        const incomingObject = JSON.parse(event.detail);
+        if (incomingObject.handshake !== undefined) {
+            // Handshake received
+            console.log(`Handshake received from streamer.`);
+            startStream();
+            return;
+        }
     });
 }
 
 function startStream() {
-    // Wait for the connection to establish - ToDo: React to a proper event or let the Unreal Application send one
-    setTimeout(function () {
-        streamerCommunication.sendHandshakeToStreamer(
-            LocalVariables.designAdvisorViewActive,
-            LocalVariables.projectID,
-            LocalVariables.roomID
-        );
+    // Send inital data to streamer
+    streamerCommunication.sendHandshakeToStreamer(
+        LocalVariables.designAdvisorViewActive,
+        LocalVariables.projectID,
+        LocalVariables.roomID
+    );
 
-        // Update the slider value at start
-        updateSlider();
-    }, 350);
+    // Update the slider value at start
+    updateSlider();
 }
 
 function setBreadcrumbs() {

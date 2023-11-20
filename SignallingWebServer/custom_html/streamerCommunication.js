@@ -41,7 +41,7 @@ export function sendHandshakeToStreamer(isDesignAdvisor, projectID, roomID) {
 }
 
 function receiveFromStreamer(response) {
-    // trigger event on window
+    // Trigger event on window
     let event = new CustomEvent("streamer_response", {
         detail: response,
     });
