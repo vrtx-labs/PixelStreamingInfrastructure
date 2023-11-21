@@ -60,8 +60,8 @@
                         <img class="fill" src="/images/icons/velux-red.svg" type="svg" />
                     </a>
                 </div>
-                <h2 id="breadcrumbs" class="flex-item">Example Project / Room name</h2>
-                <nav id="containerMenu" class="horizontal-container">
+                <h2 id="breadcrumbs" class="flex-item"></h2>
+                <nav id="containerMenu" class="horizontal-container hiddenState">
                     <button
                         id="containerButtonRefresh"
                         class="horizontal-container rounded-box button-base transition-move-700">
@@ -142,9 +142,9 @@
                 <nav id="containerFeedback" class="horizontal-container">
                     <button
                         id="containerButtonRequestFeature"
-                        class="horizontal-container rounded-box button-base hiddenState">
+                        class="horizontal-container rounded-box button-base">
                         <p>Request Feature</p>
-                        <div id="buttonHelp" class="flex-item">
+                        <div id="buttonFeatureRequest" class="flex-item">
                             <object id="svgFeatureRequest" class="svg-image" type="svg"></object>
                         </div>
                     </button>
@@ -154,7 +154,7 @@
                         class="horizontal-container rounded-box button-base"
                         onclick="window.open('https://forms.office.com/pages/responsepage.aspx?id=Dz8_mraVZkeT8WvQfeGc6gUjAH-j83xJpwA56T2KA2lUQ1BWVDlLVTZLRDZMN0lWMkdWM0dBWjMxRC4u', '_blank').focus();">
                         <p>Report Bug</p>
-                        <div id="buttonHelp" class="flex-item">
+                        <div id="buttonBugReport" class="flex-item">
                             <object id="svgBugReport" class="svg-image" type="svg"></object>
                         </div>
                     </button>
@@ -167,7 +167,9 @@
             </div>
 
             <!-- Lower Menu -->
-            <footer id="containerFooter" class="bottom-absolute stretch-container horizontal-container">
+            <footer
+                id="containerFooter"
+                class="bottom-absolute stretch-container horizontal-container hiddenState">
                 <button id="containerButtonDaylight" class="rounded-box horizontal-container button-base">
                     <p id="daylightValueButton" class="">0</p>
                     <div id="buttonDaylight" class="flex-item">

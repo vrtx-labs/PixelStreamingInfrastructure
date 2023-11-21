@@ -115,11 +115,9 @@ function setupUIElements() {
     setupClimateDrawer();
 
     // Update UI state
-
+    setMenuActive(!LocalVariables.designAdvisorViewActive);
     setActiveRoom();
     setBreadcrumbs();
-    console.log(LocalVariables.designAdvisorViewActive);
-    setMenuActive(!LocalVariables.designAdvisorViewActive);
 }
 
 function getURLParameter(parameter) {

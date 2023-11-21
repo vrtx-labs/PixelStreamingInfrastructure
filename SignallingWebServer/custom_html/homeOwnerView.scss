@@ -134,7 +134,8 @@ $hover-animation-duration: 0.2s;
         }
     }
 
-    #containerMenu {
+    #containerMenu,
+    #containerFeedback {
         gap: 0.9rem;
         max-width: 38vw;
         justify-content: end;
