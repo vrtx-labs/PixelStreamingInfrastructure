@@ -77,6 +77,8 @@ async function setup() {
             );
 
             // fill room data with mock-up data
+            LocalVariables.projectID = null;
+            LocalVariables.designAdvisorViewActive = true;
             LocalVariables.roomData = [null, null, null, null];
             for (let roomIndex = 0; roomIndex < LocalVariables.roomData.length; roomIndex++) {
                 LocalVariables.roomData[roomIndex] = new Room(
