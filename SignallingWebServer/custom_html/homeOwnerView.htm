@@ -48,6 +48,7 @@
         <!-- Own Code -->
         <script type="module" src="scripts/homeOwnerView.js"></script>
         <script type="module" src="scripts/svgImageData.js"></script>
+        <script type="module" src="scripts/localization.js"></script>
     </head>
 
     <body onload="load();">
@@ -143,7 +144,7 @@
                     <button
                         id="containerButtonRequestFeature"
                         class="horizontal-container rounded-box button-base">
-                        <p>Request Feature</p>
+                        <p localization-key="request-feature">Request Feature</p>
                         <div id="buttonFeatureRequest" class="flex-item">
                             <object id="svgFeatureRequest" class="svg-image" type="svg"></object>
                         </div>
@@ -153,7 +154,7 @@
                         id="containerButtonReportBug"
                         class="horizontal-container rounded-box button-base"
                         onclick="window.open('https://forms.office.com/pages/responsepage.aspx?id=Dz8_mraVZkeT8WvQfeGc6gUjAH-j83xJpwA56T2KA2lUQ1BWVDlLVTZLRDZMN0lWMkdWM0dBWjMxRC4u', '_blank').focus();">
-                        <p>Report Bug</p>
+                        <p localization-key="report-bug">Report Bug</p>
                         <div id="buttonBugReport" class="flex-item">
                             <object id="svgBugReport" class="svg-image" type="svg"></object>
                         </div>
