@@ -333,6 +333,11 @@ function showMenuContent(menuContent) {
 }
 
 function setupRoomButtons() {
+    //  If there is only one room or less in the project, hide all room options
+    if (LocalVariables.roomData.length <= 1) {
+        references.domElements["menuContentRoomOptions"].classList.add("hiddenState");
+    }
+
     for (let roomNumber = 1; roomNumber <= 4; roomNumber++) {
         // Hide the room, if we have no data for it
         if (roomNumber > LocalVariables.roomData.length) {

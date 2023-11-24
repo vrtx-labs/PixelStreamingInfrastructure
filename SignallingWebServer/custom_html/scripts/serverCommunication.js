@@ -45,6 +45,11 @@ function parseProjectData(jsonData, projectID) {
     const room = findJsonField("rooms", jsonData)[0];
     let climateData = room?.climate_data;
 
+    if (climateData === null || climateData === undefined) {
+        console.error("No climate data found");
+        return new Project(projectID, findJsonField("name", jsonData), null);
+    }
+
     if ((room !== null && room !== undefined) || (climateData !== null && climateData !== undefined)) {
         // Fill the room data of the first room
         roomsArray.push(
