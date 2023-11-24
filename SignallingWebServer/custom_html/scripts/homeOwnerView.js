@@ -1,6 +1,7 @@
 import * as references from "./references.js";
 import * as serverCommunication from "./serverCommunication.js";
 import * as streamerCommunication from "./streamerCommunication.js";
+import * as localization from "./localization.js";
 import { MenuContent, ScoreType, Room, Project } from "./dataModels.js";
 import { setupJoystick } from "./joystick.js";
 import "./serverCommunication.js";
@@ -77,8 +78,8 @@ async function setup() {
             );
 
             // fill room data with mock-up data
-            LocalVariables.projectID = null;
-            LocalVariables.designAdvisorViewActive = true;
+            //LocalVariables.projectID = null;
+            //LocalVariables.designAdvisorViewActive = true;
             LocalVariables.roomData = [null, null, null, null];
             for (let roomIndex = 0; roomIndex < LocalVariables.roomData.length; roomIndex++) {
                 LocalVariables.roomData[roomIndex] = new Room(
@@ -120,6 +121,7 @@ function setupUIElements() {
     setMenuActive(!LocalVariables.designAdvisorViewActive);
     setActiveRoom();
     setBreadcrumbs();
+    localization.initialize();
 }
 
 function getURLParameter(parameter) {
@@ -358,8 +360,8 @@ function setupRoomButtons() {
 }
 
 function setRoomName(roomNumber, name) {
-    if (roomNumber > 1) name = "Option " + roomNumber;
-    else name = "Original";
+    if (roomNumber > 1) name = localization.getTranslation("room-option") + " " + roomNumber;
+    else name = localization.getTranslation("room-original");
 
     // Get room references
     references.getRoomElementsByNumber(roomNumber).forEach((room) => {
@@ -385,6 +387,8 @@ function setActiveRoom(roomNumber = 1) {
     references.getVentilationScores().forEach((score) => {
         score.innerHTML = LocalVariables.roomData[roomNumber - 1].ventilationScore.toFixed(1);
     });
+
+    // !!! ToDo !!!
 
     // Update the daylight and ventilation texts
     UpdateScoreTexts(ScoreType.Daylight, roomNumber);
@@ -568,7 +572,7 @@ function updateSlider() {
     let timeString = tod.getHours() + ":" + tod.getMinutes().toString().padStart(2, "0");
     if (LocalVariables.timeFormatUseAMPM) timeString = createAMPMTimestring(tod.getHours(), tod.getMinutes());
     sliderText.innerHTML = timeString;
-    sliderButtonText.innerHTML = "Time of day " + timeString;
+    sliderButtonText.innerHTML = localization.getTranslation("daylight-value") + " " + timeString;
 
     // Notify streamer of time change
     streamerCommunication.sendToStreamer(

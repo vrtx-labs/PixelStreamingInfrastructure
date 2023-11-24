@@ -1,4 +1,28 @@
 {
     "request-feature": "Request feature",
-    "report-bug": "Report bug"
+    "report-bug": "Report bug",
+    "video-play-overlay": "CLICK TO START",
+    "button-refresh": "Refresh",
+    "button-share": "Share",
+    "button-screenshot": "Screenshot",
+    "button-help": "Help",
+    "button-menu": "Tools",
+    "daylight-value": "Time of day",
+    "button-rooms": "Rooms",
+    "room-original": "Original",
+    "room-option": "Option",
+    "daylight-score-caps": "DAYLIGHT SCORE",
+    "ventilation-score-caps": "VENTILATION SCORE",
+    "read-more": "Read more",
+
+    // These come in 5 variants, 1-5
+    "daylight-heading-climate": "Good level of sunlight",
+    "ventilation-heading-climate": "Good level of ventilation",
+    "daylight-text-climate": "There is an adequate amount of daylight in the room, which makes the room optimal for all activities.",
+    "ventilation-text-climate": "There will be low chance of over heating and the room will be a healthy and comfortable place.",
+    "daylight-percentage-text-climate": "More light than in your current room",
+    "ventilation-percentage-text-climate": "Faster to change air in your room",
+    "ventilation-minutes-text-climate": "Air renewal time is up to {} min", // here, we need to insert a value
+    "climate-imprint-header": "Setting a new standard",
+    "climate-imprint": "Both the daylight and natural ventilation score is a great help when checking how the VELUX design proposals affect a room's indoor climate. The higher the score, the better the room is fit for people, activity and life.<br /><br />Based on the European standards for daylight and ventilation in buildings (EU 17037), the score is an aggregated total that reflects how well the room meets professional metrics for human wellbeing."
 }

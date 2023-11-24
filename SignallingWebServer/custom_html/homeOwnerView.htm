@@ -66,7 +66,7 @@
                     <button
                         id="containerButtonRefresh"
                         class="horizontal-container rounded-box button-base transition-move-700">
-                        <p>Refresh</p>
+                        <p localization-key="button-refresh">Refresh</p>
                         <div id="buttonRefresh" class="flex-item">
                             <object
                                 id="svgRefresh"
@@ -79,7 +79,7 @@
                     <button
                         id="containerButtonShare"
                         class="horizontal-container rounded-box button-base transition-move-700">
-                        <p>Share</p>
+                        <p localization-key="button-share">Share</p>
                         <div id="buttonShare" class="flex-item">
                             <object
                                 id="svgShare"
@@ -92,7 +92,7 @@
                     <button
                         id="containerButtonScreenshot"
                         class="horizontal-container rounded-box button-base transition-move-700">
-                        <p>Screenshot</p>
+                        <p localization-key="button-screenshot">Screenshot</p>
                         <div id="buttonScreenshot" class="flex-item">
                             <object
                                 id="svgScreenhot"
@@ -105,7 +105,7 @@
                     <button
                         id="containerButtonHelp"
                         class="horizontal-container rounded-box button-base transition-move-700">
-                        <p>Help</p>
+                        <p localization-key="button-help">Help</p>
                         <div id="buttonHelp" class="flex-item">
                             <object
                                 id="svgHelp"
@@ -118,7 +118,12 @@
                     <button
                         id="containerButtonToggleMenu"
                         class="horizontal-container rounded-box button-base transition-shrink-fit grow">
-                        <p id="toggleMenuButtonText" class="transition-shrink grow">Tools</p>
+                        <p
+                            id="toggleMenuButtonText"
+                            localization-key="button-menu"
+                            class="transition-shrink grow">
+                            Tools
+                        </p>
                         <div id="buttonToggleMenu" class="flex-item">
                             <img
                                 id="dummy"
@@ -172,7 +177,7 @@
                 id="containerFooter"
                 class="bottom-absolute stretch-container horizontal-container hiddenState">
                 <button id="containerButtonDaylight" class="rounded-box horizontal-container button-base">
-                    <p id="daylightValueButton" class="">0</p>
+                    <p id="daylightValueButton" localization-key="daylight-value" class="">0</p>
                     <div id="buttonDaylight" class="flex-item">
                         <object
                             id="svgDaylight"
@@ -191,14 +196,25 @@
                             src="/images/buttons/hov_rooms.svg"
                             type="svg"></object>
                     </div>
-                    <p>Rooms</p>
+                    <p localization-key="button-rooms">Rooms</p>
                 </button>
 
                 <nav id="containerRoomOptions" class="rounded-box horizontal-container">
-                    <button id="buttonRoom1" class="button-base rounded-box selected-room">Base room</button>
-                    <button id="buttonRoom2" class="button-base rounded-box">Option 1</button>
-                    <button id="buttonRoom3" class="button-base rounded-box">Option 2</button>
-                    <button id="buttonRoom4" class="button-base rounded-box">Option 3</button>
+                    <button
+                        id="buttonRoom1"
+                        localization-key="button-room-1"
+                        class="button-base rounded-box selected-room">
+                        Base room
+                    </button>
+                    <button id="buttonRoom2" localization-key="button-room-2" class="button-base rounded-box">
+                        Option 1
+                    </button>
+                    <button id="buttonRoom3" localization-key="button-room-3" class="button-base rounded-box">
+                        Option 2
+                    </button>
+                    <button id="buttonRoom4" localization-key="button-room-4" class="button-base rounded-box">
+                        Option 3
+                    </button>
                 </nav>
 
                 <div
@@ -216,14 +232,14 @@
 
                 <div id="containerScores" class="rounded-box vertical-container">
                     <div id="containerScoresPadding">
-                        <h4>DAYLIGHT SCORE</h4>
+                        <h4 localization-key="daylight-score-caps">DAYLIGHT SCORE</h4>
                         <div id="containerDaylightScore" class="horizontal-container score-panel">
                             <h1 id="daylightScore">4.2</h1>
                             <h1>/5</h1>
                             <img class="svg-image" src="/images/icons/hov_climate_sun.svg" type="svg" />
                         </div>
 
-                        <h4>VENTILATION SCORE</h4>
+                        <h4 localization-key="ventilation-score-caps">VENTILATION SCORE</h4>
                         <div id="containerVentilationScore" class="horizontal-container score-panel">
                             <h1 id="ventilationScore">4.8</h1>
                             <h1>/5</h1>
@@ -231,7 +247,7 @@
                         </div>
                     </div>
                     <button id="containerReadMore" class="horizontal-container">
-                        <h2>Read More</h2>
+                        <h2 localization-key="read-more">Read more</h2>
                         <h1>+</h1>
                     </button>
                 </div>
@@ -255,7 +271,7 @@
                     <section id="containerClimateScoreCards" class="horizontal-container">
                         <!-- Card Daylight Rating-->
                         <section id="daylightScoreCard" class="score-card vertical-container">
-                            <h5 class="label-color">DAYLIGHT SCORE</h5>
+                            <h5 localization-key="daylight-score-caps" class="label-color">DAYLIGHT SCORE</h5>
                             <div id="containerDaylightScoreClimate" class="horizontal-container score-panel">
                                 <div class="horizontal-container">
                                     <h1 id="daylightScoreClimate" class="label-color hero-value">3.9</h1>
@@ -294,7 +310,9 @@
 
                         <!-- Card Ventilation Rating-->
                         <section id="ventilationScoreCard" class="score-card vertical-container">
-                            <h5 class="label-color">VENTILATION SCORE</h5>
+                            <h5 localization-key="ventilation-score-caps" class="label-color">
+                                VENTILATION SCORE
+                            </h5>
                             <div id="containerVentilationScoreClimate" class="horizontal-container score-panel">
                                 <div class="horizontal-container">
                                     <h1 id="ventilationScoreClimate" class="label-color hero-value">2.8</h1>
