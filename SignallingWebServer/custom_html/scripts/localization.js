@@ -68,7 +68,7 @@ function translatePage() {
 function translateElement(element) {
     const key = element.getAttribute("localization-key");
     if (!(key in translations)) {
-        console.error(`Key for ${key} not found`);
+        console.error(`Translation for ${key} not found`);
         return;
     }
 
@@ -78,15 +78,12 @@ function translateElement(element) {
 
 export async function getTranslation(key) {
     if (translations === undefined || Object.keys(translations).length === 0) {
-        console.log("No translations loaded yet, loading for current locale");
+        console.warn("No translations loaded yet, loading for current locale");
         await fetchTranslationsFile(locale);
     }
 
     if (!(key in translations)) {
         console.error(`Translation for ${key} not found`);
-
-        console.log(`Getting translation for ${key}. Is: ${translations[key]}`);
-        console.log("file: " + JSON.stringify(translations));
     }
 
     return translations[key];

@@ -336,7 +336,6 @@ async function setRoomName(roomNumber, name) {
     // Get room references
     references.getRoomElementsByNumber(roomNumber).forEach((room) => {
         // Check the name string for whitespace
-        console.log(name);
         if (name === undefined || name === null || name.trim() === "") room.classList.add("hiddenState");
         room.innerHTML = name;
     });
@@ -393,8 +392,6 @@ function setActiveRoom(roomNumber = 1) {
 async function UpdateScoreTexts(scoreType, roomNumber) {
     if (!(scoreType instanceof ScoreType)) return;
 
-    console.log("localization test: " + (await localization.getTranslation("daylight-heading-climate-2")));
-
     // Score type
     let headerElement = references.domElements["daylightHeadingClimate"];
     let textElement = references.domElements["daylightTextClimate"];
@@ -420,13 +417,6 @@ async function UpdateScoreTexts(scoreType, roomNumber) {
         scoreHeading = await localization.getTranslation(localization.ventilationHeadingKey + scoreLevel);
         scoreText = await localization.getTranslation(localization.ventilationTextKey + scoreLevel);
     }
-
-    console.log("scoreType: " + scoreType);
-    console.log("scoreLevel: " + scoreLevel);
-    console.log("scoreText: " + scoreText);
-    console.log("scoreHeading: " + scoreHeading);
-    console.log("daylightTextKey: " + (localization.daylightHeadingKey + scoreLevel));
-    console.log("daylightTextKey: " + (localization.daylightTextKey + scoreLevel));
 
     // Set the texts
     headerElement.innerHTML = scoreHeading;
