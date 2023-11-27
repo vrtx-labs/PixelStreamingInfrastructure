@@ -426,12 +426,21 @@ async function UpdateScoreTexts(scoreType, roomNumber) {
 async function updateScoreMetrics(scoreType, roomNumber) {
     if (!(scoreType instanceof ScoreType)) return;
 
-    // Set the percentage value // ToDo: Compute this
-    let metricValue = LocalVariables.roomData[roomNumber - 1].daylightImprovementPercentage;
+    // Compute the percentage value
+    let metricValue =
+        (LocalVariables.roomData[roomNumber - 1].daylightScore / LocalVariables.roomData[0].daylightScore) *
+            100 -
+        100;
     if (scoreType == ScoreType.Ventilation)
-        metricValue = LocalVariables.roomData[roomNumber - 1].ventilationImprovementPercentage;
+        metricValue =
+            ((LocalVariables.roomData[roomNumber - 1].airRenewalTime /
+                LocalVariables.roomData[0].airRenewalTime) *
+                100 -
+                100) *
+            -1;
     else if (scoreType == ScoreType.AirRenewalTimes)
         metricValue = LocalVariables.roomData[roomNumber - 1].airRenewalTime;
+
     let isHigher = metricValue > 0;
     let isLower = metricValue < 0;
     let percentageTextIndex = isHigher ? 3 : isLower ? 1 : 2;
