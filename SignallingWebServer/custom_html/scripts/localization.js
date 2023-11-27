@@ -22,7 +22,6 @@ export const SupportedLocalesList = Object.values(SupportedLocales);
 const defaultLocale = "en";
 let locale;
 let translations = {}; // Gets filled with active locale translations
-let fetchingFile = false;
 
 export function initialize() {
     // Translate the page to the default locale
@@ -56,12 +55,8 @@ async function translateUsingLocale(newLocale) {
 }
 
 async function fetchTranslationsFile(newLocale) {
-    if (fetchingFile) return;
-
-    fetchingFile = true;
     const response = await fetch(`../languages/${newLocale}.json`);
     translations = await response.json();
-    fetchingFile = false;
 
     return;
 }
