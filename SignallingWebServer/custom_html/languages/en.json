@@ -43,7 +43,7 @@
     "daylight-percentage-text-climate-3": "More light than in your current room",
     "ventilation-percentage-text-climate-3": "Faster to change air in your room",
 
-    "ventilation-minutes-text-climate": "Air renewal time is up to {} min",
+    "ventilation-minutes-text-climate": "Air renewal time is up to {{0}} minutes",
     "climate-imprint-header": "Setting a new standard",
     "climate-imprint": "Both the daylight and natural ventilation score is a great help when checking how the VELUX design proposals affect a room's indoor climate. The higher the score, the better the room is fit for people, activity and life.<br /><br />Based on the European standards for daylight and ventilation in buildings (EU 17037), the score is an aggregated total that reflects how well the room meets professional metrics for human wellbeing."
 }

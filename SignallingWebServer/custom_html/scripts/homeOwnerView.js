@@ -464,11 +464,7 @@ async function updateScoreMetrics(scoreType, roomNumber) {
         textElement = references.domElements["ventilationMinutesTextClimate"];
 
         // The result is not dependent on the percentage value
-        text =
-            (await localization.getTranslation(localization.airRenewalTimeKey)) +
-            " " +
-            metricValue +
-            " minutes";
+        text = await localization.getTranslation(localization.airRenewalTimeKey, metricValue);
 
         // Update the icon
         updateArrowImage(references.domElements["ventilationMinutesArrowImages"], !isLower);

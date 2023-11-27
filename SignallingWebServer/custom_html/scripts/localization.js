@@ -76,7 +76,7 @@ function translateElement(element) {
     element.innerText = translation;
 }
 
-export async function getTranslation(key) {
+export async function getTranslation(key, ...parameters) {
     if (translations === undefined || Object.keys(translations).length === 0) {
         console.warn("No translations loaded yet, loading for current locale");
         await fetchTranslationsFile(locale);
@@ -86,7 +86,13 @@ export async function getTranslation(key) {
         console.error(`Translation for ${key} not found`);
     }
 
-    return translations[key];
+    // Replace parameters in translation, denoted by {{0}}, {{1}}, ...
+    let translation = translations[key];
+    parameters.forEach((parameter, index) => {
+        translation = translation.replace(`{{${index}}}`, parameter);
+    });
+
+    return translation;
 }
 
 function tagElementsForLocalization() {
