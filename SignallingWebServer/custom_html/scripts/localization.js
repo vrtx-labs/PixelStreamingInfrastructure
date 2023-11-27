@@ -1,17 +1,13 @@
 // Constants
-const daylightHeadingLevelCount = 5;
-const daylightHeadingKey = "daylight-heading-climate";
-const ventilationHeadingKey = "ventilation-heading-climate";
+export const daylightHeadingKey = "daylight-heading-climate-";
+export const ventilationHeadingKey = "ventilation-heading-climate-";
+export const daylightTextKey = "daylight-text-climate-";
+export const ventilationTextKey = "ventilation-text-climate-";
 
-const daylightTextLevelCount = 5;
-const daylightTextKey = "daylight-text-climate";
-const ventilationTextKey = "ventilation-text-climate";
+export const daylightPercentageKey = "daylight-percentage-text-climate-";
+export const ventilationPercentageKey = "ventilation-percentage-text-climate-";
 
-const daylightPercentageLevelCount = 3;
-const daylightPercentageKey = "daylight-percentage-text-climate";
-const ventilationPercentageKey = "ventilation-percentage-text-climate";
-
-const airRenewalTimeKey = "ventilation-minutes-text-climate";
+export const airRenewalTimeKey = "ventilation-minutes-text-climate";
 
 export const SupportedLocales = {
     english: "en",
@@ -37,6 +33,7 @@ function getLocaleFromBrowser() {
     // ToDo Do we need to make this smarter?
     const language = navigator.language;
     const locale = language.split("-")[0];
+    console.log(`Detected locale: ${locale}`);
 
     return locale;
 }
@@ -51,16 +48,17 @@ async function translateUsingLocale(newLocale) {
         return;
     }
 
-    const newTranslations = await fetchTranslationsFor(newLocale);
     locale = newLocale;
-    translations = newTranslations;
+    await fetchTranslationsFile(locale);
+
     translatePage();
 }
 
-async function fetchTranslationsFor(newLocale) {
+async function fetchTranslationsFile(newLocale) {
     const response = await fetch(`../languages/${newLocale}.json`);
+    translations = await response.json();
 
-    return await response.json();
+    return;
 }
 
 function translatePage() {
@@ -69,11 +67,28 @@ function translatePage() {
 
 function translateElement(element) {
     const key = element.getAttribute("localization-key");
+    if (!(key in translations)) {
+        console.error(`Key for ${key} not found`);
+        return;
+    }
+
     const translation = translations[key];
     element.innerText = translation;
 }
 
-export function getTranslation(key) {
+export async function getTranslation(key) {
+    if (translations === undefined || Object.keys(translations).length === 0) {
+        console.log("No translations loaded yet, loading for current locale");
+        await fetchTranslationsFile(locale);
+    }
+
+    if (!(key in translations)) {
+        console.error(`Translation for ${key} not found`);
+
+        console.log(`Getting translation for ${key}. Is: ${translations[key]}`);
+        console.log("file: " + JSON.stringify(translations));
+    }
+
     return translations[key];
 }
 

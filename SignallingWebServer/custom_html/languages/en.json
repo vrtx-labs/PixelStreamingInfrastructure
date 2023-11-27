@@ -15,14 +15,35 @@
     "ventilation-score-caps": "VENTILATION SCORE",
     "read-more": "Read more",
 
-    // These come in 5 variants, 1-5
-    "daylight-heading-climate": "Good level of sunlight",
-    "ventilation-heading-climate": "Good level of ventilation",
-    "daylight-text-climate": "There is an adequate amount of daylight in the room, which makes the room optimal for all activities.",
-    "ventilation-text-climate": "There will be low chance of over heating and the room will be a healthy and comfortable place.",
-    "daylight-percentage-text-climate": "More light than in your current room",
-    "ventilation-percentage-text-climate": "Faster to change air in your room",
-    "ventilation-minutes-text-climate": "Air renewal time is up to {} min", // here, we need to insert a value
+    "daylight-heading-climate-1": "Low level of daylight",
+    "ventilation-heading-climate-1": "Low level of ventilation",
+    "daylight-text-climate-1": "There is a low amount of daylight in the room, which makes the room suboptimal for most activities.",
+    "ventilation-text-climate-1": "There will be a high chance of over heating and the room will be an unhealthy and uncomfortable place.",
+    "daylight-heading-climate-2": "Medium level of daylight",
+    "ventilation-heading-climate-2": "Medium level of ventilation",
+    "daylight-text-climate-2": "There is a medium amount of daylight in the room, which makes the room suboptimal for some activities.",
+    "ventilation-text-climate-2": "There will be a medium chance of over heating and the room will be a suboptimal place.",
+    "daylight-heading-climate-3": "High level of daylight",
+    "ventilation-heading-climate-3": "High level of ventilation",
+    "daylight-text-climate-3": "There is a high amount of daylight in the room, which makes the room optimal for most activities.",
+    "ventilation-text-climate-3": "There will be a low chance of over heating and the room will be a healthy and comfortable place.",
+    "daylight-heading-climate-4": "Good level of sunlight",
+    "ventilation-heading-climate-4": "Good level of ventilation",
+    "daylight-text-climate-4": "There is an adequate amount of daylight in the room, which makes the room optimal for all activities.",
+    "ventilation-text-climate-4": "There will be low chance of over heating and the room will be a healthy and comfortable place.",
+    "daylight-heading-climate-5": "Very good level of sunlight",
+    "ventilation-heading-climate-5": "Very good level of ventilation",
+    "daylight-text-climate-5": "There is a very high amount of daylight in the room, which makes the room optimal for all activities.",
+    "ventilation-text-climate-5": "There will be a very low chance of over heating and the room will be a healthy and comfortable place.",
+
+    "daylight-percentage-text-climate-1": "Less light than in your current room",
+    "ventilation-percentage-text-climate-1": "Slower to change air in your room",
+    "daylight-percentage-text-climate-2": "Same amount of light as in your current room",
+    "ventilation-percentage-text-climate-2": "Same air change time as in your current room",
+    "daylight-percentage-text-climate-3": "More light than in your current room",
+    "ventilation-percentage-text-climate-3": "Faster to change air in your room",
+
+    "ventilation-minutes-text-climate": "Air renewal time is up to {} min",
     "climate-imprint-header": "Setting a new standard",
     "climate-imprint": "Both the daylight and natural ventilation score is a great help when checking how the VELUX design proposals affect a room's indoor climate. The higher the score, the better the room is fit for people, activity and life.<br /><br />Based on the European standards for daylight and ventilation in buildings (EU 17037), the score is an aggregated total that reflects how well the room meets professional metrics for human wellbeing."
 }

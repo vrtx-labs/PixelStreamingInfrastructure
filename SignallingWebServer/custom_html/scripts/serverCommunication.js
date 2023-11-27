@@ -46,8 +46,7 @@ function parseProjectData(jsonData, projectID) {
     let climateData = room?.climate_data;
 
     if (climateData === null || climateData === undefined) {
-        console.error("No climate data found");
-        return new Project(projectID, findJsonField("name", jsonData), null);
+        throw new Error("No climate data found");
     }
 
     if ((room !== null && room !== undefined) || (climateData !== null && climateData !== undefined)) {

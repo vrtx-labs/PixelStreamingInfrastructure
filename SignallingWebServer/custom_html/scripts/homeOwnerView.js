@@ -7,36 +7,6 @@ import { setupJoystick } from "./joystick.js";
 import "./serverCommunication.js";
 import "./global.js"; // ToDo: Find a better place for the code in here
 
-// Constants
-const daylightTextsGood = [
-    "Good level of daylight",
-    "There is an adequate amount of daylight in the room, which makes the room optimal for all activities.",
-];
-const daylightTextsMedium = ["Medium level of daylight", "The amount of daylight in the room can be improved."];
-const daylightTextsLow = [
-    "Low level of daylight",
-    "There is an inadequate amount of daylight in the room, which makes the room suboptimal for all activities.",
-];
-const ventilationTextsGood = [
-    "Good level of ventilation",
-    "The room is well ventilated, which makes the room optimal for all activities.",
-];
-const ventilationTextsMedium = [
-    "Medium level of ventilation",
-    "The amount of fresh air in the room can be improved.",
-];
-const ventilationTextsLow = [
-    "Low level of ventilation",
-    "The room is poorly ventilated, which makes the room suboptimal for all activities.",
-];
-const daylightPercentageTextLower = "Less light than in your current room";
-const daylightPercentageTextHigher = "More light than in your current room";
-const daylightPercentageTextEqual = "Same as in your current room";
-const ventilationPercentageTextLower = "Slower to change air in your room";
-const ventilationPercentageTextHigher = "Faster to change air in your room";
-const ventilationPercentageTextEqual = "Same as in your current room";
-const airRenewalTimeText = "Air renewal time is up to";
-
 // Variables
 const LocalVariables = {
     designAdvisorViewActive: false,
@@ -107,6 +77,7 @@ function setupFrontend() {
 }
 
 function setupUIElements() {
+    localization.initialize();
     setupScreenshotButton();
     setupRefreshButton();
     setupShareButton();
@@ -121,7 +92,6 @@ function setupUIElements() {
     setMenuActive(!LocalVariables.designAdvisorViewActive);
     setActiveRoom();
     setBreadcrumbs();
-    localization.initialize();
 }
 
 function getURLParameter(parameter) {
@@ -359,13 +329,14 @@ function setupRoomButtons() {
     }
 }
 
-function setRoomName(roomNumber, name) {
-    if (roomNumber > 1) name = localization.getTranslation("room-option") + " " + roomNumber;
-    else name = localization.getTranslation("room-original");
+async function setRoomName(roomNumber, name) {
+    if (roomNumber > 1) name = (await localization.getTranslation("room-option")) + " " + roomNumber;
+    else name = await localization.getTranslation("room-original");
 
     // Get room references
     references.getRoomElementsByNumber(roomNumber).forEach((room) => {
         // Check the name string for whitespace
+        console.log(name);
         if (name === undefined || name === null || name.trim() === "") room.classList.add("hiddenState");
         room.innerHTML = name;
     });
@@ -419,8 +390,10 @@ function setActiveRoom(roomNumber = 1) {
 }
 
 // Updates either daylight or ventilation texts corresponding to the room number
-function UpdateScoreTexts(scoreType, roomNumber) {
+async function UpdateScoreTexts(scoreType, roomNumber) {
     if (!(scoreType instanceof ScoreType)) return;
+
+    console.log("localization test: " + (await localization.getTranslation("daylight-heading-climate-2")));
 
     // Score type
     let headerElement = references.domElements["daylightHeadingClimate"];
@@ -430,112 +403,91 @@ function UpdateScoreTexts(scoreType, roomNumber) {
         textElement = references.domElements["ventilationTextClimate"];
     }
 
-    // Score level
-    let scoreRating = "medium";
+    // Determine score
     let score = LocalVariables.roomData[roomNumber - 1].daylightScore;
     if (scoreType == ScoreType.Ventilation) score = LocalVariables.roomData[roomNumber - 1].ventilationScore;
-    if (score > 3.0) scoreRating = "good";
-    else if (score < 2.0) scoreRating = "low";
+
+    // Score level equals score rounded up to the next integer
+    let scoreLevel = Math.ceil(score);
 
     // Find the correct texts
     let scoreHeading = "";
     let scoreText = "";
-    switch (scoreRating) {
-        case "good":
-            scoreHeading = daylightTextsGood[0];
-            scoreText = daylightTextsGood[1];
-            if (scoreType == ScoreType.Ventilation) {
-                scoreHeading = ventilationTextsGood[0];
-                scoreText = ventilationTextsGood[1];
-            }
-            break;
-        case "medium":
-            scoreHeading = daylightTextsMedium[0];
-            scoreText = daylightTextsMedium[1];
-            if (scoreType == ScoreType.Ventilation) {
-                scoreHeading = ventilationTextsMedium[0];
-                scoreText = ventilationTextsMedium[1];
-            }
-            break;
-        case "low":
-            scoreHeading = daylightTextsLow[0];
-            scoreText = daylightTextsLow[1];
-            if (scoreType == ScoreType.Ventilation) {
-                scoreHeading = ventilationTextsLow[0];
-                scoreText = ventilationTextsLow[1];
-            }
-            break;
-        default:
-            break;
+    if (scoreType == ScoreType.Daylight) {
+        scoreHeading = await localization.getTranslation(localization.daylightHeadingKey + scoreLevel);
+        scoreText = await localization.getTranslation(localization.daylightTextKey + scoreLevel);
+    } else if (scoreType == ScoreType.Ventilation) {
+        scoreHeading = await localization.getTranslation(localization.ventilationHeadingKey + scoreLevel);
+        scoreText = await localization.getTranslation(localization.ventilationTextKey + scoreLevel);
     }
+
+    console.log("scoreType: " + scoreType);
+    console.log("scoreLevel: " + scoreLevel);
+    console.log("scoreText: " + scoreText);
+    console.log("scoreHeading: " + scoreHeading);
+    console.log("daylightTextKey: " + (localization.daylightHeadingKey + scoreLevel));
+    console.log("daylightTextKey: " + (localization.daylightTextKey + scoreLevel));
 
     // Set the texts
     headerElement.innerHTML = scoreHeading;
     textElement.innerHTML = scoreText;
 }
 
-function updateScoreMetrics(scoreType, roomNumber) {
+async function updateScoreMetrics(scoreType, roomNumber) {
     if (!(scoreType instanceof ScoreType)) return;
 
-    // Set the percentage value
-    let value = LocalVariables.roomData[roomNumber - 1].daylightImprovementPercentage;
-    let isHigher = value > LocalVariables.roomData[0].daylightImprovementPercentage;
-    let isLower = value < LocalVariables.roomData[0].daylightImprovementPercentage;
+    // Set the percentage value // ToDo: Compute this
+    let metricValue = LocalVariables.roomData[roomNumber - 1].daylightImprovementPercentage;
+    if (scoreType == ScoreType.Ventilation)
+        metricValue = LocalVariables.roomData[roomNumber - 1].ventilationImprovementPercentage;
+    else if (scoreType == ScoreType.AirRenewalTimes)
+        metricValue = LocalVariables.roomData[roomNumber - 1].airRenewalTime;
+    let isHigher = metricValue > 0;
+    let isLower = metricValue < 0;
+    let percentageTextIndex = isHigher ? 3 : isLower ? 1 : 2;
 
     // Set the the references (text & value)
     let valueElement = references.domElements["daylightPercentageClimate"];
     let textElement = references.domElements["daylightPercentageTextClimate"];
 
     // Set the results
-    let textEqual = daylightPercentageTextEqual;
-    let textHigher = daylightPercentageTextHigher;
-    let textLower = daylightPercentageTextLower;
+    let text = await localization.getTranslation(localization.daylightPercentageKey + percentageTextIndex);
 
     // Overwrite the references, if necessary
     if (scoreType == ScoreType.Daylight) {
         // In case of upating the daylight values, the references are already set
         // So we only need to update the icon
-        updateArrowImage(references.domElements["daylightArrowImages"], isHigher);
+        updateArrowImage(references.domElements["daylightArrowImages"], !isLower);
     } else if (scoreType == ScoreType.Ventilation) {
-        // Ventilation: Re-calculate the values
-        value = LocalVariables.roomData[roomNumber - 1].ventilationImprovementPercentage;
-        isHigher = value > LocalVariables.roomData[0].ventilationImprovementPercentage;
-        isLower = value < LocalVariables.roomData[0].ventilationImprovementPercentage;
-
         // Set the references
         valueElement = references.domElements["ventilationPercentageClimate"];
         textElement = references.domElements["ventilationPercentageTextClimate"];
 
         // Set the results
-        textEqual = ventilationPercentageTextEqual;
-        textHigher = ventilationPercentageTextHigher;
-        textLower = ventilationPercentageTextLower;
+        text = await localization.getTranslation(localization.ventilationPercentageKey + percentageTextIndex);
 
         // Update the icon
-        updateArrowImage(references.domElements["ventilationArrowImages"], isHigher);
+        updateArrowImage(references.domElements["ventilationArrowImages"], !isLower);
     } else if (scoreType == ScoreType.AirRenewalTimes) {
-        // AirRenewalTimes: Re-calculate the values
-        value = LocalVariables.roomData[roomNumber - 1].airRenewalTime;
-        isHigher = value > LocalVariables.roomData[0].airRenewalTime;
-        isLower = value < LocalVariables.roomData[0].airRenewalTime;
-
         // Set the references
         valueElement = references.domElements["ventilationMinutesClimate"];
         textElement = references.domElements["ventilationMinutesTextClimate"];
 
         // The result is not dependent on the percentage value
-        textEqual = textHigher = textLower = airRenewalTimeText + " " + value + " minutes";
+        text =
+            (await localization.getTranslation(localization.airRenewalTimeKey)) +
+            " " +
+            metricValue +
+            " minutes";
 
         // Update the icon
-        updateArrowImage(references.domElements["ventilationMinutesArrowImages"], isHigher);
+        updateArrowImage(references.domElements["ventilationMinutesArrowImages"], !isLower);
     }
 
-    // Set the percentage value and the text
-    valueElement.innerHTML = value + "%";
-    if (scoreType == ScoreType.AirRenewalTimes) valueElement.innerHTML = value + " m";
-    textElement.innerHTML = textEqual;
-    if (isHigher) textElement.innerHTML = textHigher;
-    else if (isLower) textElement.innerHTML = textLower;
+    // Set the percentage value or minutes value and the text
+    valueElement.innerHTML = metricValue + "%";
+    if (scoreType == ScoreType.AirRenewalTimes) valueElement.innerHTML = metricValue + " m";
+    textElement.innerHTML = text;
 }
 
 function updateArrowImage(imageList, up) {
@@ -558,7 +510,7 @@ function setupSlider() {
 }
 
 // Construct the text for the slider value and send the current value to the streamer
-function updateSlider() {
+async function updateSlider() {
     // Get references
     let slider = references.domElements["daylightSlider"];
     let sliderText = references.domElements["daylightValueSlider"];
@@ -572,7 +524,7 @@ function updateSlider() {
     let timeString = tod.getHours() + ":" + tod.getMinutes().toString().padStart(2, "0");
     if (LocalVariables.timeFormatUseAMPM) timeString = createAMPMTimestring(tod.getHours(), tod.getMinutes());
     sliderText.innerHTML = timeString;
-    sliderButtonText.innerHTML = localization.getTranslation("daylight-value") + " " + timeString;
+    sliderButtonText.innerHTML = (await localization.getTranslation("daylight-value")) + " " + timeString;
 
     // Notify streamer of time change
     streamerCommunication.sendToStreamer(
