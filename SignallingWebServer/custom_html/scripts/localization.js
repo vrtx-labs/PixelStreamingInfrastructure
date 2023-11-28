@@ -12,7 +12,7 @@ export const airRenewalTimeKey = "ventilation-minutes-text-climate";
 export const SupportedLocales = {
     english: "en",
     german: "de",
-    //french: "fr",
+    french: "fr",
     //swiss: "ch",
     //danish: "dk",
 };
