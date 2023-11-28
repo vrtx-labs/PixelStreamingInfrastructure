@@ -42,7 +42,7 @@ function parseProjectData(jsonData, projectID) {
     // The Backend middleware will write the room data matching the requested id
     // in this slot.
     const roomsArray = [];
-    const room = findJsonField("rooms", jsonData)[0];
+    const room = readJsonField("rooms", jsonData)[0];
     let climateData = room?.climate_data;
 
     if (climateData === null || climateData === undefined) {
@@ -86,7 +86,7 @@ function parseProjectData(jsonData, projectID) {
     }
 
     // Create a new project object
-    let project = new Project(projectID, findJsonField("name", jsonData), roomsArray);
+    let project = new Project(projectID, readJsonField("name", jsonData), roomsArray);
     console.log("Data received from server:");
     console.log(project);
 
@@ -94,13 +94,13 @@ function parseProjectData(jsonData, projectID) {
     return project;
 }
 
-function findJsonField(searchField, JSON) {
+function readJsonField(searchField, JSON) {
     for (const field in JSON) {
         if (field === searchField) {
             return JSON[field];
         }
         if (typeof JSON[field] === "object") {
-            const result = findJsonField(searchField, JSON[field]);
+            const result = readJsonField(searchField, JSON[field]);
             if (result !== null) {
                 return result;
             }
