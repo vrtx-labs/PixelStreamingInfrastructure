@@ -14,7 +14,7 @@ export const SupportedLocales = {
     german: "de",
     french: "fr",
     //swiss: "ch",
-    //danish: "dk",
+    danish: "dk",
 };
 
 export const SupportedLocalesList = Object.values(SupportedLocales);
@@ -30,7 +30,8 @@ export function initialize() {
 }
 
 function getLocaleFromBrowser() {
-    // ToDo Do we need to make this smarter?
+    // ToDo We need to make this smarter.
+    // Get Browser language for now
     const language = navigator.language;
     const locale = language.split("-")[0];
     console.log(`Detected locale: ${locale}`);
