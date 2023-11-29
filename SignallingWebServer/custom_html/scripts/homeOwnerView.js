@@ -128,10 +128,18 @@ function setupStreamerCommunication() {
     // Wait for the connection to establish
     window.addEventListener("streamer_response", function (event) {
         const incomingObject = JSON.parse(event.detail);
-        if (incomingObject.handshake !== undefined) {
+        if (incomingObject.hasOwnProperty("handshake")) {
             // Handshake received
             console.log(`Handshake received from streamer.`);
             startStream();
+            return;
+        }
+        const daylightSliderValue = incomingObject[streamerCommunication.CommunicationKeys.daylightSliderKey];
+        if (daylightSliderValue !== undefined) {
+            // Daylight slider value received
+            console.log(`Daylight slider value received from streamer: ${daylightSliderValue}`);
+            references.domElements["daylightSlider"].value = daylightSliderValue * 1440;
+            updateSlider();
             return;
         }
     });
