@@ -5,13 +5,26 @@ export async function getProjectData(projectID, roomID) {
         throw new Error("Project ID is not defined. Try adding &project_id= to the URL and supply an ID.");
     }
 
+    // Read config file at ../config.json and extract the "CmsUrl" parameter
+    const response = await fetch(`../config.json`);
+    const config = await response.json();
+
     var requestOptions = {
         method: "GET",
         headers: new Headers(),
     };
 
+    // Set the default domain and subdirectory to fetch the data from
+    const defaultDomain = `https://vds-cms.vrtxlabs.cloud`;
+    const urlSubdirectory = `/api/projects/${projectID}?room_id=${roomID}`;
+
+    // Compose the url
+    let domain = config.CmsUrl || defaultDomain;
+    const url = domain + urlSubdirectory;
+    console.log(`Fetching data from ${url}`);
+
     // Return a promise that resolves to the room data
-    let url = `https://vds-cms.vrtxlabs.cloud/api/projects/${projectID}?room_id=${roomID}`;
+
     return fetch(url, requestOptions)
         .then((response) => {
             if (!response.ok) {
@@ -35,8 +48,8 @@ function parseProjectData(jsonData, projectID) {
 
     // Extract values from the JSON object
     jsonData = JSON.parse(jsonData);
-    console.log("Data received from server:");
-    console.log(jsonData);
+    //console.log("Data received from server:");
+    //console.log(jsonData);
 
     // We only share one room at a time via the first slot of the room array.
     // The Backend middleware will write the room data matching the requested id
@@ -46,6 +59,7 @@ function parseProjectData(jsonData, projectID) {
     let climateData = room?.climate_data;
 
     if (climateData === null || climateData === undefined) {
+        // ToDo: Don't error here, but return null and handle this case in the UI
         throw new Error("No climate data found");
     }
 
@@ -61,8 +75,6 @@ function parseProjectData(jsonData, projectID) {
                 climateData.airRenewalTime
             )
         );
-
-        console.log(room.room_variants.length.toString());
 
         // Fill the room data, creating a room object for each room
         room.room_variants.forEach((variant) => {
@@ -87,7 +99,7 @@ function parseProjectData(jsonData, projectID) {
 
     // Create a new project object
     let project = new Project(projectID, readJsonField("name", jsonData), roomsArray);
-    console.log("Data received from server:");
+    console.log("Extracted project data:");
     console.log(project);
 
     // Return the extracted data in the form of a project object
