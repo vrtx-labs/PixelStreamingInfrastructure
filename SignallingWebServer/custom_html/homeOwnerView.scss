@@ -320,12 +320,6 @@ $hover-animation-duration: 0.2s;
 @layer general {
     .button-base {
         border: none;
-        background-color: transparent;
-        &:hover {
-            & .svg-background {
-                fill: var(--colour-base-grey);
-            }
-        }
     }
 
     .svg-background {
@@ -459,24 +453,6 @@ $hover-animation-duration: 0.2s;
         font-size: 1.5rem;
         font-weight: 260;
         color: var(--colour-background);
-    }
-
-    .char-icon {
-        border: 0.125rem solid var(--colour-base-grey);
-        font-size: 1rem;
-        padding: auto;
-        width: 2rem;
-        height: 2rem;
-        display: grid;
-        justify-content: center;
-        align-content: center;
-    }
-
-    .char-icon p {
-        margin: auto;
-        text-justify: center;
-        font-family: "TransformVariableVF";
-        color: var(--colour-text);
     }
 
     .svg-image {
@@ -628,7 +604,6 @@ $hover-animation-duration: 0.2s;
 
     .grid-cell > p {
         margin: auto;
-        text-justify: center;
         font-family: "TransformVariableVF";
         color: var(--colour-text);
     }
@@ -803,6 +778,7 @@ $hover-animation-duration: 0.2s;
         opacity: 25%;
         border-radius: 100%;
         cursor: all-scroll;
+        -webkit-user-select: none;
         user-select: none;
         touch-action: pan-y;
     }
