@@ -47,18 +47,18 @@ async function setup() {
                     `Showing mock-up data. ${error}`
             );
 
-            // fill room data with mock-up data
+            // Fill room data with mock-up data
             //LocalVariables.projectID = null;
             //LocalVariables.designAdvisorViewActive = true;
             LocalVariables.roomData = [null, null, null, null];
             for (let roomIndex = 0; roomIndex < LocalVariables.roomData.length; roomIndex++) {
                 LocalVariables.roomData[roomIndex] = new Room(
                     "Room " + (roomIndex + 1),
-                    roomIndex + 2,
-                    roomIndex + 2,
+                    0.3 + roomIndex * 1.1,
+                    roomIndex + 1.9,
                     roomIndex * 20,
                     25 * roomIndex,
-                    8 - roomIndex * 2
+                    12 - roomIndex * 4
                 );
             }
             setupFrontend();
