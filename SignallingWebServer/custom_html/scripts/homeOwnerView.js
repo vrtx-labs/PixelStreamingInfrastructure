@@ -414,6 +414,7 @@ async function UpdateScoreTexts(scoreType, roomNumber) {
 
     // Score level equals score rounded up to the next integer
     let scoreLevel = Math.ceil(score);
+    if (scoreLevel <= 0) scoreLevel = 1;
 
     // Find the correct texts
     let scoreHeading = "";
@@ -481,13 +482,16 @@ async function updateScoreMetrics(scoreType, roomNumber) {
         textElement = references.domElements["ventilationMinutesTextClimate"];
 
         // The result is not dependent on the percentage value
-        text = await localization.getTranslation(localization.airRenewalTimeKey, metricValue);
+        text = await localization.getTranslation(localization.airRenewalTimeKey, metricValue.toFixed(0));
 
         // Update the icon
         updateArrowImage(references.domElements["ventilationMinutesArrowImages"], !isLower);
     }
 
     // Set the percentage value or minutes value and the text
+    metricValue = metricValue.toFixed(0);
+    if (metricValue === NaN || metricValue === Infinity || metricValue == "NaN" || metricValue == "Infinity")
+        metricValue = "- ";
     valueElement.innerHTML = metricValue + "%";
     if (scoreType == ScoreType.AirRenewalTimes) valueElement.innerHTML = metricValue + " m";
     textElement.innerHTML = text;
