@@ -320,6 +320,12 @@ $hover-animation-duration: 0.2s;
 @layer general {
     .button-base {
         border: none;
+        background-color: transparent;
+        &:hover {
+            & .svg-background {
+                fill: var(--colour-base-grey);
+            }
+        }
     }
 
     .svg-background {
