@@ -359,14 +359,14 @@ function setActiveRoom(roomNumber = 1) {
     });
 
     // Update the daylight and ventilation scores
-    references.getDaylightScores().forEach((score) => {
-        score.innerHTML = LocalVariables.roomData[roomNumber - 1].daylightScore.toFixed(1);
+    references.getDaylightScores().forEach((scoreText) => {
+        const score = LocalVariables.roomData[roomNumber - 1].daylightScore;
+        scoreText.innerHTML = score !== null && score !== undefined ? score.toFixed(1) : "-";
     });
-    references.getVentilationScores().forEach((score) => {
-        score.innerHTML = LocalVariables.roomData[roomNumber - 1].ventilationScore.toFixed(1);
+    references.getVentilationScores().forEach((scoreText) => {
+        const score = LocalVariables.roomData[roomNumber - 1].ventilationScore;
+        scoreText.innerHTML = score !== null && score !== undefined ? score.toFixed(1) : "-";
     });
-
-    // !!! ToDo !!!
 
     // Update the daylight and ventilation texts
     UpdateScoreTexts(ScoreType.Daylight, roomNumber);
@@ -376,21 +376,6 @@ function setActiveRoom(roomNumber = 1) {
     updateScoreMetrics(ScoreType.Daylight, roomNumber);
     updateScoreMetrics(ScoreType.Ventilation, roomNumber);
     updateScoreMetrics(ScoreType.AirRenewalTimes, roomNumber);
-
-    // Compute and set improvement percentages for ventilation and daylight in respect to room 1
-    let ventilationImprovement = 0;
-    let daylightImprovement = 0;
-    if (roomNumber !== 1) {
-        ventilationImprovement =
-            (LocalVariables.roomData[roomNumber - 1].ventilationScore /
-                LocalVariables.roomData[0].ventilationScore) *
-                100 -
-            100;
-        daylightImprovement =
-            (LocalVariables.roomData[roomNumber - 1].daylightScore / LocalVariables.roomData[0].daylightScore) *
-                100 -
-            100;
-    }
 
     // Send to streamer
     streamerCommunication.sendToStreamer(streamerCommunication.CommunicationKeys.activeRoomKey, roomNumber);
@@ -411,6 +396,13 @@ async function UpdateScoreTexts(scoreType, roomNumber) {
     // Determine score
     let score = LocalVariables.roomData[roomNumber - 1].daylightScore;
     if (scoreType == ScoreType.Ventilation) score = LocalVariables.roomData[roomNumber - 1].ventilationScore;
+
+    // Error case
+    if (score === null || score === undefined) {
+        headerElement.innerHTML = "Missing data";
+        textElement.innerHTML = "";
+        return;
+    }
 
     // Score level equals score rounded up to the next integer
     let scoreLevel = Math.ceil(score);
@@ -482,15 +474,20 @@ async function updateScoreMetrics(scoreType, roomNumber) {
         textElement = references.domElements["ventilationMinutesTextClimate"];
 
         // The result is not dependent on the percentage value
-        text = await localization.getTranslation(localization.airRenewalTimeKey, metricValue.toFixed(0));
+        text = await localization.getTranslation(localization.airRenewalTimeKey, metricValue?.toFixed(0));
 
         // Update the icon
         updateArrowImage(references.domElements["ventilationMinutesArrowImages"], !isLower);
     }
 
+    // Trim the metric value to 0 decimal places and check for missing data
+    metricValue = metricValue?.toFixed(0);
+    if (isNaN(metricValue) || !isFinite(metricValue) || metricValue === null || metricValue === undefined) {
+        metricValue = "- ";
+        text = "";
+    }
+
     // Set the percentage value or minutes value and the text
-    metricValue = metricValue.toFixed(0);
-    if (isNaN(metricValue) || !isFinite(metricValue)) metricValue = "- ";
     valueElement.innerHTML = metricValue + "%";
     if (scoreType == ScoreType.AirRenewalTimes) valueElement.innerHTML = metricValue + " m";
     textElement.innerHTML = text;

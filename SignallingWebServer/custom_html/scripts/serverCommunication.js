@@ -2,7 +2,7 @@ import { Room, Project } from "./dataModels.js";
 
 export async function getProjectData(projectID, roomID) {
     if (projectID === null || projectID === undefined) {
-        throw new Error("Project ID is not defined. Try adding &project_id= to the URL and supply an ID.");
+        throw new Error("Project ID has not been set. Try adding &project_id= to the URL and supply an ID.");
     }
 
     // Read config file at ../config.json and extract the "CmsUrl" parameter
@@ -28,7 +28,9 @@ export async function getProjectData(projectID, roomID) {
     return fetch(url, requestOptions)
         .then((response) => {
             if (!response.ok) {
-                throw new Error("HTTP error, status = " + response.status + " " + response.statusText);
+                throw new Error(
+                    "Project was not found. HTTP error status = " + response.status + " " + response.statusText
+                );
             }
             return response.text();
         })
@@ -56,13 +58,12 @@ function parseProjectData(jsonData, projectID) {
     // in this slot.
     const roomsArray = [];
     const room = readJsonField("rooms", jsonData)[0];
-    let climateData = room?.climate_data;
-
-    if (climateData === null || climateData === undefined) {
-        // ToDo: Don't error here, but return null and handle this case in the UI
-        throw new Error("No climate data found");
+    if (room === null || room === undefined) {
+        throw new Error("No room data received for this project.");
     }
 
+    // Extract the climate data from the room object
+    let climateData = room?.climate_data;
     if ((room !== null && room !== undefined) || (climateData !== null && climateData !== undefined)) {
         // Fill the room data of the first room
         roomsArray.push(
