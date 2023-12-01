@@ -490,8 +490,7 @@ async function updateScoreMetrics(scoreType, roomNumber) {
 
     // Set the percentage value or minutes value and the text
     metricValue = metricValue.toFixed(0);
-    if (metricValue === NaN || metricValue === Infinity || metricValue == "NaN" || metricValue == "Infinity")
-        metricValue = "- ";
+    if (isNaN(metricValue) || !isFinite(metricValue)) metricValue = "- ";
     valueElement.innerHTML = metricValue + "%";
     if (scoreType == ScoreType.AirRenewalTimes) valueElement.innerHTML = metricValue + " m";
     textElement.innerHTML = text;
