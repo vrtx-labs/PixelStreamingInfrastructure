@@ -60,6 +60,7 @@ export function getDOMElements() {
     domElements["toggleMenuButtonText"] = document.getElementById("toggleMenuButtonText");
 
     // Misc
+    domElements["logoVelux"] = document.getElementById("logoVelux");
     domElements["videoPlayOverlay"] = document.getElementById("videoPlayOverlay");
     domElements["containerFooter"] = document.getElementById("containerFooter");
     domElements["containerMenu"] = document.getElementById("containerMenu");

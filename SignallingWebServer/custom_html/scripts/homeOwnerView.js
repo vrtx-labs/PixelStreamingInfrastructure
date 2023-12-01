@@ -10,7 +10,7 @@ import "./global.js"; // ToDo: Find a better place for the code in here
 // Variables
 const LocalVariables = {
     designAdvisorViewActive: false,
-    menuActive: false,
+    toolbarActive: false,
     projectName: "Default Project",
     projectID: null,
     roomID: null,
@@ -114,10 +114,12 @@ function setMenuActive(active) {
     if (active) {
         references.domElements["containerMenu"].classList.remove("hiddenState");
         references.domElements["containerFooter"].classList.remove("hiddenState");
+        references.domElements["logoVelux"].classList.remove("hiddenState");
         references.domElements["containerFeedback"].classList.add("hiddenState");
     } else {
         references.domElements["containerMenu"].classList.add("hiddenState");
         references.domElements["containerFooter"].classList.add("hiddenState");
+        references.domElements["logoVelux"].classList.add("hiddenState");
         references.domElements["containerFeedback"].classList.remove("hiddenState");
     }
 }
@@ -210,8 +212,8 @@ function setupToggleMenuButton() {
 }
 
 function toggleMenu() {
-    if (LocalVariables.menuActive) {
-        LocalVariables.menuActive = false;
+    if (LocalVariables.toolbarActive) {
+        LocalVariables.toolbarActive = false;
         // Hide the menu by removing the move-in class
         setClassActive(
             [
@@ -237,7 +239,7 @@ function toggleMenu() {
             references.domElements["containerButtonToggleMenu"].classList.add("grow");
         }, 600);
     } else {
-        LocalVariables.menuActive = true;
+        LocalVariables.toolbarActive = true;
         // Show the menu by adding the move-in class
         setClassActive(
             [

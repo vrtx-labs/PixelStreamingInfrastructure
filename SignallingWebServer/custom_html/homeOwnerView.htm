@@ -55,14 +55,19 @@
         <main id="veluxUI" class="noselect fill-screen">
             <!-- Header -->
             <header id="containerHeader" class="top-absolute stretch-container horizontal-container">
+                <!-- Breadcrumbs -->
+                <h2 id="breadcrumbs" class="flex-item"></h2>
+
                 <!-- Logo -->
                 <div id="logoVelux" class="horizontal-stretch top-absolute">
                     <a id="linkVelux" class="fill" href="https://www.velux.dk/" target="_blank">
                         <img class="fill" src="/images/icons/velux-red.svg" type="svg" />
                     </a>
                 </div>
-                <h2 id="breadcrumbs" class="flex-item"></h2>
+
+                <!-- Tools Menu -->
                 <nav id="containerMenu" class="horizontal-container hiddenState">
+                    <!-- Refresh Button -->
                     <button
                         id="containerButtonRefresh"
                         class="horizontal-container rounded-box button-base transition-move-700">
@@ -76,6 +81,7 @@
                         </div>
                     </button>
 
+                    <!-- Share Button -->
                     <button
                         id="containerButtonShare"
                         class="horizontal-container rounded-box button-base transition-move-700">
@@ -89,6 +95,7 @@
                         </div>
                     </button>
 
+                    <!-- Screenshot Button -->
                     <button
                         id="containerButtonScreenshot"
                         class="horizontal-container rounded-box button-base transition-move-700">
@@ -102,6 +109,7 @@
                         </div>
                     </button>
 
+                    <!-- Help Button -->
                     <button
                         id="containerButtonHelp"
                         class="horizontal-container rounded-box button-base transition-move-700">
@@ -115,6 +123,7 @@
                         </div>
                     </button>
 
+                    <!-- Menu Toggle Button -->
                     <button
                         id="containerButtonToggleMenu"
                         class="horizontal-container rounded-box button-base transition-shrink-fit grow">
@@ -145,6 +154,8 @@
                         </div>
                     </button>
                 </nav>
+
+                <!-- Alternative Feedback Menu -->
                 <nav id="containerFeedback" class="horizontal-container">
                     <button
                         id="containerButtonRequestFeature"
