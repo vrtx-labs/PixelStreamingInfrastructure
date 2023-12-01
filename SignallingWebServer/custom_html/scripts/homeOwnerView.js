@@ -42,23 +42,20 @@ async function setup() {
         })
         .catch((error) => {
             // Handle any errors that occurred during the fetch request
-            console.error(
-                `An error occurred while processing the fetched project data. ` +
-                    `Showing mock-up data. ${error}`
-            );
+            console.error(`An error occurred while processing the fetched project data. ${error}`);
 
-            // Fill room data with mock-up data
-            //LocalVariables.projectID = null;
-            //LocalVariables.designAdvisorViewActive = true;
-            LocalVariables.roomData = [null, null, null, null];
-            for (let roomIndex = 0; roomIndex < LocalVariables.roomData.length; roomIndex++) {
-                LocalVariables.roomData[roomIndex] = new Room(
-                    "Room " + (roomIndex + 1),
-                    roomIndex * 1.1,
-                    roomIndex + 1.9,
-                    12 - roomIndex * 4
-                );
-            }
+            //// Fill room data with mock-up data
+            ////LocalVariables.projectID = null;
+            ////LocalVariables.designAdvisorViewActive = true;
+            //LocalVariables.roomData = [null, null, null, null];
+            //for (let roomIndex = 0; roomIndex < LocalVariables.roomData.length; roomIndex++) {
+            //    LocalVariables.roomData[roomIndex] = new Room(
+            //        "Room " + (roomIndex + 1),
+            //        roomIndex * 1.1,
+            //        roomIndex + 1.9,
+            //        12 - roomIndex * 4
+            //    );
+            //}
             setupFrontend();
         });
 }
@@ -166,7 +163,7 @@ function setBreadcrumbs() {
     }
 
     const project = LocalVariables.projectName;
-    const room = LocalVariables.roomData[0].name;
+    const room = LocalVariables.roomData[0]?.name;
 
     if (hasProjectID && hasRoomID) references.domElements["breadcrumbs"].innerHTML = project + " / " + room;
     else if (hasProjectID) references.domElements["breadcrumbs"].innerHTML = project;
@@ -298,7 +295,9 @@ function showMenuContent(menuContent) {
             references.domElements["menuContentHelp"].classList.remove("hiddenState");
             break;
         case MenuContent.RoomOptions: // Room Options and Daylight Slider are mutually exclusive
-            references.domElements["menuContentRoomOptions"].classList.remove("hiddenState");
+            if (LocalVariables.roomData.length > 1)
+                references.domElements["menuContentRoomOptions"].classList.remove("hiddenState");
+
             references.domElements["containerButtonRoomOptions"].classList.add("hiddenState");
             references.domElements["containerButtonDaylight"].classList.remove("hiddenState");
             break;
@@ -320,7 +319,7 @@ function setupRoomButtons() {
 
     for (let roomNumber = 1; roomNumber <= 4; roomNumber++) {
         // Hide the room, if we have no data for it
-        if (roomNumber > LocalVariables.roomData.length) {
+        if (roomNumber > LocalVariables.roomData.length || LocalVariables.roomData[roomNumber - 1] === null) {
             references.getRoomElementsByNumber(roomNumber).forEach((element) => {
                 element.classList.add("hiddenState");
             });
@@ -328,7 +327,7 @@ function setupRoomButtons() {
             continue;
         }
 
-        setRoomName(roomNumber, LocalVariables.roomData[roomNumber - 1].name);
+        setRoomName(roomNumber, LocalVariables.roomData[roomNumber - 1]?.name);
         references.getRoomElementsByNumber(roomNumber).forEach((element) => {
             element.addEventListener("click", function onOverlayClick(event) {
                 setActiveRoom(roomNumber);
@@ -360,11 +359,11 @@ function setActiveRoom(roomNumber = 1) {
 
     // Update the daylight and ventilation scores
     references.getDaylightScores().forEach((scoreText) => {
-        const score = LocalVariables.roomData[roomNumber - 1].daylightScore;
+        const score = LocalVariables.roomData[roomNumber - 1]?.daylightScore;
         scoreText.innerHTML = score !== null && score !== undefined ? score.toFixed(1) : "-";
     });
     references.getVentilationScores().forEach((scoreText) => {
-        const score = LocalVariables.roomData[roomNumber - 1].ventilationScore;
+        const score = LocalVariables.roomData[roomNumber - 1]?.ventilationScore;
         scoreText.innerHTML = score !== null && score !== undefined ? score.toFixed(1) : "-";
     });
 
@@ -394,8 +393,8 @@ async function UpdateScoreTexts(scoreType, roomNumber) {
     }
 
     // Determine score
-    let score = LocalVariables.roomData[roomNumber - 1].daylightScore;
-    if (scoreType == ScoreType.Ventilation) score = LocalVariables.roomData[roomNumber - 1].ventilationScore;
+    let score = LocalVariables.roomData[roomNumber - 1]?.daylightScore;
+    if (scoreType == ScoreType.Ventilation) score = LocalVariables.roomData[roomNumber - 1]?.ventilationScore;
 
     // Error case
     if (score === null || score === undefined) {
@@ -429,18 +428,18 @@ async function updateScoreMetrics(scoreType, roomNumber) {
 
     // Compute the percentage value
     let metricValue =
-        (LocalVariables.roomData[roomNumber - 1].daylightScore / LocalVariables.roomData[0].daylightScore) *
+        (LocalVariables.roomData[roomNumber - 1]?.daylightScore / LocalVariables.roomData[0]?.daylightScore) *
             100 -
         100;
     if (scoreType == ScoreType.Ventilation)
         metricValue =
-            ((LocalVariables.roomData[roomNumber - 1].airRenewalTime /
-                LocalVariables.roomData[0].airRenewalTime) *
+            ((LocalVariables.roomData[roomNumber - 1]?.airRenewalTime /
+                LocalVariables.roomData[0]?.airRenewalTime) *
                 100 -
                 100) *
             -1;
     else if (scoreType == ScoreType.AirRenewalTimes)
-        metricValue = LocalVariables.roomData[roomNumber - 1].airRenewalTime;
+        metricValue = LocalVariables.roomData[roomNumber - 1]?.airRenewalTime;
 
     let isHigher = metricValue > 0;
     let isLower = metricValue < 0;

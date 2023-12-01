@@ -28,9 +28,7 @@ export async function getProjectData(projectID, roomID) {
     return fetch(url, requestOptions)
         .then((response) => {
             if (!response.ok) {
-                throw new Error(
-                    "Project was not found. HTTP error status = " + response.status + " " + response.statusText
-                );
+                throw new Error("Project was not found. HTTP error status = " + response.status);
             }
             return response.text();
         })
@@ -38,7 +36,9 @@ export async function getProjectData(projectID, roomID) {
             return parseProjectData(result, projectID);
         })
         .catch((error) => {
-            throw new Error(error);
+            console.error(error);
+            console.log("Returning default project data");
+            return new Project(projectID, "Project Not Found", []);
         });
 }
 
