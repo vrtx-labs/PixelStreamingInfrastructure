@@ -11,6 +11,7 @@ export class MenuContent {
         return `menuContent.${this.name}`;
     }
 }
+
 export class ScoreType {
     static Daylight = new ScoreType("Daylight");
     static Ventilation = new ScoreType("Ventilation");
@@ -24,6 +25,7 @@ export class ScoreType {
     }
 }
 
+// Data models
 export class Project {
     constructor(id, name, rooms) {
         this.id = id;
@@ -33,19 +35,10 @@ export class Project {
 }
 
 export class Room {
-    constructor(
-        name,
-        daylightScore,
-        ventilationScore,
-        daylightImprovementPercentage,
-        ventilationImprovementPercentage, //
-        airRenewalTime //
-    ) {
+    constructor(name, daylightScore, ventilationScore, airRenewalTime) {
         this.name = name;
         this.daylightScore = daylightScore;
         this.ventilationScore = ventilationScore;
-        this.daylightImprovementPercentage = daylightImprovementPercentage;
-        this.ventilationImprovementPercentage = ventilationImprovementPercentage;
         this.airRenewalTime = airRenewalTime;
     }
 }

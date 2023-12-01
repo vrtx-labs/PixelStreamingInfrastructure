@@ -70,8 +70,6 @@ function parseProjectData(jsonData, projectID) {
                 room.name,
                 climateData.daylightScore,
                 climateData.ventilationScore,
-                climateData.daylightImprovementPercentage,
-                climateData.ventilationImprovementPercentage,
                 climateData.airRenewalTime
             )
         );
@@ -89,8 +87,6 @@ function parseProjectData(jsonData, projectID) {
                     room.name,
                     climateData.daylightScore,
                     climateData.ventilationScore,
-                    climateData.daylightImprovementPercentage,
-                    climateData.ventilationImprovementPercentage,
                     climateData.airRenewalTime
                 )
             );

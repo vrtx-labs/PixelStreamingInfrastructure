@@ -54,10 +54,8 @@ async function setup() {
             for (let roomIndex = 0; roomIndex < LocalVariables.roomData.length; roomIndex++) {
                 LocalVariables.roomData[roomIndex] = new Room(
                     "Room " + (roomIndex + 1),
-                    0.3 + roomIndex * 1.1,
+                    roomIndex * 1.1,
                     roomIndex + 1.9,
-                    roomIndex * 20,
-                    25 * roomIndex,
                     12 - roomIndex * 4
                 );
             }
