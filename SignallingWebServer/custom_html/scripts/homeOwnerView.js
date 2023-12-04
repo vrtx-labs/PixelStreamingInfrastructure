@@ -443,7 +443,7 @@ async function updateScoreMetrics(scoreType, roomNumber) {
         metricValue =
             selectedRoomVentilationScore === null
                 ? null
-                : ((selectedRoomVentilationScore / originalRoomVentilationScore) * 100 - 100) * -1;
+                : (selectedRoomVentilationScore / originalRoomVentilationScore) * 100 - 100;
     else if (scoreType == ScoreType.AirRenewalTimes) metricValue = selectedRoomAirRenewalTime;
 
     // Determine the text index
