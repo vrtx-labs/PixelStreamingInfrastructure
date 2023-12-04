@@ -62,27 +62,12 @@ function parseProjectData(jsonData, projectID) {
         throw new Error("No room data received for this project.");
     }
 
-    // Extract the climate data from the room object
+    // Start extracting climate data
     let climateData = room?.climate_data;
-    if ((room !== null && room !== undefined) || (climateData !== null && climateData !== undefined)) {
-        // Fill the room data of the first room
-        roomsArray.push(
-            new Room(
-                room.name,
-                climateData.daylightScore,
-                climateData.ventilationScore,
-                climateData.airRenewalTime
-            )
-        );
-
-        // Fill the room data, creating a room object for each room
-        room.room_variants.forEach((variant) => {
-            climateData = variant?.climate_data;
-            if (climateData === null || climateData === undefined) {
-                roomsArray.push(room.name, 0, 0, 0, 0, 0);
-                return;
-            }
-
+    if (room !== null && room !== undefined) {
+        // Extract the climate data from the first room object
+        if (climateData !== null && climateData !== undefined) {
+            // Push the climate data to the rooms array
             roomsArray.push(
                 new Room(
                     room.name,
@@ -91,6 +76,24 @@ function parseProjectData(jsonData, projectID) {
                     climateData.airRenewalTime
                 )
             );
+        }
+
+        // Fill the room data, creating a room object for each room
+        room.room_variants.forEach((variant) => {
+            climateData = variant?.climate_data;
+            if (climateData === null || climateData === undefined) {
+                console.warn("No climate data found for room variant.");
+                roomsArray.push(new Room(variant.name, null, null, null));
+            } else {
+                roomsArray.push(
+                    new Room(
+                        room.name,
+                        climateData.daylightScore,
+                        climateData.ventilationScore,
+                        climateData.airRenewalTime
+                    )
+                );
+            }
         });
     }
 
