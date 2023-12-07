@@ -23,10 +23,10 @@ const defaultLocale = "en";
 let locale;
 let translations = {}; // Gets filled with active locale translations
 
-export function initialize() {
+export async function initialize() {
     // Translate the page to the default locale
     tagElementsForLocalization();
-    translateUsingLocale(getLocaleFromBrowser());
+    await translateUsingLocale(getLocaleFromBrowser());
 }
 
 function getLocaleFromBrowser() {

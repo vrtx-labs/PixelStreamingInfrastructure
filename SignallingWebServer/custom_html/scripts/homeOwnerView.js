@@ -31,7 +31,13 @@ async function setup() {
     console.log(`projectID: ${LocalVariables.projectID}`);
     console.log(`roomID: ${LocalVariables.roomID}`);
 
-    // Request project data from the server. On Success, setup the frontend
+    // We don't need to fetch the project data if we are in design advisor view
+    if (LocalVariables.designAdvisorViewActive) {
+        setupFrontend();
+        return;
+    }
+
+    // Request project data from the server.
     await serverCommunication
         .getProjectData(LocalVariables.projectID, LocalVariables.roomID)
         .then((projectData) => {
@@ -71,8 +77,9 @@ function setupFrontend() {
     }, 50);
 }
 
-function setupUIElements() {
-    localization.initialize();
+async function setupUIElements() {
+    // Setup the UI elements
+    await localization.initialize();
     setupScreenshotButton();
     setupRefreshButton();
     setupShareButton();
@@ -87,6 +94,9 @@ function setupUIElements() {
     setMenuActive(!LocalVariables.designAdvisorViewActive);
     setActiveRoom();
     setBreadcrumbs();
+
+    // Clear the focus on entering the page
+    document.activeElement.blur();
 }
 
 function getURLParameter(parameter) {
@@ -113,11 +123,13 @@ function setMenuActive(active) {
         references.domElements["containerFooter"].classList.remove("hiddenState");
         references.domElements["logoVelux"].classList.remove("hiddenState");
         references.domElements["containerFeedback"].classList.add("hiddenState");
+        document.title = LocalVariables.projectName + " - Home Owner View";
     } else {
         references.domElements["containerMenu"].classList.add("hiddenState");
         references.domElements["containerFooter"].classList.add("hiddenState");
         references.domElements["logoVelux"].classList.add("hiddenState");
         references.domElements["containerFeedback"].classList.remove("hiddenState");
+        document.title = "Velux Design Studio";
     }
 }
 
