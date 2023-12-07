@@ -77,8 +77,12 @@ function setupFrontend() {
     }, 50);
 }
 
-function setupUIElements() {
-    localization.initialize();
+async function setupUIElements() {
+    // Clear the focus on entering the page
+    //document.activeElement.blur();
+
+    // Setup the UI elements
+    await localization.initialize();
     setupScreenshotButton();
     setupRefreshButton();
     setupShareButton();
