@@ -4,7 +4,7 @@
 @layer general, design-specific, animations;
 
 /* Device specific break points & scaling */
-$breakpoint-general: 1375px;
+$breakpoint-general: 1490px;
 $navigation-element-height: 2rem; // min(3vw, 1.9rem);
 $navigation-element-height-breakpoint: min(4vw, 1.4rem);
 $font-size-general: 1rem;
@@ -139,6 +139,12 @@ $hover-animation-duration: 0.2s;
         gap: 0.9rem;
         max-width: 38vw;
         justify-content: end;
+    }
+
+    #containerFeedback {
+        position: fixed;
+        top: 1rem;
+        right: 17.5rem;
     }
 
     @media screen and (max-width: $breakpoint-general) {
