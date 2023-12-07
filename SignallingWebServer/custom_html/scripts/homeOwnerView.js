@@ -79,7 +79,7 @@ function setupFrontend() {
 
 async function setupUIElements() {
     // Clear the focus on entering the page
-    //document.activeElement.blur();
+    document.activeElement.blur();
 
     // Setup the UI elements
     await localization.initialize();
