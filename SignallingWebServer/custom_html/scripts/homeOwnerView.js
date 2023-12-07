@@ -78,9 +78,6 @@ function setupFrontend() {
 }
 
 async function setupUIElements() {
-    // Clear the focus on entering the page
-    document.activeElement.blur();
-
     // Setup the UI elements
     await localization.initialize();
     setupScreenshotButton();
@@ -97,6 +94,9 @@ async function setupUIElements() {
     setMenuActive(!LocalVariables.designAdvisorViewActive);
     setActiveRoom();
     setBreadcrumbs();
+
+    // Clear the focus on entering the page
+    document.activeElement.blur();
 }
 
 function getURLParameter(parameter) {
