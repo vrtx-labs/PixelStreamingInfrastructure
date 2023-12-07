@@ -123,11 +123,13 @@ function setMenuActive(active) {
         references.domElements["containerFooter"].classList.remove("hiddenState");
         references.domElements["logoVelux"].classList.remove("hiddenState");
         references.domElements["containerFeedback"].classList.add("hiddenState");
+        document.title = LocalVariables.projectName + " - Home Owner View";
     } else {
         references.domElements["containerMenu"].classList.add("hiddenState");
         references.domElements["containerFooter"].classList.add("hiddenState");
         references.domElements["logoVelux"].classList.add("hiddenState");
         references.domElements["containerFeedback"].classList.remove("hiddenState");
+        document.title = "Velux Design Studio";
     }
 }
 
