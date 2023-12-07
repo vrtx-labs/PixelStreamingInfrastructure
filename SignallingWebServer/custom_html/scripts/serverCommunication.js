@@ -1,8 +1,8 @@
 import { Room, Project } from "./dataModels.js";
 
 export async function getProjectData(projectID, roomID) {
-    if (projectID === null || projectID === undefined) {
-        throw new Error("Project ID has not been set. Try adding &project_id= to the URL and supply an ID.");
+    if (roomID === null || roomID === undefined || roomID === "") {
+        throw new Error("Room ID has not been set. Try adding &room_id= to the URL and supply a room ID.");
     }
 
     // Read config file at ../config.json and extract the "CmsUrl" parameter

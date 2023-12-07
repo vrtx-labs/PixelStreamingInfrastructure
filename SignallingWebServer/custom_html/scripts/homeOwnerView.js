@@ -31,7 +31,13 @@ async function setup() {
     console.log(`projectID: ${LocalVariables.projectID}`);
     console.log(`roomID: ${LocalVariables.roomID}`);
 
-    // Request project data from the server. On Success, setup the frontend
+    // We don't need to fetch the project data if we are in design advisor view
+    if (LocalVariables.designAdvisorViewActive) {
+        setupFrontend();
+        return;
+    }
+
+    // Request project data from the server.
     await serverCommunication
         .getProjectData(LocalVariables.projectID, LocalVariables.roomID)
         .then((projectData) => {
