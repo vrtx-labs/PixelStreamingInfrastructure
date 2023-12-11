@@ -137,18 +137,41 @@ function setupStreamerCommunication() {
     // Wait for the connection to establish
     window.addEventListener("streamer_response", function (event) {
         const incomingObject = JSON.parse(event.detail);
+
+        // Handshake received
         if (incomingObject.hasOwnProperty("handshake")) {
-            // Handshake received
             console.log(`Handshake received from streamer.`);
             startStream();
+
             return;
         }
+
+        // Check of a new slider value has been received
         const daylightSliderValue = incomingObject[streamerCommunication.CommunicationKeys.daylightSliderKey];
         if (daylightSliderValue !== undefined) {
             // Daylight slider value received
             console.log(`Daylight slider value received from streamer: ${daylightSliderValue}`);
             references.domElements["daylightSlider"].value = daylightSliderValue * 1440;
             updateSlider();
+
+            return;
+        }
+
+        // Receive message for opening url
+        const openURL = incomingObject[streamerCommunication.CommunicationKeys.openURLKey];
+        if (openURL !== undefined) {
+            // Open URL in new Tab
+            window.open(openURL, "_blank");
+
+            return;
+        }
+
+        // Receive message for copying url
+        const copyURL = incomingObject[streamerCommunication.CommunicationKeys.copyURLKey];
+        if (copyURL !== undefined) {
+            // Copy URL to clipboard
+            WriteToClipboard(copyURL);
+
             return;
         }
     });
@@ -196,19 +219,22 @@ function setupRefreshButton() {
 function setupShareButton() {
     references.domElements["buttonShare"].addEventListener("click", function onOverlayClick(event) {
         // Copy current url to clipboard
-        if (!Boolean(navigator.clipboard)) {
-            console.warn("Clipboard API not available");
-            return;
-        }
-        navigator.clipboard.writeText(window.location.href).then(
-            function () {
-                console.log("Copying to clipboard was successful!");
-            },
-            function (err) {
-                console.error("Could not copy text: ", err);
-            }
-        );
+        const url = window.location.href;
+        WriteToClipboard(url);
     });
+}
+
+function WriteToClipboard(text) {
+    if (!Boolean(navigator.clipboard)) {
+        console.warn("Clipboard API not available");
+        return;
+    }
+    navigator.clipboard.writeText(text).then(
+        function () {},
+        function (err) {
+            console.error("Could not copy text: ", err);
+        }
+    );
 }
 
 function setupToggleMenuButton() {

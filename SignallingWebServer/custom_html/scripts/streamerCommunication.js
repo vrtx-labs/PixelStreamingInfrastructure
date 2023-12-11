@@ -14,6 +14,8 @@ export const CommunicationKeys = {
     roomNamesKey: "roomNames",
     daylightScoresKey: "daylightScores",
     ventilationScoresKey: "ventilationScores",
+    openURLKey: "openURL",
+    copyURLKey: "copyURLToClipboard",
 };
 
 export function setupStreamerCommunication() {
