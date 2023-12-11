@@ -20,6 +20,8 @@ export async function getProjectData(projectID, roomID) {
 
     // Compose the url
     let domain = config.CmsUrl || defaultDomain;
+    domain = domain.replace(/\/$/, "");
+
     const url = domain + urlSubdirectory;
     console.log(`Fetching data from ${url}`);
 
