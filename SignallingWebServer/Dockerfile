@@ -1,5 +1,5 @@
 # Use the current Long Term Support (LTS) version of Node.js
-FROM node:lts
+FROM node:21.4-bookworm-slim
 ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
 
 # Copy the signalling server source code from the build context
