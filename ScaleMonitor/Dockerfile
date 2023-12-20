@@ -1,18 +1,18 @@
-FROM  --platform=${BUILDPLATFORM:-linux/amd64} python:3.8-slim-buster AS base
+FROM  --platform=${BUILDPLATFORM:-linux/amd64} python:alpine3.18
 
-WORKDIR /app
+RUN pip install --upgrade pip
 
-COPY requirements.txt .
-RUN pip install -r requirements.txt
+RUN adduser -D worker
+USER worker
+WORKDIR /home/worker
 
-COPY app.py .
-RUN  chmod +x app.py
+COPY --chown=worker:worker requirements.txt requirements.txt
+RUN pip install --user -r requirements.txt
+
+ENV PATH="/home/worker/.local/bin:${PATH}"
+
+COPY --chown=worker:worker app.py .
+
+RUN chmod +x app.py
 
 ENTRYPOINT [ "python", "app.py"]
-
-
-# docker build -t scalemonitor .
-# docker tag scalemonitor k3d-myregistry.localhost:5432/scalemonitor
-#  docker push k3d-myregistry.localhost:5432/scalemonitor
-# docker run -it --rm --name scalemonitor k3d-myregistry.localhost:5432/scalemonitor
-# kubectl run -it --rm scalemonitor  --serviceaccount=kubectl-client --image=k3d-myregistry.localhost:5432/scalemonitor
