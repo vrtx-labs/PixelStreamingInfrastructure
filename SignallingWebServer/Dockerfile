@@ -1,5 +1,6 @@
 # Use the current Long Term Support (LTS) version of Node.js
 FROM node:lts
+ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
 
 # Copy the signalling server source code from the build context
 COPY . /opt/SignallingWebServer
@@ -22,4 +23,5 @@ EXPOSE 8889
 EXPOSE 9999
 
 # Set the signalling server as the container's entrypoint
+USER node
 ENTRYPOINT ["/usr/local/bin/node", "/opt/SignallingWebServer/cirrus.js"]
