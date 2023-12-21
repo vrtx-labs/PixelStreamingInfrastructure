@@ -1,10 +1,13 @@
 # Copyright Epic Games, Inc. All Rights Reserved.
-
-FROM node:latest
+FROM node:alpine3.18
+ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
 
 # Make sure Mediasoup requirements are met
-RUN apt -y update
-RUN apt -y install python3-pip
+#RUN apt -y update
+#RUN apt -y install python3-pip
+
+# Alpine
+RUN apk add py3-pip
 
 # Copy the Selective Forwarding Unit (SFU) to the Docker build context
 COPY . /opt/SFU
@@ -21,5 +24,6 @@ EXPOSE 40000-49999
 EXPOSE 8889
 
 # Set the signalling server as the container's entrypoint
+USER node
 ENTRYPOINT ["/usr/local/bin/node", "/opt/SFU/sfu_server.js"]
 
