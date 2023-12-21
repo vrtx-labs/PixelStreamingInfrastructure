@@ -5,7 +5,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.16.2",
-    "socket.io": "4.4.1",
+    "socket.io": "^4.7.2",
     "yargs": "17.3.1"
   }
 }
