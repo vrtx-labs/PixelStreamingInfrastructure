@@ -1,13 +1,14 @@
 # Copyright Epic Games, Inc. All Rights Reserved.
-FROM node:alpine3.18
+FROM node:21.5-bookworm
 ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
 
 # Make sure Mediasoup requirements are met
-#RUN apt -y update
-#RUN apt -y install python3-pip
+RUN apt -y update
+RUN apt -y install python3-pip
 
 # Alpine
-RUN apk add py3-pip
+#RUN apk update
+#RUN apk add py3-pip
 
 # Copy the Selective Forwarding Unit (SFU) to the Docker build context
 COPY . /opt/SFU
