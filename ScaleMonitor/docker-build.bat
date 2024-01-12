@@ -3,10 +3,10 @@
 SET CONTINAER_REG="velux.jfrog.io/docker-dev/ccoe/vds"
 
 :: Update your package name here
-SET PACKAGE_NAME="signallingwebserver"
+SET PACKAGE_NAME="scalemonitor"
 
 :: Update build version here
-SET BUILD_VERSION=5.1.6
+SET BUILD_VERSION=5.1.0
 
 :: Build Unreal Engine App image . Copy the Dockerfile to the root of the Unreal Engine App
 docker "build" "-t" "%PACKAGE_NAME%:%BUILD_VERSION%" "-f" "Dockerfile" .
