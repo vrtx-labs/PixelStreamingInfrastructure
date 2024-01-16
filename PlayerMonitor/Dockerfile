@@ -1,0 +1,29 @@
+# This builds the container for the PlayerMonitor in the Pixel Streaming Infrastructure
+FROM --platform=${BUILDPLATFORM:-linux/amd64} python:alpine3.18
+
+#Upgrade pip
+RUN pip install --upgrade pip
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the requirements file and install Python dependencies
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+# Copy the application files
+COPY app.py connections.py /app/
+
+# Create a new user and group 'pythonuser' with ID 1000, and set file permissions
+RUN addgroup -S pythonuser -g 1000 && adduser -S pythonuser -u 1000 -G pythonuser \
+    && chown -R pythonuser:pythonuser /app \
+    && chmod +x app.py
+
+# Environment variable for the log directory
+ENV LOG_DIR=/opt/SignallingWebServer/logs
+
+# Switch to the non-root user 'pythonuser'
+USER pythonuser
+
+# Define the entry point for the container
+ENTRYPOINT ["python", "app.py"]
