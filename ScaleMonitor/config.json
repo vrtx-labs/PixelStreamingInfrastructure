@@ -1,0 +1,9 @@
+{
+    "NAMESPACE": "vds",
+    "DEPLOYMENT_NAME": "vds-signallingwebserver",
+    "REDIS_HOST": "vds-redis",
+    "REDIS_PORT": 6379,
+    "MAX_REPLICAS": 50,
+    "SCALING_BUFFER": 1,
+    "SCALING_FACTOR": 0.50
+}

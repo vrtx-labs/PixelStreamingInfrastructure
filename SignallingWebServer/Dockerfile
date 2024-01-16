@@ -1,4 +1,4 @@
-# Use the current Long Term Support (LTS) version of Node.js
+# Use a Long Term Support (LTS) version of Node.js
 FROM node:alpine3.18
 ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
 
