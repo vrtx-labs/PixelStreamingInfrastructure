@@ -1,0 +1,1383 @@
+/*** General Declarations & Type Selectors ***/
+
+/* Layers */
+@layer general, design-specific, animations;
+
+/* Device specific break points & scaling */
+$breakpoint-general: 1490px;
+$navigation-element-height: 2rem; // min(3vw, 1.9rem);
+$navigation-element-height-breakpoint: min(4vw, 1.4rem);
+$font-size-general: 1rem;
+$font-size-breakpoint: min(2vw, $font-size-general);
+
+/* Animation Durations */
+$menu-animation-duration: 0.8s;
+$move-animation-duration: 1s;
+$fade-animation-duration: 0.4s;
+$hover-animation-duration: 0.2s;
+
+:root {
+    /*Color scheme variables*/
+    --colour-accent: #ffffff;
+    --colour-accent-red: #c70000;
+    --colour-base-black: #28231f;
+    --colour-base-grey: #dbd7d1;
+    --colour-background: #454142;
+    --colour-text: #78716b;
+}
+
+@layer general {
+    html {
+        /* mobile viewport bug fix */
+        height: -webkit-fill-available;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        /* mobile viewport bug fix */
+        height: 100vh;
+        height: -webkit-fill-available;
+        margin: 0;
+        padding: 0;
+    }
+
+    .stop-scrolling {
+        /* ToDo: Do forms still work as intended on iOS? */
+        /*user-select: none;*/
+        touch-action: none;
+        overflow: hidden;
+    }
+
+    button {
+        cursor: pointer;
+        border: none;
+
+        > p {
+            margin: auto 0.5rem;
+            font-weight: 240;
+        }
+    }
+
+    svg {
+        height: 100%;
+        width: auto;
+    }
+
+    /* Set general font & font size */
+    body * {
+        font-family: "TransformVariableVF";
+        font-size: $font-size-general;
+        font-weight: 240;
+        color: var(--colour-accent);
+    }
+
+    @media screen and (max-width: $breakpoint-general) {
+        body * {
+            font-size: $font-size-breakpoint;
+        }
+    }
+
+    h1 {
+        font-size: 3rem;
+        font-weight: 270;
+    }
+
+    h2 {
+        font-size: 1.25rem;
+        font-weight: 240;
+    }
+
+    h3 {
+        font-size: 1rem;
+        font-weight: 240;
+    }
+
+    h4 {
+        font-size: 0.75rem;
+        font-weight: 220;
+    }
+
+    h5 {
+        font-size: 0.5rem;
+        font-weight: 210;
+    }
+}
+
+/*** ID Selectors ***/
+@layer design-specific {
+    #logoVelux {
+        position: fixed;
+        top: 1rem;
+        width: 8.6vw;
+        cursor: default;
+    }
+
+    #linkVelux {
+        display: block;
+    }
+
+    #containerHeader {
+        top: 2rem; //min(7vw, 2.5rem);
+        background-color: transparent;
+        pointer-events: none;
+    }
+
+    #breadcrumbs {
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
+    @media screen and (max-width: $breakpoint-general) {
+        #breadcrumbs {
+            margin-top: 0;
+        }
+    }
+
+    #containerMenu,
+    #containerFeedback {
+        gap: 0.9rem;
+        max-width: 38vw;
+        justify-content: end;
+    }
+
+    #containerFeedback {
+        position: fixed;
+        top: 1rem;
+        right: 7.625rem;
+    }
+
+    @media screen and (max-width: $breakpoint-general) {
+        /*Reverse order of menu items on mobile*/
+        #containerMenu {
+            flex-flow: column-reverse;
+            align-items: end;
+        }
+    }
+
+    #containerButtonToggleMenu {
+        justify-content: center;
+    }
+
+    #collapseMenuImage,
+    #menuButtonImage {
+        position: absolute;
+    }
+
+    #containerFooter {
+        bottom: 2rem;
+        background-color: transparent;
+        align-items: end;
+        pointer-events: none;
+    }
+
+    #containerRoomOptions {
+        bottom: 2.5rem;
+        height: $navigation-element-height;
+        justify-content: space-between;
+        gap: 1rem;
+
+        .button-base:not(.selected-room) {
+            background-color: transparent;
+        }
+
+        .button-base:not(.selected-room):hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+
+    @media screen and (max-width: $breakpoint-general) {
+        #containerRoomOptions {
+            height: $navigation-element-height-breakpoint;
+        }
+    }
+
+    #containerScores {
+        border-radius: 1rem;
+        padding: 0;
+
+        > div > h4 {
+            margin: auto auto 0.5rem auto;
+            font-weight: 550;
+        }
+
+        .score-panel {
+            align-items: end;
+        }
+    }
+
+    #containerScoresPadding {
+        padding: 1.5rem 1.5rem 1rem 1.5rem;
+        margin: 0;
+    }
+
+    #containerDaylightScore {
+        margin-bottom: 1.38rem;
+    }
+
+    #containerReadMore {
+        height: inherit;
+        margin: 0;
+        padding: 0.5rem;
+
+        background-color: var(--colour-accent);
+        border-bottom-left-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+
+        justify-content: space-between;
+
+        > * {
+            color: var(--colour-base-black);
+            margin: auto;
+        }
+
+        transition: background-color $hover-animation-duration ease-in-out;
+        &:hover {
+            background-color: var(--colour-base-grey);
+        }
+    }
+
+    #overlayClimateScores {
+        background: rgba(37, 37, 37, 0.55);
+
+        * {
+            pointer-events: auto;
+        }
+    }
+
+    #drawerClimateScores {
+        width: fit-content;
+        max-width: 36vw;
+        top: 0;
+        bottom: 0;
+        padding: 6rem 4rem 0 4rem;
+        background-color: var(--colour-accent);
+    }
+
+    @media screen and (max-width: $breakpoint-general) {
+        #drawerClimateScores {
+            max-width: 100%;
+        }
+    }
+
+    #closeClimateScores {
+        right: 4rem;
+        top: 3rem;
+        > .svg-image {
+            height: 1.2rem;
+        }
+    }
+
+    #roomSelectionClimateScores {
+        gap: 1.5rem;
+    }
+
+    #containerClimateScoreCards {
+        width: 100%;
+        margin-top: 3.3rem;
+        justify-content: space-between;
+        align-items: start;
+        gap: 3rem;
+    }
+
+    #containerDaylightRatingClimate,
+    #containerVentilationRatingClimate {
+        margin-top: 0.5rem;
+        margin-bottom: 0rem;
+
+        img {
+            height: 1.2rem;
+            width: auto;
+            margin-right: 0.4rem;
+        }
+    }
+
+    #containerDaylightRatingClimate {
+        > div > p {
+            max-width: 60%;
+        }
+    }
+
+    #containerVentilationRatingClimate {
+        gap: 0.5rem;
+        > div > p {
+            margin-top: 0.5rem;
+        }
+    }
+
+    #climateImprintHeader {
+        font-size: 2rem;
+        font-weight: 260;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    #climateImprint {
+        margin: 0;
+        font-weight: 240;
+        line-height: 1.5rem;
+    }
+}
+
+/*** Classes ***/
+
+/* Design-Specific Classes */
+
+@layer general {
+    .button-base {
+        border: none;
+        background-color: transparent;
+        &:hover {
+            & .svg-background {
+                fill: var(--colour-base-grey);
+            }
+        }
+    }
+
+    .svg-background {
+        transition: fill $hover-animation-duration ease-in-out;
+    }
+}
+@layer design-specific {
+    .paragraph-color,
+    .paragraph-color * {
+        color: var(--colour-text);
+    }
+
+    .label-color,
+    .label-color * {
+        color: var(--colour-base-black);
+    }
+
+    .stretch-container {
+        left: 2.5rem;
+        right: 2.5rem;
+
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .rounded-box {
+        height: fit-content;
+        width: fit-content;
+        border-radius: 5rem;
+        padding: 0.5rem 0.4rem;
+
+        background: rgba(37, 37, 37, 0.55);
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+    }
+
+    .selected-room {
+        background-color: var(--colour-accent);
+        color: var(--colour-base-black);
+    }
+
+    .button-border-top {
+        height: 4rem;
+        border: none;
+        padding: 1.5rem 0 1.5rem 0;
+        pointer-events: all;
+        border-top: 0.15rem solid var(--colour-accent);
+    }
+
+    .button-border-top:hover {
+        border-top: 0.15rem solid rgba(199, 0, 0, 0.5);
+    }
+
+    .button-border-top:active,
+    .button-border-top:focus,
+    .selected-room.button-border-top {
+        border-top: 0.15rem solid var(--colour-accent-red);
+        color: var(--colour-base-black);
+    }
+
+    .score-card {
+        width: 14rem;
+        height: fit-content;
+        //min-width: 40vw;
+        //min-height: 40vw;
+        padding: 1rem;
+        border: 0.125rem solid var(--colour-base-grey);
+
+        > {
+            h1,
+            h2,
+            h3,
+            h4,
+            h5 {
+                margin: 0;
+                font-weight: 550;
+            }
+        }
+
+        p {
+            font-size: 0.75rem;
+            font-weight: 550;
+            margin-top: 0.5rem;
+            margin-right: 0;
+            margin-bottom: 0;
+            margin-left: 0;
+        }
+    }
+
+    .score-panel {
+        width: 100%;
+        justify-content: space-between;
+        align-items: start;
+        margin-top: 0.5rem;
+
+        * {
+            margin: 0;
+        }
+
+        > {
+            img {
+                height: 3rem; //min(3.3vw, 3rem);
+            }
+
+            h1 {
+                line-height: 3rem;
+            }
+
+            .svg-image {
+                padding-bottom: 0.5rem;
+                padding-left: 1rem;
+            }
+        }
+    }
+
+    .fade-color {
+        color: var(--colour-base-grey);
+    }
+
+    p.fade-color {
+        color: var(--colour-background);
+        font-weight: 240;
+        opacity: 1;
+    }
+
+    .hero-value {
+        font-size: 3rem;
+        font-weight: 260;
+    }
+    .percentage-value {
+        font-size: 1.5rem;
+        font-weight: 260;
+        color: var(--colour-background);
+    }
+
+    .svg-image {
+        background-color: transparent;
+        width: auto;
+        height: $navigation-element-height;
+        margin: 0;
+    }
+
+    @media screen and (max-width: $breakpoint-general) {
+        .svg-image {
+            height: $navigation-element-height-breakpoint;
+        }
+    }
+
+    .divider {
+        width: 400%;
+        transform: translateX(-4rem);
+        height: 1px;
+        background-color: var(--colour-base-grey);
+    }
+
+    .no-pointer {
+        pointer-events: none;
+    }
+}
+
+/* General Classes */
+@layer general {
+    /* Positioning */
+    .fill {
+        width: 100%;
+        height: 100%;
+    }
+
+    .fill-screen {
+        pointer-events: none;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        bottom: 0;
+        z-index: 50;
+
+        background-color: transparent;
+        border: none;
+    }
+
+    .fill-screen * {
+        /* Because children of the transparent fill screen inherit the inability to be
+	clicked, we need to reset this behaviour */
+        pointer-events: auto;
+    }
+
+    .horizontal-stretch {
+        margin-left: auto;
+        margin-right: auto;
+        left: 0;
+        right: 0;
+    }
+
+    .bottom-absolute {
+        position: absolute;
+        bottom: 0;
+    }
+
+    .top-absolute {
+        position: absolute;
+        top: 0;
+    }
+
+    .right-absolute {
+        position: absolute;
+        right: 0;
+    }
+
+    /* Flex */
+    .flex-item {
+        display: flex;
+        align-self: flex-start;
+        margin: 0;
+    }
+
+    .flex-center {
+        display: flex;
+        align-self: center;
+        justify-self: center;
+        margin: auto;
+    }
+
+    .vertical-container {
+        display: flex;
+        flex-direction: column;
+    }
+    .vertical-container > * {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .horizontal-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    /* Grid */
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr) 3.5fr;
+        grid-template-rows: repeat(3, 1fr);
+        row-gap: 0.5rem;
+        column-gap: 0.5rem;
+    }
+
+    .grid-cell {
+        display: grid;
+    }
+
+    .gr1 {
+        grid-row: 1;
+    }
+
+    .gr2 {
+        grid-row: 2;
+    }
+
+    .gr3 {
+        grid-row: 3;
+    }
+
+    .gc1 {
+        grid-column: 1;
+    }
+
+    .gc2 {
+        grid-column: 2;
+    }
+
+    .gc3 {
+        grid-column: 3;
+    }
+
+    .gc4 {
+        grid-column: 4;
+    }
+
+    .gc5 {
+        grid-column: 5;
+    }
+
+    .grid-cell > p {
+        margin: auto;
+        font-family: "TransformVariableVF";
+        color: var(--colour-text);
+    }
+}
+
+/* Animations */
+@layer animations {
+    .menu-out {
+        animation: menuOut $menu-animation-duration ease-in-out forwards;
+    }
+
+    /* Transitions */
+    .transition-move-300 {
+        transition: transform $move-animation-duration ease-in-out;
+        transform: translateX(300%);
+    }
+
+    .transition-move-700 {
+        transition: transform $move-animation-duration ease-in-out;
+        transform: translateX(700%);
+    }
+
+    .move-in {
+        transform: translateX(0%);
+    }
+
+    .transition-fade {
+        transition: opacity $fade-animation-duration linear;
+        opacity: 0;
+    }
+
+    .fade-in {
+        opacity: 1;
+    }
+
+    .transition-shrink {
+        transition: width $move-animation-duration cubic-bezier(0.23, 0.77, 0.36, 1),
+            margin $move-animation-duration linear, opacity $fade-animation-duration linear;
+        width: 0;
+        margin: 0;
+        opacity: 0;
+    }
+
+    .transition-shrink-fit {
+        transition: width $move-animation-duration cubic-bezier(0.23, 0.77, 0.36, 1),
+            margin $fade-animation-duration linear;
+        width: 2.9rem;
+        margin: 0;
+    }
+
+    @media screen and (max-width: $breakpoint-general) {
+        .transition-shrink-fit {
+            width: calc($navigation-element-height-breakpoint + 0.9rem);
+        }
+    }
+
+    .grow {
+        width: auto;
+        opacity: 1;
+
+        p {
+            margin: auto 0.5rem;
+        }
+    }
+
+    .transition-fade-move {
+        transition: transform $move-animation-duration ease-in-out, opacity $move-animation-duration linear;
+        transform: translateX(90%);
+        opacity: 0;
+    }
+
+    .fade-move-in {
+        transform: translateX(0%);
+        opacity: 1;
+    }
+}
+
+/************** Slider CSS **************/
+@layer design-specific {
+    #containerSliderDaylight {
+        width: fit-content;
+        height: $navigation-element-height;
+        padding: 0.5rem;
+        justify-content: space-between;
+
+        > div {
+            width: 6rem;
+        }
+
+        p {
+            text-align: center;
+        }
+    }
+
+    @media screen and (max-width: $breakpoint-general) {
+        #containerSliderDaylight {
+            height: $navigation-element-height-breakpoint;
+        }
+    }
+
+    .slider {
+        margin: 0;
+        appearance: none;
+        -webkit-appearance: none;
+        width: 45vw;
+        height: 100%;
+        background: transparent;
+        outline: none;
+        border: none;
+        z-index: 10;
+
+        background-image: url("/images/hov_slider_measure.svg");
+        background-repeat: no-repeat;
+        background-size: 95% 100%;
+        background-position: center;
+    }
+
+    .slider::-moz-range-thumb {
+        appearance: none;
+        -moz-appearance: none;
+        border-radius: 100%;
+        width: 2rem;
+        height: 2rem;
+        cursor: pointer;
+
+        background-image: url("/images/buttons/hov_daylight.svg");
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+
+    .slider::-webkit-slider-thumb {
+        appearance: none;
+        -webkit-appearance: none;
+        border-radius: 100%;
+        width: 2rem;
+        height: 2rem;
+        cursor: pointer;
+
+        background-image: url("/images/buttons/hov_daylight.svg");
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+}
+
+/************** Joystick CSS **************/
+/* Some design is defined in joystick.js */
+@layer design-specific {
+    #containerJoystick {
+        bottom: 13vmin;
+        height: 26vmin;
+        width: 100%;
+        background-color: transparent;
+        justify-content: center;
+        pointer-events: none;
+    }
+
+    #containerJoystick * {
+        pointer-events: auto;
+    }
+
+    /* Disable on pc */
+    @media (pointer: fine) {
+        #containerJoystick {
+            display: none;
+        }
+    }
+
+    #joystick {
+        height: 100%;
+        width: auto;
+        background-color: var(--colour-base-grey);
+        opacity: 25%;
+        border-radius: 100%;
+        cursor: all-scroll;
+        -webkit-user-select: none;
+        user-select: none;
+        touch-action: pan-y;
+    }
+}
+
+/****************** CSS of the Pixel Streaming Interface ******************/
+
+#playerUI {
+    width: 100%;
+    height: 100%;
+}
+
+canvas {
+    image-rendering: crisp-edges;
+    position: absolute;
+}
+
+video {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+#player {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: var(--colour-background);
+}
+
+#videoPlayOverlay {
+    position: absolute;
+    font-size: 1.8em;
+    width: 100%;
+    height: 100%;
+    color: var(--colour-base-black);
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.clickableState {
+    /* State for element to be clickable */
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    cursor: pointer;
+}
+
+.textDisplayState {
+    /* State for element to show text, this is for informational use*/
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    cursor: pointer;
+}
+
+.hiddenState {
+    /* State to hide overlay, WebRTC communication is in progress and or is playing */
+    display: none !important;
+}
+
+#playButton {
+    display: inline-block;
+    height: auto;
+    z-index: 30;
+}
+
+img#playButton {
+    max-width: 241px;
+    width: 10%;
+}
+
+#freezeFrameOverlay {
+    background-color: transparent;
+}
+
+.freezeframeBackground {
+    background-color: #000 !important;
+}
+
+#overlay {
+    width: 100%;
+    height: 100%;
+    z-index: 20;
+    position: absolute;
+    color: var(--colour-base-black);
+    pointer-events: none;
+    overflow: hidden;
+}
+
+#overlay button {
+    background-color: var(--colour-background);
+    border: 1px solid var(--colour-background);
+    color: var(--colour-background);
+    position: relative;
+    width: 3rem;
+    height: 3rem;
+    padding: 0.5rem;
+    text-align: center;
+}
+
+#fullscreen-btn {
+    padding: 0.6rem !important;
+}
+
+#overlay button:hover {
+    background-color: var(--colour-base-black);
+    border: 3px solid var(--colour-accent-active);
+    transition: 0.25s ease;
+    padding-left: 0.55rem;
+    padding-top: 0.55rem;
+}
+
+#overlay button:active {
+    border: 3px solid var(--colour-accent-active);
+    background-color: var(--colour-accent-active);
+    padding-left: 0.55rem;
+    padding-top: 0.55rem;
+}
+
+#overlay img {
+    width: 100%;
+    height: 100%;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: auto;
+    color: var(--colour-base-black);
+    text-align: center;
+    border-radius: 15px;
+    padding: 0px 10px;
+    font-family: "Montserrat", sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.75px;
+    /* Position the tooltip */
+    position: absolute;
+    top: 0;
+    transform: translateY(25%);
+    left: 125%;
+    z-index: 20;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    background-color: var(--colour-base-black);
+}
+
+#connection .tooltiptext {
+    /*top: 125%;
+	transform: translateX(-25%);
+  	left: 0;*/
+    z-index: 20;
+    padding: 5px 10px;
+}
+
+#settings-panel .tooltiptext {
+    display: block;
+    top: 125%;
+    transform: translateX(-50%);
+    left: 0;
+    z-index: 20;
+    padding: 5px 10px;
+    border: 3px solid var(--colour-base-black);
+    width: max-content;
+}
+
+#controls {
+    position: absolute;
+    top: 2%;
+    left: 1%;
+    font-family: "Michroma", sans-serif;
+    pointer-events: all;
+    display: block;
+}
+
+#controls > * {
+    margin-bottom: 0.5rem;
+    border-radius: 50%;
+    display: block;
+    height: 2rem;
+    line-height: 1.75rem;
+    padding: 0.5rem;
+}
+
+#controls #additionalinfo {
+    text-align: center;
+    font-family: "Montserrat", sans-serif;
+}
+
+#connection {
+    /*position: absolute;
+	bottom: 5%;*/
+    padding-left: 7%;
+    font-family: "Michroma", sans-serif;
+    height: 3rem;
+    width: 3rem;
+    pointer-events: all;
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Old versions of Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+									supported by Chrome, Edge, Opera and Firefox */
+}
+
+.panel-wrap {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    min-width: 20vw;
+    transform: translateX(100%);
+    transition: 0.3s ease-out;
+    pointer-events: all;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: rgba(30, 29, 34, 0.5);
+}
+
+.panel-wrap-visible {
+    transform: translateX(0%);
+}
+
+.panel {
+    color: #eee;
+    overflow-y: auto;
+    padding: 1em;
+}
+
+#heading {
+    display: inline-block;
+    font-size: 2em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    position: relative;
+    padding: 0 0 0 2rem;
+}
+
+#close {
+    margin: 0.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-right: 0.5rem;
+    font-size: 2em;
+    float: right;
+}
+
+#close:after {
+    padding-left: 0.5rem;
+    display: inline-block;
+    content: "\00d7";
+    /* This will render the 'X' */
+}
+
+#close:hover {
+    color: var(--colour-accent-active);
+    transition: ease 0.3s;
+}
+
+#content {
+    margin: 0 0 0 4rem;
+}
+
+.setting {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0;
+    margin: 0.5rem 0;
+}
+
+.settings-text {
+    margin-right: 2rem;
+    display: flex;
+}
+
+/*** Toggle Switch styles ***/
+.tgl-switch {
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.tgl-switch .tgl {
+    display: none;
+}
+
+.tgl,
+.tgl:after,
+.tgl:before,
+.tgl *,
+.tgl *:after,
+.tgl *:before,
+.tgl + .tgl-slider {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.tgl::-moz-selection,
+.tgl:after::-moz-selection,
+.tgl:before::-moz-selection,
+.tgl *::-moz-selection,
+.tgl *:after::-moz-selection,
+.tgl *:before::-moz-selection,
+.tgl + .tgl-slider::-moz-selection {
+    background: none;
+}
+
+.tgl::selection,
+.tgl:after::selection,
+.tgl:before::selection,
+.tgl *::selection,
+.tgl *:after::selection,
+.tgl *:before::selection,
+.tgl + .tgl-slider::selection {
+    background: none;
+}
+
+.tgl + .tgl-slider {
+    outline: 0;
+    display: block;
+    width: 40px;
+    height: 18px;
+    position: relative;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.tgl + .tgl-slider:after,
+.tgl + .tgl-slider:before {
+    position: relative;
+    display: block;
+    content: "";
+    width: 50%;
+    height: 100%;
+}
+
+.tgl + .tgl-slider:after {
+    left: 0;
+}
+
+.tgl + .tgl-slider:before {
+    display: none;
+}
+
+.tgl-flat + .tgl-slider {
+    padding: 2px;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    background: var(--colour-base-black);
+    border: 3px solid var(--colour-base-black);
+    border-radius: 2em;
+}
+
+.tgl-flat + .tgl-slider:hover {
+    border: 3px solid var(--colour-accent-active);
+}
+
+.tgl-flat + .tgl-slider:after {
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    background: var(--colour-base-black);
+    content: "";
+    border-radius: 1em;
+}
+
+.tgl-flat:checked + .tgl-slider {
+    border: 3px solid var(--colour-base-black);
+}
+
+.tgl-flat:checked:hover + .tgl-slider {
+    border: 3px solid var(--colour-accent-active);
+}
+
+.tgl-flat:checked + .tgl-slider:after {
+    left: 50%;
+    background: var(--colour-accent-active);
+}
+
+.subtitle-text {
+    margin: 0 0 0 1rem;
+    color: var(--colour-base-black);
+    position: relative;
+}
+
+.form-group {
+    padding-top: 4px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    row-gap: 4px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.form-group label {
+    color: var(--colour-base-black);
+    vertical-align: middle;
+    font-weight: normal;
+}
+
+#stats {
+    margin-left: 1rem;
+}
+
+#LatencyStats {
+    margin-left: 1rem;
+}
+
+#hiddenInput {
+    position: absolute;
+    left: -10%;
+    /* Although invisible, push off-screen to prevent user interaction. */
+    width: 0px;
+    opacity: 0;
+}
+
+#editTextButton {
+    position: absolute;
+    height: 40px;
+    width: 40px;
+}
+
+.form-group label {
+    margin-right: 2rem;
+    min-width: 75%;
+}
+
+input {
+    text-align: right;
+}
+
+.warning {
+    box-sizing: border-box;
+    position: relative;
+    transform: scale(var(--ggs, 1));
+    width: 20px;
+    height: 20px;
+    border: 2px solid;
+    border-radius: 40px;
+    display: none;
+}
+
+.warning::after,
+.warning::before {
+    content: "";
+    display: block;
+    box-sizing: border-box;
+    position: absolute;
+    border-radius: 3px;
+    width: 2px;
+    background: currentColor;
+    left: 7px;
+}
+
+.warning::after {
+    top: 2px;
+    height: 8px;
+}
+
+.warning::before {
+    height: 2px;
+    bottom: 2px;
+}
+
+/* Flat buttons */
+input[type="button"] {
+    background-color: transparent;
+    color: var(--colour-base-black);
+    font-family: "Montserrat";
+    border: 3px solid var(--colour-base-black);
+    border-radius: 1rem;
+    font-size: 0.75rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+input[type="button"]:hover {
+    border: 3px solid var(--colour-accent-active);
+    transition: ease 0.3s;
+}
+
+input[type="button"]:active {
+    background-color: transparent;
+}
+
+#encoder-params-submit,
+#webrtc-params-submit {
+    text-align: center;
+}
+
+select,
+input[type="number"] {
+    background-color: var(--colour-base-black);
+    color: var(--colour-background);
+    border: 1px solid var(--colour-base-black);
+    padding: 0.25rem;
+    font-family: "Montserrat";
+    border-radius: 0.25rem;
+}
+
+input[type="number"]::-webkit-inner-spin-button {
+    margin-left: 0.5rem;
+}
+
+input[type="number"]:disabled {
+    padding-right: 0.5rem;
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+input[type="number"]:disabled::-webkit-inner-spin-button {
+    display: none;
+}
+
+#streamingVideo {
+    pointer-events: all;
+}
+
+embed {
+    border: none;
+    width: 100%;
+    height: 100%;
+}
+
+g {
+    fill: var(--colour-accent);
+}
+
+object {
+    pointer-events: none;
+}
+
+#connectionStrength {
+    fill: var(--colour-base-black);
+}
+
+#minimize {
+    display: none;
+}
+
+#afkOverlay {
+    z-index: 999;
+    background-color: rgba(30, 29, 34, 0.5);
+    display: inline-block;
+    height: 100vh;
+    width: 100vw;
+    line-height: 100vh;
+    text-align: center;
+    overflow: hidden;
+}
+
+#afkOverlay center {
+    display: inline-block;
+    line-height: 1.5;
+    height: 100vh;
+}
+
+@font-face {
+    font-family: "TransformVariableVF";
+    src: url("/fonts/VELUXTransformVariableVF.ttf");
+}
+
+.font-velux {
+    font-family: "TransformVariableVF";
+}
