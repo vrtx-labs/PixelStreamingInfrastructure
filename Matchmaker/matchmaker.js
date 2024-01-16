@@ -1,4 +1,5 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
+// With extensions by Oracle and VRTX Labs
 var enableRedirectionLinks = true;
 var enableRESTAPI = true;
 
@@ -293,3 +294,12 @@ const matchmaker = net.createServer((connection) => {
 matchmaker.listen(config.MatchmakerPort, () => {
 	console.log('Matchmaker listening on *:' + config.MatchmakerPort);
 });
+
+// MV: expose necessary objects to the wrapper
+module.exports = {
+	app,
+	http,
+	config,
+	matchmaker,
+	cirrusServers,
+  };
