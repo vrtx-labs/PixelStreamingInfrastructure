@@ -5,7 +5,7 @@
     "UseAuthentication": false,
     "LogToFile": true,
     "LogVerbose": true,
-    "HomepageFile": "homeOwnerView.htm",
+    "HomepageFile": "homeOwnerView.html",
     "AdditionalRoutes": {},
     "EnableWebserver": true,
     "MatchmakerAddress": "",

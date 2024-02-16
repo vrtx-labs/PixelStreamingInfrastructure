@@ -1,0 +1,44 @@
+*{
+	user-select: text;
+}
+
+.button-share button {
+    width: 100px;
+    height: 39px;
+    background: black;
+    box-shadow: 0 0 2px 2px #1e1d22;
+    cursor: pointer;
+
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.button-share button:hover {
+    box-shadow: 0 0 4px 4px #1e1d22;
+}
+
+.visible-popup {
+    position: fixed;
+    top: 25%;
+    left: 25% ;
+    width: 50%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 1);
+    z-index: 999;
+}
+
+.close-icon {
+    width: 100px;
+    height: 20px;
+    margin-top: 10px;
+
+    width: 100px;
+    height: 39px;
+    background: black;
+    box-shadow: 0 0 2px 2px #1e1d22;
+    cursor: pointer;
+}

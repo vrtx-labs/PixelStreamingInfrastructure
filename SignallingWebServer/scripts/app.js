@@ -2736,6 +2736,7 @@ function statsClicked(/* e */) {
     /**
      * Toggle stats panel. If settings panel is already open, close it and then open stats
      */
+
     let settings = document.getElementById("settings-panel");
     let stats = document.getElementById("stats-panel");
 
@@ -2973,10 +2974,38 @@ function load() {
     setupFreezeFrameOverlay();
     registerKeyboardEvents();
     // Example response event listener that logs to console
-    addResponseEventListener("logListener", (response) => {
-        console.log(`Received response message from streamer: "${response}"`);
-    });
+    addResponseEventListener("ZhygaResponse", myHandleResponseFunc);
     start(false);
+
+    console.log("body")
+
+    function myHandleResponseFunc(data) {
+		console.log("Some bullsbhit");
+        if(data) {
+            const poppup = document.getElementById('poppup');
+            poppup.innerHTML = `<strong>${data}</strong>`;
+            poppup.classList.add('visible-popup');
+            console.log("data", data)
+
+
+            const newDiv = document.createElement('button');
+
+            newDiv.className = 'close-icon';
+            newDiv.innerHTML = 'Close';
+
+            poppup.appendChild(newDiv);
+
+            function removeClassFromPopupContainer() {
+                poppup.classList.remove('visible-popup');
+                poppup.innerHTML = '';
+                newDiv.innerHTML = '';
+            }
+
+            newDiv.addEventListener('click', removeClassFromPopupContainer);
+        }
+    }
+
+    
 
     // Issue onLoadFinished event to window
     window.dispatchEvent(new Event("OnLoadFinished"));
