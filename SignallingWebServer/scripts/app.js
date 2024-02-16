@@ -2980,12 +2980,10 @@ function load() {
     console.log("body")
 
     function myHandleResponseFunc(data) {
-		console.log("Some bullsbhit");
         if(data) {
             const poppup = document.getElementById('poppup');
             poppup.innerHTML = `<strong>${data}</strong>`;
             poppup.classList.add('visible-popup');
-            console.log("data", data)
 
 
             const newDiv = document.createElement('button');
