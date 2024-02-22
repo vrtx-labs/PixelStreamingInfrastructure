@@ -2966,6 +2966,20 @@ function closeStream() {
     }
 }
 
+const onCopy = () => {
+		const descriptor = {
+			Copy: true
+		};
+		emitUIInteraction(descriptor);
+}
+	
+const onPaste = () => {
+		const descriptor = {
+			Paste: true
+		};
+		emitUIInteraction(descriptor);
+}
+
 function load() {
     parseURLParams();
     setupHtmlEvents();
@@ -2974,7 +2988,15 @@ function load() {
     setupFreezeFrameOverlay();
     registerKeyboardEvents();
     // Example response event listener that logs to console
-    addResponseEventListener("ZhygaResponse", myHandleResponseFunc);
+    addResponseEventListener("receive_ShareLinkResponse", myHandleResponseFunc);
+	document.body.addEventListener('keydown', function(event) {
+        if (event.keyCode === 67 && event.ctrlKey) {
+            onCopy()
+        }
+        if (event.keyCode === 86 && event.ctrlKey) {
+            onPaste()
+        }
+    });
     start(false);
 
     console.log("body")
