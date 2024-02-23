@@ -2966,16 +2966,24 @@ function closeStream() {
     }
 }
 
+const onSaveToClipboard = (text) => {
+		navigator.clipboard.writeText(text)
+		removeResponseEventListener("wait_Copy");
+}
+
 const onCopy = () => {
 		const descriptor = {
 			Copy: true
 		};
 		emitUIInteraction(descriptor);
+		addResponseEventListener("wait_Copy", onSaveToClipboard);
 }
 	
-const onPaste = () => {
+const onPaste = async () => {
+		let textString = await navigator.clipboard.readText();
+  
 		const descriptor = {
-			Paste: true
+			Paste: textString
 		};
 		emitUIInteraction(descriptor);
 }
@@ -3002,7 +3010,7 @@ function load() {
     console.log("body")
 
     function myHandleResponseFunc(data) {
-        if(data) {
+        if(data.includes('Link')) {
             const poppup = document.getElementById('poppup');
             poppup.innerHTML = `<strong>${data}</strong>`;
             poppup.classList.add('visible-popup');
