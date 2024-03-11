@@ -93,6 +93,10 @@ var svgImages = [
 
 function setInlineSVG(svgImage) {
     var element = document.getElementById(svgImage.elementID);
+    if (element == null) {
+        console.warn(`Target element with id ${svgImage.elementID} not found`);
+        return;
+    }
     element.src = "";
     element.type = "";
     element.innerHTML = svgImage.svgImageString;

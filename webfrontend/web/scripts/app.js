@@ -1,4 +1,5 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
+// Extensions by Oracle and VRTX Labs, version 4.27e
 
 // Window events for a gamepad connecting
 let haveEvents = 'GamepadEvent' in window;
@@ -203,9 +204,12 @@ function setupHtmlEvents() {
   }
 
   //HTML elements controls
+  // add nullcheck as custom html might nit implement this
   let overlayButton = document.getElementById('overlayButton');
-  overlayButton.addEventListener('click', onExpandOverlay_Click);
-
+  if (overlayButton !== null) {
+      overlayButton.addEventListener('click', onExpandOverlay_Click);
+  }
+  
   let resizeCheckBox = document.getElementById('enlarge-display-to-fill-window-tgl');
   if (resizeCheckBox !== null) {
     resizeCheckBox.onchange = function (event) {
@@ -356,6 +360,8 @@ function showConnectOverlay() {
   let startText = document.createElement('div');
   startText.id = 'playButton';
   startText.innerHTML = 'Connect';
+  // vrtx
+  startText.setAttribute("localization-key", "video-play-overlay");
 
   setOverlay('clickableState', startText, event => {
     connect();
@@ -676,21 +682,60 @@ function setupWebRtcPlayer(htmlElement, config) {
       // reminder bitrates are sent in bps but displayed in kbps
 
       if (settingsJSON.Encoder) {
-        document.getElementById('encoder-rate-control').value = settingsJSON.Encoder.RateControl;
-        document.getElementById('encoder-target-bitrate-text').value = settingsJSON.Encoder.TargetBitrate > 0 ? settingsJSON.Encoder.TargetBitrate / 1000 : settingsJSON.Encoder.TargetBitrate;
-        document.getElementById('encoder-max-bitrate-text').value = settingsJSON.Encoder.MaxBitrate > 0 ? settingsJSON.Encoder.MaxBitrate / 1000 : settingsJSON.Encoder.MaxBitrate;
-        document.getElementById('encoder-min-qp-text').value = settingsJSON.Encoder.MinQP;
-        document.getElementById('encoder-max-qp-text').value = settingsJSON.Encoder.MaxQP;
-        document.getElementById('encoder-filler-data-tgl').checked = settingsJSON.Encoder.FillerData == 1;
-        document.getElementById('encoder-multipass').value = settingsJSON.Encoder.MultiPass;
+        if (document.getElementById('encoder-rate-control') !== null) {
+          document.getElementById('encoder-rate-control').value = settingsJSON.Encoder.RateControl;
+      }
+      
+      if (document.getElementById('encoder-target-bitrate-text') !== null) {
+          document.getElementById('encoder-target-bitrate-text').value = settingsJSON.Encoder.TargetBitrate > 0 ? settingsJSON.Encoder.TargetBitrate / 1000 : settingsJSON.Encoder.TargetBitrate;
+      }
+      
+      if (document.getElementById('encoder-max-bitrate-text') !== null) {
+          document.getElementById('encoder-max-bitrate-text').value = settingsJSON.Encoder.MaxBitrate > 0 ? settingsJSON.Encoder.MaxBitrate / 1000 : settingsJSON.Encoder.MaxBitrate;
+      }
+      
+      if (document.getElementById('encoder-min-qp-text') !== null) {
+          document.getElementById('encoder-min-qp-text').value = settingsJSON.Encoder.MinQP;
+      }
+      
+      if (document.getElementById('encoder-max-qp-text') !== null) {
+          document.getElementById('encoder-max-qp-text').value = settingsJSON.Encoder.MaxQP;
+      }
+      
+      if (document.getElementById('encoder-filler-data-tgl') !== null) {
+          document.getElementById('encoder-filler-data-tgl').checked = settingsJSON.Encoder.FillerData == 1;
+      }
+      
+      if (document.getElementById('encoder-multipass') !== null) {
+          document.getElementById('encoder-multipass').value = settingsJSON.Encoder.MultiPass;
+      }
+      
       }
       if (settingsJSON.WebRTC) {
-        document.getElementById('webrtc-degradation-pref').value = settingsJSON.WebRTC.DegradationPref;
-        document.getElementById("webrtc-max-fps-text").value = settingsJSON.WebRTC.MaxFPS;
-        document.getElementById("webrtc-min-bitrate-text").value = settingsJSON.WebRTC.MinBitrate / 1000;
-        document.getElementById("webrtc-max-bitrate-text").value = settingsJSON.WebRTC.MaxBitrate / 1000;
-        document.getElementById("webrtc-low-qp-text").value = settingsJSON.WebRTC.LowQP;
-        document.getElementById("webrtc-high-qp-text").value = settingsJSON.WebRTC.HighQP;
+        if (document.getElementById('webrtc-degradation-pref') !== null) {
+          document.getElementById('webrtc-degradation-pref').value = settingsJSON.WebRTC.DegradationPref;
+      }
+      
+      if (document.getElementById("webrtc-max-fps-text") !== null) {
+          document.getElementById("webrtc-max-fps-text").value = settingsJSON.WebRTC.MaxFPS;
+      }
+      
+      if (document.getElementById("webrtc-min-bitrate-text") !== null) {
+          document.getElementById("webrtc-min-bitrate-text").value = settingsJSON.WebRTC.MinBitrate / 1000;
+      }
+      
+      if (document.getElementById("webrtc-max-bitrate-text") !== null) {
+          document.getElementById("webrtc-max-bitrate-text").value = settingsJSON.WebRTC.MaxBitrate / 1000;
+      }
+      
+      if (document.getElementById("webrtc-low-qp-text") !== null) {
+          document.getElementById("webrtc-low-qp-text").value = settingsJSON.WebRTC.LowQP;
+      }
+      
+      if (document.getElementById("webrtc-high-qp-text") !== null) {
+          document.getElementById("webrtc-high-qp-text").value = settingsJSON.WebRTC.HighQP;
+      }
+      
       }
     } else {
       console.error(`unrecognized data received, packet ID ${view[0]}`);
@@ -752,6 +797,9 @@ function onWebRtcAnswer(webRTCData) {
 
     // "blinks" quality status element for 1 sec by making it transparent, speed = number of blinks
     let blinkQualityStatus = function (speed) {
+      if(!qualityStatus) {
+        return;
+      }
       let iter = speed;
       let opacity = 1; // [0..1]
       let tickId = setInterval(
@@ -787,7 +835,9 @@ function onWebRtcAnswer(webRTCData) {
       statsText += `<div class="${color}Status">Spotty network connection</div>`;
     }
 
+    if(qualityStatus) {
     qualityStatus.className = `${color}Status`;
+    }
 
     statsText += `<div>Duration: ${timeFormat.format(runTimeHours)}:${timeFormat.format(runTimeMinutes)}:${timeFormat.format(runTimeSeconds)}</div>`;
     statsText += `<div>Video Resolution: ${aggregatedStats.hasOwnProperty('frameWidth') && aggregatedStats.frameWidth && aggregatedStats.hasOwnProperty('frameHeight') && aggregatedStats.frameHeight ?
@@ -804,7 +854,9 @@ function onWebRtcAnswer(webRTCData) {
     statsText += `<div class="${color}Status">Video Quantization Parameter: ${VideoEncoderQP}</div>`;
 
     let statsDiv = document.getElementById("stats");
+    if(statsDiv) {
     statsDiv.innerHTML = statsText;
+    }
 
     if (print_stats) {
       if (aggregatedStats.timestampStart) {
@@ -1951,6 +2003,9 @@ function load() {
 	connect();
 
   window.custom && window.custom.init();
+
+  // VRTX: Issue onLoadFinished event to window
+  window.dispatchEvent(new Event("OnLoadFinished"));
 }
 
 /**

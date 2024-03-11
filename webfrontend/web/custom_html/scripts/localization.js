@@ -98,5 +98,6 @@ export async function getTranslation(key, ...parameters) {
 
 function tagElementsForLocalization() {
     let videoPlayOverlay = document.getElementById("playButton");
-    videoPlayOverlay.setAttribute("localization-key", "video-play-overlay");
+    if(videoPlayOverlay !== null)
+        videoPlayOverlay.setAttribute("localization-key", "video-play-overlay");
 }

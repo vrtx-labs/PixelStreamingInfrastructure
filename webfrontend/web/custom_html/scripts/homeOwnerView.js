@@ -79,6 +79,7 @@ function setupFrontend() {
 
 async function setupUIElements() {
     // Setup the UI elements
+    // play button my not exist yet, needs to be called later
     await localization.initialize();
     setupScreenshotButton();
     setupRefreshButton();
@@ -122,13 +123,15 @@ function setMenuActive(active) {
         references.domElements["containerMenu"].classList.remove("hiddenState");
         references.domElements["containerFooter"].classList.remove("hiddenState");
         references.domElements["logoVelux"].classList.remove("hiddenState");
-        references.domElements["containerFeedback"].classList.add("hiddenState");
+        if (references.domElements["containerFeedback"] !== null)
+            references.domElements["containerFeedback"].classList.add("hiddenState");
         document.title = LocalVariables.projectName + " - Home Owner View";
     } else {
         references.domElements["containerMenu"].classList.add("hiddenState");
         references.domElements["containerFooter"].classList.add("hiddenState");
         references.domElements["logoVelux"].classList.add("hiddenState");
-        references.domElements["containerFeedback"].classList.remove("hiddenState");
+        if (references.domElements["containerFeedback"] !== null)
+            references.domElements["containerFeedback"].classList.remove("hiddenState");
         document.title = "Velux Design Studio";
     }
 }
@@ -628,8 +631,11 @@ function activateDefaultSettings() {
     // Hide the cursor
     setRadioButtonState("cursor-tgl", false);
 
-    // Fake mouse with touches
-    setFakeMouseWithTouches(true);
+    // Fake mouse with touches, check if this exists as it was only by VRTX
+    if( typeof setFakeMouseWithTouches === "function")
+        setFakeMouseWithTouches(true);
+    else 
+        console.warn("setFakeMouseWithTouches is not defined");
 }
 
 function setRadioButtonState(id, state) {

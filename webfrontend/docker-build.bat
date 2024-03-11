@@ -6,7 +6,7 @@ SET CONTINAER_REG="velux.jfrog.io/docker-dev/ccoe/vds"
 SET PACKAGE_NAME="webfrontend"
 
 :: Update build version here
-SET BUILD_VERSION=0.1.0
+SET BUILD_VERSION=0.1.3
 
 :: Build Unreal Engine App image . Copy the Dockerfile to the root of the Unreal Engine App
 docker "build" "-t" "%PACKAGE_NAME%:%BUILD_VERSION%" "-f" "Dockerfile" .
