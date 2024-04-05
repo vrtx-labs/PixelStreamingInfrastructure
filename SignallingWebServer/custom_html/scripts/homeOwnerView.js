@@ -16,6 +16,9 @@ const LocalVariables = {
     roomID: null,
     roomData: [null, null, null, null],
     timeFormatUseAMPM: false,
+    projectDataReceived: false,
+    handshakeReceived: false,
+
 };
 
 // Setup: The event is linked to app.js OnLoadFinished in the setup function
@@ -31,6 +34,10 @@ async function setup() {
     console.log(`projectID: ${LocalVariables.projectID}`);
     console.log(`roomID: ${LocalVariables.roomID}`);
 
+    // Setup the streamer communication and wait for the handshake
+    setupStreamerCommunication();
+    streamerCommunication.setupStreamerCommunication();
+
     // We don't need to fetch the project data if we are in design advisor view
     if (LocalVariables.designAdvisorViewActive) {
         setupFrontend();
@@ -45,23 +52,13 @@ async function setup() {
             LocalVariables.projectName = projectData.name;
             LocalVariables.roomData = projectData.rooms;
             setupFrontend();
+            LocalVariables.projectDataReceived = true;
+            if(LocalVariables.handshakeReceived)
+                startStream();
         })
         .catch((error) => {
             // Handle any errors that occurred during the fetch request
             console.error(`An error occurred while processing the fetched project data. ${error}`);
-
-            //// Fill room data with mock-up data
-            ////LocalVariables.projectID = null;
-            ////LocalVariables.designAdvisorViewActive = true;
-            //LocalVariables.roomData = [null, null, null, null];
-            //for (let roomIndex = 0; roomIndex < LocalVariables.roomData.length; roomIndex++) {
-            //    LocalVariables.roomData[roomIndex] = new Room(
-            //        "Room " + (roomIndex + 1),
-            //        roomIndex * 1.1,
-            //        roomIndex + 1.9,
-            //        12 - roomIndex * 4
-            //    );
-            //}
             setupFrontend();
         });
 }
@@ -69,8 +66,6 @@ async function setup() {
 function setupFrontend() {
     references.getDOMElements();
     setupUIElements();
-    setupStreamerCommunication();
-    streamerCommunication.setupStreamerCommunication();
     activateDefaultSettings();
     setTimeout(function () {
         scrollToTop();
@@ -141,8 +136,9 @@ function setupStreamerCommunication() {
         // Handshake received
         if (incomingObject.hasOwnProperty("handshake")) {
             console.log(`Handshake received from streamer.`);
-            startStream();
-
+            LocalVariables.handshakeReceived = true;
+            if (LocalVariables.projectDataReceived)
+                startStream();
             return;
         }
 
@@ -178,7 +174,7 @@ function setupStreamerCommunication() {
 }
 
 function startStream() {
-    // Send inital data to streamer
+    // Send initial data to streamer
     streamerCommunication.sendHandshakeToStreamer(
         LocalVariables.designAdvisorViewActive,
         LocalVariables.projectID,

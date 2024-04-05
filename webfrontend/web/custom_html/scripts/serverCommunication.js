@@ -73,9 +73,9 @@ function parseProjectData(jsonData, projectID) {
             roomsArray.push(
                 new Room(
                     room.name,
-                    climateData.daylightScore,
-                    climateData.ventilationScore,
-                    climateData.airRenewalTime
+                    climateData.room.daylight.daylight_Quantity_Score,
+                    climateData.room.ventilation.ventilation_Score,
+                    climateData.room.ventilation.ventilation_Time
                 )
             );
         }
@@ -89,10 +89,10 @@ function parseProjectData(jsonData, projectID) {
             } else {
                 roomsArray.push(
                     new Room(
-                        room.name,
-                        climateData.daylightScore,
-                        climateData.ventilationScore,
-                        climateData.airRenewalTime
+                        variant.name,
+                        climateData.room.daylight.daylight_Quantity_Score,
+                        climateData.room.ventilation.ventilation_Score,
+                        climateData.room.ventilation.ventilation_Time
                     )
                 );
             }
