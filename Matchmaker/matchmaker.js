@@ -35,7 +35,7 @@ if (config.LogToFile) {
 	logging.RegisterFileLogger('./logs');
 }
 
-// A list of all the Cirrus server which are connected to the Matchmaker.
+// A list of all the Cirrus servers which are connected to the Matchmaker.
 var cirrusServers = new Map();
 
 //
@@ -52,7 +52,6 @@ if (typeof argv.MatchmakerPort != 'undefined') {
 http.listen(config.HttpPort, () => {
     console.log('HTTP listening on *:' + config.HttpPort);
 });
-
 
 if (config.UseHTTPS) {
 	//HTTPS certificate details
@@ -106,14 +105,14 @@ function sendRetryResponse(res) {
 
 // Get a Cirrus server if there is one available which has no clients connected.
 function getAvailableCirrusServer() {
-	for (cirrusServer of cirrusServers.values()) {
+	for (const [connection, cirrusServer] of cirrusServers.entries()) { // VRTX: Use destructuring for clarity
 		if (cirrusServer.numConnectedClients === 0 && cirrusServer.ready === true) {
 
 			// Check if we had at least 10 seconds since the last redirect, avoiding the 
 			// chance of redirecting 2+ users to the same SS before they click Play.
-			// In other words, give the user 10 seconds to click play button the claim the server.
-			if( cirrusServer.hasOwnProperty('lastRedirect')) {
-				if( ((Date.now() - cirrusServer.lastRedirect) / 1000) < 10 )
+			// In other words, give the user 10 seconds to click play button to claim the server.
+			if (cirrusServer.hasOwnProperty('lastRedirect')) {
+				if (((Date.now() - cirrusServer.lastRedirect) / 1000) < 10)
 					continue;
 			}
 			cirrusServer.lastRedirect = Date.now();
@@ -126,27 +125,40 @@ function getAvailableCirrusServer() {
 	return undefined;
 }
 
-if(enableRESTAPI) {
+if (enableRESTAPI) {
 	// Handle REST signalling server only request.
-	app.options('/signallingserver', cors())
-	app.get('/signallingserver', cors(),  (req, res) => {
-		cirrusServer = getAvailableCirrusServer();
+	app.options('/signallingserver', cors());
+	app.get('/signallingserver', cors(), (req, res) => {
+		const cirrusServer = getAvailableCirrusServer();
 		if (cirrusServer != undefined) {
-			res.json({ signallingServer: `${cirrusServer.address}:${cirrusServer.port}`});
+			res.json({ signallingServer: `${cirrusServer.address}:${cirrusServer.port}` });
 			console.log(`Returning ${cirrusServer.address}:${cirrusServer.port}`);
 		} else {
-			res.json({ signallingServer: '', error: 'No signalling servers available'});
+			res.json({ signallingServer: '', error: 'No signalling servers available' });
 		}
 	});
+
+	// VRTX: Add an endpoint to inspect the cirrusServers map for debugging purposes
+	app.get('/inspect/cirrus-servers', cors(), (req, res) => {
+		const servers = [...cirrusServers.entries()].map(([connection, server]) => ({
+			address: server.address,
+			port: server.port,
+			numConnectedClients: server.numConnectedClients,
+			ready: server.ready,
+			lastPingReceived: server.lastPingReceived,
+			lastRedirect: server.lastRedirect,
+		}));
+		res.json(servers);
+	});
+
 }
 
-if(enableRedirectionLinks) {
+if (enableRedirectionLinks) {
 	// Handle standard URL.
 	app.get('/', (req, res) => {
-		cirrusServer = getAvailableCirrusServer();
+		const cirrusServer = getAvailableCirrusServer();
 		if (cirrusServer != undefined) {
 			res.redirect(`http://${cirrusServer.address}:${cirrusServer.port}/`);
-			//console.log(req);
 			console.log(`Redirect to ${cirrusServer.address}:${cirrusServer.port}`);
 		} else {
 			sendRetryResponse(res);
@@ -155,7 +167,7 @@ if(enableRedirectionLinks) {
 
 	// Handle URL with custom HTML.
 	app.get('/custom_html/:htmlFilename', (req, res) => {
-		cirrusServer = getAvailableCirrusServer();
+		const cirrusServer = getAvailableCirrusServer();
 		if (cirrusServer != undefined) {
 			res.redirect(`http://${cirrusServer.address}:${cirrusServer.port}/custom_html/${req.params.htmlFilename}`);
 			console.log(`Redirect to ${cirrusServer.address}:${cirrusServer.port}`);
@@ -181,96 +193,81 @@ const matchmaker = net.createServer((connection) => {
 		try {
 			message = JSON.parse(data);
 
-			if(message)
+			if (message)
 				console.log(`Message TYPE: ${message.type}`);
-		} catch(e) {
+		} catch (e) {
 			console.log(`ERROR (${e.toString()}): Failed to parse Cirrus information from data: ${data.toString()}`);
 			disconnect(connection);
 			return;
 		}
+
+		let cirrusServer = cirrusServers.get(connection); // VRTX: Retrieve existing server if any
+
 		if (message.type === 'connect') {
 			// A Cirrus server connects to this Matchmaker server.
-			cirrusServer = {
+			const newServer = {
 				address: message.address,
 				port: message.port,
-				numConnectedClients: 0,
-				lastPingReceived: Date.now()
+				numConnectedClients: message.playerConnected ? 1 : 0, // VRTX: Simplify the client count logic
+				lastPingReceived: Date.now(),
+				ready: message.ready === true
 			};
-			cirrusServer.ready = message.ready === true;
 
-			// Handles disconnects between MM and SS to not add dupes with numConnectedClients = 0 and redirect users to same SS
-			// Check if player is connected and doing a reconnect. message.playerConnected is a new variable sent from the SS to
-			// help track whether or not a player is already connected when a 'connect' message is sent (i.e., reconnect).
-			if(message.playerConnected == true) {
-				cirrusServer.numConnectedClients = 1;
-			}
-
-			// Find if we already have a ciruss server address connected to (possibly a reconnect happening)
-			let server = [...cirrusServers.entries()].find(([key, val]) => val.address === cirrusServer.address && val.port === cirrusServer.port);
-
-			// if a duplicate server with the same address isn't found -- add it to the map as an available server to send users to.
-			if (!server || server.size <= 0) {
-				console.log(`Adding connection for ${cirrusServer.address.split(".")[0]} with playerConnected: ${message.playerConnected}`)
-				cirrusServers.set(connection, cirrusServer);
-            } else {
-				console.log(`RECONNECT: cirrus server address ${cirrusServer.address.split(".")[0]} already found--replacing. playerConnected: ${message.playerConnected}`)
-				var foundServer = cirrusServers.get(server[0]);
-				
-				// Make sure to retain the numConnectedClients from the last one before the reconnect to MM
-				if (foundServer) {					
-					cirrusServers.set(connection, cirrusServer);
-					console.log(`Replacing server with original with numConn: ${cirrusServer.numConnectedClients}`);
-					cirrusServers.delete(server[0]);
-				} else {
-					cirrusServers.set(connection, cirrusServer);
-					console.log("Connection not found in Map() -- adding a new one");
+			if (cirrusServer) {
+				// VRTX: Update the existing server instead of adding a duplicate
+				cirrusServers.set(connection, { ...cirrusServer, ...newServer });
+				console.log(`Updated existing connection for ${newServer.address.split(".")[0]}`);
+			} else {
+				// VRTX: Ensure no duplicates by checking if a server with the same address and port already exists
+				const duplicateServer = [...cirrusServers.values()].find(server => server.address === newServer.address && server.port === newServer.port);
+				if (duplicateServer) {
+					console.log(`Duplicate server detected. Replacing old entry for ${newServer.address.split(".")[0]}`);
+					// VRTX: Remove the old entry before adding the new one
+					for (const [key, server] of cirrusServers.entries()) {
+						if (server.address === newServer.address && server.port === newServer.port) {
+							cirrusServers.delete(key);
+							break;
+						}
+					}
 				}
+				cirrusServers.set(connection, newServer);
+				console.log(`Added new connection for ${newServer.address.split(".")[0]}`);
 			}
 		} else if (message.type === 'streamerConnected') {
-			// The stream connects to a Cirrus server and so is ready to be used
-			cirrusServer = cirrusServers.get(connection);
-			if(cirrusServer) {
+			if (cirrusServer) {
 				cirrusServer.ready = true;
 				console.log(`Cirrus server ${cirrusServer.address}:${cirrusServer.port} ready for use`);
 			} else {
 				disconnect(connection);
 			}
 		} else if (message.type === 'streamerDisconnected') {
-			// The stream connects to a Cirrus server and so is ready to be used
-			cirrusServer = cirrusServers.get(connection);
-			if(cirrusServer) {
+			if (cirrusServer) {
 				cirrusServer.ready = false;
 				console.log(`Cirrus server ${cirrusServer.address}:${cirrusServer.port} no longer ready for use`);
 			} else {
 				disconnect(connection);
 			}
 		} else if (message.type === 'clientConnected') {
-			// A client connects to a Cirrus server.
-			cirrusServer = cirrusServers.get(connection);
-			if(cirrusServer) {
+			if (cirrusServer) {
 				cirrusServer.numConnectedClients++;
 				console.log(`Client connected to Cirrus server ${cirrusServer.address}:${cirrusServer.port}`);
 			} else {
 				disconnect(connection);
 			}
 		} else if (message.type === 'clientDisconnected') {
-			// A client disconnects from a Cirrus server.
-			cirrusServer = cirrusServers.get(connection);
-			if(cirrusServer) {
+			if (cirrusServer) {
 				cirrusServer.numConnectedClients--;
 				console.log(`Client disconnected from Cirrus server ${cirrusServer.address}:${cirrusServer.port}`);
-				if(cirrusServer.numConnectedClients === 0) {
-					// this make this server immediately available for a new client
+				if (cirrusServer.numConnectedClients === 0) {
 					cirrusServer.lastRedirect = 0;
 				}
-			} else {				
+			} else {
 				disconnect(connection);
 			}
 		} else if (message.type === 'ping') {
-			cirrusServer = cirrusServers.get(connection);
-			if(cirrusServer) {
+			if (cirrusServer) {
 				cirrusServer.lastPingReceived = Date.now();
-			} else {				
+			} else {
 				disconnect(connection);
 			}
 		} else {
@@ -281,8 +278,8 @@ const matchmaker = net.createServer((connection) => {
 
 	// A Cirrus server disconnects from this Matchmaker server.
 	connection.on('error', () => {
-		cirrusServer = cirrusServers.get(connection);
-		if(cirrusServer) {
+		const cirrusServer = cirrusServers.get(connection);
+		if (cirrusServer) {
 			cirrusServers.delete(connection);
 			console.log(`Cirrus server ${cirrusServer.address}:${cirrusServer.port} disconnected from Matchmaker`);
 		} else {
@@ -295,6 +292,17 @@ matchmaker.listen(config.MatchmakerPort, () => {
 	console.log('Matchmaker listening on *:' + config.MatchmakerPort);
 });
 
+// VRTX: Periodic cleanup of stale entries
+setInterval(() => {
+	const staleThreshold = Date.now() - 60000; // 1 minute threshold
+	for (const [connection, server] of cirrusServers.entries()) {
+		if (server.lastPingReceived < staleThreshold && server.numConnectedClients === 0) {
+			cirrusServers.delete(connection);
+			console.log(`Removed stale entry for ${server.address}:${server.port}`);
+		}
+	}
+}, 60000); // Run cleanup every minute
+
 // MV: expose necessary objects to the wrapper
 module.exports = {
 	app,
@@ -302,4 +310,4 @@ module.exports = {
 	config,
 	matchmaker,
 	cirrusServers,
-  };
+};
