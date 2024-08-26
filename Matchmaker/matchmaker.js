@@ -293,10 +293,12 @@ matchmaker.listen(config.MatchmakerPort, () => {
 });
 
 // VRTX: Periodic cleanup of stale entries
+// We do not care if the servers have clients connected or not, 
+// as this can be wrong if the server stopped responding.
 setInterval(() => {
 	const staleThreshold = Date.now() - 60000; // 1 minute threshold
 	for (const [connection, server] of cirrusServers.entries()) {
-		if (server.lastPingReceived < staleThreshold && server.numConnectedClients === 0) {
+		if (server.lastPingReceived < staleThreshold) {
 			cirrusServers.delete(connection);
 			console.log(`Removed stale entry for ${server.address}:${server.port}`);
 		}
