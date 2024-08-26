@@ -5,7 +5,7 @@
 # bind to ports higher then 1024, adjust the config or configmap accordingly
 # ---------------------------------------------------------------------------
 
-FROM --platform=${BUILDPLATFORM:-linux/amd64} node:alpine3.18 as builder
+FROM --platform=${BUILDPLATFORM:-linux/amd64} node:alpine3.20 AS builder
 
 RUN npm config set loglevel warn \
   && npm set progress=false
@@ -24,10 +24,15 @@ RUN npm prune --production
 
 # Runtime container (node)
 
-FROM --platform=${TARGETPLATFORM:-linux/amd64} node:alpine3.18
-COPY --from=builder /src /app
+FROM --platform=${TARGETPLATFORM:-linux/amd64} node:alpine3.20
+RUN apk --no-cache upgrade
+COPY --chown=node:node --from=builder /src /app
 WORKDIR /app
-RUN chown -R node:node /app
+
+RUN --mount=type=bind,source=package.json,target=package.json \
+    --mount=type=bind,source=package-lock.json,target=package-lock.json \
+    --mount=type=cache,target=/root/.npm \
+    npm ci --omit=dev
 
 USER node
 # entrypoint
