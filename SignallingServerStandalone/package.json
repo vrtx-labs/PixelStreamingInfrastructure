@@ -1,7 +1,8 @@
 {
-  "name": "cirrus-webserver",
-  "version": "0.0.1",
-  "description": "cirrus web server",
+  "name": "@epicgames-ps/cirrus-webserver",
+  "version": "0.0.3",
+  "description": "The reference signalling and web server for Pixel Streaming: Cirrus",
+  "private": true,
   "scripts": {
     "store_password": "run-script-os",
     "store_password:default": "./platform_scripts/bash/node/bin/node ./modules/authentication/db/store_password.js --usersFile=./modules/authentication/db/users.json",
@@ -21,11 +22,14 @@
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "express": "^4.16.2",
+    "express": "^4.19.2",
+    "express-rate-limit": "^6.7.0",
     "express-session": "^1.15.6",
     "helmet": "^3.21.3",
+    "lusca": "^1.7.0",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
+    "prom-client": "^14.0.1",
     "run-script-os": "^1.1.6",
     "ws": "^7.1.2",
     "y18n": "^5.0.5",

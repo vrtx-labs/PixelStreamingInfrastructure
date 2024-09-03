@@ -1,28 +1,40 @@
-# Use a Long Term Support (LTS) version of Node.js
-FROM node:alpine3.18
-ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
+# ----------------------------------------------------------------------
+# Copyright (c) 2021, 2022 Oracle and/or its affiliates. All rights reserved.
+# The Universal Permissive License (UPL), Version 1.0
+# ----------------------------------------------------------------------
 
-# Copy the signalling server source code from the build context
-COPY . /opt/SignallingWebServer
+###############################
+#    Build stage (node/npm)   #
+###############################
+FROM --platform=${BUILDPLATFORM:-linux/amd64} node:22-alpine3.20 as builder
 
-# Install the dependencies for the signalling server
-WORKDIR /opt/SignallingWebServer
-RUN npm install .
+# Set npm configuration
+RUN npm config set loglevel warn \
+  && npm set progress=false
 
-# Expose TCP ports 80 and 443 for player WebSocket connections and web server HTTP(S) access
-EXPOSE 80
-EXPOSE 443
+# Set work directory
+WORKDIR /src
 
-# Expose TCP port 8888 for streamer WebSocket connections
-EXPOSE 8888
+# Install dependencies
+COPY package*.json ./
+RUN npm ci --only=production
 
-# Expose TCP port 8889 for connections from the SFU
-EXPOSE 8889
+# Copy the rest of the source code
+COPY . .
 
-# Expose TCP port 9999 for connections from the Matchmaker
-EXPOSE 9999
+############################
+# Runtime container (node) #
+############################
+FROM --platform=${TARGETPLATFORM:-linux/amd64} node:22-alpine3.20
 
-# Set the signalling server as the container's entrypoint
-RUN chown -R node:node /app
+# Set work directory
+WORKDIR /app
+
+# Copy built application from builder
+COPY --from=builder /src /app
+
+# Use the 'node' user provided by the Node.js official image
 USER node
-ENTRYPOINT ["/usr/local/bin/node", "/opt/SignallingWebServer/wrapper.js"]
+
+# Entrypoint
+ENTRYPOINT [ "node", "wrapper.js" ]
